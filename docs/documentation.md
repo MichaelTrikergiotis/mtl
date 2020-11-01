@@ -2,7 +2,7 @@
 
 ## C++ version and compiler compatibility
 
-Requires a C++ 17 compiler and a **fully** implemented C++ 17 standard library. Note that because a version of a C++ standard library says it supports C++ 17 it doesn't mean it has fully implemented everything needed according to the C++ 17 standard.
+Requires a C++ 17 compiler and a **fully** implemented C++ 17 standard library.
 
 Minimum requirement for compiler version :
 
