@@ -1,0 +1,189 @@
+name: CI
+
+on: 
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  ci:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+
+        name: [ 
+          windows-2019-cl,
+          windows-2019-clang-cl,
+          windows-2019-clang,
+          ubuntu-20.04-gcc-9,
+          ubuntu-20.04-clang-9,
+          macOS-10.15-xcode-11.0,
+          macOS-10.15-xcode-11.3,
+          macOS-11.0-xcode-11.7,
+          macOS-11.0-xcode-12.2
+        ]
+
+        include:
+          - name: windows-2019-cl
+            os: windows-2019
+            compiler: cl
+
+          - name: windows-2019-clang-cl
+            os: windows-2019
+            compiler: clang-cl
+
+          - name: windows-2019-clang
+            os: windows-2019
+            compiler: clang
+
+          - name: ubuntu-20.04-gcc-9
+            os: ubuntu-20.04
+            compiler: gcc
+            version: "9"
+
+          - name: ubuntu-20.04-clang-9
+            os: ubuntu-20.04
+            compiler: clang
+            version: "9"
+
+          - name: macOS-10.15-xcode-11.0
+            os: macOS-10.15
+            compiler: xcode
+            version: "11"
+
+          - name: macOS-10.15-xcode-11.3
+            os: macOS-10.15
+            compiler: xcode
+            version: "11.3"
+
+          - name: macOS-11.0-xcode-11.7
+            os: macOS-11.0
+            compiler: xcode
+            version: "11.7"
+
+          - name: macOS-11.0-xcode-12.2
+            os: macOS-11.0
+            compiler: xcode
+            version: "12.2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install and setup Windows packages
+        if: runner.os == 'Windows'
+        run: |
+          if ("${{ matrix.compiler }}" -eq "clang") {
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV            
+          } elseif ("${{ matrix.compiler }}" -eq "clang-cl") {
+            echo "CC=clang-cl" >> $GITHUB_ENV
+            echo "CXX=clang-cl" >> $GITHUB_ENV
+          } else {
+            echo "CC=cl" >> $GITHUB_ENV
+            echo "CXX=cl" >> $GITHUB_ENV
+          }
+
+
+      - name:  Install and setup Linux packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build
+
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            sudo apt-get install -y g++-${{ matrix.version }} g++-${{ matrix.version }}-multilib
+            echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+            echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
+          else
+            sudo apt-get install -y clang-${{ matrix.version }} g++-multilib
+            echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
+            echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
+          fi
+
+      - name:  Install and setup MacOS packages
+        if: runner.os == 'macOS'
+        run: |
+          brew install cmake ninja
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            brew install gcc@${{ matrix.version }}
+            export "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+            export "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
+          else
+            ls -ls /Applications/
+            sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
+            export "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
+            export "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build Debug Windows
+        if: runner.os == 'Windows'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Debug
+          .\Debug\tests.exe
+
+      - name: Build Debug Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+      
+      - name: Build Debug MacOS
+        if: runner.os == 'MacOS'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+
+      - name: Build Release Windows
+        if: runner.os == 'Windows'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Release
+          .\Release\tests.exe
+
+      - name: Build Release Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ./tests
+      
+      - name: Build Release MacOS
+        if: runner.os == 'MacOS'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ./tests
+    
