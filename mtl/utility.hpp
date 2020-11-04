@@ -59,7 +59,7 @@ protected:
 	no_move& operator=(const no_move&&) = delete;
 };
 
-/// Inheriting from this class will make your class unable to be copied or moved
+/// Inheriting from this class will make your class unable to be copied or moved.
 class no_copy_move
 {
 protected:

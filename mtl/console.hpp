@@ -222,23 +222,23 @@ inline void println(const Arg& arg, Args&&... args)
 /// Enumeraction that allows to set the padding for mtl::console::print_all.
 enum class print_pad
 {
-	// No padding.
+	/// No padding.
 	none,
 
-	// Padding to the front side.
+	/// Padding to the front side.
 	front,
 
-	// Padding to the back side.
+	/// Padding to the back side.
 	back,
 
-	// Padding to both the front and back sides of the element so it is aligned to the middle but 
-	// prefer to pad the front side more if the times that padding needs to be applied is an odd
-	// number.
+	/// Padding to both the front and back sides of the element so it is aligned to the middle but 
+	/// prefer to pad the front side more if the times that padding needs to be applied is an odd
+	/// number.
 	both_front,
 
-	// Padding to both the front and back sides of the element so it is aligned to the middle but 
-	// prefer to pad the back side more if the times that padding needs to be applied is an odd
-	// number.
+	/// Padding to both the front and back sides of the element so it is aligned to the middle but 
+	/// prefer to pad the back side more if the times that padding needs to be applied is an odd
+	/// number.
 	both_back
 };
 
@@ -426,40 +426,40 @@ enum class color : uint8_t
 {
 	// color sort order and codes from taken from https:// i.stack.imgur.com/9UVnC.png
 
-	// Default Color.
+	/// Default Color.
 	default_color = 29,
-	// Black Color.
+	/// Black Color.
 	black = 30,
-	// Red Color.
+	/// Red Color.
 	red = 31,
-	// Green Color.
+	/// Green Color.
 	green = 32,
-	// Yellow Color.
+	/// Yellow Color.
 	yellow = 33,
-	// Blue Color.
+	/// Blue Color.
 	blue = 34,
-	// Magenta Color.
+	/// Magenta Color.
 	magenta = 35,
-	// Cyan Color.
+	/// Cyan Color.
 	cyan = 36,
-	// White Color.
+	/// White Color.
 	white = 37,
 
-	// Bright Black Color.
+	/// Bright Black Color.
 	bright_black = 90,
-	// Bright Red Color.
+	/// Bright Red Color.
 	bright_red = 91,
-	// Bright Green Color.
+	/// Bright Green Color.
 	bright_green = 92,
-	// Bright Yellow Color.
+	/// Bright Yellow Color.
 	bright_yellow = 93,
-	// Bright Blue Color.
+	/// Bright Blue Color.
 	bright_blue = 94,
-	// Bright Magenta Color.
+	/// Bright Magenta Color.
 	bright_magenta = 95,
-	// Bright Cyan Color.
+	/// Bright Cyan Color.
 	bright_cyan = 96,
-	// Bright White Color.
+	/// Bright White Color.
 	bright_white = 97
 };
 
