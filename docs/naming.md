@@ -220,14 +220,14 @@ When including something from a header add as a comment next to the header with 
 #include <algorithm>
 ```
 
-Comments inside the scope of a function start with non capital letters and don't end with a period punctuation mark. All comments should have a single space after the double slashes. May have an informal tone.
+Comments inside the scope of a function start with non capital letter and don't end with a period punctuation mark. All comments should have a single space after the double slashes. May have an informal tone.
 
 ```c++
 // this is a comment inside the scope of a function
 const int eggs = 10;
 ```
 
-Comments everywhere outside the scope of functions start triple slash and a space. Proper sentences full sentences with a formal tone.
+Comments everywhere outside the scope of functions start triple slash and a space. This includes classes and enums. Proper full sentences with a formal tone ending with a period punctuation mark.
 
 ```c++
 /// This is a comment everywhere else except inside the scope of a function.
