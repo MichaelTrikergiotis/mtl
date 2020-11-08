@@ -65,10 +65,10 @@ There are 124 items in total.
 
 ## filesystem.hpp with 4 items
 
-- mtl::filesystem::read_file [(Documentation)](../mtl/filesystem.hpp#L49) [(Examples)](../tests/tests_filesystem.cpp#L81)
-- mtl::filesystem::read_all_lines [(Documentation)](../mtl/filesystem.hpp#L50) [(Examples)](../tests/tests_filesystem.cpp#L229)
-- mtl::filesystem::write_file [(Documentation)](../mtl/filesystem.hpp#L162) [(Examples)](../tests/tests_filesystem.cpp#L81)
-- mtl::filesystem::write_all_lines [(Documentation)](../mtl/filesystem.hpp#L163) [(Examples)](../tests/tests_filesystem.cpp#L229)
+- mtl::filesystem::read_file [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L69)
+- mtl::filesystem::read_all_lines [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L217)
+- mtl::filesystem::write_file [(Documentation)](../mtl/filesystem.hpp#L148) [(Examples)](../tests/tests_filesystem.cpp#L69)
+- mtl::filesystem::write_all_lines [(Documentation)](../mtl/filesystem.hpp#L149) [(Examples)](../tests/tests_filesystem.cpp#L217)
 
 ---------------------------------------------------
 
@@ -95,8 +95,8 @@ There are 124 items in total.
 ## random.hpp with 3 items
 
 - mtl::rng [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L22)
-- mtl::random_choice [(Documentation)](../mtl/random.hpp#L156) [(Examples)](../tests/tests_random.cpp#L483)
-- mtl::shuffle [(Documentation)](../mtl/random.hpp#L213) [(Examples)](../tests/tests_random.cpp#L815)
+- mtl::random_choice [(Documentation)](../mtl/random.hpp#L157) [(Examples)](../tests/tests_random.cpp#L629)
+- mtl::shuffle [(Documentation)](../mtl/random.hpp#L210) [(Examples)](../tests/tests_random.cpp#L1100)
 
 ---------------------------------------------------
 
