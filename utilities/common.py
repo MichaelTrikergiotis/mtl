@@ -48,6 +48,9 @@ def get_headers():
         print(' folder or the header files are missing.')
         sys.exit()
 
+    # sort because globbing produces different ordering in Windows and Linux
+    headers.sort()
+
     return headers
 
 
@@ -69,5 +72,8 @@ def get_sources():
         print('You are either running the script from an incorrect', end='')
         print(' folder or the source files are missing.')
         sys.exit()
+
+    # sort because globbing produces different ordering in Windows and Linux
+    sources.sort()
 
     return sources

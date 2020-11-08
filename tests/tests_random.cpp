@@ -7,7 +7,7 @@
 #include <vector>
 #include <list>
 #include <set>
-#include <algorithm>
+#include <algorithm> // std:all_of
 #include <numeric>
 #include <string>
 #include "../mtl/xoroshiro128plus.hpp" // mtl::xoroshiro128plus
@@ -24,6 +24,7 @@
 
 TEST_CASE("mtl::rng with int check various functions")
 {
+    std::vector<int> values;
     mtl::rng<int> rand(10, 100);
     REQUIRE_EQ(rand.min(), 10);
     REQUIRE_EQ(rand.max(), 100);
@@ -32,8 +33,17 @@ TEST_CASE("mtl::rng with int check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10, true);
         REQUIRE_EQ(value <= 100, true);
+        values.push_back(value);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    std::vector<int> values2;
     rand.set_min_max(1050, 3999);
     REQUIRE_EQ(rand.min(), 1050);
     REQUIRE_EQ(rand.max(), 3999);
@@ -42,7 +52,20 @@ TEST_CASE("mtl::rng with int check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050, true);
         REQUIRE_EQ(value <= 3999, true);
+        values2.push_back(value);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values2)
+    {
+        bool all_same2 = std::all_of(values2.begin(), values2.end(),[&i] (auto x){return x == i;});
+        REQUIRE_EQ(all_same2, false);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    REQUIRE_EQ(values2.empty(), false);
+    // check the two resulting containers with different min and max are differrent
+    REQUIRE_NE(values, values2);
 }
 
 TEST_CASE("mtl::rng with int trying to set different seeds")
@@ -81,6 +104,7 @@ TEST_CASE("mtl::rng with int trying to set different seeds")
 
 TEST_CASE("mtl::rng with float check various functions")
 {
+    std::vector<float> values;
     mtl::rng<float> rand(10.0f, 100.0f);
     
     // approximately equal
@@ -94,8 +118,26 @@ TEST_CASE("mtl::rng with float check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0f, true);
         REQUIRE_EQ(value <= 100.0f, true);
+        values.push_back(value);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01f)) && (x > (i - 0.01f)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    std::vector<float> values2;
     rand.set_min_max(1050.0f, 3999.0f);
     // approximately equal
     REQUIRE_GT(rand.min(), 1049.999f);
@@ -108,7 +150,29 @@ TEST_CASE("mtl::rng with float check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0f, true);
         REQUIRE_EQ(value <= 3999.0f, true);
+        values2.push_back(value);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values2)
+    {
+        bool all_same = std::all_of(values2.begin(), values2.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01f)) && (x > (i - 0.01f)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    REQUIRE_EQ(values2.empty(), false);
+    // check the two resulting containers with different min and max are differrent
+    REQUIRE_NE(values, values2);
 }
 
 TEST_CASE("mtl::rng with float trying to set different seeds")
@@ -160,6 +224,7 @@ TEST_CASE("mtl::rng with float trying to set different seeds")
 
 TEST_CASE("mtl::rng with double check various functions")
 {
+    std::vector<double> values;
     mtl::rng<double> rand(10.0, 100.0);
     // approximately equal
     REQUIRE_GT(rand.min(),   9.999);
@@ -172,8 +237,26 @@ TEST_CASE("mtl::rng with double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0, true);
         REQUIRE_EQ(value <= 100.0, true);
+        values.push_back(value);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01)) && (x > (i - 0.01)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    std::vector<double> values2;
     rand.set_min_max(1050.0, 3999.0);
     // approximately equal
     REQUIRE_GT(rand.min(), 1049.999);
@@ -185,7 +268,29 @@ TEST_CASE("mtl::rng with double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0, true);
         REQUIRE_EQ(value <= 3999.0, true);
+        values2.push_back(value);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values2)
+    {
+        bool all_same = std::all_of(values2.begin(), values2.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01)) && (x > (i - 0.01)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    REQUIRE_EQ(values2.empty(), false);
+    // check the two resulting containers with different min and max are differrent
+    REQUIRE_NE(values, values2);
 }
 
 TEST_CASE("mtl::rng with double trying to set different seeds")
@@ -240,6 +345,7 @@ TEST_CASE("mtl::rng with double trying to set different seeds")
 
 TEST_CASE("mtl::rng with long double check various functions")
 {
+    std::vector<long double> values;
     mtl::rng<long double> rand(10.0l, 100.0l);
     // approximately equal
     REQUIRE_GT(rand.min(), 9.999l);
@@ -252,8 +358,26 @@ TEST_CASE("mtl::rng with long double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0l, true);
         REQUIRE_EQ(value <= 100.0l, true);
+        values.push_back(value);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01l)) && (x > (i - 0.01l)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    std::vector<long double> values2;
     rand.set_min_max(1050.0l, 3999.0l);
     // approximately equal
     REQUIRE_GT(rand.min(), 1049.999l);
@@ -265,7 +389,29 @@ TEST_CASE("mtl::rng with long double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0l, true);
         REQUIRE_EQ(value <= 3999.0l, true);
+        values2.push_back(value);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values2)
+    {
+        bool all_same = std::all_of(values2.begin(), values2.end(), [&i](auto x) 
+                                    {
+                                       bool same = false;
+                                       // approximate equality for floating point type numbers
+                                       if ((x < (i + 0.01l)) && (x > (i - 0.01l)))
+                                       {
+                                           same = true;
+                                       }
+                                       return same;
+                                    });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    REQUIRE_EQ(values2.empty(), false);
+    // check the two resulting containers with different min and max are differrent
+    REQUIRE_NE(values, values2);
 }
 
 TEST_CASE("mtl::rng with long double trying to set different seeds")
@@ -522,11 +668,15 @@ TEST_CASE("mtl::random_choice with containers<int>")
     std::vector<int> vi { 1, 2, 3, 4, 5 };
     std::list<int> li { 1, 2, 3, 4, 5 };
     std::set<int> si { 1, 2, 3, 4, 5 };
+    std::vector<int> vi_v;
+    std::list<int> li_v;
+    std::set<int> si_v;
 
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi);
+        vi_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -535,11 +685,22 @@ TEST_CASE("mtl::random_choice with containers<int>")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : vi)
+    {
+        bool all_same = std::all_of(vi_v.begin(), vi_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    
+
     
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li);
+        li_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -549,10 +710,18 @@ TEST_CASE("mtl::random_choice with containers<int>")
         REQUIRE_EQ(found, true);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : li)
+    {
+        bool all_same = std::all_of(li_v.begin(), li_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(si);
+        si_v.insert(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(si.begin(), si.end(), *result) != si.end())
@@ -561,6 +730,20 @@ TEST_CASE("mtl::random_choice with containers<int>")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : si)
+    {
+        bool all_same = std::all_of(si_v.begin(), si_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(vi.empty(), false);
+    REQUIRE_EQ(li.empty(), false);
+    REQUIRE_EQ(si.empty(), false);
+    REQUIRE_EQ(vi_v.empty(), false);
+    REQUIRE_EQ(li_v.empty(), false);
+    REQUIRE_EQ(si_v.empty(), false);
 }
 
 TEST_CASE("mtl::random_choice with empty containers<std::string>")
@@ -602,11 +785,15 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
     std::vector<std::string> vi { "1", "2", "3", "4", "5" };
     std::list<std::string> li { "1", "2", "3", "4", "5" };
     std::set<std::string> si { "1", "2", "3", "4", "5" };
+    std::vector<std::string> vi_v;
+    std::list<std::string> li_v;
+    std::set<std::string> si_v;
 
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi);
+        vi_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -615,11 +802,19 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : vi)
+    {
+        bool all_same = std::all_of(vi_v.begin(), vi_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
     
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li);
+        li_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -629,10 +824,18 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
         REQUIRE_EQ(found, true);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : li)
+    {
+        bool all_same = std::all_of(li_v.begin(), li_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(si);
+        si_v.insert(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(si.begin(), si.end(), *result) != si.end())
@@ -641,6 +844,20 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : si)
+    {
+        bool all_same = std::all_of(si_v.begin(), si_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(vi.empty(), false);
+    REQUIRE_EQ(li.empty(), false);
+    REQUIRE_EQ(si.empty(), false);
+    REQUIRE_EQ(vi_v.empty(), false);
+    REQUIRE_EQ(li_v.empty(), false);
+    REQUIRE_EQ(si_v.empty(), false);
 }
 
 
@@ -685,11 +902,15 @@ TEST_CASE("mtl::random_choice with iterators of int")
     std::vector<int> vi { 1, 2, 3, 4, 5 };
     std::list<int> li { 1, 2, 3, 4, 5 };
     std::set<int> si { 1, 2, 3, 4, 5 };
+    std::vector<int> vi_v;
+    std::list<int> li_v;
+    std::set<int> si_v;
 
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi.begin(), vi.end());
+        vi_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -698,11 +919,19 @@ TEST_CASE("mtl::random_choice with iterators of int")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : vi)
+    {
+        bool all_same = std::all_of(vi_v.begin(), vi_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
     
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li.begin(), li.end());
+        li_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -712,10 +941,18 @@ TEST_CASE("mtl::random_choice with iterators of int")
         REQUIRE_EQ(found, true);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : li)
+    {
+        bool all_same = std::all_of(li_v.begin(), li_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(si.begin(), si.end());
+        si_v.insert(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(si.begin(), si.end(), *result) != si.end())
@@ -724,6 +961,20 @@ TEST_CASE("mtl::random_choice with iterators of int")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : si)
+    {
+        bool all_same = std::all_of(si_v.begin(), si_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(vi.empty(), false);
+    REQUIRE_EQ(li.empty(), false);
+    REQUIRE_EQ(si.empty(), false);
+    REQUIRE_EQ(vi_v.empty(), false);
+    REQUIRE_EQ(li_v.empty(), false);
+    REQUIRE_EQ(si_v.empty(), false);
 }
 
 
@@ -767,11 +1018,15 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
     std::vector<std::string> vi { "1", "2", "3", "4", "5" };
     std::list<std::string> li { "1", "2", "3", "4", "5" };
     std::set<std::string> si { "1", "2", "3", "4", "5" };
+    std::vector<std::string> vi_v;
+    std::list<std::string> li_v;
+    std::set<std::string> si_v;
 
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi.begin(), vi.end());
+        vi_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -780,11 +1035,19 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : vi)
+    {
+        bool all_same = std::all_of(vi_v.begin(), vi_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
     
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li.begin(), li.end());
+        li_v.push_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -794,10 +1057,18 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
         REQUIRE_EQ(found, true);
     }
 
+    // check that all values are not the same and there is some variance
+    for(const auto& i : li)
+    {
+        bool all_same = std::all_of(li_v.begin(), li_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
     for(int i = 0; i < 10; i++)
     {
         // make a random choice from the container
         auto result = mtl::random_choice(si.begin(), si.end());
+        si_v.insert(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(si.begin(), si.end(), *result) != si.end())
@@ -806,6 +1077,20 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
         }
         REQUIRE_EQ(found, true);
     }
+
+    // check that all values are not the same and there is some variance
+    for(const auto& i : si)
+    {
+        bool all_same = std::all_of(si_v.begin(), si_v.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
+
+    REQUIRE_EQ(vi.empty(), false);
+    REQUIRE_EQ(li.empty(), false);
+    REQUIRE_EQ(si.empty(), false);
+    REQUIRE_EQ(vi_v.empty(), false);
+    REQUIRE_EQ(li_v.empty(), false);
+    REQUIRE_EQ(si_v.empty(), false);
 }
 
 

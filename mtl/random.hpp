@@ -106,6 +106,7 @@ public:
 	{
 		detail::uniform_distribution_type_selector<Type> di(min, max);
 		ud_selector = di;
+		engine.discard(1);
 	}
 
 	/// Returns the minimum value for the range of possible values.
@@ -147,7 +148,7 @@ public:
 	/// Seed the engine with two random seed values from std::random_device.
 	void seed_random()
 	{
-		std::random_device rd;
+		static std::random_device rd;
 		engine.seed(rd(), rd());
 	}
 };
@@ -174,8 +175,6 @@ inline auto random_choice(const Container& container)
 	{
 		// create a random number generator with index values that fit within the container
 		rng<int> rng_selector(0, static_cast<int>(size - 1));
-		// seed the rng with a random seed because we don't want the same result every call
-		rng_selector.seed_random();
 		// move the iterator forward a random number of values
 		iterator = std::next(container.begin(), rng_selector.next());
 	}
@@ -201,8 +200,6 @@ inline auto random_choice(Iter first, Iter last)
 	{
 		// create a random number generator with index values that fit within the container
 		rng<int> rng_selector(0, static_cast<int>(size - 1));
-		// seed the rng with a random seed because we don't want the same result every call
-		rng_selector.seed_random();
 		// move the iterator forward a random number of values
 		iterator = std::next(first, rng_selector.next());
 	}
@@ -217,8 +214,8 @@ inline auto random_choice(Iter first, Iter last)
 /// random position at least once.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
-template<typename FwdIter>
-inline void shuffle(FwdIter first, FwdIter last)
+template<typename Iter>
+inline void shuffle(Iter first, Iter last)
 {
 	// find the number of elements in the range so we can configure the rng
 	const auto size = std::distance(first, last);

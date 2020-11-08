@@ -8,7 +8,7 @@
 #include <limits>
 #include <sstream>
 #include <random>    // std::uniform_int_distribution, std::uniform_real_distribution
-#include <algorithm> // std::count_if
+#include <algorithm> // std::count_if, std::all_of
 
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
@@ -386,6 +386,8 @@ TEST_CASE("random engine with std::uniform_int_distribution<int>, check for min 
     const size_t size = 100;
     const int min = 10;
     const int max = 100;
+    std::vector<int> values;
+    values.reserve(size);
     std::uniform_int_distribution<int> dist(min, max);
     mtl_rng_engine_test x1;
     for (size_t i = 0; i < size; i++)
@@ -393,6 +395,16 @@ TEST_CASE("random engine with std::uniform_int_distribution<int>, check for min 
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
+        values.push_back(value);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
     }
 }
 
@@ -450,6 +462,16 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests")
                                                  return x == max;
                                              } );
     REQUIRE_LT(count_max, percent);
+
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
 }
 
 
@@ -458,6 +480,8 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative m
     const size_t size = 100;
     const int min = -1000;
     const int max = 1000;
+    std::vector<int> values;
+    values.reserve(size);
     std::uniform_int_distribution<int> dist(min, max);
     mtl_rng_engine_test x1;
     for (size_t i = 0; i < size; i++)
@@ -465,6 +489,16 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative m
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
+        values.push_back(value);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
     }
 }
 
@@ -515,6 +549,16 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests with nega
                                                  return x == max;
                                              } );
     REQUIRE_LT(count_max, percent);
+
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
 }
 
 TEST_CASE("random engine with std::uniform_int_distribution<int> with negative numbers, bounds")
@@ -522,6 +566,8 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative n
     const size_t size = 100;
     const int min = -1000;
     const int max = -10;
+    std::vector<int> values;
+    values.reserve(size);
     std::uniform_int_distribution<int> dist(min, max);
     mtl_rng_engine_test x1;
     for (size_t i = 0; i < size; i++)
@@ -529,6 +575,16 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative n
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
+        values.push_back(value);
+    }
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
     }
 }
 
@@ -579,33 +635,56 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests with nega
                                                  return x == max;
                                              } );
     REQUIRE_LT(count_max, percent);
+
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
 }
 
 
 
-TEST_CASE("random engine with std::uniform_int_distribution<uint32_t>, check for min max bounds")
+TEST_CASE("random engine with std::uniform_int_distribution<unsigned int>, min max bounds")
 {
     const size_t size = 100;
-    const uint32_t min = 10;
-    const uint32_t max = 100;
-    std::uniform_int_distribution<uint32_t> dist(min, max);
+    const unsigned int min = 10;
+    const unsigned int max = 100;
+    std::vector<unsigned int> values;
+    values.reserve(size);
+    std::uniform_int_distribution<unsigned int> dist(min, max);
     mtl_rng_engine_test x1;
     for (size_t i = 0; i < size; i++)
     {
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
+        values.push_back(value);
+    }
+
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
     }
 }
 
-TEST_CASE("random engine with std::uniform_int_distribution<uint32_t> tests")
+TEST_CASE("random engine with std::uniform_int_distribution<unsigned int> tests")
 {
     const size_t size = 1000;
-    const uint32_t min = 10;
-    const uint32_t max = 100;
-    std::uniform_int_distribution<uint32_t> dist(min, max);
+    const unsigned int min = 10;
+    const unsigned int max = 100;
+    std::uniform_int_distribution<unsigned int> dist(min, max);
     mtl_rng_engine_test x1;
-    std::vector<uint32_t> values;
+    std::vector<unsigned int> values;
     values.reserve(size);
     
     for(size_t i = 0; i < size; i++)
@@ -652,6 +731,15 @@ TEST_CASE("random engine with std::uniform_int_distribution<uint32_t> tests")
                                                  return x == max;
                                              } );
     REQUIRE_LT(count_max, percent);
+
+    REQUIRE_EQ(values.empty(), false);
+    
+    // check that all values are not the same and there is some variance
+    for(const auto& i : values)
+    {
+        bool all_same = std::all_of(values.begin(), values.end(), [&i](auto x) { return x == i; });
+        REQUIRE_EQ(all_same, false);
+    }
 }
 
 
