@@ -4,9 +4,17 @@ on:
   push:
     paths-ignore:
       - '**.md'
+      - '**.png'
+      - '**.svg'
+      - '**.py'
+      - '**.sh'
   pull_request:
     paths-ignore:
       - '**.md'
+      - '**.png'
+      - '**.svg'
+      - '**.py'
+      - '**.sh'
 
 jobs:
   ci:
