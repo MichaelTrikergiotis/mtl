@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Runs gcc sanitizers for the mtl library.
 #
 # You must have g++ and llvm installed for this script to work.

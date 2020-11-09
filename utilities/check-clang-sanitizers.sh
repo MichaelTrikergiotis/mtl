@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Runs clang sanitizers for the mtl library.
 #
 # You must have clang and llvm installed for this script to work.

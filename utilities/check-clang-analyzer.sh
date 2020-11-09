@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Runs clang analyzer for the mtl library.
 #
 # You must have clang, clang tools and llvm installed for this script to work.
