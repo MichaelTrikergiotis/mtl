@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Runs g++ analyzer for the mtl library.
 
 echo "This script is currently disabled because gcc analyzer doesn't support C++ yet."

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Runs clang-tidy for all .hpp files with almost all checks turned on. All .h files are not from
 # mtl but code that is included from other projects so we don't want to check those.
 #

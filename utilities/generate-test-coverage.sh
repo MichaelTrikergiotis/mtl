@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Generates test coverate report using gcovr for the mtl library.
 #
 # You must have gcc and gcovr installed for this script to work.
