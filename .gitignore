@@ -408,6 +408,17 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 build/
+build*/
+
+# Ninja
+.ninja_deps
+.ninja_log
+ninja
+ninja_test
+ninja.bootstrap
+build.ninja
+rules.ninja
+*.manifest
 
 # gcc Test Coverage Files
 *.gcno
