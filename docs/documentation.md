@@ -29,7 +29,7 @@ Tested compiler and operating systems combinations :
 
 ## Installation
 
-The **mtl** is a header only library to use it just copy the the **mtl** folder containing all the headers to your project's folder. That is it, you can now and use it. Just remember to enable C++ 17 if your compiler isn't in C++ 17 mode by default.
+The **mtl** is a C++ 17 header-only library. To use it just copy the the **mtl** folder containing all the headers to your project's folder. That is it, you can now and use it. Just remember to enable C++ 17 if your compiler isn't in C++ 17 mode by default.
 
 After that if you want to use **mtl** to print something to the console followed by a newline :
 

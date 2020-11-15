@@ -5,44 +5,44 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   id="svg8"
+   width="512"
+   height="256"
+   viewBox="0 0 135.46496 67.73248"
    version="1.1"
-   viewBox="0 0 135.46496 135.46496"
-   height="512"
-   width="512">
+   id="svg8">
   <defs
      id="defs2">
     <font
-       vert-adv-y="90"
-       vert-origin-y="90"
-       vert-origin-x="45"
-       horiz-origin-y="0"
-       horiz-origin-x="0"
+       horiz-adv-x="1024"
        id="font3744"
-       horiz-adv-x="1024">
+       horiz-origin-x="0"
+       horiz-origin-y="0"
+       vert-origin-x="45"
+       vert-origin-y="90"
+       vert-adv-y="90">
       <font-face
-         font-family="SVGFont 1"
+         units-per-em="1024"
          id="font-face3746"
-         units-per-em="1024" />
+         font-family="SVGFont 1" />
       <missing-glyph
-         id="missing-glyph3748"
-         d="M0,0h1000v1024h-1000z" />
+         d="M0,0h1000v1024h-1000z"
+         id="missing-glyph3748" />
     </font>
     <font
-       vert-adv-y="90"
-       vert-origin-y="90"
-       vert-origin-x="45"
-       horiz-origin-y="0"
-       horiz-origin-x="0"
+       horiz-adv-x="1024"
        id="font3744-9"
-       horiz-adv-x="1024">
+       horiz-origin-x="0"
+       horiz-origin-y="0"
+       vert-origin-x="45"
+       vert-origin-y="90"
+       vert-adv-y="90">
       <font-face
-         font-family="SVGFont 1"
+         units-per-em="1024"
          id="font-face3746-1"
-         units-per-em="1024" />
+         font-family="SVGFont 1" />
       <missing-glyph
-         id="missing-glyph3748-9"
-         d="M0,0h1000v1024h-1000z" />
+         d="M0,0h1000v1024h-1000z"
+         id="missing-glyph3748-9" />
     </font>
   </defs>
   <metadata
@@ -58,30 +58,32 @@
     </rdf:RDF>
   </metadata>
   <g
-     style="display:inline"
-     id="layer6">
+     transform="translate(0,-33.33708)"
+     id="layer6"
+     style="display:inline">
     <text
-       id="text152"
-       y="83.254501"
-       x="28.484724"
+       xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58320045px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458001"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:52.91600037px;font-family:roboto;-inkscape-font-specification:'roboto Bold';stroke-width:0.26458001"
-         y="83.254501"
+       x="28.484724"
+       y="83.254501"
+       id="text152"><tspan
+         id="tspan150"
          x="28.484724"
-         id="tspan150">mtl</tspan></text>
+         y="83.254501"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:52.91600037px;font-family:roboto;-inkscape-font-specification:'roboto Bold';stroke-width:0.26458001">mtl</tspan></text>
   </g>
   <g
+     transform="translate(0,-33.33708)"
      id="g123">
     <text
-       id="text160"
-       y="87.49501"
-       x="-0.44992113"
+       xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58320141px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458001"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:59.97146606px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#800000;stroke-width:0.26458001"
-         y="87.49501"
+       x="-0.44992113"
+       y="87.49501"
+       id="text160"><tspan
+         id="tspan158"
          x="-0.44992113"
-         id="tspan158">&lt;     &gt;</tspan></text>
+         y="87.49501"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:59.97146606px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#800000;stroke-width:0.26458001">&lt;     &gt;</tspan></text>
   </g>
 </svg>

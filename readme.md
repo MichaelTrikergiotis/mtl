@@ -6,21 +6,83 @@ Modern, fast, easy. Makes C++ a joy to use.
 
 ![mtl logo](./docs/mtl-logo.png)
 
-The **mtl** or by it's full name **Modern Template Library** sets a very high bar for quality. It is blazing fast but actually easy to use. Tries to remain very well tested while also featuring excellent documentation.
+## Introduction
 
-The **mtl** fills the parts that the C++ standard library doesn't have or are lacking in terms of performance.
-But also includes some functionality that other languages like Python or C# have by default in their standard libraries.
-Tries to be as standard compliant as possible by following the C++ standard library naming and uses the C++ standard algorithms and containers as much as possible. A feature of the library, that is the defacto standard in most modern programming languages and libraries, is that it has detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
+The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It also includes some functionality that other languages like Python or C# include by default in their standard libraries.
 
-For a quick overview of the various functionality mtl has you can check [list of classes and functions](./docs/listing.md).
+**mtl** tries to be as standard compliant as possible by following the C++ standard library naming and uses the C++ standard algorithms and containers.
 
-## Getting Started
+A nice feature of the library is that it has detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
 
-- For **mtl** you need a **C++ 17** compiler. For compiler compatibility refer to [compiler documentation](./docs/documentation.md#C++-version-and-compiler-compatibility).
-- For installation instructions refer to [installation documentation](./docs/documentation.md#Installation).
-- For running the tests refer to [tests documentation](./docs/documentation.md#How-to-run-the-tests).
-- For general documentation refer to [documentation](./docs/documentation.md).
-- For contributing to **mtl** refer to [contributing](./contributing.md).
+For a quick overview of the functionality that **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
+
+## Getting started
+
+- For **mtl** you need a **C++ 17** compiler. For compiler compatibility refer to the [compiler documentation](./docs/documentation.md#C++-version-and-compiler-compatibility).
+- For installation instructions refer to the [installation documentation](./docs/documentation.md#Installation).
+- For running the tests refer to the [tests documentation](./docs/documentation.md#How-to-run-the-tests).
+- For general documentation refer to the [documentation](./docs/documentation.md).
+- For contributing refer to the [contributing documenation](./contributing.md).
+
+## Examples
+
+[**EXAMPLE 1**]
+
+Split an `std::string` :
+
+```c++
+const std::string names = "Joe, Jill, Bill, Nick, Maria, Helen";
+std::vector<std::string> tokens = mtl::string::split(names, ", ");
+```
+
+Now you have a `std::vector<std::string>` that contains the following elements `"Joe", "Jill", "Bill", "Nick", "Maria", "Helen"`.
+
+[**EXAMPLE 2**]
+
+Joining all the tokens from a container to an `std::string` with all the names separated by comma and a space :
+
+```c++
+const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", "Helen" };
+std::string joined_names = mtl::string::join_all(tokens.begin(), tokens.end(), ", ");
+```
+
+Now `names` from example 1 and `joined_names` from example 2 if compared will be equal.
+
+[**EXAMPLE 3**]
+
+Generating a random number from 1 to 10 with the least amount of boilerplate code :
+
+```c++
+mtl::rng<int> rng_1to10 (1, 10);
+int random_number = rng_1to10.next();
+```
+
+Now the variable `random_number` is a random integer number between 1 and 10.
+
+[**EXAMPLE 4**]
+
+Timing how long a super slow function takes to execute using a stopwatch :
+
+```c++
+mtl::chrono::stopwatch sw;
+sw.start();
+my_super_slow_function();
+sw.stop();
+double time_taken_ns = sw.elapsed_nano();
+```
+
+The variable `time_taken_ns` is a double for how many nanoseconds it took `my_super_slow_function` to run.
+
+[**EXAMPLE 5**]
+
+Read all lines of a file :
+
+```c++
+std::vector<std::string> lines;
+bool read_ok = mtl::filesystem::read_all_lines("../document.txt", lines);
+```
+
+If the file was read successfully the `read_ok` boolean is set to true and the `std::vector<std::string>` lines contain all lines read from the file.
 
 ## Goals
 
