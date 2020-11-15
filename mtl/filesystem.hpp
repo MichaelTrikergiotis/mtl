@@ -125,6 +125,10 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 		// check that the buffer is not empty before we try to split it
 		if (internal_buffer.size() > 0)
 		{
+			// convert CRLF to LF
+			mtl::string::replace(internal_buffer, "\r\n", '\n');
+
+			// split each line to an output container at each newline
 			mtl::string::split(internal_buffer, output, '\n');
 			// if the last element is empty remove it, we are sure that the output is not empty
 			// become we know that the internal buffer is bigger than 0 if we reached this point

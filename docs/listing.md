@@ -65,10 +65,10 @@ There are 124 items in total.
 
 ## filesystem.hpp with 4 items
 
-- mtl::filesystem::read_file [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L69)
-- mtl::filesystem::read_all_lines [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L217)
-- mtl::filesystem::write_file [(Documentation)](../mtl/filesystem.hpp#L148) [(Examples)](../tests/tests_filesystem.cpp#L69)
-- mtl::filesystem::write_all_lines [(Documentation)](../mtl/filesystem.hpp#L149) [(Examples)](../tests/tests_filesystem.cpp#L217)
+- mtl::filesystem::read_file [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L70)
+- mtl::filesystem::read_all_lines [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L218)
+- mtl::filesystem::write_file [(Documentation)](../mtl/filesystem.hpp#L152) [(Examples)](../tests/tests_filesystem.cpp#L70)
+- mtl::filesystem::write_all_lines [(Documentation)](../mtl/filesystem.hpp#L153) [(Examples)](../tests/tests_filesystem.cpp#L218)
 
 ---------------------------------------------------
 
