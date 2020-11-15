@@ -317,6 +317,47 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
 }
 
+TEST_CASE("mtl::filesystem::read_all_lines with CRLF input file")
+{
+    const std::string filename = "file_containing_crlf";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi";
+
+    // write the file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read all lines of the file and check contents are what we want
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi"};
+    std::vector<std::string> read_data;
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
+
+
+
 TEST_CASE("mtl::filesystem::write_all_lines with integers and mtl::filesystem::read_all_lines")
 {
     std::string filename = filename4;
@@ -614,10 +655,12 @@ TEST_CASE("Check again to make sure that all files created do not exist")
     REQUIRE_EQ((std::filesystem::is_regular_file(filename6)), false);
     REQUIRE_EQ((std::filesystem::is_regular_file(filename7)), false);
     REQUIRE_EQ((std::filesystem::is_regular_file(filename8)), false);
-    std::string empty_file = "empty_file";
+    const std::string crlf_file = "file_containing_crlf";
+    REQUIRE_EQ((std::filesystem::is_regular_file(crlf_file)), false);
+    const std::string empty_file = "empty_file";
     REQUIRE_EQ((std::filesystem::is_regular_file(empty_file)), false);
-    std::string empty_file_lines = "empty_file_lines";
+    const std::string empty_file_lines = "empty_file_lines";
     REQUIRE_EQ((std::filesystem::is_regular_file(empty_file_lines)), false);
-    std::string sl_filename = "single-line";
+    const std::string sl_filename = "single-line";
     REQUIRE_EQ((std::filesystem::is_regular_file(sl_filename)), false);
 }
