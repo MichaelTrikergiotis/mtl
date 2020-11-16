@@ -18,7 +18,7 @@
 #include <ios>			   // std::ios_base::openmode, std::ios::in, std::ios::out, 
 						   // std::ios::binary, std::streamsize
 #include "type_traits.hpp" // mtl::is_c_string
-#include "string.hpp"      // mtl::string::join_all, mtl::string::split
+#include "string.hpp"      // mtl::string::join_all, mtl::string::split, mtl::string::replace
 #include "utility.hpp"     // MTL_ASSERT_MSG
 
 
