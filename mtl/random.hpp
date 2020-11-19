@@ -130,7 +130,7 @@ public:
 		engine.seed();
 	}
 
-	/// Seed the engine with a single value and leave the other seed(s) to the default values.
+	/// Seed the engine with a single value and leave the other seed to it's default value.
 	/// @param[in] seed1 A seed for the randomg engine.
 	void seed(uint64_t seed1)
 	{
