@@ -2,9 +2,9 @@
 
 We are strict with naming and styling of the code.
 
-The line length used in **mtl** is **100**, please adhere to it and never surpass it. The reason is that 80 is it is too restrictive for modern C++ when you want to call a function that exists inside multiple namespaces. Even decades old projects have already abandoned the 80 characters line length like the Linux kernel.
+The line length used in **mtl** is **100** characters long, please adhere to it and never surpass it. The reason we don't use 80 is that it is too restrictive for modern C++ where you want to call a function that exists inside multiple namespaces. Even decades old projects, like the Linux kernel, have already abandoned the 80 characters line length.
 
-**mtl** uses allman style for brackets.
+The **mtl** uses allman style.
 
 ```c++
 // GOOD EXAMPLE :
@@ -53,19 +53,21 @@ monster generate_monster(const head_type& head, const body_type& body)
 }
 ```
 
-Do not use ```#define``` use constant variables instead. Constant variables shouldn't be capitalized and should retain the snake_case style.
+Do not use ```#define``` to declare a constant. Use const variables instead. Const variables shouldn't be capitalized and should retain the snake_case style.
 
 ```c++
 // GOOD EXAMPLE :
 const float milk_kg = 10.0f;
 const int gold_coins = 1000;
+const int carrots = 10;
 
 // BAD EXAMPLE :
 #define FOOD 10.0f
 #define GOLDCOINS = 1000;
+const int CARROTS = 10;
 ```
 
-Always initialize variables and each variable declaration should be in it's own line. You should never declare two or more variables in the same line. If the variable doesn't change always declare it as const.
+Always initialize variables. Each variable declaration should be in it's own line. If the variable doesn't change declare it as const.
 
 ```c++
 // GOOD EXAMPLE :
@@ -76,7 +78,7 @@ const int coins = 1000;
 int food, coins;
 ```
 
-The template declaration is always in its own line.
+Template declaration is always in its own line.
 
 ```c++
 // GOOD EXAMPLE :
@@ -93,29 +95,11 @@ template<typename HeadType, typename BodyType> monster generate_monster(const He
 }
 ```
 
-The if and else brackets should appear in separate lines for their declaration.
+All control statements should include starting and ending brackets `{ }`.
 
 ```c++
 // GOOD EXAMPLE :
-if(x == 10)
-{
-    y = 11;
-}
-else
-{
-    y = 1000;
-}
-
-// BAD EXAMPLE :
-if(x == 10) { y = 11; }
-else { y = 1000; }
-```
-
-All control statements should always include starting and ending brackets { }.
-
-```c++
-// GOOD EXAMPLE :
-if(x == 10)
+if (x == 10)
 {
     y = 11;
 }
@@ -135,11 +119,70 @@ else y == 1000;
 for(int i = 0; i < 10; i++) x++;
 ```
 
+If you have only one statement you can have the brackets `{ }` on the same line. Having a single statement with the brackets `{ }` on other lines is also accepted.
+
+```c++
+// GOOD EXAMPLE :
+class cat
+{
+    bool cute() const  { return true; }
+};
+
+// ALSO GOOD EXAMPLE :
+class dog
+{
+    bool cute() const  
+    {
+        return true;
+    }
+};
+
+// GOOD EXAMPLE :
+if (x == 10) { return y; }
+
+// ALSO GOOD EXAMPLE :
+if (x == 10)
+{
+    return y;
+}
+
+// BAD EXAMPLE :
+class player
+{
+    int pos_x = 0;
+    int pos_y = 0;
+    void move(const int x, const int y) { pos_x = x; pos_y = y; }
+};
+
+// BAD EXAMPLE :
+if(x == 10) { y = y * x; y = y * z; return y; }
+```
+
+Multiple statements should not appear in the same line.
+
+```c++
+// GOOD EXAMPLE :
+if (x == 10)
+{
+    y = 11;
+    z = 33;
+}
+else
+{
+    y = 1000;
+    z = 3000;
+}
+
+// BAD EXAMPLE :
+if(x == 10) { y = 11; z = 33; }
+else { y = 1000; z = 3000; }
+```
+
 Never use the ternary operator use if and else instead.
 
 ```c++
 // GOOD EXAMPLE :
-if(x == 10)
+if (x == 10)
 {
     y = 11;
 }
@@ -156,11 +199,11 @@ Never use switch instead use if / elseif / else.
 
 ```c++
 // GOOD EXAMPLE :
-if(x == 10)
+if (x == 10)
 {
     y = 11;
 }
-else if(x == 11)
+else if (x == 11)
 {
     y = 33;
 }
@@ -192,13 +235,13 @@ switch(x)
 
 ## Comments
 
-Do not use
+Do not use :
 
 ```c++
 /* */
 ```
 
-for commenting only use
+for commenting only use :
 
 ```c++
 //
@@ -210,7 +253,7 @@ In Visual Studio Code you can select all the lines you want and press ```Ctrl + 
 
 Comment everything out of the ordinary so future maintainers know what you are doing. Every little trick for performance or compatibility hack should have detailed comments for why it was used over a simpler solution.
 
-When including something from a header add as a comment next to the header with what exactly you used.
+When including something from a header add a comment next to the header with what you used.
 
 ```C++
 // GOOD EXAMPLE :
@@ -220,7 +263,7 @@ When including something from a header add as a comment next to the header with 
 #include <algorithm>
 ```
 
-Comments inside the scope of a function start with non capital letter and don't end with a period punctuation mark. All comments should have a single space after the double slashes. May have an informal tone.
+Comments inside the scope of a function start with a non capital letter and don't end with a period punctuation mark. All comments should have a single space after the double slashes. May have an informal tone.
 
 ```c++
 // this is a comment inside the scope of a function
