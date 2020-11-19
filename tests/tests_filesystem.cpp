@@ -601,20 +601,37 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 }
 
 
-TEST_CASE("Try read non-existing file mtl::filesystem::read_file, mtl::filesystem::read_all_lines")
+TEST_CASE("Try read non-existent file mtl::filesystem::read_file, mtl::filesystem::read_all_lines")
 {
-    std::string file_data;
-    bool read_file = mtl::filesystem::read_file("non-existant-file.txt", file_data);
+    const std::string non_existent = "non-existent-file.txt";
 
-    REQUIRE_EQ(file_data, std::string());
-    REQUIRE_EQ(file_data.size(), 0);
+    // make sure the file doesn't exist
+    REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
+
+    std::string file_data;
+    // trying to read a non-existent file in debug mode with mtl::filesystem::read_file will 
+    // result in an assertion, we have disabled the assertion to test it better with the use of 
+    // the macro MTL_DISABLE_SOME_ASSERTS, so if the file doesn't exist it will just return false,
+    // in your code it is recommended that before you use mtl::filesystem::read_file you check
+    // that the file actually exists
+    bool read_file = mtl::filesystem::read_file(non_existent, file_data);
+
+    REQUIRE_EQ(file_data.empty(), true);
     REQUIRE_EQ(read_file, false);
 
     std::vector<std::string> lines;
-    bool read_lines = mtl::filesystem::read_all_lines("non-existant-file.txt", lines);
+    // trying to read a non-existent file in debug mode with mtl::filesystem::read_all_lines will 
+    // result in an assertion, we have disabled the assertion to test it better with the use of 
+    // the macro MTL_DISABLE_SOME_ASSERTS, so if the file doesn't exist it will just return false,
+    // in your code it is recommended that before you use mtl::filesystem::read_all_lines you check
+    // that the file actually exists
+    bool read_lines = mtl::filesystem::read_all_lines(non_existent, lines);
 
     REQUIRE_EQ(lines.empty(), true);
     REQUIRE_EQ(read_lines, false);
+
+    // make sure the file still doesn't exist
+    REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single line")
