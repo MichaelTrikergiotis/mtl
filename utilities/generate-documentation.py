@@ -272,7 +272,7 @@ def generate_documentation(sources):
             if is_class == False and is_class_function == False:
                 text = '- ' + text
 
-            text = text + '{0} [(Documentation)]({1}) [(Examples)]({2})'
+            text = text + '`{0}` [(Documentation)]({1}) [(Examples)]({2})'
             lines.append(text.format(name, header_location, source_location))
         lines.append('\n---------------------------------------------------\n')
 
