@@ -271,9 +271,6 @@ public:
 	/// Returns the next value of the random number generator.
 	/// @return The next value of the random number generator.
 	[[nodiscard]]
-#if defined(__clang__)
-	__attribute__((no_sanitize("integer")))
-#endif
 	result_type operator()()
 	{
 		// ----------------------------------------------------------------------------------------

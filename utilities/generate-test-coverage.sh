@@ -13,7 +13,11 @@
 rm -f tests
 echo "Compiling tests..."
 g++ -std=c++17 -o tests -Wfatal-errors -fprofile-arcs -ftest-coverage -fPIC -O0 ../tests/*.cpp
+echo "Running tests..."
 ./tests
+echo "Running tests with output to file..."
+./tests > temp.output
+rm -rf temp.output
 
 echo "Generating coverage report..."
 # create the directory to store the html coverage report if it doesn't already exist
