@@ -1,15 +1,19 @@
 # List of classes and functions
 
-There are 124 items in total.
+There are 11 classes.
 
-## algorithm.hpp with 23 items
+There are 52 class member functions.
+
+There are 116 non-member functions.
+
+## algorithm.hpp
 
 - mtl::not_unique_inclusive [(Documentation)](../mtl/algorithm.hpp#L35) [(Examples)](../tests/tests_algorithm.cpp#L38)
 - mtl::not_unique_exclusive [(Documentation)](../mtl/algorithm.hpp#L37) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- mtl::not_unique [(Documentation)](../mtl/algorithm.hpp#L35) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- mtl::keep_duplicates_inclusive [(Documentation)](../mtl/algorithm.hpp#L454) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- mtl::keep_duplicates_exclusive [(Documentation)](../mtl/algorithm.hpp#L601) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- mtl::keep_duplicates [(Documentation)](../mtl/algorithm.hpp#L454) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- mtl::not_unique [(Documentation)](../mtl/algorithm.hpp#L39) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- mtl::keep_duplicates_inclusive [(Documentation)](../mtl/algorithm.hpp#L456) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- mtl::keep_duplicates_exclusive [(Documentation)](../mtl/algorithm.hpp#L603) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- mtl::keep_duplicates [(Documentation)](../mtl/algorithm.hpp#L732) [(Examples)](../tests/tests_algorithm.cpp#L290)
 - mtl::keep_duplicates_inclusive_sorted [(Documentation)](../mtl/algorithm.hpp#L454) [(Examples)](../tests/tests_algorithm.cpp#L486)
 - mtl::keep_duplicates_exclusive_sorted [(Documentation)](../mtl/algorithm.hpp#L601) [(Examples)](../tests/tests_algorithm.cpp#L527)
 - mtl::keep_duplicates_sorted [(Documentation)](../mtl/algorithm.hpp#L730) [(Examples)](../tests/tests_algorithm.cpp#L569)
@@ -17,7 +21,7 @@ There are 124 items in total.
 - mtl::keep_duplicates_exclusive_preserve [(Documentation)](../mtl/algorithm.hpp#L605) [(Examples)](../tests/tests_algorithm.cpp#L772)
 - mtl::keep_duplicates_preserve [(Documentation)](../mtl/algorithm.hpp#L733) [(Examples)](../tests/tests_algorithm.cpp#L808)
 - mtl::rem_duplicates_sorted [(Documentation)](../mtl/algorithm.hpp#L253) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- mtl::rem_duplicates [(Documentation)](../mtl/algorithm.hpp#L253) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- mtl::rem_duplicates [(Documentation)](../mtl/algorithm.hpp#L254) [(Examples)](../tests/tests_algorithm.cpp#L934)
 - mtl::rem_duplicates_preserve [(Documentation)](../mtl/algorithm.hpp#L255) [(Examples)](../tests/tests_algorithm.cpp#L934)
 - mtl::contains [(Documentation)](../mtl/algorithm.hpp#L845) [(Examples)](../tests/tests_algorithm.cpp#L1186)
 - mtl::contains_all [(Documentation)](../mtl/algorithm.hpp#L898) [(Examples)](../tests/tests_algorithm.cpp#L1186)
@@ -26,11 +30,11 @@ There are 124 items in total.
 - mtl::for_each [(Documentation)](../mtl/algorithm.hpp#L1022) [(Examples)](../tests/tests_algorithm.cpp#L1781)
 - mtl::for_adj_pairs [(Documentation)](../mtl/algorithm.hpp#L1106) [(Examples)](../tests/tests_algorithm.cpp#L1844)
 - mtl::for_all_pairs [(Documentation)](../mtl/algorithm.hpp#L1135) [(Examples)](../tests/tests_algorithm.cpp#L1844)
-- mtl::range [(Documentation)](../mtl/algorithm.hpp#L980) [(Examples)](../tests/tests_algorithm.cpp#L2023)
+- mtl::range [(Documentation)](../mtl/algorithm.hpp#L1171) [(Examples)](../tests/tests_algorithm.cpp#L2023)
 
 ---------------------------------------------------
 
-## console.hpp with 7 items
+## console.hpp
 
 - mtl::console::print [(Documentation)](../mtl/console.hpp#L153) [(Examples)](../tests/tests_console.cpp#L69)
 - mtl::console::println [(Documentation)](../mtl/console.hpp#L182) [(Examples)](../tests/tests_console.cpp#L69)
@@ -42,7 +46,7 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## container.hpp with 5 items
+## container.hpp
 
 - mtl::reserve [(Documentation)](../mtl/container.hpp#L19) [(Examples)](../tests/tests_container.cpp#L25)
 - mtl::push_back [(Documentation)](../mtl/container.hpp#L44) [(Examples)](../tests/tests_container.cpp#L124)
@@ -52,7 +56,7 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## conversion.hpp with 6 items
+## conversion.hpp
 
 - mtl::to_num [(Documentation)](../mtl/conversion.hpp#L22) [(Examples)](../tests/tests_conversion.cpp#L64)
 - mtl::to_num_noex [(Documentation)](../mtl/conversion.hpp#L23) [(Examples)](../tests/tests_conversion.cpp#L479)
@@ -63,7 +67,7 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## filesystem.hpp with 4 items
+## filesystem.hpp
 
 - mtl::filesystem::read_file [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L69)
 - mtl::filesystem::read_all_lines [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L217)
@@ -72,18 +76,18 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## math.hpp with 6 items
+## math.hpp
 
 - mtl::approx_equal_abs [(Documentation)](../mtl/math.hpp#L20) [(Examples)](../tests/tests_math.cpp#L24)
 - mtl::approx_equal_rel [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L97)
 - mtl::approx_equal_comb [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L169)
 - mtl::percent_whole [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
 - mtl::percent_portion [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L592)
-- mtl::percent [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
+- mtl::percent [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L280)
 
 ---------------------------------------------------
 
-## numeric.hpp with 4 items
+## numeric.hpp
 
 - mtl::iota [(Documentation)](../mtl/numeric.hpp#L25) [(Examples)](../tests/tests_numeric.cpp#L22)
 - mtl::frequency [(Documentation)](../mtl/numeric.hpp#L52) [(Examples)](../tests/tests_numeric.cpp#L532)
@@ -92,28 +96,44 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## random.hpp with 3 items
+## random.hpp
 
-- mtl::rng [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L22)
-- mtl::random_choice [(Documentation)](../mtl/random.hpp#L157) [(Examples)](../tests/tests_random.cpp#L629)
-- mtl::shuffle [(Documentation)](../mtl/random.hpp#L210) [(Examples)](../tests/tests_random.cpp#L1100)
+- [**CLASS**] mtl::rng [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L25)
+  - mtl::rng::rng [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L27)
+  - mtl::rng::set_min_max [(Documentation)](../mtl/random.hpp#L107) [(Examples)](../tests/tests_random.cpp#L29)
+  - mtl::rng::min [(Documentation)](../mtl/random.hpp#L122) [(Examples)](../tests/tests_random.cpp#L31)
+  - mtl::rng::max [(Documentation)](../mtl/random.hpp#L131) [(Examples)](../tests/tests_random.cpp#L33)
+  - mtl::rng::next [(Documentation)](../mtl/random.hpp#L140) [(Examples)](../tests/tests_random.cpp#L35)
+  - mtl::rng::seed [(Documentation)](../mtl/random.hpp#L149) [(Examples)](../tests/tests_random.cpp#L37)
+  - mtl::rng::seed_random [(Documentation)](../mtl/random.hpp#L182) [(Examples)](../tests/tests_random.cpp#L39)
+- mtl::random_choice [(Documentation)](../mtl/random.hpp#L194) [(Examples)](../tests/tests_random.cpp#L644)
+- mtl::shuffle [(Documentation)](../mtl/random.hpp#L247) [(Examples)](../tests/tests_random.cpp#L1115)
 
 ---------------------------------------------------
 
-## safety.hpp with 2 items
+## safety.hpp
 
 - mtl::safe_copy [(Documentation)](../mtl/safety.hpp#L23) [(Examples)](../tests/tests_safety.cpp#L28)
 - mtl::safe_copy_n [(Documentation)](../mtl/safety.hpp#L24) [(Examples)](../tests/tests_safety.cpp#L693)
 
 ---------------------------------------------------
 
-## stopwatch.hpp with 1 items
+## stopwatch.hpp
 
-- mtl::chrono::stopwatch [(Documentation)](../mtl/stopwatch.hpp#L23) [(Examples)](../tests/tests_stopwatch.cpp#L16)
+- [**CLASS**] mtl::chrono::stopwatch [(Documentation)](../mtl/stopwatch.hpp#L23) [(Examples)](../tests/tests_stopwatch.cpp#L24)
+  - mtl::chrono::stopwatch::start [(Documentation)](../mtl/stopwatch.hpp#L36) [(Examples)](../tests/tests_stopwatch.cpp#L26)
+  - mtl::chrono::stopwatch::stop [(Documentation)](../mtl/stopwatch.hpp#L46) [(Examples)](../tests/tests_stopwatch.cpp#L28)
+  - mtl::chrono::stopwatch::reset [(Documentation)](../mtl/stopwatch.hpp#L56) [(Examples)](../tests/tests_stopwatch.cpp#L30)
+  - mtl::chrono::stopwatch::restart [(Documentation)](../mtl/stopwatch.hpp#L67) [(Examples)](../tests/tests_stopwatch.cpp#L32)
+  - mtl::chrono::stopwatch::elapsed_minutes [(Documentation)](../mtl/stopwatch.hpp#L77) [(Examples)](../tests/tests_stopwatch.cpp#L34)
+  - mtl::chrono::stopwatch::elapsed_seconds [(Documentation)](../mtl/stopwatch.hpp#L93) [(Examples)](../tests/tests_stopwatch.cpp#L36)
+  - mtl::chrono::stopwatch::elapsed_milli [(Documentation)](../mtl/stopwatch.hpp#L106) [(Examples)](../tests/tests_stopwatch.cpp#L38)
+  - mtl::chrono::stopwatch::elapsed_micro [(Documentation)](../mtl/stopwatch.hpp#L119) [(Examples)](../tests/tests_stopwatch.cpp#L40)
+  - mtl::chrono::stopwatch::elapsed_nano [(Documentation)](../mtl/stopwatch.hpp#L132) [(Examples)](../tests/tests_stopwatch.cpp#L42)
 
 ---------------------------------------------------
 
-## string.hpp with 21 items
+## string.hpp
 
 - mtl::string::is_upper [(Documentation)](../mtl/string.hpp#L37) [(Examples)](../tests/tests_string.cpp#L83)
 - mtl::string::is_lower [(Documentation)](../mtl/string.hpp#L39) [(Examples)](../tests/tests_string.cpp#L83)
@@ -126,20 +146,20 @@ There are 124 items in total.
 - mtl::string::contains [(Documentation)](../mtl/string.hpp#L324) [(Examples)](../tests/tests_string.cpp#L394)
 - mtl::string::strip_front [(Documentation)](../mtl/string.hpp#L394) [(Examples)](../tests/tests_string.cpp#L470)
 - mtl::string::strip_back [(Documentation)](../mtl/string.hpp#L395) [(Examples)](../tests/tests_string.cpp#L470)
-- mtl::string::strip [(Documentation)](../mtl/string.hpp#L394) [(Examples)](../tests/tests_string.cpp#L470)
+- mtl::string::strip [(Documentation)](../mtl/string.hpp#L396) [(Examples)](../tests/tests_string.cpp#L470)
 - mtl::string::pad_front [(Documentation)](../mtl/string.hpp#L466) [(Examples)](../tests/tests_string.cpp#L630)
 - mtl::string::pad_back [(Documentation)](../mtl/string.hpp#L469) [(Examples)](../tests/tests_string.cpp#L630)
-- mtl::string::pad [(Documentation)](../mtl/string.hpp#L466) [(Examples)](../tests/tests_string.cpp#L630)
+- mtl::string::pad [(Documentation)](../mtl/string.hpp#L472) [(Examples)](../tests/tests_string.cpp#L630)
 - mtl::string::to_string [(Documentation)](../mtl/string.hpp#L630) [(Examples)](../tests/tests_string.cpp#L848)
 - mtl::string::join_all [(Documentation)](../mtl/string.hpp#L747) [(Examples)](../tests/tests_string.cpp#L936)
-- mtl::string::join [(Documentation)](../mtl/string.hpp#L747) [(Examples)](../tests/tests_string.cpp#L936)
+- mtl::string::join [(Documentation)](../mtl/string.hpp#L924) [(Examples)](../tests/tests_string.cpp#L936)
 - mtl::string::split [(Documentation)](../mtl/string.hpp#L1049) [(Examples)](../tests/tests_string.cpp#L1134)
 - mtl::string::replace [(Documentation)](../mtl/string.hpp#L1178) [(Examples)](../tests/tests_string.cpp#L1678)
 - mtl::string::replace_all [(Documentation)](../mtl/string.hpp#L1482) [(Examples)](../tests/tests_string.cpp#L2336)
 
 ---------------------------------------------------
 
-## type_traits.hpp with 35 items
+## type_traits.hpp
 
 - mtl::are_same [(Documentation)](../mtl/type_traits.hpp#L32) [(Examples)](../tests/tests_type_traits.cpp#L38)
 - mtl::has_reserve [(Documentation)](../mtl/type_traits.hpp#L57) [(Examples)](../tests/tests_type_traits.cpp#L98)
@@ -179,27 +199,66 @@ There are 124 items in total.
 
 ---------------------------------------------------
 
-## utility.hpp with 4 items
+## utility.hpp
 
 - MTL_ASSERT_MSG [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L16)
-- mtl::no_copy [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L71)
-- mtl::no_move [(Documentation)](../mtl/utility.hpp#L38) [(Examples)](../tests/tests_utility.cpp#L71)
-- mtl::no_copy_move [(Documentation)](../mtl/utility.hpp#L39) [(Examples)](../tests/tests_utility.cpp#L71)
+- [**CLASS**] mtl::no_copy [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L71)
+- [**CLASS**] mtl::no_move [(Documentation)](../mtl/utility.hpp#L52) [(Examples)](../tests/tests_utility.cpp#L84)
+- [**CLASS**] mtl::no_copy_move [(Documentation)](../mtl/utility.hpp#L66) [(Examples)](../tests/tests_utility.cpp#L96)
 
 ---------------------------------------------------
 
-## xoroshiro128plus.hpp with 1 items
+## xoroshiro128plus.hpp
 
-- mtl::xoroshiro128plus [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L21)
+- [**CLASS**] mtl::xoroshiro128plus_engine [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L27)
+  - mtl::xoroshiro128plus_engine::xoroshiro128plus_engine [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L29)
+  - mtl::xoroshiro128plus_engine::operator= [(Documentation)](../mtl/xoroshiro128plus.hpp#L170) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L31)
+  - mtl::xoroshiro128plus_engine::seed [(Documentation)](../mtl/xoroshiro128plus.hpp#L184) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L33)
+  - mtl::xoroshiro128plus_engine::min [(Documentation)](../mtl/xoroshiro128plus.hpp#L225) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L35)
+  - mtl::xoroshiro128plus_engine::max [(Documentation)](../mtl/xoroshiro128plus.hpp#L234) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L37)
+  - mtl::xoroshiro128plus_engine::operator() [(Documentation)](../mtl/xoroshiro128plus.hpp#L243) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L39)
+  - mtl::xoroshiro128plus_engine::generate [(Documentation)](../mtl/xoroshiro128plus.hpp#L267) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L41)
+  - mtl::xoroshiro128plus_engine::discard [(Documentation)](../mtl/xoroshiro128plus.hpp#L284) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L43)
+  - mtl::xoroshiro128plus_engine::operator<< [(Documentation)](../mtl/xoroshiro128plus.hpp#L298) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L45)
+  - mtl::xoroshiro128plus_engine::operator>> [(Documentation)](../mtl/xoroshiro128plus.hpp#L315) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L47)
+  - mtl::xoroshiro128plus_engine::operator== [(Documentation)](../mtl/xoroshiro128plus.hpp#L334) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L49)
+  - mtl::xoroshiro128plus_engine::operator!= [(Documentation)](../mtl/xoroshiro128plus.hpp#L347) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L51)
+- [**CLASS**] mtl::xoroshiro128plus [(Documentation)](../mtl/xoroshiro128plus.hpp#L362) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L27)
 
 ---------------------------------------------------
 
-## xorshift128plus.hpp with 1 items
+## xorshift128plus.hpp
 
-- mtl::xorshift128plus [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L19)
+- [**CLASS**] mtl::xorshift128plus_engine [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L29)
+  - mtl::xorshift128plus_engine::xorshift128plus_engine [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L31)
+  - mtl::xorshift128plus_engine::operator= [(Documentation)](../mtl/xorshift128plus.hpp#L174) [(Examples)](../tests/tests_xorshift128plus.cpp#L33)
+  - mtl::xorshift128plus_engine::seed [(Documentation)](../mtl/xorshift128plus.hpp#L188) [(Examples)](../tests/tests_xorshift128plus.cpp#L35)
+  - mtl::xorshift128plus_engine::min [(Documentation)](../mtl/xorshift128plus.hpp#L229) [(Examples)](../tests/tests_xorshift128plus.cpp#L37)
+  - mtl::xorshift128plus_engine::max [(Documentation)](../mtl/xorshift128plus.hpp#L238) [(Examples)](../tests/tests_xorshift128plus.cpp#L39)
+  - mtl::xorshift128plus_engine::operator() [(Documentation)](../mtl/xorshift128plus.hpp#L247) [(Examples)](../tests/tests_xorshift128plus.cpp#L41)
+  - mtl::xorshift128plus_engine::generate [(Documentation)](../mtl/xorshift128plus.hpp#L273) [(Examples)](../tests/tests_xorshift128plus.cpp#L43)
+  - mtl::xorshift128plus_engine::discard [(Documentation)](../mtl/xorshift128plus.hpp#L290) [(Examples)](../tests/tests_xorshift128plus.cpp#L45)
+  - mtl::xorshift128plus_engine::operator<< [(Documentation)](../mtl/xorshift128plus.hpp#L304) [(Examples)](../tests/tests_xorshift128plus.cpp#L47)
+  - mtl::xorshift128plus_engine::operator>> [(Documentation)](../mtl/xorshift128plus.hpp#L321) [(Examples)](../tests/tests_xorshift128plus.cpp#L49)
+  - mtl::xorshift128plus_engine::operator== [(Documentation)](../mtl/xorshift128plus.hpp#L340) [(Examples)](../tests/tests_xorshift128plus.cpp#L51)
+  - mtl::xorshift128plus_engine::operator!= [(Documentation)](../mtl/xorshift128plus.hpp#L353) [(Examples)](../tests/tests_xorshift128plus.cpp#L53)
+- [**CLASS**] mtl::xorshift128plus [(Documentation)](../mtl/xorshift128plus.hpp#L367) [(Examples)](../tests/tests_xorshift128plus.cpp#L29)
 
 ---------------------------------------------------
 
-## xoshiro256plus.hpp with 1 items
+## xoshiro256plus.hpp
 
-- mtl::xoshiro256plus [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L19)
+- [**CLASS**] mtl::xoshiro256plus_engine [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L29)
+  - mtl::xoshiro256plus_engine::xoshiro256plus_engine [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L31)
+  - mtl::xoshiro256plus_engine::operator= [(Documentation)](../mtl/xoshiro256plus.hpp#L193) [(Examples)](../tests/tests_xoshiro256plus.cpp#L33)
+  - mtl::xoshiro256plus_engine::seed [(Documentation)](../mtl/xoshiro256plus.hpp#L207) [(Examples)](../tests/tests_xoshiro256plus.cpp#L35)
+  - mtl::xoshiro256plus_engine::min [(Documentation)](../mtl/xoshiro256plus.hpp#L250) [(Examples)](../tests/tests_xoshiro256plus.cpp#L37)
+  - mtl::xoshiro256plus_engine::max [(Documentation)](../mtl/xoshiro256plus.hpp#L259) [(Examples)](../tests/tests_xoshiro256plus.cpp#L39)
+  - mtl::xoshiro256plus_engine::operator() [(Documentation)](../mtl/xoshiro256plus.hpp#L268) [(Examples)](../tests/tests_xoshiro256plus.cpp#L41)
+  - mtl::xoshiro256plus_engine::generate [(Documentation)](../mtl/xoshiro256plus.hpp#L295) [(Examples)](../tests/tests_xoshiro256plus.cpp#L43)
+  - mtl::xoshiro256plus_engine::discard [(Documentation)](../mtl/xoshiro256plus.hpp#L312) [(Examples)](../tests/tests_xoshiro256plus.cpp#L45)
+  - mtl::xoshiro256plus_engine::operator<< [(Documentation)](../mtl/xoshiro256plus.hpp#L326) [(Examples)](../tests/tests_xoshiro256plus.cpp#L47)
+  - mtl::xoshiro256plus_engine::operator>> [(Documentation)](../mtl/xoshiro256plus.hpp#L344) [(Examples)](../tests/tests_xoshiro256plus.cpp#L49)
+  - mtl::xoshiro256plus_engine::operator== [(Documentation)](../mtl/xoshiro256plus.hpp#L365) [(Examples)](../tests/tests_xoshiro256plus.cpp#L51)
+  - mtl::xoshiro256plus_engine::operator!= [(Documentation)](../mtl/xoshiro256plus.hpp#L378) [(Examples)](../tests/tests_xoshiro256plus.cpp#L53)
+- [**CLASS**] mtl::xoshiro256plus [(Documentation)](../mtl/xoshiro256plus.hpp#L392) [(Examples)](../tests/tests_xoshiro256plus.cpp#L29)

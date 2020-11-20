@@ -9,7 +9,7 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/utility.hpp" 
-// MTL_ASSERT_MSG, mtl::no_copy, mtl::no_move, mtl::no_copy_move
+// MTL_ASSERT_MSG, [@class] mtl::no_copy, [@class] mtl::no_move, [@class] mtl::no_copy_move
 
 
 // ------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ TEST_CASE("MTL_ASSERT_MSG")
 }
 
 // ------------------------------------------------------------------------------------------------
-// mtl::no_copy, mtl::no_move, mtl::no_copy_move
+// mtl::no_copy
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::no_copy")
@@ -80,6 +80,10 @@ TEST_CASE("mtl::no_copy")
 
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::no_move
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::no_move")
 {
     struct normal_class {};
@@ -87,6 +91,10 @@ TEST_CASE("mtl::no_move")
     struct no_move_class : mtl::no_move {};
     REQUIRE_EQ(std::is_move_constructible_v<no_move_class>, false);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::no_copy_move
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::no_copy_move")
 {

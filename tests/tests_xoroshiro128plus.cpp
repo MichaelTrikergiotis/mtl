@@ -14,9 +14,41 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/xoroshiro128plus.hpp" 
-// mtl::xoroshiro128plus
+// [@class] mtl::xoroshiro128plus_engine,  mtl::xoroshiro128plus_engine::xoroshiro128plus_engine,
+// mtl::xoroshiro128plus_engine::operator=, mtl::xoroshiro128plus_engine::seed, 
+// mtl::xoroshiro128plus_engine::min, mtl::xoroshiro128plus_engine::max,
+// mtl::xoroshiro128plus_engine::operator(), mtl::xoroshiro128plus_engine::generate,
+// mtl::xoroshiro128plus_engine::discard, mtl::xoroshiro128plus_engine::operator<<,
+// mtl::xoroshiro128plus_engine::operator>>, mtl::xoroshiro128plus_engine::operator==,
+// mtl::xoroshiro128plus_engine::operator!=, [@class] mtl::xoroshiro128plus
 
 
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::xoroshiro128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator=
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::seed
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::min
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::max
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator()
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::generate
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::discard
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator<<
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator>>
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator==
+// ------------------------------------------------------------------------------------------------
+// mtl::xoroshiro128plus_engine::operator!=
 // ------------------------------------------------------------------------------------------------
 // mtl::xoroshiro128plus
 // ------------------------------------------------------------------------------------------------

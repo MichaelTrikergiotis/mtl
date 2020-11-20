@@ -23,8 +23,6 @@ namespace mtl
 
 // ================================================================================================
 // XOSHIRO256PLUS_ENGINE - The xoshiro256plus_engine random number generator engine.
-// XOSHIRO256PLUS        - Typedef of xoshiro256plus_engine random number generator engine with 
-//                         default types and default seed values for easier usage.
 // ================================================================================================
 
 /// This is the engine for the xoshiro256plus random number generator. For general purpose
@@ -110,7 +108,7 @@ private:
 				   seed_3 == other.seed_3 && seed_4 == other.seed_4;
 		}
 
-		/// Difference operator.
+		/// Inequality operator.
 		/// @param[in] other Another state_struct to compare.
 		/// @return If the two states are inequal or not.
 		[[nodiscard]]
@@ -126,12 +124,20 @@ private:
 
 public:
 
+	// ============================================================================================
+	// XOSHIRO256PLUS_ENGINE - Constructor with no parameters. It will use default seed values.
+	// ============================================================================================
+
 	/// Constructor with no parameters. It will use default seed values.
 	xoshiro256plus_engine()
 	{
 		_state = state_struct();
 	}
 
+	// ============================================================================================
+	// XOSHIRO256PLUS_ENGINE - Constructor with a single seed value. It will use default seed
+	//                         values except one seed value which will be the given value.
+	// ============================================================================================
 
 	/// Constructor with a single seed value. It will use default seed values except one seed value
 	/// which will be the given value.
@@ -142,6 +148,10 @@ public:
 		new_state.seed_1 = value;
 		_state = new_state;
 	}
+
+	// ============================================================================================
+	// XOSHIRO256PLUS_ENGINE - Constructor with multiple seed values.
+	// ============================================================================================
 
 	/// Constructor with multiple seed values.
 	/// @param[in] seed1 The first seed.
@@ -167,12 +177,22 @@ private:
 
 public:
 
+	// ============================================================================================
+	// XOSHIRO256PLUS_ENGINE - Copy constructor that copies the state of another random engine of
+	//                         the same type.
+	// ============================================================================================
+
 	/// Copy constructor that copies the state of another random engine of the same type.
 	/// @param[in] other Another random engine.
 	xoshiro256plus_engine(const xoshiro256plus_engine& other)
 	{
 		seed(other.state());
 	}
+
+	// ============================================================================================
+	// OPERATOR= - Copy assignment operator that copies the state of another random engine of the
+	//             same type.
+	// ============================================================================================
 
 	/// Copy assignment operator that copies the state of another random engine of the same type.
 	/// @param[in] other Another random engine.
@@ -183,12 +203,24 @@ public:
 		return *this;
 	}
 
+	// ============================================================================================
+	// SEED - Set the seed by copying the seed values of another random engine of the same type.
+	// ============================================================================================
+
 	/// Set the seed by copying the seed values of another random engine of the same type.
 	/// @param[in] other Another random engine.
 	void seed(const xoshiro256plus_engine& other) { _state = other.state(); }
 
+	// ============================================================================================
+	// SEED - Set the seed state to the default seed values.
+	// ============================================================================================
+
 	/// Set the seed state to the default seed values.
 	void seed() { _state = state_struct(); }
+
+	// ============================================================================================
+	// SEED - Seed the random engine to the default seed values except the one given seed value.
+	// ============================================================================================
 
 	/// Seed the random engine to the default seed values except the one given seed value.
 	/// @param[in] seed_value A single seed value.
@@ -198,6 +230,10 @@ public:
 		new_state.seed_2 = seed_value;
 		_state = new_state;
 	}
+
+	// ============================================================================================
+	// SEED - Seed the random engine with a multiple seed values.
+	// ============================================================================================
 
 	/// Seed the random engine with a multiple seed values.
 	/// @param[in] seed1 The first seed.
@@ -210,15 +246,27 @@ public:
 		_state = new_state;
 	}
 
+	// ============================================================================================
+	// MIN - Returns the minimum value the random number generator can produce.
+	// ============================================================================================
+
 	/// Returns the minimum value the random number generator can produce.
 	/// @return The minimum value the random number generator can produce.
 	[[nodiscard]]
 	constexpr static result_type min() { return std::numeric_limits<result_type>::min(); }
 
+	// ============================================================================================
+	// MAX - Returns the maximum value the random number generator can produce.
+	// ============================================================================================
+
 	/// Returns the maximum value the random number generator can produce.
 	/// @return The maximum value the random number generator can produce.
 	[[nodiscard]]
 	constexpr static result_type max() { return std::numeric_limits<result_type>::max(); }
+
+	// ============================================================================================
+	// OPERATOR() - Returns the next value of the random number generator.
+	// ============================================================================================
 
 	/// Returns the next value of the random number generator.
 	/// @return The next value of the random number generator.
@@ -243,6 +291,10 @@ public:
 		return static_cast<result_type>(result);
 	}
 
+	// ============================================================================================
+	// GENERATE - Fills the range first to last with values from the random number generator.
+	// ============================================================================================
+
 	/// Fills the range first to last with values from the random number generator.
 	/// @param[in] first Iterator to the beginning of the range.
 	/// @param[in] last Iterator to the end of the range.
@@ -256,6 +308,10 @@ public:
 		}
 	}
 
+	// ============================================================================================
+	// DISCARD - Advances the state of the random number generator by a number of times.
+	// ============================================================================================
+
 	/// Advances the state of the random number generator by a number of times.
 	/// @param[in] count Number of time to advance the random number generator.
 	void discard(size_t count)
@@ -266,10 +322,14 @@ public:
 		}
 	}
 
-	/// Writes the textual representation of the seed values to a std::ostream.
-	/// @param[out] os A std::basic_ostream to use as ouput.
+	// ============================================================================================
+	// OPERATOR<< - Writes the textual representation of the seed values to an std::ostream.
+	// ============================================================================================
+
+	/// Writes the textual representation of the seed values to an std::ostream.
+	/// @param[out] os An std::basic_ostream to use as ouput.
 	/// @param[in] rngen The random number generator engine to get the state.
-	/// @return A std::basic_ostream.
+	/// @return An std::basic_ostream.
 	template<typename CharType, typename Traits>
 	friend std::basic_ostream<CharType, Traits>&
 	operator<< (std::basic_ostream<CharType, Traits>& os, const xoshiro256plus_engine& rngen)
@@ -280,10 +340,14 @@ public:
 		return os;
 	}
 
-	/// Reads and sets seed values from the textual representation of a std::istream.
-	/// @param[in] is A std::basic_istream to use as input.
+	// ============================================================================================
+	// OPERATOR>> - Reads and sets seed values from the textual representation of an std::istream.
+	// ============================================================================================
+
+	/// Reads and sets seed values from the textual representation of an std::istream.
+	/// @param[in] is An std::basic_istream to use as input.
 	/// @param[in] rngen The random number generator engine to set the state.
-	/// @return A std::basic_istream.
+	/// @return An std::basic_istream.
 	template<typename CharType, typename Traits>
 	friend std::basic_istream<CharType, Traits>& 
 	operator>> (std::basic_istream<CharType, Traits>& is, xoshiro256plus_engine& rngen)
@@ -296,6 +360,10 @@ public:
 		rngen.seed(seed1, seed2, seed3, seed4);
 		return is;
 	}
+
+	// ============================================================================================
+	// OPERATOR== - Equality operator.
+	// ============================================================================================
 	
 	/// Equality operator.
 	/// @param[in] rhs A random number generation engine to compare for equality.
@@ -306,7 +374,11 @@ public:
 		return (rhs.state() == lhs.state());
 	}
 
-	/// Difference operator.
+	// ============================================================================================
+	// OPERATOR!= - Inequality operator.
+	// ============================================================================================
+
+	/// Inequality operator.
 	/// @param[in] rhs A random number generation engine to compare for inequality.
 	/// @param[in] lhs A random number generation engine to compare for inequality.
 	[[nodiscard]]
@@ -315,6 +387,11 @@ public:
 		return !(rhs == lhs);
 	}
 };
+
+// ================================================================================================
+// XOSHIRO256PLUS        - Typedef of xoshiro256plus_engine random number generator engine with 
+//                         default types and default seed values for easier usage.
+// ================================================================================================
 
 /// The xoshiro256plus random number generator is extremely fast with very good quality
 /// randomness. It is nearly three times faster than Mersenne Twister (std::mt19937_64) while also

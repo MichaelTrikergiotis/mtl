@@ -10,10 +10,36 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/stopwatch.hpp" 
-// mtl::chrono::stopwatch
+// [@class] mtl::chrono::stopwatch, mtl::chrono::stopwatch::start, mtl::chrono::stopwatch::stop,
+// mtl::chrono::stopwatch::reset, mtl::chrono::stopwatch::restart, 
+// mtl::chrono::stopwatch::elapsed_minutes, mtl::chrono::stopwatch::elapsed_seconds,
+// mtl::chrono::stopwatch::elapsed_milli, mtl::chrono::stopwatch::elapsed_micro,
+// mtl::chrono::stopwatch::elapsed_nano
+
+
+
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::chrono::stopwatch
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::start
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::stop
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::reset
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::restart
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::elapsed_minutes
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::elapsed_seconds
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::elapsed_milli
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::elapsed_micro
+// ------------------------------------------------------------------------------------------------
+// mtl::chrono::stopwatch::elapsed_nano
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::chrono::stopwatch : All elapsed functions")

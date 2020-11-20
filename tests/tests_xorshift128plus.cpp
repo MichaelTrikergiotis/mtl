@@ -13,8 +13,44 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/xorshift128plus.hpp" 
-// mtl::xorshift128plus
+// [@class] mtl::xorshift128plus_engine, mtl::xorshift128plus_engine::xorshift128plus_engine,
+// mtl::xorshift128plus_engine::operator=, mtl::xorshift128plus_engine::seed,
+// mtl::xorshift128plus_engine::min, mtl::xorshift128plus_engine::max,
+// mtl::xorshift128plus_engine::operator(), mtl::xorshift128plus_engine::generate,
+// mtl::xorshift128plus_engine::discard, mtl::xorshift128plus_engine::operator<<,
+// mtl::xorshift128plus_engine::operator>>, mtl::xorshift128plus_engine::operator==,
+// mtl::xorshift128plus_engine::operator!=, [@class] mtl::xorshift128plus
 
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::xorshift128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator=
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::seed
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::min
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::max
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator()
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::generate
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::discard
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator<<
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator>>
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator==
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator!=
 // ------------------------------------------------------------------------------------------------
 // mtl::xorshift128plus
 // ------------------------------------------------------------------------------------------------

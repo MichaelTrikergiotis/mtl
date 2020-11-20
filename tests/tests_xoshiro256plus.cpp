@@ -13,8 +13,44 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/xoshiro256plus.hpp" 
-// mtl::xoshiro256plus
+// [@class] mtl::xoshiro256plus_engine, mtl::xoshiro256plus_engine::xoshiro256plus_engine,
+// mtl::xoshiro256plus_engine::operator=, mtl::xoshiro256plus_engine::seed, 
+// mtl::xoshiro256plus_engine::min, mtl::xoshiro256plus_engine::max,
+// mtl::xoshiro256plus_engine::operator(), mtl::xoshiro256plus_engine::generate,
+// mtl::xoshiro256plus_engine::discard, mtl::xoshiro256plus_engine::operator<<,
+// mtl::xoshiro256plus_engine::operator>>, mtl::xoshiro256plus_engine::operator==,
+// mtl::xoshiro256plus_engine::operator!=, [@class] mtl::xoshiro256plus
 
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::xoshiro256plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator=
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::seed
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::min
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::max
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator()
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::generate
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::discard
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator<<
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator>>
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator==
+// ------------------------------------------------------------------------------------------------
+// mtl::xoshiro256plus_engine::operator!=
 // ------------------------------------------------------------------------------------------------
 // mtl::xoshiro256plus
 // ------------------------------------------------------------------------------------------------

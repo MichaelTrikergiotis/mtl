@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # fmt-tidy by Michael Trikergiotis
 # 24/09/2020

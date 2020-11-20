@@ -451,12 +451,12 @@ inline void rem_duplicates_preserve(Container& container, Hash hash, BinaryPredi
 
 
 // ================================================================================================
-// KEEP_DUPLICATES_INCLUSIVE_SORTED -   Keeps duplicates including the original duplicate. Requires
+// KEEP_DUPLICATES_INCLUSIVE_SORTED   - Keeps duplicates including the original duplicate. Requires
 //                                      the container to be sorted.
-// KEEP_DUPLICATES_INCLUSIVE -          Keeps duplicates including the original duplicate without
+// KEEP_DUPLICATES_INCLUSIVE          - Keeps duplicates including the original duplicate without
 //                                      preserving ordering.
 // KEEP_DUPLICATES_INCLUSIVE_PRESERVE - Keeps duplicates including the original duplicate while
-// 								       preserving ordering.
+// 								        preserving ordering.
 // ================================================================================================
 
 /// Keeps duplicates including the original duplicate. Requires the container to be sorted.
@@ -598,12 +598,12 @@ inline void keep_duplicates_inclusive_preserve(Container& container)
 }
 
 // ================================================================================================
-// KEEP_DUPLICATES_EXCLUSIVE_SORTED -   Keeps duplicates excluding the original duplicate. Requires
+// KEEP_DUPLICATES_EXCLUSIVE_SORTED   - Keeps duplicates excluding the original duplicate. Requires
 //                                      the container to be sorted.
-// KEEP_DUPLICATES_EXCLUSIVE -          Keeps duplicates excluding the original duplicate without
-//                                 	   preserving ordering.
+// KEEP_DUPLICATES_EXCLUSIVE          - Keeps duplicates excluding the original duplicate without
+//                                 	    preserving ordering.
 // KEEP_DUPLICATES_EXCLUSIVE_PRESERVE - Keeps duplicates excluding the original duplicate while
-// 								  	   preserving ordering.
+// 								  	    preserving ordering.
 // ================================================================================================
 
 
