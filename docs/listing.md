@@ -1,5 +1,9 @@
 # List of classes and functions
 
+## Statistics
+
+There are 16 headers.
+
 There are 11 classes.
 
 There are 52 class member functions.

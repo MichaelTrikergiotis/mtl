@@ -276,11 +276,16 @@ def generate_documentation(sources):
             lines.append(text.format(name, header_location, source_location))
         lines.append('\n---------------------------------------------------\n')
 
-    # insert the totals
-    lines.insert(2, 'There are {} classes.\n'.format(class_count))
+    # add the statistics to the markdown
+    statistics = []
+    statistics.append('## Statistics\n')
+    statistics.append('There are {} headers.\n'.format(len(sources)))
+    statistics.append('There are {} classes.\n'.format(class_count))
     cfc = class_function_count
-    lines.insert(3, 'There are {} class member functions.\n'.format(cfc))
-    lines.insert(4, 'There are {} non-member functions.\n'.format(count))
+    statistics.append('There are {} class member functions.\n'.format(cfc))
+    statistics.append('There are {} non-member functions.\n'.format(count))
+    # insert the statistics after the second line in the list
+    lines = lines[:2] + statistics + lines[2:]
 
     # remove the last line to generate a more standards compliant Markdown
     lines = lines[:-1]
