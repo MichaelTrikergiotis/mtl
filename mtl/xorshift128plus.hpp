@@ -123,11 +123,11 @@ public:
 
 	/// Constructor with a single seed value. It will use default seed values except one seed value
 	/// which will be the given value.
-	/// @param[in] value A single seed value.
-	xorshift128plus_engine(state_type value)
+	/// @param[in] seed1 A single seed value.
+	xorshift128plus_engine(state_type seed1)
 	{
 		state_struct new_state;
-		new_state.seed_1 = value;
+		new_state.seed_1 = seed1;
 		_state = new_state;
 	}
 
@@ -204,19 +204,19 @@ public:
 	// ============================================================================================
 
 	/// Seed the random engine to the default seed values except the one given seed value.
-	/// @param[in] seed_value A single seed value.
-	void seed(state_type seed_value)
+	/// @param[in] seed1 A single seed value.
+	void seed(state_type seed1)
 	{
 		auto new_state = state_struct();
-		new_state.seed_2 = seed_value;
+		new_state.seed_1 = seed1;
 		_state = new_state;
 	}
 
 	// ============================================================================================
-	// SEED - Seed the random engine with a multiple seed values.
+	// SEED - Seed the random engine with multiple seed values.
 	// ============================================================================================
 
-	/// Seed the random engine with a multiple seed values.
+	/// Seed the random engine with multiple seed values.
 	/// @param[in] seed1 The first seed.
 	/// @param[in] seed2 The second seed.
 	void seed(state_type seed1, state_type seed2)

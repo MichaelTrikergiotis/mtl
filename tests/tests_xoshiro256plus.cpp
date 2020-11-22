@@ -92,6 +92,16 @@ TEST_CASE("constructor with one seed value")
     REQUIRE_EQ((x1 == x2), true);
 }
 
+TEST_CASE("constructor with two seed values")
+{
+    auto seed1 = 14254277390595747963UL;
+    auto seed2 = 508793785532536663UL;
+    mtl_rng_engine_test x1(seed1, seed2);
+    mtl_rng_engine_test x2(seed1, seed2);
+
+    REQUIRE_EQ((x1 == x2), true);
+}
+
 TEST_CASE("constructor with four seed values")
 {
     mtl_rng_engine_test x1(508793785532536663UL, 13713535390190520406UL, 14254277390595747963UL,
@@ -324,6 +334,17 @@ TEST_CASE("changing seed")
     REQUIRE_EQ((x1 == x2), false);
 }
 
+TEST_CASE("changing two seeds")
+{
+    mtl_rng_engine_test x1;
+    // changing the default
+    x1.seed(16590098645626663609UL, 9143376823279757380UL);
+    mtl_rng_engine_test x2;
+    x2.seed(7055232833321683523UL, 7055232833321683523UL);
+
+    REQUIRE_EQ((x1 == x2), false);
+}
+
 TEST_CASE(" changing multiple seed values")
 {
     mtl_rng_engine_test x1;
@@ -337,7 +358,7 @@ TEST_CASE(" changing multiple seed values")
     REQUIRE_EQ((x1 == x2), false);
 }
 
-TEST_CASE(" changing default seed and setting default seed again")
+TEST_CASE("changing default seed and setting default seed again")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -346,6 +367,20 @@ TEST_CASE(" changing default seed and setting default seed again")
     x1.seed();
     mtl_rng_engine_test x2;
     x2.seed(7055232833321683523UL);
+    x2.seed();
+
+    REQUIRE_EQ((x1 == x2), true);
+}
+
+TEST_CASE("changing two default seeds and setting default seed again")
+{
+    mtl_rng_engine_test x1;
+    // changing the default
+    x1.seed(1914114301168679702UL, 13713535390190520406UL);
+    // setting the default again
+    x1.seed();
+    mtl_rng_engine_test x2;
+    x2.seed(7055232833321683523UL, 16590098645626663609UL);
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
