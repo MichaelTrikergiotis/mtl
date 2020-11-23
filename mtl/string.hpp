@@ -677,9 +677,9 @@ inline std::string to_string(const bool input)
 { 
 	if(input)
 	{
-		return std::string("1");
+		return std::string("true");
 	}
-	return std::string("0");
+	return std::string("false");
 }
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also

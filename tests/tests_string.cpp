@@ -872,7 +872,9 @@ TEST_CASE("mtl::string::to_string with temp")
     std::string float_s = mtl::string::to_string(150.0f);
     CHECK_EQ(float_s, std::string("150.0"));
     std::string bool_s = mtl::string::to_string(true);
-    CHECK_EQ(bool_s, std::string("1"));
+    CHECK_EQ(bool_s, std::string("true"));
+    bool_s = mtl::string::to_string(false);
+    CHECK_EQ(bool_s, std::string("false"));
     std::string pair_s = mtl::string::to_string(std::pair<int, char>(333, 'a'));
     CHECK_EQ(pair_s, std::string("333, a"));
     std::string pair_s2 = mtl::string::to_string(std::pair<int, char>(333, 'a'), " # ");
@@ -902,7 +904,10 @@ TEST_CASE("mtl::string::to_string")
     CHECK_EQ(float_s, std::string("150.0"));
     bool b = true;
     std::string bool_s = mtl::string::to_string(b);
-    CHECK_EQ(bool_s, std::string("1"));
+    CHECK_EQ(bool_s, std::string("true"));
+    b = false;
+    bool_s = mtl::string::to_string(b);
+    CHECK_EQ(bool_s, std::string("false"));
     auto p = std::pair<int, char>(333, 'a');
     std::string pair_s = mtl::string::to_string(p);
     CHECK_EQ(pair_s, std::string("333, a"));
@@ -968,7 +973,7 @@ TEST_CASE("mtl::string::join_all")
     CHECK_EQ(si_s, desired);
 
     std::list<bool> lb = {true, true, false, true, true};
-    std::string desired_bool = "11011";
+    std::string desired_bool = "truetruefalsetruetrue";
     std::string lb_s = mtl::string::join_all(lb.begin(), lb.end());
     CHECK_EQ(lb_s, desired_bool);
 
@@ -1108,7 +1113,7 @@ TEST_CASE("mtl::string::join")
     std::string multi_char = mtl::string::join('a', ' ', 'b', ' ', 'c');
     CHECK_EQ(multi_char, std::string("a b c"));
     std::string multi_various = mtl::string::join("aaa", std::string("bbb"), 154, 1.1f, '|', true);
-    CHECK_EQ(multi_various, std::string("aaabbb1541.1|1"));
+    CHECK_EQ(multi_various, std::string("aaabbb1541.1|true"));
 
     const char* cs = "Hello";
     std::string mary = " Mary ";
@@ -1116,7 +1121,7 @@ TEST_CASE("mtl::string::join")
     bool b = true;
     auto p = std::pair<int, char>(33, 'd');
     std::string multi_var = mtl::string::join(cs, mary, d, b, false, b, ", ", p);
-    CHECK_EQ(multi_var, std::string("Hello Mary 2.2101, 33, d"));
+    CHECK_EQ(multi_var, std::string("Hello Mary 2.2truefalsetrue, 33, d"));
 
 
 
