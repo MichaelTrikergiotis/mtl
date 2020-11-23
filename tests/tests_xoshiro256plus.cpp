@@ -90,6 +90,18 @@ TEST_CASE("constructor with one seed value")
     mtl_rng_engine_test x2(seed);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("constructor with two seed values")
@@ -100,6 +112,18 @@ TEST_CASE("constructor with two seed values")
     mtl_rng_engine_test x2(seed1, seed2);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("constructor with four seed values")
@@ -110,6 +134,18 @@ TEST_CASE("constructor with four seed values")
                            9143376823279757380UL);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("constructor with different first seed values")
@@ -120,6 +156,18 @@ TEST_CASE("constructor with different first seed values")
                            9143376823279757380UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("constructor with different second seed values")
@@ -130,6 +178,18 @@ TEST_CASE("constructor with different second seed values")
                            9143376823279757380UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("constructor with different third seed values")
@@ -140,6 +200,18 @@ TEST_CASE("constructor with different third seed values")
                            9143376823279757380UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("constructor with different fourth seed values")
@@ -150,6 +222,18 @@ TEST_CASE("constructor with different fourth seed values")
                            9543376823279757380UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 
@@ -332,6 +416,18 @@ TEST_CASE("changing seed")
     x2.seed(7055232833321683523UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("changing two seeds")
@@ -343,6 +439,18 @@ TEST_CASE("changing two seeds")
     x2.seed(7055232833321683523UL, 7055232833321683523UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE(" changing multiple seed values")
@@ -356,6 +464,18 @@ TEST_CASE(" changing multiple seed values")
             13713535390190520406UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("changing default seed and setting default seed again")
@@ -370,6 +490,18 @@ TEST_CASE("changing default seed and setting default seed again")
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("changing two default seeds and setting default seed again")
@@ -384,6 +516,18 @@ TEST_CASE("changing two default seeds and setting default seed again")
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("changing multiple default seed values and setting default seed values again")
@@ -400,6 +544,18 @@ TEST_CASE("changing multiple default seed values and setting default seed values
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("copying seed values from another engine")
@@ -412,6 +568,18 @@ TEST_CASE("copying seed values from another engine")
     x2.seed(x1);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("operator << to grab seed values")
@@ -438,6 +606,18 @@ TEST_CASE("operator >> used to set seed values")
     ss >> x2;
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("using engine with different default seed values")
@@ -449,6 +629,18 @@ TEST_CASE("using engine with different default seed values")
     x1.discard(10);
     x_eng.discard(10);
     REQUIRE_NE(x1(), x_eng());
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x_eng());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 
