@@ -46,7 +46,7 @@ const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", 
 std::string joined_names = mtl::string::join_all(tokens.begin(), tokens.end(), ", ");
 ```
 
-Now `names` from example 1 and `joined_names` from example 2 if compared will be equal.
+Now if you compare `names` from example 1 and `joined_names` from example 2 they will be equal.
 
 [**EXAMPLE 3**]
 
