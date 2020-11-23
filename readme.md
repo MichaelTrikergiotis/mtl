@@ -22,7 +22,7 @@ For a quick overview of the functionality that **mtl** provides you can check th
 - For installation instructions refer to the [installation documentation](./docs/documentation.md#Installation).
 - For running the tests refer to the [tests documentation](./docs/documentation.md#How-to-run-the-tests).
 - For general documentation refer to the [documentation](./docs/documentation.md).
-- For contributing refer to the [contributing documenation](./contributing.md).
+- For contributing refer to the [contributing documentation](./contributing.md).
 
 ## Examples
 
@@ -50,6 +50,27 @@ Now if you compare `names` from example 1 and `joined_names` from example 2 they
 
 [**EXAMPLE 3**]
 
+With `mtl::string::join` you can join different types of variables together with ease. With `mtl::console::println` you can print one or more variables each followed by a newline.
+
+```c++
+const std::string planet = " planet ";
+// the types of the arguments here are const char*, char, const std::string, float and const char*
+std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " lightyears away.");
+mtl::console::println(message);
+```
+
+This should combine variables of various types together to an `std::string`. Then it should print to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
+
+The same as the above could be achieved with :
+
+```c++
+mtl::console::print("Hello from ", 'a', planet, 12.24f, " lightyears away.", '\n');
+```
+
+Please note that we use `mtl::console::print` with multiple variables and a newline at the end instead of `mtl::console::println` because `mtl::console::println` prints a newline character after each parameter you pass to it.
+
+[**EXAMPLE 4**]
+
 Generating a random number from 1 to 10 with the least amount of boilerplate code :
 
 ```c++
@@ -59,7 +80,7 @@ int random_number = rng_1to10.next();
 
 Now the variable `random_number` is a random integer number between 1 and 10.
 
-[**EXAMPLE 4**]
+[**EXAMPLE 5**]
 
 Timing how long a super slow function takes to execute using a stopwatch :
 
@@ -73,7 +94,7 @@ double time_taken_ns = sw.elapsed_nano();
 
 The variable `time_taken_ns` is a double for how many nanoseconds it took `my_super_slow_function` to run.
 
-[**EXAMPLE 5**]
+[**EXAMPLE 6**]
 
 Read all lines of a file :
 
