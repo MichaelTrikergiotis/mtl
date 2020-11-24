@@ -73,10 +73,10 @@ There are 116 non-member functions.
 
 ## filesystem.hpp
 
-- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L69)
-- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L217)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L152) [(Examples)](../tests/tests_filesystem.cpp#L69)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L153) [(Examples)](../tests/tests_filesystem.cpp#L217)
+- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L71)
+- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L219)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L152) [(Examples)](../tests/tests_filesystem.cpp#L71)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L153) [(Examples)](../tests/tests_filesystem.cpp#L219)
 
 ---------------------------------------------------
 
@@ -155,11 +155,11 @@ There are 116 non-member functions.
 - `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L469) [(Examples)](../tests/tests_string.cpp#L630)
 - `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L472) [(Examples)](../tests/tests_string.cpp#L630)
 - `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L630) [(Examples)](../tests/tests_string.cpp#L848)
-- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L747) [(Examples)](../tests/tests_string.cpp#L936)
-- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L924) [(Examples)](../tests/tests_string.cpp#L936)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1049) [(Examples)](../tests/tests_string.cpp#L1134)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1178) [(Examples)](../tests/tests_string.cpp#L1678)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1482) [(Examples)](../tests/tests_string.cpp#L2336)
+- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L747) [(Examples)](../tests/tests_string.cpp#L941)
+- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L924) [(Examples)](../tests/tests_string.cpp#L941)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1049) [(Examples)](../tests/tests_string.cpp#L1139)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1178) [(Examples)](../tests/tests_string.cpp#L1683)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1482) [(Examples)](../tests/tests_string.cpp#L2341)
 
 ---------------------------------------------------
 
