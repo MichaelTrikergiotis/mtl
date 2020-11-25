@@ -119,16 +119,10 @@ else y == 1000;
 for(int i = 0; i < 10; i++) x++;
 ```
 
-If you have only one statement you can have the brackets `{ }` on the same line. Having a single statement with the brackets `{ }` on other lines is also accepted.
+Usually a single statement is split over multiple lines, by separating the brackets `{ }` onto different lines. But you are also allowed to make a single statement into a one liner.
 
 ```c++
 // GOOD EXAMPLE :
-class cat
-{
-    bool cute() const  { return true; }
-};
-
-// ALSO GOOD EXAMPLE :
 class dog
 {
     bool cute() const  
@@ -137,14 +131,20 @@ class dog
     }
 };
 
-// GOOD EXAMPLE :
-if (x == 10) { return y; }
-
 // ALSO GOOD EXAMPLE :
+class cat
+{
+    bool cute() const  { return true; }
+};
+
+// GOOD EXAMPLE :
 if (x == 10)
 {
     return y;
 }
+
+// ALSO GOOD EXAMPLE :
+if (x == 10) { return y; }
 
 // BAD EXAMPLE :
 class player
