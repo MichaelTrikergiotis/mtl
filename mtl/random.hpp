@@ -45,7 +45,7 @@ struct uniform_distribution_type_selector<Type, std::enable_if_t<mtl::is_int_v<T
 	std::uniform_int_distribution<Type> distribution;
 
 	// empty constructor, this need to be declared
-	uniform_distribution_type_selector() {}
+	uniform_distribution_type_selector() = default;
 
 	// constructor that sets the minimum and maximum values for the uniform distribution
 	uniform_distribution_type_selector(Type min, Type max)
@@ -64,7 +64,7 @@ struct uniform_distribution_type_selector<Type, std::enable_if_t<mtl::is_float_v
 	std::uniform_real_distribution<Type> distribution;
 
 	// empty constructor, this need to be declared
-	uniform_distribution_type_selector() {}
+	uniform_distribution_type_selector() = default;
 
 	// constructor that sets the minimum and maximum values for the uniform distribution
 	uniform_distribution_type_selector(Type min, Type max)
@@ -185,8 +185,8 @@ public:
 	/// Seed the engine with two random seed values from std::random_device.
 	void seed_random()
 	{
-		static std::random_device rd;
-		engine.seed(rd(), rd());
+		static std::random_device rd; // GCOVR_EXCL_LINE
+		engine.seed(rd(), rd()); // GCOVR_EXCL_LINE
 	}
 };
 

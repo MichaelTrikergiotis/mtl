@@ -1309,12 +1309,19 @@ public:
 	}
 
 	// Returns an iterator to the beginning of the range.
+	[[nodiscard]]
 	iterator begin()  { return iterator(_start, _step, incremental); }
+
 	// Returns an iterator to the end of the range.
+	[[nodiscard]]
 	iterator end()    { return iterator(_end , _step, incremental); }
+
 	// Returns a const iterator to the beginning of the range.
+	[[nodiscard]]
 	iterator cbegin() const { return iterator(_start, _step, incremental); }
+
 	// Returns a const iterator to the end of the range.
+	[[nodiscard]]
 	iterator cend()   const { return iterator(_end , _step, incremental); }
 };
 

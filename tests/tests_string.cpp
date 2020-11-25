@@ -1834,8 +1834,8 @@ TEST_CASE("mtl::string::replace for short std::string, more tests")
 
 
     // create some that the match and the replacement are identical and are just one character
-    std::string single_id_match = "#";
-    std::string single_id_rep = single_id_match;
+    const std::string single_id_match = "#";
+    const std::string single_id_rep (single_id_match.begin(), single_id_match.end());
     REQUIRE_EQ(single_id_match.size(), 1);
     REQUIRE_EQ(single_id_rep.size(), 1);    
     REQUIRE_EQ(single_id_match, single_id_rep);
@@ -1870,8 +1870,8 @@ TEST_CASE("mtl::string::replace for short std::string, more tests")
 
 
     // create some that the match and the replacement are identical
-    std::string ident_match = "##";
-    std::string ident_rep = ident_match;
+    const std::string ident_match = "##";
+    const std::string ident_rep (ident_match.begin(), ident_match.end());
     REQUIRE_EQ(ident_match, ident_rep);
 
     // create some strings to match
@@ -2097,7 +2097,7 @@ TEST_CASE("mtl::string::replace for long std::string")
 
     // create some that the match and the replacement are identical and are just one character
     std::string single_id_match = "#";
-    std::string single_id_rep = single_id_match;
+    std::string single_id_rep (single_id_match.begin(), single_id_match.end());
     REQUIRE_EQ(single_id_match.size(), 1);
     REQUIRE_EQ(single_id_rep.size(), 1);    
     REQUIRE_EQ(single_id_match, single_id_rep);
@@ -2138,7 +2138,7 @@ TEST_CASE("mtl::string::replace for long std::string")
 
     // create some that the match and the replacement are identical
     std::string ident_match = "##";
-    std::string ident_rep = ident_match;
+    std::string ident_rep (ident_match.begin(), ident_match.end());
     REQUIRE_EQ(ident_match, ident_rep);
 
     // create some strings to match

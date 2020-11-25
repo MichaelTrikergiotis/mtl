@@ -4,7 +4,7 @@
 
 There are 16 headers.
 
-There are 11 classes.
+There are 10 classes.
 
 There are 52 class member functions.
 
@@ -86,7 +86,7 @@ There are 116 non-member functions.
 - `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L97)
 - `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L169)
 - `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
-- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L592)
+- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L596)
 - `mtl::percent` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L280)
 
 ---------------------------------------------------
@@ -159,7 +159,7 @@ There are 116 non-member functions.
 - `mtl::string::join` [(Documentation)](../mtl/string.hpp#L924) [(Examples)](../tests/tests_string.cpp#L941)
 - `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1049) [(Examples)](../tests/tests_string.cpp#L1139)
 - `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1178) [(Examples)](../tests/tests_string.cpp#L1683)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1482) [(Examples)](../tests/tests_string.cpp#L2341)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1486) [(Examples)](../tests/tests_string.cpp#L2341)
 
 ---------------------------------------------------
 
@@ -205,64 +205,63 @@ There are 116 non-member functions.
 
 ## utility.hpp
 
-- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L16)
-- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L71)
-- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L52) [(Examples)](../tests/tests_utility.cpp#L84)
-- [**CLASS**] `mtl::no_copy_move` [(Documentation)](../mtl/utility.hpp#L66) [(Examples)](../tests/tests_utility.cpp#L96)
+- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L17)
+- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L72)
+- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L54) [(Examples)](../tests/tests_utility.cpp#L96)
 
 ---------------------------------------------------
 
 ## xoroshiro128plus.hpp
 
-- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L27)
-  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L29)
-  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L170) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L31)
-  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L184) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L33)
-  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L225) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L35)
-  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L234) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L37)
-  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L243) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L39)
-  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L264) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L41)
-  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L281) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L43)
-  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L295) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L45)
-  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L312) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L47)
-  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L331) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L49)
-  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L344) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L51)
-- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L359) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L27)
+- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L28)
+  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L30)
+  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L182) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L32)
+  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L216) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L34)
+  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L257) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L36)
+  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L266) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L38)
+  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L275) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L40)
+  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L296) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L42)
+  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L313) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L44)
+  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L327) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L46)
+  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L344) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
+  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L363) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
+  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L376) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
+- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L391) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L28)
 
 ---------------------------------------------------
 
 ## xorshift128plus.hpp
 
-- [**CLASS**] `mtl::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L29)
-  - `mtl::xorshift128plus_engine::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L31)
-  - `mtl::xorshift128plus_engine::operator=` [(Documentation)](../mtl/xorshift128plus.hpp#L174) [(Examples)](../tests/tests_xorshift128plus.cpp#L33)
-  - `mtl::xorshift128plus_engine::seed` [(Documentation)](../mtl/xorshift128plus.hpp#L188) [(Examples)](../tests/tests_xorshift128plus.cpp#L35)
-  - `mtl::xorshift128plus_engine::min` [(Documentation)](../mtl/xorshift128plus.hpp#L229) [(Examples)](../tests/tests_xorshift128plus.cpp#L37)
-  - `mtl::xorshift128plus_engine::max` [(Documentation)](../mtl/xorshift128plus.hpp#L238) [(Examples)](../tests/tests_xorshift128plus.cpp#L39)
-  - `mtl::xorshift128plus_engine::operator()` [(Documentation)](../mtl/xorshift128plus.hpp#L247) [(Examples)](../tests/tests_xorshift128plus.cpp#L41)
-  - `mtl::xorshift128plus_engine::generate` [(Documentation)](../mtl/xorshift128plus.hpp#L270) [(Examples)](../tests/tests_xorshift128plus.cpp#L43)
-  - `mtl::xorshift128plus_engine::discard` [(Documentation)](../mtl/xorshift128plus.hpp#L287) [(Examples)](../tests/tests_xorshift128plus.cpp#L45)
-  - `mtl::xorshift128plus_engine::operator<<` [(Documentation)](../mtl/xorshift128plus.hpp#L301) [(Examples)](../tests/tests_xorshift128plus.cpp#L47)
-  - `mtl::xorshift128plus_engine::operator>>` [(Documentation)](../mtl/xorshift128plus.hpp#L318) [(Examples)](../tests/tests_xorshift128plus.cpp#L49)
-  - `mtl::xorshift128plus_engine::operator==` [(Documentation)](../mtl/xorshift128plus.hpp#L337) [(Examples)](../tests/tests_xorshift128plus.cpp#L51)
-  - `mtl::xorshift128plus_engine::operator!=` [(Documentation)](../mtl/xorshift128plus.hpp#L350) [(Examples)](../tests/tests_xorshift128plus.cpp#L53)
-- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L364) [(Examples)](../tests/tests_xorshift128plus.cpp#L29)
+- [**CLASS**] `mtl::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L30)
+  - `mtl::xorshift128plus_engine::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L25) [(Examples)](../tests/tests_xorshift128plus.cpp#L32)
+  - `mtl::xorshift128plus_engine::operator=` [(Documentation)](../mtl/xorshift128plus.hpp#L186) [(Examples)](../tests/tests_xorshift128plus.cpp#L34)
+  - `mtl::xorshift128plus_engine::seed` [(Documentation)](../mtl/xorshift128plus.hpp#L220) [(Examples)](../tests/tests_xorshift128plus.cpp#L36)
+  - `mtl::xorshift128plus_engine::min` [(Documentation)](../mtl/xorshift128plus.hpp#L261) [(Examples)](../tests/tests_xorshift128plus.cpp#L38)
+  - `mtl::xorshift128plus_engine::max` [(Documentation)](../mtl/xorshift128plus.hpp#L270) [(Examples)](../tests/tests_xorshift128plus.cpp#L40)
+  - `mtl::xorshift128plus_engine::operator()` [(Documentation)](../mtl/xorshift128plus.hpp#L279) [(Examples)](../tests/tests_xorshift128plus.cpp#L42)
+  - `mtl::xorshift128plus_engine::generate` [(Documentation)](../mtl/xorshift128plus.hpp#L302) [(Examples)](../tests/tests_xorshift128plus.cpp#L44)
+  - `mtl::xorshift128plus_engine::discard` [(Documentation)](../mtl/xorshift128plus.hpp#L319) [(Examples)](../tests/tests_xorshift128plus.cpp#L46)
+  - `mtl::xorshift128plus_engine::operator<<` [(Documentation)](../mtl/xorshift128plus.hpp#L333) [(Examples)](../tests/tests_xorshift128plus.cpp#L48)
+  - `mtl::xorshift128plus_engine::operator>>` [(Documentation)](../mtl/xorshift128plus.hpp#L350) [(Examples)](../tests/tests_xorshift128plus.cpp#L50)
+  - `mtl::xorshift128plus_engine::operator==` [(Documentation)](../mtl/xorshift128plus.hpp#L369) [(Examples)](../tests/tests_xorshift128plus.cpp#L52)
+  - `mtl::xorshift128plus_engine::operator!=` [(Documentation)](../mtl/xorshift128plus.hpp#L382) [(Examples)](../tests/tests_xorshift128plus.cpp#L54)
+- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L396) [(Examples)](../tests/tests_xorshift128plus.cpp#L30)
 
 ---------------------------------------------------
 
 ## xoshiro256plus.hpp
 
-- [**CLASS**] `mtl::xoshiro256plus_engine` [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L29)
-  - `mtl::xoshiro256plus_engine::xoshiro256plus_engine` [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L31)
-  - `mtl::xoshiro256plus_engine::operator=` [(Documentation)](../mtl/xoshiro256plus.hpp#L210) [(Examples)](../tests/tests_xoshiro256plus.cpp#L33)
-  - `mtl::xoshiro256plus_engine::seed` [(Documentation)](../mtl/xoshiro256plus.hpp#L224) [(Examples)](../tests/tests_xoshiro256plus.cpp#L35)
-  - `mtl::xoshiro256plus_engine::min` [(Documentation)](../mtl/xoshiro256plus.hpp#L282) [(Examples)](../tests/tests_xoshiro256plus.cpp#L37)
-  - `mtl::xoshiro256plus_engine::max` [(Documentation)](../mtl/xoshiro256plus.hpp#L291) [(Examples)](../tests/tests_xoshiro256plus.cpp#L39)
-  - `mtl::xoshiro256plus_engine::operator()` [(Documentation)](../mtl/xoshiro256plus.hpp#L300) [(Examples)](../tests/tests_xoshiro256plus.cpp#L41)
-  - `mtl::xoshiro256plus_engine::generate` [(Documentation)](../mtl/xoshiro256plus.hpp#L324) [(Examples)](../tests/tests_xoshiro256plus.cpp#L43)
-  - `mtl::xoshiro256plus_engine::discard` [(Documentation)](../mtl/xoshiro256plus.hpp#L341) [(Examples)](../tests/tests_xoshiro256plus.cpp#L45)
-  - `mtl::xoshiro256plus_engine::operator<<` [(Documentation)](../mtl/xoshiro256plus.hpp#L355) [(Examples)](../tests/tests_xoshiro256plus.cpp#L47)
-  - `mtl::xoshiro256plus_engine::operator>>` [(Documentation)](../mtl/xoshiro256plus.hpp#L373) [(Examples)](../tests/tests_xoshiro256plus.cpp#L49)
-  - `mtl::xoshiro256plus_engine::operator==` [(Documentation)](../mtl/xoshiro256plus.hpp#L394) [(Examples)](../tests/tests_xoshiro256plus.cpp#L51)
-  - `mtl::xoshiro256plus_engine::operator!=` [(Documentation)](../mtl/xoshiro256plus.hpp#L407) [(Examples)](../tests/tests_xoshiro256plus.cpp#L53)
-- [**CLASS**] `mtl::xoshiro256plus` [(Documentation)](../mtl/xoshiro256plus.hpp#L421) [(Examples)](../tests/tests_xoshiro256plus.cpp#L29)
+- [**CLASS**] `mtl::xoshiro256plus_engine` [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L30)
+  - `mtl::xoshiro256plus_engine::xoshiro256plus_engine` [(Documentation)](../mtl/xoshiro256plus.hpp#L25) [(Examples)](../tests/tests_xoshiro256plus.cpp#L32)
+  - `mtl::xoshiro256plus_engine::operator=` [(Documentation)](../mtl/xoshiro256plus.hpp#L222) [(Examples)](../tests/tests_xoshiro256plus.cpp#L34)
+  - `mtl::xoshiro256plus_engine::seed` [(Documentation)](../mtl/xoshiro256plus.hpp#L256) [(Examples)](../tests/tests_xoshiro256plus.cpp#L36)
+  - `mtl::xoshiro256plus_engine::min` [(Documentation)](../mtl/xoshiro256plus.hpp#L314) [(Examples)](../tests/tests_xoshiro256plus.cpp#L38)
+  - `mtl::xoshiro256plus_engine::max` [(Documentation)](../mtl/xoshiro256plus.hpp#L323) [(Examples)](../tests/tests_xoshiro256plus.cpp#L40)
+  - `mtl::xoshiro256plus_engine::operator()` [(Documentation)](../mtl/xoshiro256plus.hpp#L332) [(Examples)](../tests/tests_xoshiro256plus.cpp#L42)
+  - `mtl::xoshiro256plus_engine::generate` [(Documentation)](../mtl/xoshiro256plus.hpp#L356) [(Examples)](../tests/tests_xoshiro256plus.cpp#L44)
+  - `mtl::xoshiro256plus_engine::discard` [(Documentation)](../mtl/xoshiro256plus.hpp#L373) [(Examples)](../tests/tests_xoshiro256plus.cpp#L46)
+  - `mtl::xoshiro256plus_engine::operator<<` [(Documentation)](../mtl/xoshiro256plus.hpp#L387) [(Examples)](../tests/tests_xoshiro256plus.cpp#L48)
+  - `mtl::xoshiro256plus_engine::operator>>` [(Documentation)](../mtl/xoshiro256plus.hpp#L405) [(Examples)](../tests/tests_xoshiro256plus.cpp#L50)
+  - `mtl::xoshiro256plus_engine::operator==` [(Documentation)](../mtl/xoshiro256plus.hpp#L426) [(Examples)](../tests/tests_xoshiro256plus.cpp#L52)
+  - `mtl::xoshiro256plus_engine::operator!=` [(Documentation)](../mtl/xoshiro256plus.hpp#L439) [(Examples)](../tests/tests_xoshiro256plus.cpp#L54)
+- [**CLASS**] `mtl::xoshiro256plus` [(Documentation)](../mtl/xoshiro256plus.hpp#L453) [(Examples)](../tests/tests_xoshiro256plus.cpp#L30)

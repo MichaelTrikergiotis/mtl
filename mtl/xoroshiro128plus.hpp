@@ -160,8 +160,20 @@ public:
 	// ============================================================================================
 
 	/// Copy constructor that copies the state of another random engine of the same type.
-	/// @param[in] other Another random engine.
+	/// @param[in] other Another random engine of the same type.
 	xoroshiro128plus_engine(const xoroshiro128plus_engine& other)
+	{
+		seed(other.state());
+	}
+
+	// ============================================================================================
+	// XOROSHIRO128PLUS_ENGINE - Move constructor that copies the state of another random engine 
+	//                           of the same type.
+	// ============================================================================================
+
+	/// Move constructor that moves the state of another random engine of the same type.
+	/// @param[in] other Another random generation engine of the same type.
+	xoroshiro128plus_engine(xoroshiro128plus_engine&& other) noexcept
 	{
 		seed(other.state());
 	}
@@ -172,13 +184,33 @@ public:
 	// ============================================================================================
 
 	/// Copy assignment operator that copies the state of another random engine of the same type.
-	/// @param[in] other Another random engine.
+	/// @param[in] other Another random generation engine of the same type.
 	[[nodiscard]]
 	xoroshiro128plus_engine& operator= (const xoroshiro128plus_engine& other)
 	{
 		seed(other.state());
 		return *this;
 	}
+
+	// ============================================================================================
+    // OPERATOR= - Move assignment operator that moves the state of another random engine of the
+	//             same type.
+	// ============================================================================================
+
+	/// Move assignment operator that moves the state of another random engine of the same type.
+	/// @param[in] other Another random generation engine of the same type.
+	xoroshiro128plus_engine& operator=(xoroshiro128plus_engine&& other) noexcept
+	{
+		seed(other.state());
+		return *this;
+	}
+
+	// ============================================================================================
+	// ~XOROSHIRO128PLUS_ENGINE - Destructor.
+	// ============================================================================================
+	
+	/// Destructor.
+	~xoroshiro128plus_engine() = default;
 
 	// ============================================================================================
 	// SEED - Set the seed by copying the seed values of another random engine of the same type.
@@ -320,8 +352,8 @@ public:
 	friend std::basic_istream<CharType, Traits>& 
 	operator>> (std::basic_istream<CharType, Traits>& is, xoroshiro128plus_engine& rngen)
 	{
-		state_type seed1;
-		state_type seed2;
+		state_type seed1 = 0;
+		state_type seed2 = 0;
 		is >> seed1 >> seed2;
 		rngen.seed(seed1, seed2);
 		return is;

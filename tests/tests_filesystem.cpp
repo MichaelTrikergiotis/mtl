@@ -97,7 +97,7 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
-    REQUIRE_EQ((read_data.size() == 0 ), true);
+    REQUIRE_EQ(read_data.empty(), true);
 
 
 
@@ -247,7 +247,7 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
     std::vector<std::string> read_data;
     bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
-    REQUIRE_EQ((read_data.size() == 0 ), true);
+    REQUIRE_EQ(read_data.empty(), true);
 
 
 
@@ -341,7 +341,7 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with CRLF"
     REQUIRE_EQ((filesize > 0), true);
 
     // read file and check contents are what we want
-    std::string desired_result = crlf_text;
+    const std::string desired_result(crlf_text.begin(), crlf_text.end());
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
@@ -379,7 +379,7 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed
     REQUIRE_EQ((filesize > 0), true);
 
     // read file and check contents are what we want
-    std::string desired_result = crlf_text;
+    const std::string desired_result (crlf_text.begin(), crlf_text.end());
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
@@ -742,7 +742,7 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines")
     const std::vector<std::string> correct_data
     { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
 
-    REQUIRE_EQ((read_lines.size() > 0), true);
+    REQUIRE_EQ(read_lines.empty(), false);
     REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
     REQUIRE_EQ((read_lines == correct_data), true);
 
@@ -788,7 +788,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 
     const std::string correct_data = "\nR\nG\nB\nCMYK\n\nR\nG\nB\n\n";
 
-    REQUIRE_EQ((read_line.size() > 0), true);
+    REQUIRE_EQ(read_line.empty(), false);
     REQUIRE_EQ((read_line.size() == correct_data.size()), true);
     REQUIRE_EQ((read_line == correct_data), true);
 

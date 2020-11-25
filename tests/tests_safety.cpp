@@ -35,12 +35,12 @@ TEST_CASE("mtl::safe_copy with empty containers of the same type")
 {
     constexpr size_t size = 0;
     std::vector<int> vi1(size);
-    std::array<int, size> ai1;
+    std::array<int, size> ai1 {};
     std::deque<int> di1(size);
     std::list<int> li1(size);
 
     std::vector<int> vi2(size);
-    std::array<int, size> ai2;
+    std::array<int, size> ai2 {};
     std::deque<int> di2(size);
     std::list<int> li2(size);
 
@@ -78,7 +78,7 @@ TEST_CASE("mtl::safe_copy with containers of the same type")
 {
     constexpr size_t size = 100;
     std::vector<int> vi1(size);
-    std::array<int, size> ai1;
+    std::array<int, size> ai1 {};
     std::deque<int> di1(size);
     std::list<int> li1(size);
     std::iota(vi1.begin(), vi1.end(), 10);
@@ -87,7 +87,7 @@ TEST_CASE("mtl::safe_copy with containers of the same type")
     std::iota(li1.begin(), li1.end(), 10);
 
     std::vector<int> vi2(size);
-    std::array<int, size> ai2;
+    std::array<int, size> ai2 {};
     std::deque<int> di2(size);
     std::list<int> li2(size);
 
@@ -124,7 +124,7 @@ TEST_CASE("mtl::safe_copy with containers of the same type but invalid size")
 {
     constexpr size_t size = 100;
     std::vector<int> vi1(size);
-    std::array<int, size> ai1;
+    std::array<int, size> ai1 {};
     std::deque<int> di1(size);
     std::list<int> li1(size);
     std::iota(vi1.begin(), vi1.end(), 10);
@@ -138,7 +138,7 @@ TEST_CASE("mtl::safe_copy with containers of the same type but invalid size")
     std::vector<int> vi2(smaller_size, 0);
     std::deque<int> di2(smaller_size, 0);
     std::list<int> li2(smaller_size, 0);
-    std::array<int, smaller_size> ai2;
+    std::array<int, smaller_size> ai2 {};
     ai2.fill(0);
 
     // the mtl::safe_copy will fail and return false because the destination is smaller
@@ -190,12 +190,12 @@ TEST_CASE("mtl::safe_copy with empty containers of std::string")
 {
     constexpr size_t size = 0;
     std::vector<std::string> vi1(size);
-    std::array<std::string, size> ai1;
+    std::array<std::string, size> ai1 {};
     std::deque<std::string> di1(size);
     std::list<std::string> li1(size);
 
     std::vector<std::string> vi2(size);
-    std::array<std::string, size> ai2;
+    std::array<std::string, size> ai2 {};
     std::deque<std::string> di2(size);
     std::list<std::string> li2(size);
 
@@ -239,7 +239,7 @@ TEST_CASE("mtl::safe_copy with containers of std::string")
 
 
     std::vector<std::string> vi2 (size);
-    std::array<std::string, size> ai2 ;
+    std::array<std::string, size> ai2 {};
     std::deque<std::string> di2 (size);
     std::list<std::string> li2 (size);
 
@@ -280,7 +280,7 @@ TEST_CASE("mtl::safe_copy with empty containers")
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -309,7 +309,7 @@ TEST_CASE("mtl::safe_copy with containers")
 {
     constexpr size_t size = 100;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
     std::iota(vi.begin(), vi.end(), 10);
@@ -339,7 +339,7 @@ TEST_CASE("mtl::safe_copy with empty containers of std::string")
 {
     constexpr size_t size = 0;
     std::vector<std::string> vi(size);
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 
@@ -369,7 +369,7 @@ TEST_CASE("mtl::safe_copy with containers of std::string")
 {
     constexpr size_t size = 3;
     std::vector<std::string> vi { "Bill", "Nick", "Maria"};
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 
@@ -402,8 +402,8 @@ TEST_CASE("mtl::safe_copy with empty containers of the same type using iterators
     constexpr size_t size = 0;
     std::vector<int> vi(size);
     std::vector<int> vi2(size);
-    std::array<int, size> ai;
-    std::array<int, size> ai2;
+    std::array<int, size> ai {};
+    std::array<int, size> ai2 {};
     std::deque<int> di(size);
     std::deque<int> di2(size);
     std::list<int> li(size);
@@ -440,7 +440,7 @@ TEST_CASE("mtl::safe_copy with empty containers using iterators ")
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -468,8 +468,8 @@ TEST_CASE("mtl::safe_copy with containers of the same type using iterators ")
     constexpr size_t size = 20;
     std::vector<int> vi(size);
     std::vector<int> vi2(size);
-    std::array<int, size> ai;
-    std::array<int, size> ai2;
+    std::array<int, size> ai {};
+    std::array<int, size> ai2 {};
     std::deque<int> di(size);
     std::deque<int> di2(size);
     std::list<int> li(size);
@@ -515,8 +515,8 @@ TEST_CASE("mtl::safe_copy with containers of the same type passing incorrect ite
     
     std::vector<int> vi(size, 0);
     std::vector<int> vi2(size, 0);
-    std::array<int, size> ai;
-    std::array<int, size> ai2;  
+    std::array<int, size> ai {};
+    std::array<int, size> ai2 {};  
     ai.fill(0);
     ai2.fill(0);
 
@@ -561,12 +561,12 @@ TEST_CASE("mtl::safe_copy with same type containers using iterators, destination
     std::vector<int> vi(size);
     std::deque<int> di(size);
     std::list<int> li(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
 
     // make sure the originals are filled with
     constexpr size_t smaller_size = 9;
     std::vector<int> vi2(smaller_size);
-    std::array<int, smaller_size> ai2;
+    std::array<int, smaller_size> ai2 {};
     std::deque<int> di2(smaller_size);
     std::list<int> li2(smaller_size);
 
@@ -611,7 +611,7 @@ TEST_CASE("mtl::safe_copy with iterators")
 {
     constexpr size_t size = 100;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
     std::iota(vi.begin(), vi.end(), 10);
@@ -639,7 +639,7 @@ TEST_CASE("mtl::safe_copy with empty containers of std::string using iterators")
 {
     constexpr size_t size = 0;
     std::vector<std::string> vi(size);
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 
@@ -666,7 +666,7 @@ TEST_CASE("mtl::safe_copy with iterators and std::string")
 {
     constexpr size_t size = 3;
     std::vector<std::string> vi { "Bill", "Nick", "Maria"};
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai  {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 
@@ -697,12 +697,12 @@ TEST_CASE("mtl::safe_copy_n with empty containers of the same type")
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai  {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
     std::vector<int> vi2(size);
-    std::array<int, size> ai2;
+    std::array<int, size> ai2  {};
     std::deque<int> di2(size);
     std::list<int> li2(size);
 
@@ -738,7 +738,7 @@ TEST_CASE("mtl::safe_copy_n with containers of the same type")
 {
     constexpr size_t size = 10;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai  {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -749,7 +749,7 @@ TEST_CASE("mtl::safe_copy_n with containers of the same type")
     std::iota(li.begin(), li.end(), 300);
 
     std::vector<int> vi2(size);
-    std::array<int, size> ai2;
+    std::array<int, size> ai2 {};
     std::deque<int> di2(size);
     std::list<int> li2(size);
 
@@ -785,7 +785,7 @@ TEST_CASE("mtl::safe_copy_n with containers of the same type, invalid destinatio
 {
     constexpr size_t size = 10;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -798,7 +798,7 @@ TEST_CASE("mtl::safe_copy_n with containers of the same type, invalid destinatio
     // make sure the destination containers are filled with zeros and the destination is smaller
     constexpr size_t smaller_size = 9;
     std::vector<int> vi2(smaller_size);
-    std::array<int, smaller_size> ai2;
+    std::array<int, smaller_size> ai2 {};
     std::deque<int> di2(smaller_size);
     std::list<int> li2(smaller_size);
 
@@ -837,7 +837,7 @@ TEST_CASE("mtl::safe_copy_n with empty containers")
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -866,7 +866,7 @@ TEST_CASE("mtl::safe_copy_n with empty containers and invalid starting position 
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -898,7 +898,7 @@ TEST_CASE("mtl::safe_copy_n with empty containers and valid starting position bu
     std::vector<int> vi(size, 0);
     std::deque<int> di(size, 0);
     std::list<int> li(size, 0);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     ai.fill(0);
 
     // fill the std::vector with some numbers
@@ -929,7 +929,7 @@ TEST_CASE("mtl::safe_copy_n with invalid starting position")
     std::vector<int> vi(size, 0);
     std::deque<int> di(size, 0);
     std::list<int> li(size, 0);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     ai.fill(0);
 
     // fill the vector with some numbers
@@ -968,7 +968,7 @@ TEST_CASE("mtl::safe_copy_n with empty containers and more items than available"
 {
     constexpr size_t size = 0;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
 
@@ -1000,7 +1000,7 @@ TEST_CASE("mtl::safe_copy_n with more items than available")
     std::vector<int> vi(size, 0);
     std::deque<int> di(size, 0);
     std::list<int> li(size, 0);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     ai.fill(0);
 
     // fill the vector with some numbers
@@ -1040,7 +1040,7 @@ TEST_CASE("mtl::safe_copy_n with starting position and less items than total")
     constexpr size_t size = 10;
     // create a container to copy from that is bigger than the destination
     std::vector<int> vi(size+10);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
     std::iota(vi.begin(), vi.end(), 10);
@@ -1075,7 +1075,7 @@ TEST_CASE("mtl::safe_copy_n with containers and starting position and number of 
 {
     constexpr size_t size = 100;
     std::vector<int> vi(size);
-    std::array<int, size> ai;
+    std::array<int, size> ai {};
     std::deque<int> di(size);
     std::list<int> li(size);
     std::iota(vi.begin(), vi.end(), 10);
@@ -1103,7 +1103,7 @@ TEST_CASE("mtl::safe_copy_n with empty containers of std::string and starting po
 {
     constexpr size_t size = 0;
     std::vector<std::string> vi(size);
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 
@@ -1133,7 +1133,7 @@ TEST_CASE("mtl::safe_copy_n with containers of std::string and starting position
 {
     constexpr size_t size = 3;
     std::vector<std::string> vi { "Bill", "Nick", "Maria"};
-    std::array<std::string, size> ai;
+    std::array<std::string, size> ai {};
     std::deque<std::string> di(size);
     std::list<std::string> li(size);
 

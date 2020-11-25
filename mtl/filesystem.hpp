@@ -123,7 +123,7 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 	if (mtl::filesystem::read_file(filename, internal_buffer))
 	{
 		// check that the buffer is not empty before we try to split it
-		if (internal_buffer.size() > 0)
+		if (internal_buffer.empty() == false)
 		{
 			// convert CRLF to LF
 			mtl::string::replace(internal_buffer, "\r\n", '\n');
@@ -132,7 +132,7 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 			mtl::string::split(internal_buffer, output, '\n');
 			// if the last element is empty remove it, we are sure that the output is not empty
 			// become we know that the internal buffer is bigger than 0 if we reached this point
-			if (output.back() == "")
+			if (output.back().empty())
 			{
 				output.pop_back();
 			}
@@ -205,7 +205,7 @@ inline bool write_all_lines(const std::filesystem::path& filename, Iter first, I
 	// join all the elements with \n as a delimiter to an internal_buffer
 	mtl::string::join_all(first, last, internal_buffer, '\n');
 
-	if (internal_buffer.size() > 0)
+	if (internal_buffer.empty() == false)
 	{
 		internal_buffer.push_back('\n');
 	}

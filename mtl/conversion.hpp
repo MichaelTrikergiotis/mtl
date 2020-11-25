@@ -124,7 +124,7 @@ inline FloatingPoint to_double_impl(const char* num)
 		}
 
 		int64_t e = 0;
-		while ((*num != '\0') && (*num >= '0') && (*num <= '9'))
+		while ((*num >= '0') && (*num <= '9'))
 		{
 			e = e * 10 + *num - '0';
 			++num;
@@ -233,7 +233,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 		}
 
 		int64_t e = 0;
-		while ((*num != '\0') && (*num >= '0') && (*num <= '9'))
+		while ((*num >= '0') && (*num <= '9'))
 		{
 			e = e * 10 + *num - '0';
 			++num;
@@ -347,7 +347,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 		}
 
 		int64_t e = 0;
-		while ((*num != '\0') && (*num >= '0') && (*num <= '9'))
+		while ((*num >= '0') && (*num <= '9'))
 		{
 			e = e * 10 + *num - '0';
 			++num;

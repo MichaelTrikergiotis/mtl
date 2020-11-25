@@ -195,13 +195,25 @@ private:
 public:
 
 	// ============================================================================================
-	// XOSHIRO256PLUS_ENGINE - Copy constructor that copies the state of another random engine of
-	//                         the same type.
+	// XOSHIRO256PLUS_ENGINE - Copy constructor that copies the state of another random engine 
+	//                           of the same type.
 	// ============================================================================================
 
 	/// Copy constructor that copies the state of another random engine of the same type.
-	/// @param[in] other Another random engine.
+	/// @param[in] other Another random engine of the same type.
 	xoshiro256plus_engine(const xoshiro256plus_engine& other)
+	{
+		seed(other.state());
+	}
+
+	// ============================================================================================
+	// XOSHIRO256PLUS_ENGINE - Move constructor that copies the state of another random engine 
+	//                           of the same type.
+	// ============================================================================================
+
+	/// Move constructor that moves the state of another random engine of the same type.
+	/// @param[in] other Another random generation engine of the same type.
+	xoshiro256plus_engine(xoshiro256plus_engine&& other) noexcept
 	{
 		seed(other.state());
 	}
@@ -212,13 +224,33 @@ public:
 	// ============================================================================================
 
 	/// Copy assignment operator that copies the state of another random engine of the same type.
-	/// @param[in] other Another random engine.
+	/// @param[in] other Another random generation engine of the same type.
 	[[nodiscard]]
 	xoshiro256plus_engine& operator= (const xoshiro256plus_engine& other)
 	{
 		seed(other.state());
 		return *this;
 	}
+
+	// ============================================================================================
+    // OPERATOR= - Move assignment operator that moves the state of another random engine of the
+	//             same type.
+	// ============================================================================================
+
+	/// Move assignment operator that moves the state of another random engine of the same type.
+	/// @param[in] other Another random generation engine of the same type.
+	xoshiro256plus_engine& operator=(xoshiro256plus_engine&& other) noexcept
+	{
+		seed(other.state());
+		return *this;
+	}
+
+	// ============================================================================================
+	// ~XOSHIRO256PLUS_ENGINE - Destructor.
+	// ============================================================================================
+	
+	/// Destructor.
+	~xoshiro256plus_engine() = default;
 
 	// ============================================================================================
 	// SEED - Set the seed by copying the seed values of another random engine of the same type.
@@ -381,10 +413,10 @@ public:
 	friend std::basic_istream<CharType, Traits>& 
 	operator>> (std::basic_istream<CharType, Traits>& is, xoshiro256plus_engine& rngen)
 	{
-		state_type seed1;
-		state_type seed2;
-		state_type seed3;
-		state_type seed4;
+		state_type seed1 = 0;
+		state_type seed2 = 0;
+		state_type seed3 = 0;
+		state_type seed4 = 0;
 		is >> seed1 >> seed2 >> seed3 >> seed4;
 		rngen.seed(seed1, seed2, seed3, seed4);
 		return is;

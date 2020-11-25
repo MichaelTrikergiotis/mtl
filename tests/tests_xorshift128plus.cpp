@@ -9,6 +9,7 @@
 #include <sstream>
 #include <random>    // std::uniform_int_distribution, std::uniform_real_distribution
 #include <algorithm> // std::count_if, std::all_of
+#include <utility>   // std::move
 
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
@@ -81,6 +82,35 @@ TEST_CASE("copy constructor")
     x1.discard(10);
     mtl_rng_engine_test x2(x1);
     REQUIRE_EQ((x1 == x2), true);
+
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
+}
+
+TEST_CASE("move constructor")
+{
+    mtl_rng_engine_test x1;
+    x1.discard(10);
+    mtl_rng_engine_test x_move;
+    x_move.discard(10);
+    mtl_rng_engine_test x2 (std::move(x_move));
+    REQUIRE_EQ((x1 == x2), true);
+    
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
+}
+
+TEST_CASE("move assignment operator")
+{
+    mtl_rng_engine_test x1;
+    x1.discard(10);
+    mtl_rng_engine_test x_move;
+    x_move.discard(10);
+    mtl_rng_engine_test x2 = std::move(x_move);
+    REQUIRE_EQ((x1 == x2), true);
+    
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
 }
 
 TEST_CASE("constructor with one seed value")
