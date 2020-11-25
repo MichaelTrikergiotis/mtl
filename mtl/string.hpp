@@ -958,6 +958,20 @@ inline void count_size_impl(size_t& size, const char* type)
 	size += std::strlen(type);
 }
 
+// Count size for bool.
+inline void count_size_impl(size_t& size, const bool type)
+{
+	if(type)
+	{
+		size += 4;
+	}
+	else
+	{
+		size += 5;
+	}
+	
+}
+
 // Count size for int. This is intentionally empty and also declared so integer are not implicitly
 // converted to chars and to stop warnings about integer conversion.
 inline void count_size_impl(size_t&, const int)
@@ -1000,7 +1014,6 @@ inline void count_size_impl(size_t& size, const Type& type, Args&&... args)
 {
 	count_size_impl(size, type);
 	count_size_impl(size, std::forward<Args>(args)...);
-	
 }
 
 

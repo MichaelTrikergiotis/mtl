@@ -157,9 +157,9 @@ There are 116 non-member functions.
 - `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L630) [(Examples)](../tests/tests_string.cpp#L848)
 - `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L747) [(Examples)](../tests/tests_string.cpp#L941)
 - `mtl::string::join` [(Documentation)](../mtl/string.hpp#L924) [(Examples)](../tests/tests_string.cpp#L941)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1049) [(Examples)](../tests/tests_string.cpp#L1139)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1178) [(Examples)](../tests/tests_string.cpp#L1683)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1486) [(Examples)](../tests/tests_string.cpp#L2341)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1062) [(Examples)](../tests/tests_string.cpp#L1139)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1191) [(Examples)](../tests/tests_string.cpp#L1683)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1499) [(Examples)](../tests/tests_string.cpp#L2341)
 
 ---------------------------------------------------
 
