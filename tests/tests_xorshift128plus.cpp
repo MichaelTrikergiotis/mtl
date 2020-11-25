@@ -351,7 +351,7 @@ TEST_CASE("max ")
     REQUIRE_EQ(std::numeric_limits<uint64_t>::max(), x1.max());
 }
 
-TEST_CASE(" changing seed")
+TEST_CASE("changing seed")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -374,7 +374,7 @@ TEST_CASE(" changing seed")
     REQUIRE_EQ((values1 == values2), false);
 }
 
-TEST_CASE(" changing multiple seed values")
+TEST_CASE("changing multiple seed values")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -397,7 +397,7 @@ TEST_CASE(" changing multiple seed values")
     REQUIRE_EQ((values1 == values2), false);
 }
 
-TEST_CASE(" changing default seed and setting default seed again")
+TEST_CASE("changing default seed and setting default seed again")
 {
     mtl_rng_engine_test x1;
     // changing the default

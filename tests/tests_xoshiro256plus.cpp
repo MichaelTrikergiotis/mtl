@@ -483,7 +483,7 @@ TEST_CASE("changing two seeds")
     REQUIRE_EQ((values1 == values2), false);
 }
 
-TEST_CASE(" changing multiple seed values")
+TEST_CASE("changing multiple seed values")
 {
     mtl_rng_engine_test x1;
     // changing the default
