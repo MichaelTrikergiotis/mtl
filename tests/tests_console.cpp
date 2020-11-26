@@ -1396,8 +1396,7 @@ TEST_CASE("print the newline character with various ways")
 
 TEST_CASE("mtl::console::clear")
 {
-    // this clears the console, comment out this test if you want to manualy inspect the output of
-    // the console tests
+    // this clears the console
     REQUIRE_NOTHROW(mtl::console::clear());
 }
 
