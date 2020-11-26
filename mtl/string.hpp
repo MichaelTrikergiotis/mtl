@@ -639,7 +639,7 @@ template<typename T>
 inline std::enable_if_t<!mtl::is_number_v<T>, std::string>
 to_string(const T& input)
 {
-	return fmt::format("{}", input);
+	return fmt::to_string(input);
 }
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also

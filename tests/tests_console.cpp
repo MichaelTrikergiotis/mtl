@@ -93,7 +93,7 @@ TEST_CASE("mtl::console::print print conversion specifiers without formatting, s
     // should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::print does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::print("arguments, there should be no formatted text.\n"));
@@ -114,7 +114,7 @@ TEST_CASE("mtl::console::print print conversion specifiers without formatting, m
     // should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     std::string s = "world.";
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::print does not format the passed "));
@@ -220,7 +220,7 @@ TEST_CASE("mtl::console::println print conversion specifiers without formatting,
     // etc should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::println does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::println("arguments, there should be no formatted text."));
@@ -240,7 +240,7 @@ TEST_CASE("mtl::console::println print conversion specifiers without formatting,
     // etc should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     std::string s = "world.";
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::println does not format the passed "));

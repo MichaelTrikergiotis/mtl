@@ -28,7 +28,7 @@
 // of doctest.h file with a newer version doctest.h file but the bug isn't fixed yet.
 /*
 // This is added to fix a bug that exists with doctest 2.4 with clang on Windows
-// https:// github.com/onqtam/doctest/issues/356
+// github.com/onqtam/doctest/issues/356
 #if defined(__clang__) && defined(_WIN32)
 #define DOCTEST_CONFIG_COLORS_NONE
 #endif

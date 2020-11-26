@@ -870,7 +870,7 @@ TEST_CASE("mtl::string::to_string with temp")
     std::string ulint_s = mtl::string::to_string(150UL);
     CHECK_EQ(ulint_s, std::string("150"));
     std::string float_s = mtl::string::to_string(150.0f);
-    CHECK_EQ(float_s, std::string("150.0"));
+    CHECK_EQ(float_s, std::string("150"));
     std::string bool_s = mtl::string::to_string(true);
     CHECK_EQ(bool_s, std::string("true"));
     bool_s = mtl::string::to_string(false);
@@ -901,7 +901,7 @@ TEST_CASE("mtl::string::to_string")
     CHECK_EQ(ulint_s, std::string("150"));
     float f = 150.0f;
     std::string float_s = mtl::string::to_string(f);
-    CHECK_EQ(float_s, std::string("150.0"));
+    CHECK_EQ(float_s, std::string("150"));
     bool b = true;
     std::string bool_s = mtl::string::to_string(b);
     CHECK_EQ(bool_s, std::string("true"));
