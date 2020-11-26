@@ -12,6 +12,6 @@
 
 rm -f tests
 echo "Running clang sanitizers..."
-clang++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined -fsanitize=integer -fsanitize-blacklist=blacklist.txt ../tests/*.cpp
+clang++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined ../tests/*.cpp
 ./tests
 rm -rf tests

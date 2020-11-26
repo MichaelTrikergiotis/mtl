@@ -9,12 +9,49 @@
 #include <sstream>
 #include <random>    // std::uniform_int_distribution, std::uniform_real_distribution
 #include <algorithm> // std::count_if, std::all_of
+#include <utility>   // std::move
 
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/xorshift128plus.hpp" 
-// mtl::xorshift128plus
+// [@class] mtl::xorshift128plus_engine, mtl::xorshift128plus_engine::xorshift128plus_engine,
+// mtl::xorshift128plus_engine::operator=, mtl::xorshift128plus_engine::seed,
+// mtl::xorshift128plus_engine::min, mtl::xorshift128plus_engine::max,
+// mtl::xorshift128plus_engine::operator(), mtl::xorshift128plus_engine::generate,
+// mtl::xorshift128plus_engine::discard, mtl::xorshift128plus_engine::operator<<,
+// mtl::xorshift128plus_engine::operator>>, mtl::xorshift128plus_engine::operator==,
+// mtl::xorshift128plus_engine::operator!=, [@class] mtl::xorshift128plus
 
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::xorshift128plus_engine
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator=
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::seed
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::min
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::max
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator()
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::generate
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::discard
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator<<
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator>>
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator==
+// ------------------------------------------------------------------------------------------------
+// mtl::xorshift128plus_engine::operator!=
 // ------------------------------------------------------------------------------------------------
 // mtl::xorshift128plus
 // ------------------------------------------------------------------------------------------------
@@ -45,6 +82,35 @@ TEST_CASE("copy constructor")
     x1.discard(10);
     mtl_rng_engine_test x2(x1);
     REQUIRE_EQ((x1 == x2), true);
+
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
+}
+
+TEST_CASE("move constructor")
+{
+    mtl_rng_engine_test x1;
+    x1.discard(10);
+    mtl_rng_engine_test x_move;
+    x_move.discard(10);
+    mtl_rng_engine_test x2 (std::move(x_move));
+    REQUIRE_EQ((x1 == x2), true);
+    
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
+}
+
+TEST_CASE("move assignment operator")
+{
+    mtl_rng_engine_test x1;
+    x1.discard(10);
+    mtl_rng_engine_test x_move;
+    x_move.discard(10);
+    mtl_rng_engine_test x2 = std::move(x_move);
+    REQUIRE_EQ((x1 == x2), true);
+    
+    x1.discard(10);
+    REQUIRE_EQ((x1 == x2), false);
 }
 
 TEST_CASE("constructor with one seed value")
@@ -54,6 +120,18 @@ TEST_CASE("constructor with one seed value")
     mtl_rng_engine_test x2(seed);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("constructor with two seed values")
@@ -62,6 +140,18 @@ TEST_CASE("constructor with two seed values")
     mtl_rng_engine_test x2(508793785532536663UL, 13713535390190520406UL);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("constructor with one different seed values")
@@ -70,6 +160,18 @@ TEST_CASE("constructor with one different seed values")
     mtl_rng_engine_test x2(518793785532536663UL, 13713535390190520406UL);
     
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("constructor with two different seed values")
@@ -78,6 +180,18 @@ TEST_CASE("constructor with two different seed values")
     mtl_rng_engine_test x2(518793785532536663UL, 12713535390190520406UL);
     
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 TEST_CASE("constructor with one seed value, difference operator")
@@ -237,7 +351,7 @@ TEST_CASE("max ")
     REQUIRE_EQ(std::numeric_limits<uint64_t>::max(), x1.max());
 }
 
-TEST_CASE(" changing seed")
+TEST_CASE("changing seed")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -246,9 +360,21 @@ TEST_CASE(" changing seed")
     x2.seed(7055232833321683523UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
-TEST_CASE(" changing multiple seed values")
+TEST_CASE("changing multiple seed values")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -257,9 +383,21 @@ TEST_CASE(" changing multiple seed values")
     x2.seed(1353117381024009193UL, 7143376003279757380UL);
 
     REQUIRE_EQ((x1 == x2), false);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
-TEST_CASE(" changing default seed and setting default seed again")
+TEST_CASE("changing default seed and setting default seed again")
 {
     mtl_rng_engine_test x1;
     // changing the default
@@ -271,6 +409,18 @@ TEST_CASE(" changing default seed and setting default seed again")
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("changing multiple default seed values and setting default seed values again")
@@ -285,6 +435,18 @@ TEST_CASE("changing multiple default seed values and setting default seed values
     x2.seed();
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("copying seed values from another engine")
@@ -296,6 +458,18 @@ TEST_CASE("copying seed values from another engine")
     x2.seed(x1);
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("operator << to grab seed values")
@@ -319,6 +493,18 @@ TEST_CASE("operator >> used to set seed values")
     ss >> x2;
 
     REQUIRE_EQ((x1 == x2), true);
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x2());
+    }
+    REQUIRE_EQ((values1 == values2), true);
 }
 
 TEST_CASE("using engine with different default seed values")
@@ -329,6 +515,18 @@ TEST_CASE("using engine with different default seed values")
     x1.discard(10);
     x_eng.discard(10);
     REQUIRE_NE(x1(), x_eng());
+
+    size_t size = 100;
+    std::vector<uint64_t> values1;
+    values1.reserve(size);
+    std::vector<uint64_t> values2;
+    values2.reserve(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        values1.push_back(x1());
+        values2.push_back(x_eng());
+    }
+    REQUIRE_EQ((values1 == values2), false);
 }
 
 

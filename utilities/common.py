@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # mtl_common by Michael Trikergiotis
 # 24/10/2020

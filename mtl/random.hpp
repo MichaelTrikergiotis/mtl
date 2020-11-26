@@ -45,7 +45,7 @@ struct uniform_distribution_type_selector<Type, std::enable_if_t<mtl::is_int_v<T
 	std::uniform_int_distribution<Type> distribution;
 
 	// empty constructor, this need to be declared
-	uniform_distribution_type_selector() {}
+	uniform_distribution_type_selector() = default;
 
 	// constructor that sets the minimum and maximum values for the uniform distribution
 	uniform_distribution_type_selector(Type min, Type max)
@@ -64,7 +64,7 @@ struct uniform_distribution_type_selector<Type, std::enable_if_t<mtl::is_float_v
 	std::uniform_real_distribution<Type> distribution;
 
 	// empty constructor, this need to be declared
-	uniform_distribution_type_selector() {}
+	uniform_distribution_type_selector() = default;
 
 	// constructor that sets the minimum and maximum values for the uniform distribution
 	uniform_distribution_type_selector(Type min, Type max)
@@ -90,6 +90,10 @@ private:
 
 public:
 
+	// ============================================================================================
+	// RNG - Constructor, takes the range from min to max for the generated numbers.
+	// ============================================================================================
+
 	/// Constructor, takes the range from min to max for the generated numbers.
 	/// @param[in] min A number for the minimum value that can be generated.
 	/// @param[in] max A number for the maximum value that can be generated.
@@ -98,6 +102,11 @@ public:
 		seed_random();
 		set_min_max(min, max);
 	}
+
+	// ============================================================================================
+	// SET_MIN_MAX - Sets the values for the range from the minimum to the maximum possible numbers
+	//               to generate.
+	// ============================================================================================
 
 	/// Sets the values for the range from the minimum to the maximum possible numbers to generate.
 	/// @param[in] min A number for the minimum value that can be generated.
@@ -109,20 +118,36 @@ public:
 		engine.discard(1);
 	}
 
+	// ============================================================================================
+	// MIN - Returns the minimum value for the range of possible values.
+	// ============================================================================================
+
 	/// Returns the minimum value for the range of possible values.
 	/// @return The minimum value that the mtl::rng will generate.
 	[[nodiscard]]
 	Type min() const { return ud_selector.distribution.min(); }
 
+	// ============================================================================================
+	// MAX - Returns the maximum value for the range of possible values.
+	// ============================================================================================
+	
 	/// Returns the maximum value for the range of possible values.
 	/// @return The maximum value that the mtl::rng will generate.
 	[[nodiscard]]
 	Type max() const { return ud_selector.distribution.max(); }
 
+	// ============================================================================================
+	// NEXT - Returns a random number.
+	// ============================================================================================
+
 	/// Returns a random number.
 	/// @return Returns a random number.
 	[[nodiscard]]
 	Type next() { return ud_selector.distribution(engine); }
+
+	// ============================================================================================
+	// SEED - Set the seed values of the engine to the engine's default seed values.
+	// ============================================================================================
 
 	/// Set the seed values of the engine to the engine's default seed values.
 	void seed()
@@ -130,12 +155,20 @@ public:
 		engine.seed();
 	}
 
-	/// Seed the engine with a single value and leave the other seed(s) to the default values.
+	// ============================================================================================
+	// SEED - Seed the engine with a single value and leave the other seed to it's default value.
+	// ============================================================================================
+
+	/// Seed the engine with a single value and leave the other seed to it's default value.
 	/// @param[in] seed1 A seed for the randomg engine.
 	void seed(uint64_t seed1)
 	{
 		engine.seed(seed1);
 	}
+
+	// ============================================================================================
+	// SEED - Seed the engine with two seed values.
+	// ============================================================================================
 
 	/// Seed the engine with two seed values.
 	/// @param[in] seed1 A seed for the randomg engine.
@@ -145,11 +178,15 @@ public:
 		engine.seed(seed1, seed2);
 	}
 
+	// ============================================================================================
+	// SEED_RANDOM - Seed the engine with two random seed values from std::random_device.
+	// ============================================================================================
+
 	/// Seed the engine with two random seed values from std::random_device.
 	void seed_random()
 	{
-		static std::random_device rd;
-		engine.seed(rd(), rd());
+		static std::random_device rd; // GCOVR_EXCL_LINE
+		engine.seed(rd(), rd()); // GCOVR_EXCL_LINE
 	}
 };
 

@@ -43,7 +43,7 @@ MTL_EXTERNALLY_SUPPLIED_FMT
 
 The **mtl** uses the amazing **fmt** library. **fmt** is used with it's header only implementation because **mtl** itself is header only. To make **mtl** more self-contained and easier to use by having less requirements to search and install external libraries all the headers for the **fmt** are included with **mtl** in the folder ```mtl/fmt```. But if the user want to use his own version of **fmt** then a problem arises, the problem of different versions for the same library. Including different versions of the same library is a bad practice that can lead to problems and errors. For that reason you can use the macro ```MTL_EXTERNALLY_SUPPLIED_FMT``` and then supply the **fmt** version of your choice instead of the one included with mtl. This macro is not recommended to be used if you don't need to because defining this macro without properly providing the **fmt** library will stop you from compiling successfully.
 
-Th **fmt** version included and tested with **mtl** is 7.0.3 or later, we recommend to use that or later because of bugfixes and performance improvements. We do not test **mtl** with previous versions of **fmt** like version 4, 5 or 6. If there is a compilation problem you may need to update your externally supplied **fmt** version to a newer one.
+Th **fmt** version included and tested with **mtl** is the latest version, we recommend to use that because of bugfixes and performance improvements. We do not test **mtl** with previous versions of **fmt**. If there is a compilation problem you may need to update your externally supplied **fmt** version to a newer one.
 
 There are some requirements for using this macro :
 

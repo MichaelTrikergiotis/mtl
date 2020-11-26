@@ -870,9 +870,11 @@ TEST_CASE("mtl::string::to_string with temp")
     std::string ulint_s = mtl::string::to_string(150UL);
     CHECK_EQ(ulint_s, std::string("150"));
     std::string float_s = mtl::string::to_string(150.0f);
-    CHECK_EQ(float_s, std::string("150.0"));
+    CHECK_EQ(float_s, std::string("150"));
     std::string bool_s = mtl::string::to_string(true);
-    CHECK_EQ(bool_s, std::string("1"));
+    CHECK_EQ(bool_s, std::string("true"));
+    bool_s = mtl::string::to_string(false);
+    CHECK_EQ(bool_s, std::string("false"));
     std::string pair_s = mtl::string::to_string(std::pair<int, char>(333, 'a'));
     CHECK_EQ(pair_s, std::string("333, a"));
     std::string pair_s2 = mtl::string::to_string(std::pair<int, char>(333, 'a'), " # ");
@@ -899,10 +901,13 @@ TEST_CASE("mtl::string::to_string")
     CHECK_EQ(ulint_s, std::string("150"));
     float f = 150.0f;
     std::string float_s = mtl::string::to_string(f);
-    CHECK_EQ(float_s, std::string("150.0"));
+    CHECK_EQ(float_s, std::string("150"));
     bool b = true;
     std::string bool_s = mtl::string::to_string(b);
-    CHECK_EQ(bool_s, std::string("1"));
+    CHECK_EQ(bool_s, std::string("true"));
+    b = false;
+    bool_s = mtl::string::to_string(b);
+    CHECK_EQ(bool_s, std::string("false"));
     auto p = std::pair<int, char>(333, 'a');
     std::string pair_s = mtl::string::to_string(p);
     CHECK_EQ(pair_s, std::string("333, a"));
@@ -968,7 +973,7 @@ TEST_CASE("mtl::string::join_all")
     CHECK_EQ(si_s, desired);
 
     std::list<bool> lb = {true, true, false, true, true};
-    std::string desired_bool = "11011";
+    std::string desired_bool = "truetruefalsetruetrue";
     std::string lb_s = mtl::string::join_all(lb.begin(), lb.end());
     CHECK_EQ(lb_s, desired_bool);
 
@@ -1108,7 +1113,7 @@ TEST_CASE("mtl::string::join")
     std::string multi_char = mtl::string::join('a', ' ', 'b', ' ', 'c');
     CHECK_EQ(multi_char, std::string("a b c"));
     std::string multi_various = mtl::string::join("aaa", std::string("bbb"), 154, 1.1f, '|', true);
-    CHECK_EQ(multi_various, std::string("aaabbb1541.1|1"));
+    CHECK_EQ(multi_various, std::string("aaabbb1541.1|true"));
 
     const char* cs = "Hello";
     std::string mary = " Mary ";
@@ -1116,7 +1121,7 @@ TEST_CASE("mtl::string::join")
     bool b = true;
     auto p = std::pair<int, char>(33, 'd');
     std::string multi_var = mtl::string::join(cs, mary, d, b, false, b, ", ", p);
-    CHECK_EQ(multi_var, std::string("Hello Mary 2.2101, 33, d"));
+    CHECK_EQ(multi_var, std::string("Hello Mary 2.2truefalsetrue, 33, d"));
 
 
 
@@ -1829,8 +1834,8 @@ TEST_CASE("mtl::string::replace for short std::string, more tests")
 
 
     // create some that the match and the replacement are identical and are just one character
-    std::string single_id_match = "#";
-    std::string single_id_rep = single_id_match;
+    const std::string single_id_match = "#";
+    const std::string single_id_rep (single_id_match.begin(), single_id_match.end());
     REQUIRE_EQ(single_id_match.size(), 1);
     REQUIRE_EQ(single_id_rep.size(), 1);    
     REQUIRE_EQ(single_id_match, single_id_rep);
@@ -1865,8 +1870,8 @@ TEST_CASE("mtl::string::replace for short std::string, more tests")
 
 
     // create some that the match and the replacement are identical
-    std::string ident_match = "##";
-    std::string ident_rep = ident_match;
+    const std::string ident_match = "##";
+    const std::string ident_rep (ident_match.begin(), ident_match.end());
     REQUIRE_EQ(ident_match, ident_rep);
 
     // create some strings to match
@@ -2092,7 +2097,7 @@ TEST_CASE("mtl::string::replace for long std::string")
 
     // create some that the match and the replacement are identical and are just one character
     std::string single_id_match = "#";
-    std::string single_id_rep = single_id_match;
+    std::string single_id_rep (single_id_match.begin(), single_id_match.end());
     REQUIRE_EQ(single_id_match.size(), 1);
     REQUIRE_EQ(single_id_rep.size(), 1);    
     REQUIRE_EQ(single_id_match, single_id_rep);
@@ -2133,7 +2138,7 @@ TEST_CASE("mtl::string::replace for long std::string")
 
     // create some that the match and the replacement are identical
     std::string ident_match = "##";
-    std::string ident_rep = ident_match;
+    std::string ident_rep (ident_match.begin(), ident_match.end());
     REQUIRE_EQ(ident_match, ident_rep);
 
     // create some strings to match

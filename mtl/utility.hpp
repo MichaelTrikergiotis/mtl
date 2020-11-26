@@ -29,14 +29,12 @@ namespace mtl
 /// 
 /// int length = -1;
 /// MTL_ASSERT_MSG(!(length < 0), "Error. Variable had negative value.");
-#define MTL_ASSERT_MSG(CONDITION, MESSAGE) assert(CONDITION && MESSAGE);
+#define MTL_ASSERT_MSG(CONDITION, MESSAGE) assert((CONDITION) && (MESSAGE));
 
 
 
 // ================================================================================================
-// NO_COPY      - dissallow a class to be copied 
-// NO_MOVE      - dissallow a class to be moved 
-// NO_COPY_MOVE - dissallow a class to be copied or moved
+// NO_COPY      - Dissallow a class to be copied.
 // ================================================================================================
 
 /// Inheriting from this class will make your class unable to be copied.
@@ -47,30 +45,26 @@ protected:
 	~no_copy() = default;
 	no_copy(const no_copy&) = delete;
 	no_copy& operator=(const no_copy&) = delete;
+	no_copy(no_copy&&) noexcept = default;
+	no_copy& operator=(no_copy&&) = default;
 };
 
-/// Inheriting from this class will make your class unable to be moved.
+
+// ================================================================================================
+// NO_MOVE      - Dissallow a class to be copied or moved.
+// ================================================================================================
+
+/// Inheriting from this class will make your class unable to be copied or moved.
 class no_move
 {
 protected:
 	no_move() = default;
 	~no_move() = default;
-	no_move(const no_move&&) = delete;
-	no_move& operator=(const no_move&&) = delete;
+	no_move(const no_move&) = delete;
+	no_move& operator=(const no_move&) = delete;
+	no_move(no_move&&) = delete;
+	no_move& operator=(no_move&&) = delete;
 };
-
-/// Inheriting from this class will make your class unable to be copied or moved.
-class no_copy_move
-{
-protected:
-	no_copy_move() = default;
-	~no_copy_move() = default;
-	no_copy_move(const no_copy_move&) = delete;
-	no_copy_move& operator=(const no_copy_move&) = delete;
-	no_copy_move(const no_copy_move&&) = delete;
-	no_copy_move& operator=(const no_copy_move&&) = delete;
-};
-
 
 
 } // namespace mtl end

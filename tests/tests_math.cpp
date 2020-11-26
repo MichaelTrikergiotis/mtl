@@ -345,6 +345,7 @@ TEST_CASE("mtl::percent_whole float")
       102.87037f, 101.92661f, 100.99999f };
 
     std::vector<float> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -426,6 +427,7 @@ TEST_CASE("mtl::percent_whole double")
       102.87037, 101.92661, 100.99999 };
 
     std::vector<double> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -508,6 +510,7 @@ TEST_CASE("mtl::percent_whole long double")
       102.87037l, 101.92661l, 100.99999l };
 
     std::vector<long double> results;
+    results.reserve(percent.size());
 
     for(auto & perc : percent)
     {
@@ -575,6 +578,7 @@ TEST_CASE("mtl::percent_whole int")
     { 110, 100, 92, 85, 79, 73, 69, 65, 61, 58, 55 };
 
     std::vector<int> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -625,6 +629,7 @@ TEST_CASE("mtl::percent_portion float")
       240.0f, 242.2222f, 244.44443f };
 
     std::vector<float> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -674,6 +679,7 @@ TEST_CASE("mtl::percent_portion double")
       240.0, 242.2222, 244.44443 };
 
     std::vector<double> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -724,6 +730,7 @@ TEST_CASE("mtl::percent_portion long double")
       240.0l, 242.2222l, 244.44443l };
 
     std::vector<long double> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -765,6 +772,7 @@ TEST_CASE("mtl::percent_portion int")
     { 244, 267, 289, 311, 333, 356, 378, 400, 422, 444 };
 
     std::vector<int> results;
+    results.reserve(percent.size());
 
     for (auto& perc : percent)
     {
@@ -839,6 +847,7 @@ TEST_CASE("mtl::percent float")
       45.396f,  45.4455f, 45.495f };
 
     std::vector<float> results;
+    results.reserve(portions.size());
 
     for (auto& portion : portions)
     {
@@ -901,6 +910,7 @@ TEST_CASE("mtl::percent double")
       45.396,  45.4455, 45.495 };
 
     std::vector<double> results;
+    results.reserve(portions.size());
 
     for (auto& portion : portions)
     {
@@ -963,6 +973,7 @@ TEST_CASE("mtl::percent long double")
       45.396l,  45.4455l, 45.495l };
 
     std::vector<long double> results;
+    results.reserve(portions.size());
 
     for (auto& portion : portions)
     {
@@ -1016,6 +1027,7 @@ TEST_CASE("mtl::percent int")
     { 45, 46, 46, 47, 47, 48, 48, 49, 49, 50 };
 
     std::vector<int> results;
+    results.reserve(portions.size());
 
     for (auto& portion : portions)
     {

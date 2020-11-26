@@ -83,20 +83,81 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+    # Windows
+
       - name: Install and setup Windows packages
         if: runner.os == 'Windows'
-        run: |
-          if ("${{ matrix.compiler }}" -eq "clang") {
-            echo "CC=clang" >> $GITHUB_ENV
-            echo "CXX=clang++" >> $GITHUB_ENV            
-          } elseif ("${{ matrix.compiler }}" -eq "clang-cl") {
-            echo "CC=clang-cl" >> $GITHUB_ENV
-            echo "CXX=clang-cl" >> $GITHUB_ENV
-          } else {
-            echo "CC=cl" >> $GITHUB_ENV
-            echo "CXX=cl" >> $GITHUB_ENV
-          }
+        uses: ilammy/msvc-dev-cmd@v1
 
+      - name: Build Debug Windows MSVC
+        if: runner.os == 'Windows' &&  matrix.compiler == 'cl'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          .\tests.exe
+      
+      - name: Build Debug Windows clang-cl
+        if: runner.os == 'Windows' &&  matrix.compiler == 'clang-cl'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_BUILD_TYPE=Debug
+          cmake --build . 
+          .\tests.exe    
+      
+      - name: Build Debug Windows clang
+        if: runner.os == 'Windows' &&  matrix.compiler == 'clang'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug
+          cmake --build . 
+          .\tests.exe  
+          
+      - name: Build Release Windows MSVC
+        if: runner.os == 'Windows' &&  matrix.compiler == 'cl'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          .\tests.exe
+      
+      - name: Build Release Windows clang-cl
+        if: runner.os == 'Windows' &&  matrix.compiler == 'clang-cl'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_BUILD_TYPE=Release
+          cmake --build . 
+          .\tests.exe    
+      
+      - name: Build Release Windows clang
+        if: runner.os == 'Windows' &&  matrix.compiler == 'clang'
+        run: |
+          cd tests
+          Remove-Item build -recurse -ErrorAction Ignore
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+          cmake --build . 
+          .\tests.exe
+
+
+
+      # Linux 
 
       - name:  Install and setup Linux packages
         if: runner.os == 'Linux'
@@ -114,6 +175,54 @@ jobs:
             echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
           fi
 
+      - name: Build Debug Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+      
+      - name: Build Release Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ./tests
+
+      - name: Build Debug Linux clang and libcxx
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+      
+      - name: Build Release Linux clang and libcxx
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ./tests 
+
+      
+
+      # macOS
+
       - name:  Install and setup MacOS packages
         if: runner.os == 'macOS'
         run: |
@@ -129,28 +238,6 @@ jobs:
             export "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
           fi
 
-      - name: Build Debug Windows
-        if: runner.os == 'Windows'
-        run: |
-          cd tests
-          Remove-Item build -recurse -ErrorAction Ignore
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build . --config Debug
-          .\Debug\tests.exe
-
-      - name: Build Debug Linux
-        if: runner.os == 'Linux'
-        run: |
-          cd tests
-          rm -rf build
-          mkdir build
-          cd build
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
-          cmake --build .
-          ./tests
-      
       - name: Build Debug MacOS
         if: runner.os == 'MacOS'
         run: |
@@ -162,28 +249,6 @@ jobs:
           cmake --build .
           ./tests
 
-      - name: Build Release Windows
-        if: runner.os == 'Windows'
-        run: |
-          cd tests
-          Remove-Item build -recurse -ErrorAction Ignore
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build . --config Release
-          .\Release\tests.exe
-
-      - name: Build Release Linux
-        if: runner.os == 'Linux'
-        run: |
-          cd tests
-          rm -rf build
-          mkdir build
-          cd build
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build .
-          ./tests
-      
       - name: Build Release MacOS
         if: runner.os == 'MacOS'
         run: |
@@ -193,5 +258,4 @@ jobs:
           cd build
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build .
-          ./tests
-    
+          ./tests    

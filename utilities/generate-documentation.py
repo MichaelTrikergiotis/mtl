@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # generate-documentation by Michael Trikergiotis
 # 24/10/2020
@@ -156,7 +156,9 @@ def find_line_header(filename, item_name):
     count = 1
     formatted_name = remove_namespaces(item_name)
     for line in lines:
-        if formatted_name in line:
+        # with adding spaces in the front and back we make sure the name isn't just a substring
+        # of another string
+        if (' ' + formatted_name + ' ') in line:
             return count
         count = count + 1
 
@@ -196,16 +198,55 @@ def generate_documentation(sources):
     names and generates documentation.
     '''
     lines = ['# List of classes and functions', '']
+    # counts the number of non-member functions, this are free functions not
+    # belowing to a class
     count = 0
+    # counts the number of classes
+    class_count = 0
+    # counts the number of class member functions
+    class_function_count = 0
     for source in sources:
         comments = get_comments(source)
         names = generate_names(comments)
         count = count + len(names)
         header_filename = '../mtl/' + convert_header(extract_filename(source))
         source_filename = '../tests/' + extract_filename(source)
-        lines.append('## {0} with {1} items\n'.format(
-            convert_header(extract_filename(source)), len(names)))
+        head_name = '## {0}\n'.format(convert_header(extract_filename(source)))
+        lines.append(head_name)
+
+        # keep track of he last class found to match functions that belong to
+        # that class
+        last_class = ''
         for name in names:
+            # check if the current element is a class
+            is_class = False
+            # if it contains [@class] it is a class and not a function
+            if '[@class]' in name:
+                # remove the [@class] part
+                name = name.replace('[@class]', '')
+                # remove spaces
+                name = name.strip(' ')
+                # keep the name of the class
+                last_class = name
+
+                is_class = True
+                # do not count as a function but count as a class
+                count = count - 1
+                class_count = class_count + 1
+
+            # check track if the current element is a class member function
+            is_class_function = False
+            if is_class == False:
+                if last_class != '':
+                    # if it contains mtl::class_name:: then it is a class
+                    # member function
+                    if (last_class + '::') in name:
+                        is_class_function = True
+                        # do not count as a function but count as a class
+                        # member function
+                        count = count - 1
+                        class_function_count = class_function_count + 1
+
             # add the line number for item in the header as Markdown requires
             header_line_number = find_line_header(header_filename, name)
             header_location = header_filename + "#L" + str(header_line_number)
@@ -214,12 +255,37 @@ def generate_documentation(sources):
             source_line_number = find_line_source(source_filename, name)
             source_location = source_filename + "#L" + str(source_line_number)
 
-            text = '- {0} [(Documentation)]({1}) [(Examples)]({2})'
+            # this stores how the markdown text will be formatted
+            text = ''
+
+            # if this is a class change markdown for a class
+            if is_class == True:
+                text = '- [**CLASS**] ' + text
+
+            # if this is a class function change markdown to make it a nested
+            # list
+            if is_class_function == True:
+                text = '  - ' + text
+
+            # if this isn't a class or a class function change markdown for
+            # functions
+            if is_class == False and is_class_function == False:
+                text = '- ' + text
+
+            text = text + '`{0}` [(Documentation)]({1}) [(Examples)]({2})'
             lines.append(text.format(name, header_location, source_location))
         lines.append('\n---------------------------------------------------\n')
 
-    # insert the third line to be the total of all classes and functions
-    lines.insert(2, 'There are {} items in total.\n'.format(count))
+    # add the statistics to the markdown
+    statistics = []
+    statistics.append('## Statistics\n')
+    statistics.append('There are {} headers.\n'.format(len(sources)))
+    statistics.append('There are {} classes.\n'.format(class_count))
+    cfc = class_function_count
+    statistics.append('There are {} class member functions.\n'.format(cfc))
+    statistics.append('There are {} non-member functions.\n'.format(count))
+    # insert the statistics after the second line in the list
+    lines = lines[:2] + statistics + lines[2:]
 
     # remove the last line to generate a more standards compliant Markdown
     lines = lines[:-1]

@@ -43,7 +43,11 @@
 // the user may want to supply their own version of fmt and not the one with the mtl library
 #ifndef MTL_EXTERNALLY_SUPPLIED_FMT
 
+// use fmt in header only mode
 #define FMT_HEADER_ONLY 
+
+// increase fmt performance when formatting floating point numbers
+#define FMT_USE_FULL_CACHE_DRAGONBOX 1
 
 // needed headers from fmt
 #include "fmt/format.h"

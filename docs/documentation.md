@@ -49,7 +49,7 @@ int main()
 **You must have [CMake](https://cmake.org/) installed.**
 
 [**NOTE**]
-There is a CMake option ```ENABLE_CONSOLE_TESTS``` that enables all the tests for ```mtl::console``` that are disabled by default.
+There is a CMake option ```ENABLE_CONSOLE_TESTS``` that enables all the tests for ```mtl::console```, that are disabled by default. If you want to visually inspect the ```mtl::console``` tests output use the ```-tce="*clear"``` option when running the tests.
 
 ### LINUX with gcc
 

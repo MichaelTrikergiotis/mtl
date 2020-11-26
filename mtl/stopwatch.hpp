@@ -32,17 +32,29 @@ class stopwatch
 	std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
 public:
 
+	// ============================================================================================
+	// START - Starts the stopwatch.
+	// ============================================================================================
+
 	/// Starts the stopwatch.
 	void start()
 	{
 		start_time = std::chrono::high_resolution_clock::now();
 	}
 
+	// ============================================================================================
+	// STOP - Stops the stopwatch.
+	// ============================================================================================
+
 	/// Stops the stopwatch.
 	void stop()
 	{
 		end_time = std::chrono::high_resolution_clock::now();
 	}
+
+	// ============================================================================================
+	// RESET - Stops measuring and resets everything to 0.
+	// ============================================================================================
 
 	/// Stops measuring and resets everything to 0.
 	void reset()
@@ -51,11 +63,19 @@ public:
 		end_time = start_time;
 	}
 
+	// ============================================================================================
+	// RESTART - Stops previous measurment and start measuring time from the current time point.
+	// ============================================================================================
+
 	/// Stops previous measurment and start measuring time from the current time point.
 	void restart()
 	{
 		start();
 	}
+
+	// ============================================================================================
+	// ELAPSED_MINUTES - Returns the time elapsed in minutes.
+	// ============================================================================================
 
 	/// Returns the time elapsed in minutes.
 	/// @return The number of elapsed minutes.
@@ -69,6 +89,10 @@ public:
 		return result;
 	}
 
+	// ============================================================================================
+	// ELAPSED_SECONDS - Returns the time elapsed in seconds.
+	// ============================================================================================
+
 	/// Returns the time elapsed in seconds.
 	/// @return The number of elapsed seconds.
 	double elapsed_seconds()
@@ -77,6 +101,10 @@ public:
 		double result = elapsed.count();
 		return result;
 	}
+
+	// ============================================================================================
+	// ELAPSED_MILLI - Returns the time elapsed in milliseconds.
+	// ============================================================================================
 
 	/// Returns the time elapsed in milliseconds.
 	/// @return The number of elapsed milliseconds.
@@ -87,6 +115,10 @@ public:
 		return result;
 	}
 
+	// ============================================================================================
+	// ELAPSED_MICRO - Returns the time elapsed in microseconds.
+	// ============================================================================================
+
 	/// Returns the time elapsed in microseconds.
 	/// @return The number of elapsed microseconds.
 	double elapsed_micro()
@@ -95,6 +127,10 @@ public:
 		double result = elapsed.count();
 		return result;
 	}
+
+	// ============================================================================================
+	// ELAPSED_NANO - Returns the time elapsed in nanoseconds.
+	// ============================================================================================
 
 	/// Returns the time elapsed in nanoseconds.
 	/// @return The number of elapsed nanoseconds.

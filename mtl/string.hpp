@@ -47,7 +47,7 @@ namespace string
 [[nodiscard]]
 inline bool is_upper(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 65) && (value <= 90))
 	{
 		return true;
@@ -80,7 +80,7 @@ inline bool is_upper(const std::string& input) noexcept
 [[nodiscard]]
 inline bool is_lower(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 97) && (value <= 122))
 	{
 		return true;
@@ -120,7 +120,7 @@ inline void to_upper(char& character) noexcept
 {
 	if (is_lower(character))
 	{
-		int value = static_cast<int>(character);
+		int value = static_cast<int>(static_cast<unsigned char>(character));
 		// it so happens that in an ASCII table the uppercase characters are 32 positions before 
 		// lowercase characters
 		value = value - 32;
@@ -143,7 +143,7 @@ inline void to_lower(char& character) noexcept
 {
 	if (is_upper(character))
 	{
-		int value = static_cast<int>(character);
+		int value = static_cast<int>(static_cast<unsigned char>(character));
 		// it so happens that in an ASCII table the lowercase characters are 32 positions after 
 		// uppercase characters
 		value = value + 32;
@@ -189,7 +189,7 @@ inline bool is_ascii(const int character) noexcept
 [[nodiscard]]
 inline bool is_ascii(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	return is_ascii(value);
 }
 
@@ -228,7 +228,7 @@ inline bool is_ascii(const std::string& str) noexcept
 [[nodiscard]]
 inline bool is_alphabetic(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if (((value >= 65) && (value <= 90)) || ((value >= 97) && (value <= 122)))
 	{
 		return true;
@@ -261,7 +261,7 @@ inline bool is_alphabetic(const std::string& str) noexcept
 [[nodiscard]]
 inline bool is_numeric(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 48) && (value <= 57))
 	{
 		return true;
@@ -362,7 +362,7 @@ inline bool contains(const std::string& input, const char* match)
 [[nodiscard]]
 inline bool contains(const char* input, const std::string& match)
 {
-	auto pos = std::strstr(input, match.c_str());
+	const auto pos = std::strstr(input, match.c_str());
 	if(pos)
 	{
 		return true;
@@ -377,7 +377,7 @@ inline bool contains(const char* input, const std::string& match)
 [[nodiscard]]
 inline bool contains(const char* input, const char* match)
 {
-	auto pos = std::strstr(input, match);
+	const auto pos = std::strstr(input, match);
 	if(pos)
 	{
 		return true;
@@ -559,13 +559,13 @@ inline void pad_back(std::string& str, const std::string& match, const char ch =
 inline void pad(std::string& str, const size_t times, const char ch = ' ', bool more_back = false)
 {
 	// if we are padding an empty string for more than 0 times then just use mtl::string::pad_back
-	if((str.size() == 0) && (times > 0))
+	if((str.empty()) && (times > 0))
 	{
 		mtl::string::pad_back(str, times, ch);
 		return;
 	}
 	// perform work only if the string has any character and if the times to pad is larger than 0
-	if ((str.size() > 0) && (times > 0))
+	if ((str.empty() == false) && (times > 0))
 	{
 		// convert to floating point for better division, no need for double as the precision is
 		// not needed
@@ -639,7 +639,7 @@ template<typename T>
 inline std::enable_if_t<!mtl::is_number_v<T>, std::string>
 to_string(const T& input)
 {
-	return fmt::format("{}", input);
+	return fmt::to_string(input);
 }
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also
@@ -677,9 +677,9 @@ inline std::string to_string(const bool input)
 { 
 	if(input)
 	{
-		return std::string("1");
+		return std::string("true");
 	}
-	return std::string("0");
+	return std::string("false");
 }
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also
@@ -958,6 +958,20 @@ inline void count_size_impl(size_t& size, const char* type)
 	size += std::strlen(type);
 }
 
+// Count size for bool.
+inline void count_size_impl(size_t& size, const bool type)
+{
+	if(type)
+	{
+		size += 4;
+	}
+	else
+	{
+		size += 5;
+	}
+	
+}
+
 // Count size for int. This is intentionally empty and also declared so integer are not implicitly
 // converted to chars and to stop warnings about integer conversion.
 inline void count_size_impl(size_t&, const int)
@@ -1000,7 +1014,6 @@ inline void count_size_impl(size_t& size, const Type& type, Args&&... args)
 {
 	count_size_impl(size, type);
 	count_size_impl(size, std::forward<Args>(args)...);
-	
 }
 
 
@@ -1059,14 +1072,14 @@ inline std::string join(const Type& type, Args&&... args)
 template<typename Container>
 inline void split(const std::string& input, Container& output, const std::string& delimiter)
 {
-	// if either the input string is empty do nothing and return
-	if (input.size() == 0)
+	// if the input string is empty do nothing and return
+	if (input.empty())
 	{
 		return;
 	}
 
 	// if the delimiter is empty add the entire input to the container and return
-	if(delimiter.size() == 0)
+	if(delimiter.empty())
 	{
 		mtl::emplace_back(output, input);
 		return;
@@ -1095,7 +1108,7 @@ inline void split(const std::string& input, Container& output, const std::string
 	}
 
 	// if there are tokens in the output
-	if(output.size() > 0)
+	if(output.empty() == false)
 	{
 		// add the last item using the last position
 		mtl::emplace_back(output, input.substr(last_pos + delimiter.size())); // GCOVR_EXCL_LINE
@@ -1104,7 +1117,7 @@ inline void split(const std::string& input, Container& output, const std::string
 
 	// if nothing is on the vector add the entire input string because it means there are no places
 	// that it needed to be split
-	if (output.size() == 0) { mtl::emplace_back(output, input); }
+	if (output.empty()) { mtl::emplace_back(output, input); }
 }
 
 
@@ -1257,15 +1270,17 @@ inline void replace_long_heap(std::string& input, const std::string& match,
 	auto it_end = input.begin();
 	auto it_output = output.begin();
 
-	for (size_t i = 0; i < positions.size(); ++i)
+	for (const auto position : positions)
 	{
+		// GCOVR_EXCL_START
 		// copies parts to output string and moves the iterators along
-		it_end = std::next(beginning, static_cast<std::ptrdiff_t>(positions[i]));
+		it_end = std::next(beginning, static_cast<std::ptrdiff_t>(position));
 		std::copy(it_begin, it_end, it_output);
 		std::advance(it_output, std::distance(it_begin, it_end));
 		std::copy(replacement.begin(), replacement.end(), it_output);
 		std::advance(it_output, static_cast<std::ptrdiff_t>(replacement.size()));
 		it_begin = std::next(it_end, static_cast<std::ptrdiff_t>(match.size()));
+		// GCOVR_EXCL_STOP
 	}
 	// copy from the last match to the end
 	std::copy(it_begin, input.end(), it_output);
@@ -1293,7 +1308,7 @@ inline void replace_long(std::string& input, const std::string& match,
 	// create an array on the stack to avoid heap allocations, the array will usually be larger 
 	// than the amount of positions found, if the positions fill the array we call an algorithm 
 	// where we use the heap and can track more positions
-	std::array<size_t, max_size> positions;
+	std::array<size_t, max_size> positions {};
 	// this is the number that keeps track of number of positions found to match, they stack array 
 	// size can be larger that this number so we can't use std::array::size
 	size_t actual_size = 0;
@@ -1363,6 +1378,7 @@ inline void replace_long(std::string& input, const std::string& match,
 	// loop over the actual number of positions found and not the size of the array
 	for (size_t i = 0; i < actual_size; ++i)
 	{
+		// GCOVR_EXCL_START
 		// copies parts to output string and moves the iterators along
 		it_end = std::next(beginning, static_cast<std::ptrdiff_t>(positions[i]));
 		std::copy(it_begin, it_end, it_output);
@@ -1370,6 +1386,7 @@ inline void replace_long(std::string& input, const std::string& match,
 		std::copy(replacement.begin(), replacement.end(), it_output);
 		std::advance(it_output, static_cast<std::ptrdiff_t>(replacement.size()));
 		it_begin = std::next(it_end, static_cast<std::ptrdiff_t>(match.size()));
+		// GCOVR_EXCL_STOP
 	}
 	// copy from the last match to the end
 	std::copy(it_begin, input.end(), it_output);

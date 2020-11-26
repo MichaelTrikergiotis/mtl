@@ -105,12 +105,12 @@ namespace detail
 {
 
 // Actual implementation has_emplace_back that detects if the type has the emplace_back function.
-template<class Type, class FunctionSignature, class = void>
+template<typename Type, typename FunctionSignature, typename = void>
 struct has_emplace_back_detector : std::false_type {};
 
 
 // Actual implementation has_emplace_back that detects if the type has the emplace_back function.
-template<class Type, class FunctionSignature, class... Args>
+template<typename Type, typename FunctionSignature, typename... Args>
 struct has_emplace_back_detector<Type, FunctionSignature(Args...),
 typename std::enable_if_t<
 // check if a function with the given signature exists, we are looking if the function

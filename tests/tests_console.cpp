@@ -93,13 +93,13 @@ TEST_CASE("mtl::console::print print conversion specifiers without formatting, s
     // should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::print does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::print("arguments, there should be no formatted text.\n"));
     REQUIRE_NOTHROW(mtl::console::print("This should print the conversion specifiers and not "));
     REQUIRE_NOTHROW(mtl::console::print("formatted text.\n"));
-    for (auto& specifier : conversion_specifiers)
+    for (const auto& specifier : conversion_specifiers)
     {
         // print a single item
         REQUIRE_NOTHROW(mtl::console::print(specifier));
@@ -114,14 +114,14 @@ TEST_CASE("mtl::console::print print conversion specifiers without formatting, m
     // should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     std::string s = "world.";
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::print does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::print("arguments, there should be no formatted text.\n"));
     REQUIRE_NOTHROW(mtl::console::print("This should print the conversion specifiers and not "));
     REQUIRE_NOTHROW(mtl::console::print("formatted text.\n"));
-    for (auto& specifier : conversion_specifiers)
+    for (const auto& specifier : conversion_specifiers)
     {
         // print multiple items per call
         REQUIRE_NOTHROW(mtl::console::print('a', 'b', 'c', 13, "  ", specifier, " Hi ", s, '\n'));
@@ -220,13 +220,13 @@ TEST_CASE("mtl::console::println print conversion specifiers without formatting,
     // etc should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::println does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::println("arguments, there should be no formatted text."));
     REQUIRE_NOTHROW(mtl::console::print("This should print the conversion specifiers and not "));
     REQUIRE_NOTHROW(mtl::console::println("formatted text."));
-    for (auto& specifier : conversion_specifiers)
+    for (const auto& specifier : conversion_specifiers)
     {
         // print a single item
         REQUIRE_NOTHROW(mtl::console::println(specifier));
@@ -240,14 +240,14 @@ TEST_CASE("mtl::console::println print conversion specifiers without formatting,
     // etc should not cause formatting changes
     const std::vector<std::string> conversion_specifiers
     { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
-      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", };
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
 
     std::string s = "world.";
     REQUIRE_NOTHROW(mtl::console::print("mtl::console::println does not format the passed "));
     REQUIRE_NOTHROW(mtl::console::println("arguments, there should be no formatted text."));
     REQUIRE_NOTHROW(mtl::console::print("This should print the conversion specifiers and not "));
     REQUIRE_NOTHROW(mtl::console::println("formatted text."));
-    for (auto& specifier : conversion_specifiers)
+    for (const auto& specifier : conversion_specifiers)
     {
         // print multiple items per call
         REQUIRE_NOTHROW(mtl::console::println('a', 'b', 'c', 7, "  ", specifier, " Hi ", s, '\n'));
@@ -604,7 +604,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_b
 // ------------------------------------------------------------------------------------------------
 
 
-static const std::vector<mtl::console::color> all_colors =
+const std::vector<mtl::console::color> all_colors =
 {
     mtl::console::color::default_color,
     mtl::console::color::black,
@@ -626,7 +626,7 @@ static const std::vector<mtl::console::color> all_colors =
     mtl::console::color::bright_white
 };
 
-static const std::vector<std::string> all_colors_names =
+const std::vector<std::string> all_colors_names =
 {
     "default_color",
     "black",
@@ -1396,8 +1396,7 @@ TEST_CASE("print the newline character with various ways")
 
 TEST_CASE("mtl::console::clear")
 {
-    // this clears the console, comment out this test if you want to manualy inspect the output of
-    // the console tests
+    // this clears the console
     REQUIRE_NOTHROW(mtl::console::clear());
 }
 
@@ -1418,7 +1417,7 @@ TEST_CASE("print doctest text")
 
     REQUIRE_NOTHROW(mtl::console::print(" doctest version is "));
     // grab the version of the current doctest from the doctest version macro
-    auto doctest_version = DOCTEST_VERSION_STR;
+    const auto doctest_version = DOCTEST_VERSION_STR;
     REQUIRE_NOTHROW(mtl::console::println(doctest_version));
 
     // use blue color from doctest to print blue colored letters

@@ -21,6 +21,8 @@
 // mtl::filesystem::write_file, mtl::filesystem::write_all_lines
 
 
+#include <iostream>
+
 // ------------------------------------------------------------------------------------------------
 // Create some UTF8 strings to check if functions can handle UTF8 without problem.
 // ------------------------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
-    REQUIRE_EQ((read_data.size() == 0 ), true);
+    REQUIRE_EQ(read_data.empty(), true);
 
 
 
@@ -245,7 +247,7 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
     std::vector<std::string> read_data;
     bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
-    REQUIRE_EQ((read_data.size() == 0 ), true);
+    REQUIRE_EQ(read_data.empty(), true);
 
 
 
@@ -317,9 +319,170 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
 }
 
-TEST_CASE("mtl::filesystem::read_all_lines with CRLF input file")
+TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with CRLF")
 {
-    const std::string filename = "file_containing_crlf";
+    const std::string filename = "file_crlf_wf_rf";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\r\nHi\r\n";
+    // write text to a file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read file and check contents are what we want
+    const std::string desired_result(crlf_text.begin(), crlf_text.end());
+    std::string read_data;
+    bool read_correctly = mtl::filesystem::read_file(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
+
+TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed CRLF and LF")
+{
+    const std::string filename = "file_mixed_crlf_wf_rf";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\nHi\r\n";   
+    // write text to a file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read file and check contents are what we want
+    const std::string desired_result (crlf_text.begin(), crlf_text.end());
+    std::string read_data;
+    bool read_correctly = mtl::filesystem::read_file(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
+
+TEST_CASE("mtl::filesystem::write_all_lines with CRLF")
+{
+    const std::string filename = "file_crlf_wal";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\r\nHi\r\n";
+    std::vector<std::string> crlf_lines {crlf_text, crlf_text, crlf_text};
+
+    // write all lines to a file
+    bool written_correctly = mtl::filesystem::write_all_lines(filename, crlf_lines.begin(), 
+                                                              crlf_lines.end());
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read file and check contents are what we want, we have to account for the newlines that
+    // mtl::write_all_lines outputs to the file between elements
+    std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
+    std::string read_data;
+    bool read_correctly = mtl::filesystem::read_file(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+    
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
+
+TEST_CASE("mtl::filesystem::write_all_lines with mixed CRLF and LF")
+{
+    const std::string filename = "file_mixed_crlf_wal";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\nHi\r\n";
+    std::vector<std::string> crlf_lines {crlf_text, crlf_text, crlf_text};
+
+    // write all lines to a file
+    bool written_correctly = mtl::filesystem::write_all_lines(filename, crlf_lines.begin(), 
+                                                              crlf_lines.end());
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read file and check contents are what we want, we have to account for the newlines that
+    // mtl::write_all_lines outputs to the file between elements
+    std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
+    std::string read_data;
+    bool read_correctly = mtl::filesystem::read_file(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+    
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
+
+
+TEST_CASE("mtl::filesystem::read_all_lines with CRLF")
+{
+    const std::string filename = "file_crlf_ral";
 
     // if the file exists delete it
     if(std::filesystem::is_regular_file(filename))
@@ -356,9 +519,48 @@ TEST_CASE("mtl::filesystem::read_all_lines with CRLF input file")
     CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
 }
 
+TEST_CASE("mtl::filesystem::read_all_lines with mixed CRLF and LF")
+{
+    const std::string filename = "file_mixed_crlf_ral";
+
+    // if the file exists delete it
+    if(std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+
+    // create some text that contains CRLF
+    const std::string crlf_text = "Hi\r\nHi\nHi\r\nHi\nHi\r\nHi\nHi\r\nHi";
+
+    // write the file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read all lines of the file and check contents are what we want
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi"};
+    std::vector<std::string> read_data;
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // if the file exists delete it
+    if (std::filesystem::is_regular_file(filename))
+    {
+        std::filesystem::remove(filename);
+    }
+    // make sure the file doesn't exist
+    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+}
 
 
-TEST_CASE("mtl::filesystem::write_all_lines with integers and mtl::filesystem::read_all_lines")
+
+TEST_CASE("mtl::filesystem::write_all_lines with integers")
 {
     std::string filename = filename4;
 
@@ -540,7 +742,7 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines")
     const std::vector<std::string> correct_data
     { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
 
-    REQUIRE_EQ((read_lines.size() > 0), true);
+    REQUIRE_EQ(read_lines.empty(), false);
     REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
     REQUIRE_EQ((read_lines == correct_data), true);
 
@@ -586,7 +788,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 
     const std::string correct_data = "\nR\nG\nB\nCMYK\n\nR\nG\nB\n\n";
 
-    REQUIRE_EQ((read_line.size() > 0), true);
+    REQUIRE_EQ(read_line.empty(), false);
     REQUIRE_EQ((read_line.size() == correct_data.size()), true);
     REQUIRE_EQ((read_line == correct_data), true);
 
@@ -601,20 +803,37 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 }
 
 
-TEST_CASE("Try read non-existing file mtl::filesystem::read_file, mtl::filesystem::read_all_lines")
+TEST_CASE("Try read non-existent file mtl::filesystem::read_file, mtl::filesystem::read_all_lines")
 {
-    std::string file_data;
-    bool read_file = mtl::filesystem::read_file("non-existant-file.txt", file_data);
+    const std::string non_existent = "non-existent-file.txt";
 
-    REQUIRE_EQ(file_data, std::string());
-    REQUIRE_EQ(file_data.size(), 0);
+    // make sure the file doesn't exist
+    REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
+
+    std::string file_data;
+    // trying to read a non-existent file in debug mode with mtl::filesystem::read_file will 
+    // result in an assertion, we have disabled the assertion to test it better with the use of 
+    // the macro MTL_DISABLE_SOME_ASSERTS, so if the file doesn't exist it will just return false,
+    // in your code it is recommended that before you use mtl::filesystem::read_file you check
+    // that the file actually exists
+    bool read_file = mtl::filesystem::read_file(non_existent, file_data);
+
+    REQUIRE_EQ(file_data.empty(), true);
     REQUIRE_EQ(read_file, false);
 
     std::vector<std::string> lines;
-    bool read_lines = mtl::filesystem::read_all_lines("non-existant-file.txt", lines);
+    // trying to read a non-existent file in debug mode with mtl::filesystem::read_all_lines will 
+    // result in an assertion, we have disabled the assertion to test it better with the use of 
+    // the macro MTL_DISABLE_SOME_ASSERTS, so if the file doesn't exist it will just return false,
+    // in your code it is recommended that before you use mtl::filesystem::read_all_lines you check
+    // that the file actually exists
+    bool read_lines = mtl::filesystem::read_all_lines(non_existent, lines);
 
     REQUIRE_EQ(lines.empty(), true);
     REQUIRE_EQ(read_lines, false);
+
+    // make sure the file still doesn't exist
+    REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single line")
@@ -647,20 +866,40 @@ TEST_CASE("Check again to make sure that all files created do not exist")
 {
     // we check again for files existing because if a test fails it will not delete it's 
     // associated file
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename1)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename2)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename3)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename4)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename5)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename6)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename7)), false);
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename8)), false);
-    const std::string crlf_file = "file_containing_crlf";
-    REQUIRE_EQ((std::filesystem::is_regular_file(crlf_file)), false);
-    const std::string empty_file = "empty_file";
-    REQUIRE_EQ((std::filesystem::is_regular_file(empty_file)), false);
-    const std::string empty_file_lines = "empty_file_lines";
-    REQUIRE_EQ((std::filesystem::is_regular_file(empty_file_lines)), false);
-    const std::string sl_filename = "single-line";
-    REQUIRE_EQ((std::filesystem::is_regular_file(sl_filename)), false);
+    std::vector<std::string> filenames
+    {
+        filename1,
+        filename2,
+        filename3,
+        filename4,
+        filename5,
+        filename6,
+        filename7,
+        filename8,
+
+        "empty_file",
+        "empty_file_lines",
+        "single-line",
+
+        "file_crlf_wf_rf",
+        "file_mixed_crlf_wf_rf",
+        "file_crlf_wal",
+        "file_mixed_crlf_wal",
+        "file_crlf_ral",
+        "file_mixed_crlf_ral"
+    };
+
+    for(const auto& current_filename : filenames)
+    {
+        // check the file doesn't exist
+        bool file_exists = std::filesystem::is_regular_file(current_filename);
+        CHECK_EQ(file_exists, false);
+        // if the file still exists delete it
+        if(file_exists)
+        {
+            std::filesystem::remove(current_filename);
+        }
+        // check that the file was deleted properly, incase it existed
+        CHECK_EQ(std::filesystem::is_regular_file(current_filename), false);
+    }
 }

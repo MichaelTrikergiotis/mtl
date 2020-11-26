@@ -15,12 +15,29 @@
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/random.hpp" 
-// mtl::rng, mtl::random_choice, mtl::shuffle
+// [@class] mtl::rng, mtl::rng::rng, mtl::rng::set_min_max, mtl::rng::min, mtl::rng::max, 
+// mtl::rng::next, mtl::rng::seed, mtl::rng::seed_random, mtl::random_choice, mtl::shuffle
 
 
-// --------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------------
 // mtl::rng
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::rng
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::set_min_max
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::min
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::max
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::next
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::seed
+// ------------------------------------------------------------------------------------------------
+// mtl::rng::seed_random
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::rng with int check various functions")
 {
@@ -72,7 +89,7 @@ TEST_CASE("mtl::rng with int trying to set different seeds")
 {
     mtl::rng<int> rand1(1, 1000000);
     mtl::rng<int> rand2(2, 1000000);
-    // set the same one see to both
+    // set the same one seed for both
     REQUIRE_NOTHROW(rand1.seed(1003344));    
     REQUIRE_NOTHROW(rand2.seed(1003344));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -87,7 +104,7 @@ TEST_CASE("mtl::rng with int trying to set different seeds")
 
     mtl::rng<int> rand3(1, 1000000);
     mtl::rng<int> rand4(2, 1000000);
-    // set the same two seeds to both
+    // set the same two seeds for both
     REQUIRE_NOTHROW(rand3.seed(1003344, 248899));
     REQUIRE_NOTHROW(rand4.seed(1003344, 248899));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -179,7 +196,7 @@ TEST_CASE("mtl::rng with float trying to set different seeds")
 {
     mtl::rng<float> rand1(1.0f, 1000000.0f);
     mtl::rng<float> rand2(2.0f, 1000000.0f);
-    // set the same one see to both
+    // set the same one seed for both
     REQUIRE_NOTHROW(rand1.seed(1003344));
     REQUIRE_NOTHROW(rand2.seed(1003344));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -200,7 +217,7 @@ TEST_CASE("mtl::rng with float trying to set different seeds")
 
     mtl::rng<float> rand3(1.0f, 1000000.0f);
     mtl::rng<float> rand4(2.0f, 1000000.0f);
-    // set the same two seeds to both
+    // set the same two seeds for both
     REQUIRE_NOTHROW(rand3.seed(1003344, 248899));
     REQUIRE_NOTHROW(rand4.seed(1003344, 248899));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -297,7 +314,7 @@ TEST_CASE("mtl::rng with double trying to set different seeds")
 {
     mtl::rng<double> rand1(1.0, 1000000.0);
     mtl::rng<double> rand2(2.0, 1000000.0);
-    // set the same one see to both
+    // set the same one seed for both
     REQUIRE_NOTHROW(rand1.seed(1003344));
     REQUIRE_NOTHROW(rand2.seed(1003344));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -318,7 +335,7 @@ TEST_CASE("mtl::rng with double trying to set different seeds")
 
     mtl::rng<double> rand3(1.0, 1000000.0);
     mtl::rng<double> rand4(2.0, 1000000.0);
-    // set the same two seeds to both
+    // set the same two seeds for both
     REQUIRE_NOTHROW(rand3.seed(1003344, 248899));
     REQUIRE_NOTHROW(rand4.seed(1003344, 248899));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -418,7 +435,7 @@ TEST_CASE("mtl::rng with long double trying to set different seeds")
 {
     mtl::rng<long double> rand1(1.0l, 1000000.0l);
     mtl::rng<long double> rand2(2.0l, 1000000.0l);
-    // set the same one see to both
+    // set the same one seed for both
     REQUIRE_NOTHROW(rand1.seed(1003344));
     REQUIRE_NOTHROW(rand2.seed(1003344));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -439,7 +456,7 @@ TEST_CASE("mtl::rng with long double trying to set different seeds")
 
     mtl::rng<long double> rand3(1.0l, 1000000.0l);
     mtl::rng<long double> rand4(2.0l, 1000000.0l);
-    // set the same two seeds to both
+    // set the same two seeds for both
     REQUIRE_NOTHROW(rand3.seed(1003344, 248899));
     REQUIRE_NOTHROW(rand4.seed(1003344, 248899));
     // then try to randomize the seeds of both and expect the results to be different values
@@ -458,9 +475,9 @@ TEST_CASE("mtl::rng with long double trying to set different seeds")
     REQUIRE_NE(value3_int, value4_int);
 }
 
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // mtl::rng matching mtl::xoroshiro128plus results
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::rng<int32_t> matching mtl::xoroshiro128plus + std::uniform_int_distribution")
 {
@@ -623,11 +640,9 @@ TEST_CASE("mtl::rng<long double> matching mtl::xoroshiro128plus + std::uniform_r
 }
 
 
-
-
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // mtl::random_choice
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::random_choice with empty containers<int>")
 {
@@ -1096,9 +1111,9 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
 
 
 
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // mtl::shuffle with containers
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::shuffle with empty std::vector<numbers>")
 {
@@ -1313,9 +1328,9 @@ TEST_CASE("mtl::shuffle with containers<std::string>")
 
 
 
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // mtl::shuffle with iterators
-// --------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::shuffle with iterators with empty std::vector<numbers> ")
 {

@@ -4,12 +4,13 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 #include "doctest_include.hpp" 
-#include <type_traits>        // std::is_copy_constructible, std::is_move_constructible
+#include <type_traits>        // std::is_copy_constructible_v, std::is_move_constructible_v,
+                              // std::is_copy_assignable_v, std::is_move_assignable_v
 
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
 #include "../mtl/utility.hpp" 
-// MTL_ASSERT_MSG, mtl::no_copy, mtl::no_move, mtl::no_copy_move
+// MTL_ASSERT_MSG, [@class] mtl::no_copy, [@class] mtl::no_move
 
 
 // ------------------------------------------------------------------------------------------------
@@ -68,32 +69,44 @@ TEST_CASE("MTL_ASSERT_MSG")
 }
 
 // ------------------------------------------------------------------------------------------------
-// mtl::no_copy, mtl::no_move, mtl::no_copy_move
+// mtl::no_copy
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::no_copy")
 {
-    struct normal_class {};
+    class normal_class {};
     REQUIRE_EQ(std::is_copy_constructible_v<normal_class>, true);
-    struct no_copy_class : mtl::no_copy {};
+    REQUIRE_EQ(std::is_move_constructible_v<normal_class>, true);
+    REQUIRE_EQ(std::is_copy_assignable_v<normal_class>, true);
+    REQUIRE_EQ(std::is_move_assignable_v<normal_class>, true);
+    class no_copy_class : mtl::no_copy {};
     REQUIRE_EQ(std::is_copy_constructible_v<no_copy_class>, false);
+    REQUIRE_EQ(std::is_move_constructible_v<no_copy_class>, true);
+    REQUIRE_EQ(std::is_copy_assignable_v<no_copy_class>, false);
+    REQUIRE_EQ(std::is_move_assignable_v<no_copy_class>, true);
 
+    // test that it can be move constructed and move assigned
+    [[maybe_unused]] no_copy_class ncc1;
+    [[maybe_unused]] no_copy_class ncc2(std::move(ncc1));
+    [[maybe_unused]] no_copy_class ncc3;
+    [[maybe_unused]] no_copy_class ncc4 = std::move(ncc3);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::no_move
+// ------------------------------------------------------------------------------------------------
+
 
 TEST_CASE("mtl::no_move")
 {
-    struct normal_class {};
-    REQUIRE_EQ(std::is_move_constructible_v<normal_class>, true);
-    struct no_move_class : mtl::no_move {};
-    REQUIRE_EQ(std::is_move_constructible_v<no_move_class>, false);
-}
-
-TEST_CASE("mtl::no_copy_move")
-{
-    struct normal_class {};
+    class normal_class {};
     REQUIRE_EQ(std::is_copy_constructible_v<normal_class>, true);
     REQUIRE_EQ(std::is_move_constructible_v<normal_class>, true);
-    struct no_copy_move_class : mtl::no_copy_move {};
-    REQUIRE_EQ(std::is_copy_constructible_v<no_copy_move_class>, false);
-    REQUIRE_EQ(std::is_move_constructible_v<no_copy_move_class>, false);
+    REQUIRE_EQ(std::is_copy_assignable_v<normal_class>, true);
+    REQUIRE_EQ(std::is_move_assignable_v<normal_class>, true);
+    class no_move_class : mtl::no_move {};
+    CHECK_EQ(std::is_copy_constructible_v<no_move_class>, false);
+    CHECK_EQ(std::is_move_constructible_v<no_move_class>, false);
+    CHECK_EQ(std::is_copy_assignable_v<no_move_class>, false);
+    CHECK_EQ(std::is_move_assignable_v<no_move_class>, false);
 }
