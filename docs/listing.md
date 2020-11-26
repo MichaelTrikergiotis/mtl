@@ -1,6 +1,6 @@
 # List of classes and functions
 
- | [algorithm.hpp](#algorithm.hpp) | [console.hpp](#console.hpp) | [container.hpp](#container.hpp) | [conversion.hpp](#conversion.hpp) | [filesystem.hpp](#filesystem.hpp) | [math.hpp](#math.hpp) | [numeric.hpp](#numeric.hpp) | [random.hpp](#random.hpp) | [safety.hpp](#safety.hpp) | [stopwatch.hpp](#stopwatch.hpp) | [string.hpp](#string.hpp) | [type_traits.hpp](#type_traits.hpp) | [utility.hpp](#utility.hpp) | [xoroshiro128plus.hpp](#xoroshiro128plus.hpp) | [xorshift128plus.hpp](#xorshift128plus.hpp) | [xoshiro256plus.hpp](#xoshiro256plus.hpp) |
+ | [algorithm.hpp](#algorithmhpp) | [console.hpp](#consolehpp) | [container.hpp](#containerhpp) | [conversion.hpp](#conversionhpp) | [filesystem.hpp](#filesystemhpp) | [math.hpp](#mathhpp) | [numeric.hpp](#numerichpp) | [random.hpp](#randomhpp) | [safety.hpp](#safetyhpp) | [stopwatch.hpp](#stopwatchhpp) | [string.hpp](#stringhpp) | [type_traits.hpp](#type_traitshpp) | [utility.hpp](#utilityhpp) | [xoroshiro128plus.hpp](#xoroshiro128plushpp) | [xorshift128plus.hpp](#xorshift128plushpp) | [xoshiro256plus.hpp](#xoshiro256plushpp) |
 
 ## Statistics
 

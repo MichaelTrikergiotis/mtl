@@ -211,7 +211,8 @@ def generate_navigation(sources):
         menu.append(name)
         menu.append('](')
         menu.append('#')
-        menu.append(name)
+        # remove dots from markdown link to fix navigation problems
+        menu.append(name.replace('.', ''))
         menu.append(')')
     menu.append(' |\n')
     return ''.join(menu)
