@@ -6,6 +6,11 @@ Modern, fast, easy. Makes C++ a joy to use.
 
 ![mtl logo](./docs/mtl-logo.png)
 
+------------------------------------------------------------
+| [Getting Started](#Getting-started) | [Examples](#Examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#Listings) | [Goals](#Goals) | [License](#License) |
+
+------------------------------------------------------------
+
 ## Introduction
 
 The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It also includes some functionality that other languages like Python or C# include by default in their standard libraries.
@@ -126,7 +131,7 @@ If the file was read successfully the `read_ok` boolean is set to true and the `
 4. Fit the needs of absolutely everyone. The C++ community is huge and used in numerous industries, we can't please everyone.
 5. Fit the needs of only a particular industry excluding all the others.
 
------------------------
+------------------------------------------------------------
 
 ## License
 

@@ -1,5 +1,7 @@
 # Documentation
 
+| [Installation](#Installation) | [Running Tests](#How-to-run-the-tests) | [Naming Convetions](#Naming-Convetions) | [Listings](#Listings) |
+
 ## C++ version and compiler compatibility
 
 Requires a C++ 17 compiler and a **fully** implemented C++ 17 standard library.
@@ -25,7 +27,7 @@ Tested compiler and operating systems combinations :
 2. gcc and clang on Linux
 3. gcc and clang on MacOS
 
--------------------------------------------------------------------------------
+------------------------------------------------------------
 
 ## Installation
 
@@ -42,7 +44,7 @@ int main()
 }
 ```
 
--------------------------------------------------------------------------------
+------------------------------------------------------------
 
 ## How to run the tests
 
@@ -109,31 +111,31 @@ but even then we have to further use ```GCOVR_EXCL_LINE```, ```GCOVR_EXCL_START`
 Sadly gcovr doesn't allow to only exclude lines from branch coverage as that would be very helpful for **mtl** because most of the excluded lines in **mtl** are for false branch coverage. This issue this is tracked at :
 [https://github.com/gcovr/gcovr/issues/121](https://github.com/gcovr/gcovr/issues/121)
 
--------------------------------------------------------------------------------
+------------------------------------------------------------
 
 ## Naming Convetions
 
 For naming conventions as well as similarities and differences with the C++ standard library read [here](./differences.md).
 
--------------------------------------------------------------------------------
+------------------------------------------------------------
 
 ## Listings
 
 List of namespaces :
 
-- mtl
-  - mtl::console
-  - mtl::filesystem
-  - mtl::chrono
-  - mtl::string
+- `mtl`
+  - `mtl::console`
+  - `mtl::filesystem`
+  - `mtl::chrono`
+  - `mtl::string`
 
 [**NOTE**]
-There is also the mtl::detail namespace which should **never**  be used for any reason. It is reserved for the internal implementation details of **mtl**. It retains the ability to change at any moment without warning or notice.
+There is also the `mtl::detail` namespace which should **never**  be used for any reason. It is reserved for the internal implementation details of **mtl**. It retains the ability to change at any moment without warning or notice.
 
 List of classes and functions with documentation and examples read [here](./listing.md).
 
 List of MACROS along with detailed explanation read [here](./macros.md).
 
--------------------------------------------------------------------------------
+------------------------------------------------------------
 
 If you don't understand something, need clarification, something doesn't seem to make sense or you think it can be made easier to understand please open an issue and explain your problem in detail.
