@@ -176,10 +176,18 @@ def find_line_source(filename, item_name):
     with open(filename, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
+    # a list of possible matches
+    match_list = []
+    match_list.append((' ' + item_name + ','))
+    match_list.append((' ' + item_name + ' '))
+    match_list.append((' ' + item_name + '\n'))
+    match_list.append((' ' + item_name + '\r\n'))
+
     count = 1
+    cmnt = '// -------------------------------------------------------'
     for idx in range(0, len(lines)):
-        if item_name in lines[idx]:
-            cmnt = '// -------------------------------------------------------'
+        # if any of the elements exists in the current line
+        if any(match in lines[idx] for match in match_list):
             # check the line above to be the comment format we want
             if cmnt in lines[idx-1]:
                 # check the line below to be the comment format we want

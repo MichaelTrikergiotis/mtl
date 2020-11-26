@@ -89,7 +89,7 @@ There are 116 non-member functions.
 - `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L169)
 - `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
 - `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L596)
-- `mtl::percent` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L280)
+- `mtl::percent` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L790)
 
 ---------------------------------------------------
 
@@ -228,7 +228,7 @@ There are 116 non-member functions.
   - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L344) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
   - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L363) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
   - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L376) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
-- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L391) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L28)
+- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L391) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L54)
 
 ---------------------------------------------------
 
@@ -247,7 +247,7 @@ There are 116 non-member functions.
   - `mtl::xorshift128plus_engine::operator>>` [(Documentation)](../mtl/xorshift128plus.hpp#L350) [(Examples)](../tests/tests_xorshift128plus.cpp#L50)
   - `mtl::xorshift128plus_engine::operator==` [(Documentation)](../mtl/xorshift128plus.hpp#L369) [(Examples)](../tests/tests_xorshift128plus.cpp#L52)
   - `mtl::xorshift128plus_engine::operator!=` [(Documentation)](../mtl/xorshift128plus.hpp#L382) [(Examples)](../tests/tests_xorshift128plus.cpp#L54)
-- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L396) [(Examples)](../tests/tests_xorshift128plus.cpp#L30)
+- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L396) [(Examples)](../tests/tests_xorshift128plus.cpp#L56)
 
 ---------------------------------------------------
 
@@ -266,4 +266,4 @@ There are 116 non-member functions.
   - `mtl::xoshiro256plus_engine::operator>>` [(Documentation)](../mtl/xoshiro256plus.hpp#L405) [(Examples)](../tests/tests_xoshiro256plus.cpp#L50)
   - `mtl::xoshiro256plus_engine::operator==` [(Documentation)](../mtl/xoshiro256plus.hpp#L426) [(Examples)](../tests/tests_xoshiro256plus.cpp#L52)
   - `mtl::xoshiro256plus_engine::operator!=` [(Documentation)](../mtl/xoshiro256plus.hpp#L439) [(Examples)](../tests/tests_xoshiro256plus.cpp#L54)
-- [**CLASS**] `mtl::xoshiro256plus` [(Documentation)](../mtl/xoshiro256plus.hpp#L453) [(Examples)](../tests/tests_xoshiro256plus.cpp#L30)
+- [**CLASS**] `mtl::xoshiro256plus` [(Documentation)](../mtl/xoshiro256plus.hpp#L453) [(Examples)](../tests/tests_xoshiro256plus.cpp#L56)
