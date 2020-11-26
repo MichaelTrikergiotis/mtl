@@ -33,7 +33,7 @@ def keep_tests(sources):
 def extract_filename(source_path):
     '''
     Given the path to a souce file, in the form tests_filename.cpp, retruns the
-    filename only the filename.
+    filename only.
     '''
 
     # get filename only
@@ -192,6 +192,32 @@ def find_line_source(filename, item_name):
         'Could not find the item {0} in {1}'.format(item_name, filename))
 
 
+def generate_navigation(sources):
+    '''
+    Given a list of header files returns a string that is properly formatted
+    Markdown to create a navigation menu.
+    '''
+
+    # keep only the name of each file for the headers
+    names = []
+    for header in sources:
+        names.append(convert_header(extract_filename(header)))
+
+    menu = []
+    for name in names:
+        menu.append(' |')
+        menu.append(' ')
+        menu.append('[')
+        menu.append(name)
+        menu.append('](')
+        menu.append('#')
+        # remove dots from markdown link to fix navigation problems
+        menu.append(name.replace('.', ''))
+        menu.append(')')
+    menu.append(' |\n')
+    return ''.join(menu)
+
+
 def generate_documentation(sources):
     '''
     Given a list of paths to test souce files, extracts class and function
@@ -286,6 +312,10 @@ def generate_documentation(sources):
     statistics.append('There are {} non-member functions.\n'.format(count))
     # insert the statistics after the second line in the list
     lines = lines[:2] + statistics + lines[2:]
+
+    # add the navigation header after the second line in the list so it is
+    # above statistcs
+    lines.insert(2, generate_navigation(sources))
 
     # remove the last line to generate a more standards compliant Markdown
     lines = lines[:-1]
