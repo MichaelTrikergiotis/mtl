@@ -1093,12 +1093,12 @@ inline void split(const std::string& input, Container& output, const std::string
 	// keep the position for the last item
 	size_t last_pos = 0;
 
-	// add all tokens to the vector except the last one
+	// add all tokens to the container except the last one
 	while (match_pos != std::string::npos)
 	{
 		last_pos = match_pos;
 
-		// everything is fine add the token to the vector
+		// everything is fine add the token to the container
 		mtl::emplace_back(output, input.substr(start, match_pos - start)); // GCOVR_EXCL_LINE
 		
 		// set the a new starting position
@@ -1115,7 +1115,7 @@ inline void split(const std::string& input, Container& output, const std::string
 	}
 
 
-	// if nothing is on the vector add the entire input string because it means there are no places
+	// if nothing is on the container add the entire input string because it means there are no places
 	// that it needed to be split
 	if (output.empty()) { mtl::emplace_back(output, input); }
 }
