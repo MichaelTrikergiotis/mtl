@@ -7,17 +7,14 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 #include <filesystem>      // std::filesystem::file_size, std::filesystem::path, 
-						   // std::filesystem::exists, std::filesystem::is_regular_file
+						   // std::filesystem::is_regular_file
 #include <string>          // std::string
-#include <cstring>         // std::strlen
 #include <cstdint>         // std::uintmax_t
 #include <fstream>		   // std::ofstream, std::ifstream
 #include <system_error>    // std::error_code
-#include <type_traits>     // std::enable_if_t
 #include <limits>          // std::numeric_limits
-#include <ios>			   // std::ios_base::openmode, std::ios::in, std::ios::out, 
+#include <ios>			   // std::ios_base::openmode, std::ios::out, 
 						   // std::ios::binary, std::streamsize
-#include "type_traits.hpp" // mtl::is_c_string
 #include "string.hpp"      // mtl::string::join_all, mtl::string::split, mtl::string::replace
 #include "utility.hpp"     // MTL_ASSERT_MSG
 

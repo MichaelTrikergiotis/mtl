@@ -12,7 +12,7 @@
 
 
 #include <cstdint>		// uint64_t
-#include <limits>		// std::numeric_limits::min, std::numeric_limits::max
+#include <limits>		// std::numeric_limits
 #include <ostream>		// std::basic_ostream
 #include <istream>		// std::basic_istream
 #include <type_traits>  // std::is_unsigned_v

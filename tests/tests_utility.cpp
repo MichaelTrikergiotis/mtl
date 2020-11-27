@@ -4,6 +4,7 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 #include "doctest_include.hpp" 
+#include <utility>            // std::move
 #include <type_traits>        // std::is_copy_constructible_v, std::is_move_constructible_v,
                               // std::is_copy_assignable_v, std::is_move_assignable_v
 

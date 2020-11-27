@@ -10,20 +10,17 @@
 #include <list>             // std::list
 #include <unordered_set>    // std::unordered_set
 #include <functional>       // std::equal_to, std::hash, std::less
-#include <tuple>            // std::tuple, std::make_tuple, std::get, std::tuple_size_v
+#include <tuple>            // std::tuple, std::get, std::tuple_size_v
 #include <utility>          // std::pair, std::forward
 #include <stdexcept>        // std::invalid_argument
 #include <cstddef>          // std::ptrdiff_t
-#include <iterator>         // std::iterator_traits, std::next, std::advance, std::distance
-							// std::forward_iterator_tag
-#include <algorithm>        // std::remove, std::remove_if, std::adjacent_find, std::unique, 
-						    // std::find, std::search, std::for_each, std::unique, std::sort, 
-							// std::reverse, std::includes
+#include <iterator>         // std::next, std::advance, std::forward_iterator_tag
+#include <algorithm>        // std::remove, std::adjacent_find, std::unique, 
+						    // std::find, std::for_each, std::unique, std::sort, std::includes 
 #include <type_traits>      // std::enable_if_t, std::remove_cv_t, std::add_pointer_t,
 							// std::add_lvalue_reference_t
 #include "type_traits.hpp"  // mtl::is_number_v, mtl::has_find_v
-#include "container.hpp"    // mtl::reserve, mtl::emplace_back
-#include "utility.hpp"      // MTL_ASSERT_MSG
+#include "container.hpp"    // mtl::emplace_back
 
 
 

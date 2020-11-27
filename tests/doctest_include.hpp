@@ -36,9 +36,11 @@
 
 #include "doctest.h"
 
+#if defined(__APPLE__)
 // including iostream header fixes a linking error with doctest on MAC, 
 // check the issue at https://github.com/onqtam/doctest/issues/126
 #include <iostream>
+#endif
 
 // stop supressing clang warnings
 #if defined(__clang__)

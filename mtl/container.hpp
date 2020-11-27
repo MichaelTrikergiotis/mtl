@@ -7,7 +7,6 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 #include <type_traits>     // std::enable_if_t
-#include <utility>         // std::foward
 #include <stdexcept>       // std::out_of_range
 #include "type_traits.hpp" // mtl::has_reserve_v, mtl::has_push_back_v, mtl::has_emplace_back_v
 

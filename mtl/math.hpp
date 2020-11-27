@@ -7,7 +7,6 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 #include <algorithm>       // std::max
-#include <limits>          // std::numeric_limits
 #include <cmath>           // std::fabs, std::round
 #include <stdexcept>       // std::invalid_argument
 #include <type_traits>	   // std::enable_if_t
