@@ -1115,8 +1115,8 @@ inline void split(const std::string& input, Container& output, const std::string
 	}
 
 
-	// if nothing is on the container add the entire input string because it means there are no places
-	// that it needed to be split
+	// if nothing is on the container add the entire input string because it means there are no
+	// places that it needed to be split
 	if (output.empty()) { mtl::emplace_back(output, input); }
 }
 

@@ -464,7 +464,8 @@ inline void rem_duplicates_preserve(Container& container, Hash hash, BinaryPredi
 template<typename Container>
 inline void keep_duplicates_inclusive_sorted(Container& container)
 {
-	container.erase(mtl::not_unique_inclusive(container.begin(), container.end()), container.end());
+	container.erase(mtl::not_unique_inclusive(container.begin(), container.end()), 
+											  container.end());
 }
 
 /// Keeps duplicates including the original duplicate. Allows you to pass a binary predicate for
@@ -613,7 +614,8 @@ inline void keep_duplicates_inclusive_preserve(Container& container)
 template<typename Container>
 inline void keep_duplicates_exclusive_sorted(Container& container)
 {
-	container.erase(mtl::not_unique_exclusive(container.begin(), container.end()), container.end());
+	container.erase(mtl::not_unique_exclusive(container.begin(), container.end()), 
+											  container.end());
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
