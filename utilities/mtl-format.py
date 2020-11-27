@@ -25,7 +25,11 @@ def check_line_length(file_list, length):
 
         longer_lines = []
         for idx in range(0, len(lines)):
-            if len(lines[idx]) > length:
+            # count tabs as 4 characters to be more consistent with how lines
+            # are displayed in code editors, this makes it so lines with tabs
+            # don't appear to go past vertical rulers set to 100 characters
+            num_chars = len(lines[idx]) + (lines[idx].count('\t') * 3)
+            if num_chars > length:
                 longer_lines.append(idx + 1)
 
         if len(longer_lines) > 0:
