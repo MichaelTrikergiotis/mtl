@@ -15,11 +15,10 @@
 #include <limits>          // std::numeric_limits
 #include <ios>			   // std::ios_base::openmode, std::ios::out, 
 						   // std::ios::binary, std::streamsize
-#include "string.hpp"      // mtl::string::join_all, mtl::string::split, mtl::string::replace
+#include "string.hpp"      // mtl::string::join_all
 #include "utility.hpp"     // MTL_ASSERT_MSG
 
 
-#include <iostream>
 
 
 namespace mtl
@@ -30,9 +29,7 @@ namespace filesystem
 
 // ================================================================================================
 // READ_FILE        - Reads an entire file to a string.
-// READ_ALL_LINES   - Reads all lines from to a container of strings.
 // ================================================================================================
-
 
 
 /// Read an entire file to a std::string. The filename is what file to read from. The output is
@@ -106,6 +103,92 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 
 
 
+// ================================================================================================
+// READ_ALL_LINES   - Reads all lines from to a container of strings.
+// ================================================================================================
+
+
+namespace detail
+{
+	// Specialized string splitting algorithm that takes into account CRLF characters when
+	// splitting newlines.
+	template<typename Container>
+	inline void specialized_split_crlf(const std::string& input, Container& output)
+	{
+		// GCOVR_EXCL_START
+		
+		// handle the case where there is only one character and it is a newline
+		if((input.size() == 1) && (input[0] == '\n'))
+		{
+			mtl::emplace_back(output, std::string("")); 
+			mtl::emplace_back(output, std::string("")); 
+			return;
+		}
+
+		// handle the case where there is only one character and it is not a newline
+		if((input.size() == 1) && (input[0] != '\n'))
+		{
+			mtl::emplace_back(output, input); 
+			return;
+		}
+
+		const std::string delimiter ("\n");
+
+		// remember the starting position
+		size_t start = 0;
+		// position of the first match
+		size_t match_pos = input.find(delimiter);
+
+		// keep the position for the last item
+		size_t last_pos = 0;
+
+		// add all tokens to the container except the last one
+		while (match_pos != std::string::npos)
+		{
+			last_pos = match_pos;	
+			// make sure match position is larger than 0
+			if(match_pos > 0)
+			{
+				// lf case
+				if(input[match_pos - 1] != '\r')
+				{
+					mtl::emplace_back(output, input.substr(start, match_pos - start)); 
+				}
+				// crlf case
+				else
+				{
+					mtl::emplace_back(output, input.substr(start, match_pos - (start+1)));
+				}
+			}
+			else
+			{
+				mtl::emplace_back(output, input.substr(start, match_pos - start)); 
+			}	
+			
+			// set the new starting position
+			start = match_pos + 1;
+			// find a new position in the input string if there are any matches left
+			match_pos = input.find(delimiter, start);
+		}
+
+		// if there are tokens in the output
+		if(output.empty() == false)
+		{
+			// add the last item using the last position
+			mtl::emplace_back(output, input.substr(last_pos + 1)); 
+		}
+
+
+		// if the container is empty add the entire input string because it means there are no
+		// places that it needs to be split
+		if (output.empty()) { mtl::emplace_back(output, input); }
+
+		// GCOVR_EXCL_STOP
+	}
+
+} // namespace detail end
+
+
 /// Read an entire file in lines. The filename is what file to read from. The output is where
 /// the file will be read to. Allows you to reserve memory for the container. The container element
 /// type has to be std::string. Returns if the file was read successfully. 
@@ -122,11 +205,8 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 		// check that the buffer is not empty before we try to split it
 		if (internal_buffer.empty() == false)
 		{
-			// convert CRLF to LF
-			mtl::string::replace(internal_buffer, "\r\n", '\n');
-
 			// split each line to an output container at each newline
-			mtl::string::split(internal_buffer, output, '\n');
+			mtl::filesystem::detail::specialized_split_crlf(internal_buffer, output);
 			// if the last element is empty remove it, we are sure that the output is not empty
 			// become we know that the internal buffer is bigger than 0 if we reached this point
 			if (output.back().empty())
@@ -147,7 +227,6 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 
 // ================================================================================================
 // WRITE_FILE       - Writes a string to a file.
-// WRITE_ALL_LINES  - Writes all elements of a container to a file.
 // ================================================================================================
 
 
@@ -182,6 +261,12 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 	// if we reached this point it means we succeded
 	return true;
 }
+
+
+
+// ================================================================================================
+// WRITE_ALL_LINES  - Writes all elements of a container to a file.
+// ================================================================================================
 
 
 /// Write a range to new lines in a file. The filename is what is the file to write to. The

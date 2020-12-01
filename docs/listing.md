@@ -14,29 +14,29 @@ There are 116 non-member functions.
 
 ## algorithm.hpp
 
-- `mtl::not_unique_inclusive` [(Documentation)](../mtl/algorithm.hpp#L35) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::not_unique_exclusive` [(Documentation)](../mtl/algorithm.hpp#L37) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::not_unique` [(Documentation)](../mtl/algorithm.hpp#L39) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::keep_duplicates_inclusive` [(Documentation)](../mtl/algorithm.hpp#L456) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates_exclusive` [(Documentation)](../mtl/algorithm.hpp#L603) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates` [(Documentation)](../mtl/algorithm.hpp#L732) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates_inclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L454) [(Examples)](../tests/tests_algorithm.cpp#L486)
-- `mtl::keep_duplicates_exclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L601) [(Examples)](../tests/tests_algorithm.cpp#L527)
-- `mtl::keep_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L730) [(Examples)](../tests/tests_algorithm.cpp#L569)
-- `mtl::keep_duplicates_inclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L458) [(Examples)](../tests/tests_algorithm.cpp#L719)
-- `mtl::keep_duplicates_exclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L605) [(Examples)](../tests/tests_algorithm.cpp#L772)
-- `mtl::keep_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L733) [(Examples)](../tests/tests_algorithm.cpp#L808)
-- `mtl::rem_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L253) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::rem_duplicates` [(Documentation)](../mtl/algorithm.hpp#L254) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::rem_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L255) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L845) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L898) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L899) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L980) [(Examples)](../tests/tests_algorithm.cpp#L1661)
-- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1022) [(Examples)](../tests/tests_algorithm.cpp#L1781)
-- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1106) [(Examples)](../tests/tests_algorithm.cpp#L1844)
-- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1135) [(Examples)](../tests/tests_algorithm.cpp#L1844)
-- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1171) [(Examples)](../tests/tests_algorithm.cpp#L2023)
+- `mtl::not_unique_inclusive` [(Documentation)](../mtl/algorithm.hpp#L32) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::not_unique_exclusive` [(Documentation)](../mtl/algorithm.hpp#L34) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::not_unique` [(Documentation)](../mtl/algorithm.hpp#L36) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::keep_duplicates_inclusive` [(Documentation)](../mtl/algorithm.hpp#L453) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates_exclusive` [(Documentation)](../mtl/algorithm.hpp#L601) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates` [(Documentation)](../mtl/algorithm.hpp#L731) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates_inclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L451) [(Examples)](../tests/tests_algorithm.cpp#L486)
+- `mtl::keep_duplicates_exclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L599) [(Examples)](../tests/tests_algorithm.cpp#L527)
+- `mtl::keep_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L729) [(Examples)](../tests/tests_algorithm.cpp#L569)
+- `mtl::keep_duplicates_inclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L455) [(Examples)](../tests/tests_algorithm.cpp#L719)
+- `mtl::keep_duplicates_exclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L603) [(Examples)](../tests/tests_algorithm.cpp#L772)
+- `mtl::keep_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L732) [(Examples)](../tests/tests_algorithm.cpp#L808)
+- `mtl::rem_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L250) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::rem_duplicates` [(Documentation)](../mtl/algorithm.hpp#L251) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::rem_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L252) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L844) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L897) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L898) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L979) [(Examples)](../tests/tests_algorithm.cpp#L1661)
+- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1021) [(Examples)](../tests/tests_algorithm.cpp#L1781)
+- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1105) [(Examples)](../tests/tests_algorithm.cpp#L1844)
+- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1134) [(Examples)](../tests/tests_algorithm.cpp#L1844)
+- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1170) [(Examples)](../tests/tests_algorithm.cpp#L2023)
 
 ---------------------------------------------------
 
@@ -47,18 +47,18 @@ There are 116 non-member functions.
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L216) [(Examples)](../tests/tests_console.cpp#L336)
 - `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L468) [(Examples)](../tests/tests_console.cpp#L603)
 - `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L469) [(Examples)](../tests/tests_console.cpp#L852)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1150) [(Examples)](../tests/tests_console.cpp#L1014)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1208) [(Examples)](../tests/tests_console.cpp#L1394)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1155) [(Examples)](../tests/tests_console.cpp#L1014)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1213) [(Examples)](../tests/tests_console.cpp#L1394)
 
 ---------------------------------------------------
 
 ## container.hpp
 
-- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L19) [(Examples)](../tests/tests_container.cpp#L25)
-- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L44) [(Examples)](../tests/tests_container.cpp#L124)
-- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L68) [(Examples)](../tests/tests_container.cpp#L260)
-- `mtl::slice` [(Documentation)](../mtl/container.hpp#L98) [(Examples)](../tests/tests_container.cpp#L399)
-- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L99) [(Examples)](../tests/tests_container.cpp#L1279)
+- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L18) [(Examples)](../tests/tests_container.cpp#L25)
+- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L43) [(Examples)](../tests/tests_container.cpp#L124)
+- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L67) [(Examples)](../tests/tests_container.cpp#L260)
+- `mtl::slice` [(Documentation)](../mtl/container.hpp#L97) [(Examples)](../tests/tests_container.cpp#L399)
+- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L98) [(Examples)](../tests/tests_container.cpp#L1279)
 
 ---------------------------------------------------
 
@@ -75,21 +75,21 @@ There are 116 non-member functions.
 
 ## filesystem.hpp
 
-- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L71)
-- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L36) [(Examples)](../tests/tests_filesystem.cpp#L219)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L152) [(Examples)](../tests/tests_filesystem.cpp#L71)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L153) [(Examples)](../tests/tests_filesystem.cpp#L219)
+- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L31) [(Examples)](../tests/tests_filesystem.cpp#L109)
+- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L107) [(Examples)](../tests/tests_filesystem.cpp#L390)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L229) [(Examples)](../tests/tests_filesystem.cpp#L71)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L268) [(Examples)](../tests/tests_filesystem.cpp#L781)
 
 ---------------------------------------------------
 
 ## math.hpp
 
-- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L20) [(Examples)](../tests/tests_math.cpp#L24)
-- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L97)
-- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L169)
-- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
-- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L596)
-- `mtl::percent` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L790)
+- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L19) [(Examples)](../tests/tests_math.cpp#L24)
+- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L20) [(Examples)](../tests/tests_math.cpp#L97)
+- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L169)
+- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L89) [(Examples)](../tests/tests_math.cpp#L280)
+- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L596)
+- `mtl::percent` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L790)
 
 ---------------------------------------------------
 
@@ -207,9 +207,9 @@ There are 116 non-member functions.
 
 ## utility.hpp
 
-- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L17)
-- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L72)
-- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L54) [(Examples)](../tests/tests_utility.cpp#L96)
+- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L18)
+- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L73)
+- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L54) [(Examples)](../tests/tests_utility.cpp#L97)
 
 ---------------------------------------------------
 
