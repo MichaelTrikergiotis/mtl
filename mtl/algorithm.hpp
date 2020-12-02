@@ -16,8 +16,8 @@
 #include <stdexcept>        // std::invalid_argument
 #include <cstddef>          // std::ptrdiff_t
 #include <iterator>         // std::next, std::advance, std::forward_iterator_tag
-#include <algorithm>        // std::remove, std::adjacent_find, std::unique, 
-						    // std::find, std::for_each, std::unique, std::sort, std::includes 
+#include <algorithm>        // std::remove, std::adjacent_find, std::find, std::for_each,
+							// std::unique, std::sort, std::includes 
 #include <type_traits>      // std::enable_if_t, std::remove_cv_t, std::add_pointer_t,
 							// std::add_lvalue_reference_t
 #include "type_traits.hpp"  // mtl::is_number_v, mtl::has_find_v
@@ -241,7 +241,7 @@ inline Iter not_unique(Iter first, Iter last, BinaryPredicate binary_pred)
 	// move all duplicates excluding the original to the front
 	auto it = detail::not_unique_exclusive_impl(first, last, binary_pred);
 	// move only a single copy of each duplicate to the front and return an iterator to new end
-	return std::unique(first, it);
+	return std::unique(first, it, binary_pred);
 }
 
 

@@ -181,6 +181,41 @@ TEST_CASE("mtl::not_unique with custom predicate for std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique with custom predicate for std::vector, custom class")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    std::vector<custom_class> custom_vec {c1, c2, c3, c3, c2, c1, c1};
+
+    std::sort(custom_vec.begin(), custom_vec.end(), [](const auto& rhs, const auto& lhs)
+                                                    {
+                                                        return rhs.x < lhs.x;
+                                                    });
+
+    custom_vec.erase(mtl::not_unique(custom_vec.begin(), custom_vec.end(), 
+                                     [](const auto& rhs, const auto& lhs)
+                                     {
+                                         return rhs.x == lhs.x;
+                                     }), custom_vec.end());
+   
+    std::vector<custom_class> desired_result {c1, c2, c3};
+    
+    REQUIRE_EQ(custom_vec.size(), desired_result.size());
+    for(size_t i = 0; i < custom_vec.size(); ++i)
+    {
+        REQUIRE_EQ(custom_vec[i].x, desired_result[i].x);
+    }
+}
 
 // for std::list
 TEST_CASE("mtl::not_unique_inclusive for std::list")
