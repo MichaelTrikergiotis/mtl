@@ -6,7 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
-
+#include "definitions.hpp" // various definitions
 #include <algorithm>       // std::copy
 #include <iterator>        // std::next, std::begin
 #include <type_traits>     // std::enable_if_t

@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp" // various definitions
 #include <string>          // std::string
 #include <cstring>         // std::strlen
 #include <vector>          // std::vector

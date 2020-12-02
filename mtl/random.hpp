@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp"      // various definitions
 #include <random>				// std::random_device, std::uniform_int_distribution
 #include <iterator>				// std::next, std::distance
 #include <algorithm>			// std::iter_swap

@@ -7,9 +7,9 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 
-
-#include <chrono> // std::chrono::time_point, std::chrono::high_resolution_clock,
-				  // std::chrono::duration, std::milli, std::micro, std::nano
+#include "definitions.hpp" // various definitions
+#include <chrono> 		   // std::chrono::time_point, std::chrono::high_resolution_clock,
+				           // std::chrono::duration, std::milli, std::micro, std::nano
 
 
 namespace mtl

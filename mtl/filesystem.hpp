@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp" // various definitions
 #include <filesystem>      // std::filesystem::file_size, std::filesystem::path, 
 						   // std::filesystem::is_regular_file
 #include <string>          // std::string

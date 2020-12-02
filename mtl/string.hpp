@@ -8,7 +8,7 @@
 // For information about third party licenses check ThirdPartyNotices.txt.
 
 
-
+#include "definitions.hpp"   // various definitions
 #include <algorithm>         // std::copy, std::fill
 #include <string>            // std::string, std::string::npos
 #include <cstring>           // std::strlen, std::strstr

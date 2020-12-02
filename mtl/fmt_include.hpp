@@ -49,6 +49,9 @@
 // increase fmt performance when formatting floating point numbers
 #define FMT_USE_FULL_CACHE_DRAGONBOX 1
 
+// header that contains various definitions
+#include "definitions.hpp"
+
 // needed headers from fmt
 #include "fmt/format.h"
 #include "fmt/ostream.h"

@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp" // various definitions
 #include <cmath>           // std::pow
 #include <charconv> 	   // std::from_chars
 #include <system_error>    // std::errc

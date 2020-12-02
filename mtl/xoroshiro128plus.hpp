@@ -10,11 +10,12 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
-#include <cstdint>		// uint64_t
-#include <limits>		// std::numeric_limits
-#include <ostream>		// std::basic_ostream
-#include <istream>		// std::basic_istream
-#include <type_traits>  // std::is_unsigned_v
+#include "definitions.hpp" // various definitions
+#include <cstdint>		   // uint64_t
+#include <limits>		   // std::numeric_limits
+#include <ostream>		   // std::basic_ostream
+#include <istream>		   // std::basic_istream
+#include <type_traits>     // std::is_unsigned_v
 
 
 namespace mtl

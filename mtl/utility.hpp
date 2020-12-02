@@ -6,7 +6,8 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
-#include <cassert>	// assert
+#include "definitions.hpp" // various definitions
+#include <cassert>	       // assert
 
 
 namespace mtl

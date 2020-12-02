@@ -14,82 +14,82 @@ There are 116 non-member functions.
 
 ## algorithm.hpp
 
-- `mtl::not_unique_inclusive` [(Documentation)](../mtl/algorithm.hpp#L32) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::not_unique_exclusive` [(Documentation)](../mtl/algorithm.hpp#L34) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::not_unique` [(Documentation)](../mtl/algorithm.hpp#L36) [(Examples)](../tests/tests_algorithm.cpp#L38)
-- `mtl::keep_duplicates_inclusive` [(Documentation)](../mtl/algorithm.hpp#L453) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates_exclusive` [(Documentation)](../mtl/algorithm.hpp#L601) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates` [(Documentation)](../mtl/algorithm.hpp#L731) [(Examples)](../tests/tests_algorithm.cpp#L290)
-- `mtl::keep_duplicates_inclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L451) [(Examples)](../tests/tests_algorithm.cpp#L486)
-- `mtl::keep_duplicates_exclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L599) [(Examples)](../tests/tests_algorithm.cpp#L527)
-- `mtl::keep_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L729) [(Examples)](../tests/tests_algorithm.cpp#L569)
-- `mtl::keep_duplicates_inclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L455) [(Examples)](../tests/tests_algorithm.cpp#L719)
-- `mtl::keep_duplicates_exclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L603) [(Examples)](../tests/tests_algorithm.cpp#L772)
-- `mtl::keep_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L732) [(Examples)](../tests/tests_algorithm.cpp#L808)
-- `mtl::rem_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L250) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::rem_duplicates` [(Documentation)](../mtl/algorithm.hpp#L251) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::rem_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L252) [(Examples)](../tests/tests_algorithm.cpp#L934)
-- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L844) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L897) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L898) [(Examples)](../tests/tests_algorithm.cpp#L1186)
-- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L979) [(Examples)](../tests/tests_algorithm.cpp#L1661)
-- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1021) [(Examples)](../tests/tests_algorithm.cpp#L1781)
-- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1105) [(Examples)](../tests/tests_algorithm.cpp#L1844)
-- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1134) [(Examples)](../tests/tests_algorithm.cpp#L1844)
-- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1170) [(Examples)](../tests/tests_algorithm.cpp#L2023)
+- `mtl::not_unique_inclusive` [(Documentation)](../mtl/algorithm.hpp#L33) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::not_unique_exclusive` [(Documentation)](../mtl/algorithm.hpp#L35) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::not_unique` [(Documentation)](../mtl/algorithm.hpp#L37) [(Examples)](../tests/tests_algorithm.cpp#L38)
+- `mtl::keep_duplicates_inclusive` [(Documentation)](../mtl/algorithm.hpp#L454) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates_exclusive` [(Documentation)](../mtl/algorithm.hpp#L602) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates` [(Documentation)](../mtl/algorithm.hpp#L732) [(Examples)](../tests/tests_algorithm.cpp#L290)
+- `mtl::keep_duplicates_inclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L452) [(Examples)](../tests/tests_algorithm.cpp#L486)
+- `mtl::keep_duplicates_exclusive_sorted` [(Documentation)](../mtl/algorithm.hpp#L600) [(Examples)](../tests/tests_algorithm.cpp#L527)
+- `mtl::keep_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L730) [(Examples)](../tests/tests_algorithm.cpp#L569)
+- `mtl::keep_duplicates_inclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L456) [(Examples)](../tests/tests_algorithm.cpp#L719)
+- `mtl::keep_duplicates_exclusive_preserve` [(Documentation)](../mtl/algorithm.hpp#L604) [(Examples)](../tests/tests_algorithm.cpp#L772)
+- `mtl::keep_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L733) [(Examples)](../tests/tests_algorithm.cpp#L808)
+- `mtl::rem_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L251) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::rem_duplicates` [(Documentation)](../mtl/algorithm.hpp#L252) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::rem_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L253) [(Examples)](../tests/tests_algorithm.cpp#L934)
+- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L845) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L898) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L899) [(Examples)](../tests/tests_algorithm.cpp#L1186)
+- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L980) [(Examples)](../tests/tests_algorithm.cpp#L1661)
+- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1022) [(Examples)](../tests/tests_algorithm.cpp#L1781)
+- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1106) [(Examples)](../tests/tests_algorithm.cpp#L1844)
+- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1135) [(Examples)](../tests/tests_algorithm.cpp#L1844)
+- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1171) [(Examples)](../tests/tests_algorithm.cpp#L2023)
 
 ---------------------------------------------------
 
 ## console.hpp
 
-- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L153) [(Examples)](../tests/tests_console.cpp#L69)
-- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L182) [(Examples)](../tests/tests_console.cpp#L69)
-- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L216) [(Examples)](../tests/tests_console.cpp#L336)
-- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L468) [(Examples)](../tests/tests_console.cpp#L603)
-- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L469) [(Examples)](../tests/tests_console.cpp#L852)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1155) [(Examples)](../tests/tests_console.cpp#L1014)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1213) [(Examples)](../tests/tests_console.cpp#L1394)
+- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L154) [(Examples)](../tests/tests_console.cpp#L69)
+- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L183) [(Examples)](../tests/tests_console.cpp#L69)
+- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L217) [(Examples)](../tests/tests_console.cpp#L336)
+- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L469) [(Examples)](../tests/tests_console.cpp#L603)
+- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L470) [(Examples)](../tests/tests_console.cpp#L852)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1156) [(Examples)](../tests/tests_console.cpp#L1014)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1214) [(Examples)](../tests/tests_console.cpp#L1394)
 
 ---------------------------------------------------
 
 ## container.hpp
 
-- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L18) [(Examples)](../tests/tests_container.cpp#L25)
-- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L43) [(Examples)](../tests/tests_container.cpp#L124)
-- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L67) [(Examples)](../tests/tests_container.cpp#L260)
-- `mtl::slice` [(Documentation)](../mtl/container.hpp#L97) [(Examples)](../tests/tests_container.cpp#L399)
-- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L98) [(Examples)](../tests/tests_container.cpp#L1279)
+- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L19) [(Examples)](../tests/tests_container.cpp#L25)
+- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L44) [(Examples)](../tests/tests_container.cpp#L124)
+- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L68) [(Examples)](../tests/tests_container.cpp#L260)
+- `mtl::slice` [(Documentation)](../mtl/container.hpp#L98) [(Examples)](../tests/tests_container.cpp#L399)
+- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L99) [(Examples)](../tests/tests_container.cpp#L1279)
 
 ---------------------------------------------------
 
 ## conversion.hpp
 
-- `mtl::to_num` [(Documentation)](../mtl/conversion.hpp#L22) [(Examples)](../tests/tests_conversion.cpp#L64)
-- `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L23) [(Examples)](../tests/tests_conversion.cpp#L479)
-- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L705) [(Examples)](../tests/tests_conversion.cpp#L1509)
-- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L707) [(Examples)](../tests/tests_conversion.cpp#L2127)
-- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L787) [(Examples)](../tests/tests_conversion.cpp#L4786)
-- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L788) [(Examples)](../tests/tests_conversion.cpp#L4879)
+- `mtl::to_num` [(Documentation)](../mtl/conversion.hpp#L23) [(Examples)](../tests/tests_conversion.cpp#L64)
+- `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L24) [(Examples)](../tests/tests_conversion.cpp#L479)
+- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L706) [(Examples)](../tests/tests_conversion.cpp#L1509)
+- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L708) [(Examples)](../tests/tests_conversion.cpp#L2127)
+- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L788) [(Examples)](../tests/tests_conversion.cpp#L4786)
+- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L789) [(Examples)](../tests/tests_conversion.cpp#L4879)
 
 ---------------------------------------------------
 
 ## filesystem.hpp
 
-- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L31) [(Examples)](../tests/tests_filesystem.cpp#L109)
-- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L107) [(Examples)](../tests/tests_filesystem.cpp#L390)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L229) [(Examples)](../tests/tests_filesystem.cpp#L71)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L268) [(Examples)](../tests/tests_filesystem.cpp#L781)
+- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L32) [(Examples)](../tests/tests_filesystem.cpp#L109)
+- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L108) [(Examples)](../tests/tests_filesystem.cpp#L390)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L230) [(Examples)](../tests/tests_filesystem.cpp#L71)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L269) [(Examples)](../tests/tests_filesystem.cpp#L781)
 
 ---------------------------------------------------
 
 ## math.hpp
 
-- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L19) [(Examples)](../tests/tests_math.cpp#L24)
-- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L20) [(Examples)](../tests/tests_math.cpp#L97)
-- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L169)
-- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L89) [(Examples)](../tests/tests_math.cpp#L280)
-- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L596)
-- `mtl::percent` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L790)
+- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L20) [(Examples)](../tests/tests_math.cpp#L24)
+- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L21) [(Examples)](../tests/tests_math.cpp#L97)
+- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L169)
+- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L90) [(Examples)](../tests/tests_math.cpp#L280)
+- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L91) [(Examples)](../tests/tests_math.cpp#L596)
+- `mtl::percent` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L790)
 
 ---------------------------------------------------
 
@@ -104,16 +104,16 @@ There are 116 non-member functions.
 
 ## random.hpp
 
-- [**CLASS**] `mtl::rng` [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L25)
-  - `mtl::rng::rng` [(Documentation)](../mtl/random.hpp#L24) [(Examples)](../tests/tests_random.cpp#L27)
-  - `mtl::rng::set_min_max` [(Documentation)](../mtl/random.hpp#L107) [(Examples)](../tests/tests_random.cpp#L29)
-  - `mtl::rng::min` [(Documentation)](../mtl/random.hpp#L122) [(Examples)](../tests/tests_random.cpp#L31)
-  - `mtl::rng::max` [(Documentation)](../mtl/random.hpp#L131) [(Examples)](../tests/tests_random.cpp#L33)
-  - `mtl::rng::next` [(Documentation)](../mtl/random.hpp#L140) [(Examples)](../tests/tests_random.cpp#L35)
-  - `mtl::rng::seed` [(Documentation)](../mtl/random.hpp#L149) [(Examples)](../tests/tests_random.cpp#L37)
-  - `mtl::rng::seed_random` [(Documentation)](../mtl/random.hpp#L182) [(Examples)](../tests/tests_random.cpp#L39)
-- `mtl::random_choice` [(Documentation)](../mtl/random.hpp#L194) [(Examples)](../tests/tests_random.cpp#L644)
-- `mtl::shuffle` [(Documentation)](../mtl/random.hpp#L247) [(Examples)](../tests/tests_random.cpp#L1115)
+- [**CLASS**] `mtl::rng` [(Documentation)](../mtl/random.hpp#L25) [(Examples)](../tests/tests_random.cpp#L25)
+  - `mtl::rng::rng` [(Documentation)](../mtl/random.hpp#L25) [(Examples)](../tests/tests_random.cpp#L27)
+  - `mtl::rng::set_min_max` [(Documentation)](../mtl/random.hpp#L108) [(Examples)](../tests/tests_random.cpp#L29)
+  - `mtl::rng::min` [(Documentation)](../mtl/random.hpp#L123) [(Examples)](../tests/tests_random.cpp#L31)
+  - `mtl::rng::max` [(Documentation)](../mtl/random.hpp#L132) [(Examples)](../tests/tests_random.cpp#L33)
+  - `mtl::rng::next` [(Documentation)](../mtl/random.hpp#L141) [(Examples)](../tests/tests_random.cpp#L35)
+  - `mtl::rng::seed` [(Documentation)](../mtl/random.hpp#L150) [(Examples)](../tests/tests_random.cpp#L37)
+  - `mtl::rng::seed_random` [(Documentation)](../mtl/random.hpp#L183) [(Examples)](../tests/tests_random.cpp#L39)
+- `mtl::random_choice` [(Documentation)](../mtl/random.hpp#L195) [(Examples)](../tests/tests_random.cpp#L644)
+- `mtl::shuffle` [(Documentation)](../mtl/random.hpp#L248) [(Examples)](../tests/tests_random.cpp#L1115)
 
 ---------------------------------------------------
 
@@ -167,68 +167,68 @@ There are 116 non-member functions.
 
 ## type_traits.hpp
 
-- `mtl::are_same` [(Documentation)](../mtl/type_traits.hpp#L32) [(Examples)](../tests/tests_type_traits.cpp#L38)
-- `mtl::has_reserve` [(Documentation)](../mtl/type_traits.hpp#L57) [(Examples)](../tests/tests_type_traits.cpp#L98)
-- `mtl::has_push_back` [(Documentation)](../mtl/type_traits.hpp#L80) [(Examples)](../tests/tests_type_traits.cpp#L142)
-- `mtl::has_emplace_back` [(Documentation)](../mtl/type_traits.hpp#L101) [(Examples)](../tests/tests_type_traits.cpp#L182)
-- `mtl::has_size` [(Documentation)](../mtl/type_traits.hpp#L154) [(Examples)](../tests/tests_type_traits.cpp#L225)
-- `mtl::has_find` [(Documentation)](../mtl/type_traits.hpp#L176) [(Examples)](../tests/tests_type_traits.cpp#L267)
-- `mtl::is_sint` [(Documentation)](../mtl/type_traits.hpp#L250) [(Examples)](../tests/tests_type_traits.cpp#L322)
-- `mtl::is_uint` [(Documentation)](../mtl/type_traits.hpp#L252) [(Examples)](../tests/tests_type_traits.cpp#L471)
-- `mtl::is_int` [(Documentation)](../mtl/type_traits.hpp#L254) [(Examples)](../tests/tests_type_traits.cpp#L620)
-- `mtl::is_float` [(Documentation)](../mtl/type_traits.hpp#L256) [(Examples)](../tests/tests_type_traits.cpp#L767)
-- `mtl::is_number` [(Documentation)](../mtl/type_traits.hpp#L258) [(Examples)](../tests/tests_type_traits.cpp#L831)
-- `mtl::is_char` [(Documentation)](../mtl/type_traits.hpp#L260) [(Examples)](../tests/tests_type_traits.cpp#L992)
-- `mtl::is_std_array` [(Documentation)](../mtl/type_traits.hpp#L356) [(Examples)](../tests/tests_type_traits.cpp#L1061)
-- `mtl::is_std_vector` [(Documentation)](../mtl/type_traits.hpp#L376) [(Examples)](../tests/tests_type_traits.cpp#L1083)
-- `mtl::is_std_deque` [(Documentation)](../mtl/type_traits.hpp#L396) [(Examples)](../tests/tests_type_traits.cpp#L1105)
-- `mtl::is_std_forward_list` [(Documentation)](../mtl/type_traits.hpp#L416) [(Examples)](../tests/tests_type_traits.cpp#L1127)
-- `mtl::is_std_list` [(Documentation)](../mtl/type_traits.hpp#L436) [(Examples)](../tests/tests_type_traits.cpp#L1152)
-- `mtl::is_std_set` [(Documentation)](../mtl/type_traits.hpp#L456) [(Examples)](../tests/tests_type_traits.cpp#L1174)
-- `mtl::is_std_multiset` [(Documentation)](../mtl/type_traits.hpp#L476) [(Examples)](../tests/tests_type_traits.cpp#L1198)
-- `mtl::is_std_map` [(Documentation)](../mtl/type_traits.hpp#L496) [(Examples)](../tests/tests_type_traits.cpp#L1224)
-- `mtl::is_std_multimap` [(Documentation)](../mtl/type_traits.hpp#L516) [(Examples)](../tests/tests_type_traits.cpp#L1248)
-- `mtl::is_std_unordered_set` [(Documentation)](../mtl/type_traits.hpp#L536) [(Examples)](../tests/tests_type_traits.cpp#L1273)
-- `mtl::is_std_unordered_map` [(Documentation)](../mtl/type_traits.hpp#L556) [(Examples)](../tests/tests_type_traits.cpp#L1323)
-- `mtl::is_std_unordered_multiset` [(Documentation)](../mtl/type_traits.hpp#L576) [(Examples)](../tests/tests_type_traits.cpp#L1298)
-- `mtl::is_std_unordered_multimap` [(Documentation)](../mtl/type_traits.hpp#L596) [(Examples)](../tests/tests_type_traits.cpp#L1348)
-- `mtl::is_std_stack` [(Documentation)](../mtl/type_traits.hpp#L616) [(Examples)](../tests/tests_type_traits.cpp#L1374)
-- `mtl::is_std_queue` [(Documentation)](../mtl/type_traits.hpp#L636) [(Examples)](../tests/tests_type_traits.cpp#L1398)
-- `mtl::is_std_priority_queue` [(Documentation)](../mtl/type_traits.hpp#L656) [(Examples)](../tests/tests_type_traits.cpp#L1422)
-- `mtl::is_std_container` [(Documentation)](../mtl/type_traits.hpp#L676) [(Examples)](../tests/tests_type_traits.cpp#L1447)
-- `mtl::is_std_pair` [(Documentation)](../mtl/type_traits.hpp#L705) [(Examples)](../tests/tests_type_traits.cpp#L1476)
-- `mtl::is_std_string` [(Documentation)](../mtl/type_traits.hpp#L728) [(Examples)](../tests/tests_type_traits.cpp#L1528)
-- `mtl::is_c_string` [(Documentation)](../mtl/type_traits.hpp#L748) [(Examples)](../tests/tests_type_traits.cpp#L1612)
-- `mtl::is_input_iterator` [(Documentation)](../mtl/type_traits.hpp#L767) [(Examples)](../tests/tests_type_traits.cpp#L1642)
-- `mtl::is_output_iterator` [(Documentation)](../mtl/type_traits.hpp#L769) [(Examples)](../tests/tests_type_traits.cpp#L1642)
-- `mtl::is_iterator` [(Documentation)](../mtl/type_traits.hpp#L771) [(Examples)](../tests/tests_type_traits.cpp#L1642)
+- `mtl::are_same` [(Documentation)](../mtl/type_traits.hpp#L34) [(Examples)](../tests/tests_type_traits.cpp#L38)
+- `mtl::has_reserve` [(Documentation)](../mtl/type_traits.hpp#L59) [(Examples)](../tests/tests_type_traits.cpp#L98)
+- `mtl::has_push_back` [(Documentation)](../mtl/type_traits.hpp#L82) [(Examples)](../tests/tests_type_traits.cpp#L142)
+- `mtl::has_emplace_back` [(Documentation)](../mtl/type_traits.hpp#L103) [(Examples)](../tests/tests_type_traits.cpp#L182)
+- `mtl::has_size` [(Documentation)](../mtl/type_traits.hpp#L156) [(Examples)](../tests/tests_type_traits.cpp#L225)
+- `mtl::has_find` [(Documentation)](../mtl/type_traits.hpp#L178) [(Examples)](../tests/tests_type_traits.cpp#L267)
+- `mtl::is_sint` [(Documentation)](../mtl/type_traits.hpp#L252) [(Examples)](../tests/tests_type_traits.cpp#L322)
+- `mtl::is_uint` [(Documentation)](../mtl/type_traits.hpp#L254) [(Examples)](../tests/tests_type_traits.cpp#L471)
+- `mtl::is_int` [(Documentation)](../mtl/type_traits.hpp#L256) [(Examples)](../tests/tests_type_traits.cpp#L620)
+- `mtl::is_float` [(Documentation)](../mtl/type_traits.hpp#L258) [(Examples)](../tests/tests_type_traits.cpp#L767)
+- `mtl::is_number` [(Documentation)](../mtl/type_traits.hpp#L260) [(Examples)](../tests/tests_type_traits.cpp#L831)
+- `mtl::is_char` [(Documentation)](../mtl/type_traits.hpp#L262) [(Examples)](../tests/tests_type_traits.cpp#L992)
+- `mtl::is_std_array` [(Documentation)](../mtl/type_traits.hpp#L358) [(Examples)](../tests/tests_type_traits.cpp#L1061)
+- `mtl::is_std_vector` [(Documentation)](../mtl/type_traits.hpp#L378) [(Examples)](../tests/tests_type_traits.cpp#L1083)
+- `mtl::is_std_deque` [(Documentation)](../mtl/type_traits.hpp#L398) [(Examples)](../tests/tests_type_traits.cpp#L1105)
+- `mtl::is_std_forward_list` [(Documentation)](../mtl/type_traits.hpp#L418) [(Examples)](../tests/tests_type_traits.cpp#L1127)
+- `mtl::is_std_list` [(Documentation)](../mtl/type_traits.hpp#L438) [(Examples)](../tests/tests_type_traits.cpp#L1152)
+- `mtl::is_std_set` [(Documentation)](../mtl/type_traits.hpp#L458) [(Examples)](../tests/tests_type_traits.cpp#L1174)
+- `mtl::is_std_multiset` [(Documentation)](../mtl/type_traits.hpp#L478) [(Examples)](../tests/tests_type_traits.cpp#L1198)
+- `mtl::is_std_map` [(Documentation)](../mtl/type_traits.hpp#L498) [(Examples)](../tests/tests_type_traits.cpp#L1224)
+- `mtl::is_std_multimap` [(Documentation)](../mtl/type_traits.hpp#L518) [(Examples)](../tests/tests_type_traits.cpp#L1248)
+- `mtl::is_std_unordered_set` [(Documentation)](../mtl/type_traits.hpp#L538) [(Examples)](../tests/tests_type_traits.cpp#L1273)
+- `mtl::is_std_unordered_map` [(Documentation)](../mtl/type_traits.hpp#L558) [(Examples)](../tests/tests_type_traits.cpp#L1323)
+- `mtl::is_std_unordered_multiset` [(Documentation)](../mtl/type_traits.hpp#L578) [(Examples)](../tests/tests_type_traits.cpp#L1298)
+- `mtl::is_std_unordered_multimap` [(Documentation)](../mtl/type_traits.hpp#L598) [(Examples)](../tests/tests_type_traits.cpp#L1348)
+- `mtl::is_std_stack` [(Documentation)](../mtl/type_traits.hpp#L618) [(Examples)](../tests/tests_type_traits.cpp#L1374)
+- `mtl::is_std_queue` [(Documentation)](../mtl/type_traits.hpp#L638) [(Examples)](../tests/tests_type_traits.cpp#L1398)
+- `mtl::is_std_priority_queue` [(Documentation)](../mtl/type_traits.hpp#L658) [(Examples)](../tests/tests_type_traits.cpp#L1422)
+- `mtl::is_std_container` [(Documentation)](../mtl/type_traits.hpp#L678) [(Examples)](../tests/tests_type_traits.cpp#L1447)
+- `mtl::is_std_pair` [(Documentation)](../mtl/type_traits.hpp#L707) [(Examples)](../tests/tests_type_traits.cpp#L1476)
+- `mtl::is_std_string` [(Documentation)](../mtl/type_traits.hpp#L730) [(Examples)](../tests/tests_type_traits.cpp#L1528)
+- `mtl::is_c_string` [(Documentation)](../mtl/type_traits.hpp#L750) [(Examples)](../tests/tests_type_traits.cpp#L1612)
+- `mtl::is_input_iterator` [(Documentation)](../mtl/type_traits.hpp#L769) [(Examples)](../tests/tests_type_traits.cpp#L1642)
+- `mtl::is_output_iterator` [(Documentation)](../mtl/type_traits.hpp#L771) [(Examples)](../tests/tests_type_traits.cpp#L1642)
+- `mtl::is_iterator` [(Documentation)](../mtl/type_traits.hpp#L773) [(Examples)](../tests/tests_type_traits.cpp#L1642)
 
 ---------------------------------------------------
 
 ## utility.hpp
 
-- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L17) [(Examples)](../tests/tests_utility.cpp#L18)
-- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L37) [(Examples)](../tests/tests_utility.cpp#L73)
-- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L54) [(Examples)](../tests/tests_utility.cpp#L97)
+- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L18) [(Examples)](../tests/tests_utility.cpp#L18)
+- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L38) [(Examples)](../tests/tests_utility.cpp#L73)
+- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L55) [(Examples)](../tests/tests_utility.cpp#L97)
 
 ---------------------------------------------------
 
 ## xoroshiro128plus.hpp
 
-- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L28)
-  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L24) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L30)
-  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L182) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L32)
-  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L216) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L34)
-  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L257) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L36)
-  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L266) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L38)
-  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L275) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L40)
-  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L296) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L42)
-  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L313) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L44)
-  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L327) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L46)
-  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L344) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
-  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L363) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
-  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L376) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
-- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L391) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L54)
+- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L25) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L28)
+  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L25) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L30)
+  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L183) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L32)
+  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L217) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L34)
+  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L258) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L36)
+  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L267) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L38)
+  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L276) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L40)
+  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L297) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L42)
+  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L314) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L44)
+  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L328) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L46)
+  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L345) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
+  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L364) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
+  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L377) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
+- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L392) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L54)
 
 ---------------------------------------------------
 

@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp"  // various definitions
 #include <vector>           // std::vector
 #include <list>             // std::list
 #include <unordered_set>    // std::unordered_set

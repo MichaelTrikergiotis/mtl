@@ -6,6 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
+#include "definitions.hpp" // various definitions
 #include <algorithm>       // std::max
 #include <cmath>           // std::fabs, std::round
 #include <stdexcept>       // std::invalid_argument

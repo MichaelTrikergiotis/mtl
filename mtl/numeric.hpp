@@ -6,7 +6,7 @@
 // 
 // For information about third party licenses check ThirdPartyNotices.txt.
 
-
+#include "definitions.hpp" // various definitions
 #include <iterator>        // std::distance, std::iterator_traits, std::advance, std::next
 #include <numeric>         // std::accumulate
 #include <functional>      // std::hash, std::equal_to
