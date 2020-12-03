@@ -8,6 +8,7 @@
 
 import re
 import os
+import zlib
 from common import check_cwd, get_headers, get_sources
 
 
@@ -226,6 +227,18 @@ def generate_navigation(sources):
     return ''.join(menu)
 
 
+def crc32(file_path):
+    '''
+    Given the path to a file returns the CRC32 hash for the entire file.
+    '''
+    # read the entire file as binary
+    binary_file = None
+    with open(file_path, 'rb') as bf:
+        binary_file = bf.read()
+    # caclulate and return the CRC32 hash of a file using zlib
+    return '%08X' % (zlib.crc32(binary_file, 0) & 0xFFFFFFFF)
+
+
 def generate_documentation(sources):
     '''
     Given a list of paths to test souce files, extracts class and function
@@ -346,13 +359,25 @@ def main_function():
     documentation = generate_documentation(sources)
 
     output_filename = '../docs/listing.md'
+
+    # keep a crc32 hash from the file before modification
+    crc32_before = crc32(output_filename)
+
     # write the generated documentation
     with open(output_filename, 'w', encoding='utf-8') as f:
         for line in documentation:
             f.write((line + '\n'))
 
-    print('Finished generating documentation. The output is stored ', end='')
-    print('in {}.'.format(output_filename[3:]))
+    # keep a crc32 hash from the file after modification
+    crc32_after = crc32(output_filename)
+
+    # if the file changed
+    if crc32_before != crc32_after:
+        print('Finished generating documentation. The ', end='')
+        print('output is stored in {}.'.format(output_filename[3:]))
+    # if the file didn't change
+    else:
+        print('Documentation is the same. No changes.')
 
 
 if __name__ == "__main__":
