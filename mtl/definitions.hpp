@@ -13,9 +13,19 @@
 // gist.github.com/MichaelTrikergiotis/8ab0994ac000e74203a60657f5b1da45
 
 #ifdef _WIN32
+
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif // NOMINMAX end
+
+#ifdef min
+#undef min
+#endif // min end
+
+#ifdef max
+#undef max
+#endif // max end
+
 #endif // _WIN32 end
 
 // ================================================================================================
