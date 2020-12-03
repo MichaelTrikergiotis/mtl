@@ -1085,7 +1085,7 @@ inline void split(const std::string& input, Container& output, const std::string
 		return;
 	}
 
-	// remember the start position
+	// remember the starting position
 	size_t start = 0;
 	// position of the first match
 	size_t match_pos = input.find(delimiter);
@@ -1115,8 +1115,8 @@ inline void split(const std::string& input, Container& output, const std::string
 	}
 
 
-	// if nothing is on the container add the entire input string because it means there are no
-	// places that it needed to be split
+	// if the container is empty add the entire input string because it means there are no
+	// places that it needs to be split
 	if (output.empty()) { mtl::emplace_back(output, input); }
 }
 

@@ -1173,7 +1173,7 @@ inline void overtype(const std::string& argument)
 
     // create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
-    // perfomance gain in the range of 2x to 8x times faster
+    // performance gain in the range of 2x to 8x times faster
     std::string str(argument.size(), '\b');
     fmt::print(str);
 	
@@ -1200,7 +1200,7 @@ inline void overtype(const char* argument)
 	size_t size = std::strlen(argument);
 	// create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
-    // perfomance gain in the range of 2x to 8x times faster
+    // performance gain in the range of 2x to 8x times faster
 	std::string str(size, '\b');
 	fmt::print(str);
 	
