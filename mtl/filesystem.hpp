@@ -45,7 +45,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 	// when in debug mode check the file we want to open exists and assert if it doens't
 	MTL_ASSERT_MSG(std::filesystem::is_regular_file(filename),
 				   "File doesn't exist or incorrect path given.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 	// what mode to open the file
 	std::ios_base::openmode open_mode = std::ios::out;
@@ -93,7 +93,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 
 	// resize the output to be exactly the same size as the file
 	output.resize(static_cast<size_t>(size));
-#endif
+#endif // __LP64__ end
 
 	// read the file and place it in the output
 	in_file.read(output.data(), static_cast<std::streamsize>(size));

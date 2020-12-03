@@ -1255,7 +1255,7 @@ inline void replace_long_heap(std::string& input, const std::string& match,
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(result >= 0, 
 		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert the result to size_t with no problems as this can't be negative
 		difference = static_cast<size_t>(result);
@@ -1360,7 +1360,7 @@ inline void replace_long(std::string& input, const std::string& match,
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(result >= 0,
 		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert the result to size_t with no problems as this can't be negative
 		difference = static_cast<size_t>(result);

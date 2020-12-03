@@ -115,7 +115,7 @@ percent_whole(Number percent, Number portion)
 		throw std::invalid_argument(
 		"The percent parameter is zero. This results in division by zero.");
 	}
-#endif
+#endif // MTL_DIV_ZERO_THROW end
 
 	constexpr Number hundred = static_cast<Number>(100.0);
 	// calculate the portion
@@ -211,7 +211,7 @@ percent(Number whole, Number portion)
 		throw std::invalid_argument(
 		"The whole parameter is zero. This results in division by zero.");
 	}
-#endif
+#endif // MTL_DIV_ZERO_THROW end
 
 	constexpr Number hundred = static_cast<Number>(100.0);
 	// find the percentage of the portion from the whole

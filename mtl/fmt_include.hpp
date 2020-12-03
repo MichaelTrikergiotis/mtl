@@ -18,7 +18,7 @@
 #pragma warning( disable : 26812 )
 #pragma warning( disable : 6385  )
 #pragma warning( disable : 6323 )
-#endif
+#endif // _MSC_VER end
 
 // supress GCC warnings
 #if defined(__GNUC__) 
@@ -28,15 +28,15 @@
 #pragma GCC diagnostic ignored "-Wstrict-overflow"
 #pragma GCC diagnostic ignored "-Wsign-conversion"
 #pragma GCC diagnostic ignored "-Wctor-dtor-privacy"
-#endif
-#endif
+#endif // __clang__ end
+#endif // __GNUC__ end
 
 // supress clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshadow"
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#endif
+#endif // __clang__ end 
 
 
 
@@ -62,9 +62,9 @@
 // stop supressing clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic pop
-#endif
+#endif // __clang__ end
 
 // stop suppressing MSVC warnings
 #if defined(_MSC_VER)
 #pragma warning( pop )
-#endif
+#endif // _MSC_VER end

@@ -27,7 +27,7 @@
 // this define makes the huge Windows.h header compile faster
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
-#endif
+#endif // WIN32_LEAN_AND_MEAN
 
 #include <io.h>      // _isatty
 #include <stdio.h>   // _fileno

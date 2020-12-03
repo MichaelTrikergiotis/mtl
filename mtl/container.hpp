@@ -187,4 +187,4 @@ inline Container slice_n(const Container& container, const size_t start_pos, con
 
 
 
-}
+} // namespace mtl end

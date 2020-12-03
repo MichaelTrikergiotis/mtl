@@ -134,7 +134,7 @@ struct has_emplace_back_adapter
 	<Type, void(typename Type::value_type)>::value>::value;
 };
 
-}  //  namespace detail
+}  //  namespace detail end
 
 
 /// Detects if the type has the emplace_back function.
@@ -229,7 +229,7 @@ std::pair<typename Type::value_type::first_type, typename Type::value_type::seco
 };
 
 
-}  //  namespace detail
+}  //  namespace detail end
 
 
 /// Detects if the type has the find function.

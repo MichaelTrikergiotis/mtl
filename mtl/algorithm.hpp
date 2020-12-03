@@ -168,6 +168,7 @@ inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate bin
 		}
 	}
 }
+
 } // namespace detail end
 
 
@@ -1026,6 +1027,7 @@ inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_fir
 // ------------------------------------------------------------------------------------------------
 // mtl::for_each for std::tuple 
 // ------------------------------------------------------------------------------------------------
+
 namespace detail
 {
 
@@ -1086,7 +1088,7 @@ inline void for_each(std::pair<Type1, Type2>& std_pair, Function&& func)
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::for_each for ranges
+// mtl::for_each for two iterators
 // ------------------------------------------------------------------------------------------------
 
 /// Applies a function to all elements. A drop in replacement for std::for_each that works on

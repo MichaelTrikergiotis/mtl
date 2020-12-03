@@ -699,7 +699,7 @@ inline auto to_num_noex(const std::string& input) noexcept
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 4756 )
-#endif 
+#endif  // _MSC_VER
 
 
 // ================================================================================================
@@ -940,7 +940,8 @@ struct rounding_cast_deductor_noex
 	}
 };
 
-}
+} // namespace detail end
+
 
 /// Rounds and casts a floating point number to int, long or long long. Can throw 
 /// std::overflow_error if the requested value doesn't fit the target type.
@@ -985,7 +986,7 @@ inline auto rounding_cast_noex(FloatingPoint number, bool& success) noexcept
 // stop suppressing MSVC warnings about false positives
 #if defined(_MSC_VER)
 #pragma warning( pop )
-#endif
+#endif // _MSC_VER
 
 
 } // namespace mtl end
