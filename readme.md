@@ -7,7 +7,7 @@ Modern, fast, easy. Makes C++ a joy to use.
 ![mtl logo](./docs/mtl-logo.png)
 
 ------------------------------------------------------------
-| [Getting Started](#Getting-started) | [Examples](#Examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#Listings) | [Goals](#Goals) | [License](#License) |
+| [Getting Started](#getting-started) | [Examples](#examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#listings) | [Goals](#goals) | [License](#license) |
 
 ------------------------------------------------------------
 
@@ -22,9 +22,9 @@ A nice feature of the library is that it has detailed comments. If you don't kno
 
 ## Getting started
 
-- For **mtl** you need a **C++ 17** compiler. For compiler compatibility refer to the [compiler documentation](./docs/documentation.md#C++-version-and-compiler-compatibility).
-- For installation instructions refer to the [installation documentation](./docs/documentation.md#Installation).
-- For running the tests refer to the [tests documentation](./docs/documentation.md#How-to-run-the-tests).
+- For **mtl** you need a **C++ 17** compiler. For compiler compatibility refer to the [compiler documentation](./docs/documentation.md#c-version-and-compiler-compatibility).
+- For installation instructions refer to the [installation documentation](./docs/documentation.md#installation).
+- For running the tests refer to the [tests documentation](./docs/documentation.md#how-to-run-the-tests).
 - For contributing refer to the [contribution documentation](./contributing.md).
 - For general documentation refer to the [documentation](./docs/documentation.md).
 

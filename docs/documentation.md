@@ -1,6 +1,6 @@
 # Documentation
 
-| [Installation](#Installation) | [Running Tests](#How-to-run-the-tests) | [Naming Convetions](#Naming-Convetions) | [Listings](#Listings) |
+| [Installation](#installation) | [Running Tests](#how-to-run-the-tests) | [Naming Convetions](#naming-Convetions) | [Listings](#listings) |
 
 ## C++ version and compiler compatibility
 
