@@ -1,6 +1,6 @@
 # Documentation
 
-| [Installation](#Installation) | [Running Tests](#How-to-run-the-tests) | [Naming Convetions](#Naming-Convetions) | [Listings](#Listings) |
+| [Installation](#installation) | [Running Tests](#how-to-run-the-tests) | [Naming Convetions](#naming-Convetions) | [Listings](#listings) |
 
 ## C++ version and compiler compatibility
 
@@ -121,7 +121,7 @@ For naming conventions as well as similarities and differences with the C++ stan
 
 ## Listings
 
-List of namespaces :
+### List of namespaces
 
 - `mtl`
   - `mtl::console`
@@ -132,10 +132,14 @@ List of namespaces :
 [**NOTE**]
 There is also the `mtl::detail` namespace which should **never**  be used for any reason. It is reserved for the internal implementation details of **mtl**. It retains the ability to change at any moment without warning or notice.
 
-List of classes and functions with documentation and examples read [here](./listing.md).
+### List of classes and functions
 
-List of MACROS along with detailed explanation read [here](./macros.md).
+For a list of classes and functions with documentation and examples read [here](./listing.md).
+
+### List of MACROS
+
+For a list of MACROS along with detailed explanation read [here](./macros.md).
 
 ------------------------------------------------------------
 
-If you don't understand something, need clarification, something doesn't seem to make sense or you think it can be made easier to understand please open an issue and explain your problem in detail.
+If you don't understand something or need clarification please open an issue.
