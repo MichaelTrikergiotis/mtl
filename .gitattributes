@@ -48,3 +48,18 @@
 # executables
 *.exe   binary
 *.out   binary
+
+# images
+*.psd   binary
+*.png   binary
+*.svg   binary
+*.jpg   binary
+*.ttf   binary
+
+# documents
+*.pdf   binary
+
+# compressed files
+*.zir   binary
+*.rar   binary
+*.7z    binary
