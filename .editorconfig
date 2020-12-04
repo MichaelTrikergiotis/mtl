@@ -20,6 +20,11 @@ indent_style = space
 end_of_line = crlf
 indent_style = space
 
+# Windows command files
+[*.cmd]
+end_of_line = crlf
+indent_style = space
+
 # Markdown files
 [*.md]
 trim_trailing_whitespace = false
