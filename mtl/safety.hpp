@@ -4,9 +4,11 @@
 // 
 // Header for safe algorithms. Safe algorirthms heavily reduce potential for errors.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
-
+#include "definitions.hpp" // various definitions
 #include <algorithm>       // std::copy
 #include <iterator>        // std::next, std::begin
 #include <type_traits>     // std::enable_if_t
@@ -45,7 +47,7 @@ safe_copy(const InContainer& source, OutContainer& destination) noexcept
 	// check bounds errors with assert to report out of bound errors while debugging
 	MTL_ASSERT_MSG((dest_size >= source_size), 
 			   	   "Destination container smaller than the source container.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 	// check out of bounds at runtime
 	if (dest_size >= source_size)
@@ -87,7 +89,7 @@ inline bool safe_copy(InIter in_first, InIter in_last, OutIter out_first,
 	MTL_ASSERT_MSG(!(dest_distance < 0), "Output iterators are incorrect.");
 	MTL_ASSERT_MSG(!(dest_distance < source_distance), 
 				   "The output range is smaller than the input range.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 	// if any of the values is negative or if the destination is 0 or the destination is smaller
 	// than the source return false to indicate failure
@@ -136,7 +138,7 @@ safe_copy_n(const InContainer& source, OutContainer& destination, const size_t s
 			   "The destination container doesn't have enough space.");
 	MTL_ASSERT_MSG((count <= dest_size), 
 			   "The number of items requested to be copied are more than the destination size");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 	// check out of bounds at runtime
 	if ((start_pos < source_size) && (min_size <= source_size) && (count <= dest_size))

@@ -4,7 +4,9 @@
 // 
 // Header that just includes fmt library and supresses the multiple warnings related with it.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 // supress MSVC warnings
 #if defined(_MSC_VER)
@@ -18,7 +20,7 @@
 #pragma warning( disable : 26812 )
 #pragma warning( disable : 6385  )
 #pragma warning( disable : 6323 )
-#endif
+#endif // _MSC_VER end
 
 // supress GCC warnings
 #if defined(__GNUC__) 
@@ -28,15 +30,15 @@
 #pragma GCC diagnostic ignored "-Wstrict-overflow"
 #pragma GCC diagnostic ignored "-Wsign-conversion"
 #pragma GCC diagnostic ignored "-Wctor-dtor-privacy"
-#endif
-#endif
+#endif // __clang__ end
+#endif // __GNUC__ end
 
 // supress clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshadow"
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#endif
+#endif // __clang__ end 
 
 
 
@@ -49,6 +51,9 @@
 // increase fmt performance when formatting floating point numbers
 #define FMT_USE_FULL_CACHE_DRAGONBOX 1
 
+// header that contains various definitions
+#include "definitions.hpp"
+
 // needed headers from fmt
 #include "fmt/format.h"
 #include "fmt/ostream.h"
@@ -59,9 +64,9 @@
 // stop supressing clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic pop
-#endif
+#endif // __clang__ end
 
 // stop suppressing MSVC warnings
 #if defined(_MSC_VER)
 #pragma warning( pop )
-#endif
+#endif // _MSC_VER end

@@ -4,10 +4,12 @@
 // 
 // Header for algorithms used to manipulate containers in a generic fashion.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp" // various definitions
 #include <type_traits>     // std::enable_if_t
-#include <utility>         // std::foward
 #include <stdexcept>       // std::out_of_range
 #include "type_traits.hpp" // mtl::has_reserve_v, mtl::has_push_back_v, mtl::has_emplace_back_v
 
@@ -187,4 +189,4 @@ inline Container slice_n(const Container& container, const size_t start_pos, con
 
 
 
-}
+} // namespace mtl end

@@ -94,10 +94,11 @@ mtl::chrono::stopwatch sw;
 sw.start();
 my_super_slow_function();
 sw.stop();
-double time_taken_ns = sw.elapsed_nano();
+// the non-Unicode shorthand for microseconds is us
+double time_taken_us = sw.elapsed_micro();
 ```
 
-The variable `time_taken_ns` is a double for how many nanoseconds it took `my_super_slow_function` to run.
+The variable `time_taken_us` is a double for how many microseconds it took `my_super_slow_function` to run.
 
 [**EXAMPLE 6**]
 

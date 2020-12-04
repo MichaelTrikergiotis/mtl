@@ -4,8 +4,11 @@
 // 
 // Header for mtl::console.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp" // various definitions
 #include <string>          // std::string
 #include <cstring>         // std::strlen
 #include <vector>          // std::vector
@@ -26,7 +29,7 @@
 // this define makes the huge Windows.h header compile faster
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
-#endif
+#endif // WIN32_LEAN_AND_MEAN
 
 #include <io.h>      // _isatty
 #include <stdio.h>   // _fileno
@@ -715,7 +718,8 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error("Error. Could not set console's attributes successfully.");
+				throw std::runtime_error(
+					  "Error. Could not set console's attributes successfully.");
 			}
 
 			// get the part
@@ -727,7 +731,8 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error("Error. Could not set console's attributes successfully.");
+				throw std::runtime_error(
+					  "Error. Could not set console's attributes successfully.");
 			}
 
 			// print the newline character with the default colors
@@ -747,7 +752,8 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error("Error. Could not set console's attributes successfully.");
+				throw std::runtime_error(
+					  "Error. Could not set console's attributes successfully.");
 			}
 
 			fmt::print("{}", part);
@@ -755,7 +761,8 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error("Error. Could not set console's attributes successfully.");
+				throw std::runtime_error(
+					  "Error. Could not set console's attributes successfully.");
 			}
 		}
 	}
@@ -1056,9 +1063,10 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		}
 		else
 		{
-			// We have to use x1B[K ASCII escape sequence to clear to the end of line after we print
-			// because if we don't there is a bug that affects only some terminals that sporadically 
-			// makes background colors spill to the next line or the line after that if we don't.
+			// we have to use x1B[K ASCII escape sequence to clear to the end of line after we 
+			// print because if we don't there is a bug that affects only some terminals that
+			// sporadically makes background colors spill to the next line or the line after that
+			// if we don't
 			fmt::print("{}{}{}\033[0m\x1B[K", fg_color, bg_color, arg); // GCOVR_EXCL_LINE
 		}
 	}
@@ -1167,7 +1175,7 @@ inline void overtype(const std::string& argument)
 
     // create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
-    // perfomance gain in the range of 2x to 8x times faster
+    // performance gain in the range of 2x to 8x times faster
     std::string str(argument.size(), '\b');
     fmt::print(str);
 	
@@ -1194,7 +1202,7 @@ inline void overtype(const char* argument)
 	size_t size = std::strlen(argument);
 	// create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
-    // perfomance gain in the range of 2x to 8x times faster
+    // performance gain in the range of 2x to 8x times faster
 	std::string str(size, '\b');
 	fmt::print(str);
 	
@@ -1254,7 +1262,7 @@ inline void clear()
 										  console_screen_buff_info.dwSize.Y);
 
 		// fill the screen with blank characters
-		if (!FillConsoleOutputCharacter(console_handle,          // handle for which console to use 
+		if (!FillConsoleOutputCharacter(console_handle,          // handle for which console to use
 										static_cast<TCHAR>(' '), // use the blank character
 										console_size,            // number of times to write 
 										screen_coordinates,      // the starting coordinates
@@ -1271,7 +1279,7 @@ inline void clear()
 		}
 
 		// set console attributes appropriately
-		if (!FillConsoleOutputAttribute(console_handle,          // handle for which console to use 
+		if (!FillConsoleOutputAttribute(console_handle,          // handle for which console to use
 										console_screen_buff_info.wAttributes, // char attributes
 										console_size,            // number of times to write 
 										screen_coordinates,      // the starting coordinates

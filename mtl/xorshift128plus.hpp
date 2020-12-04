@@ -8,14 +8,16 @@
 // Satisfies requirements for RandomNumberEngine :
 // https:// en.cppreference.com/w/cpp/named_req/RandomNumberEngine
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
-
-#include <cstdint>		// uint64_t
-#include <limits>		// std::numeric_limits::min, std::numeric_limits::max
-#include <ostream>		// std::basic_ostream
-#include <istream>		// std::basic_istream
-#include <type_traits>  // std::is_unsigned_v
+#include "definitions.hpp" // various definitions
+#include <cstdint>		   // uint64_t
+#include <limits>		   // std::numeric_limits
+#include <ostream>		   // std::basic_ostream
+#include <istream>		   // std::basic_istream
+#include <type_traits>     // std::is_unsigned_v
 
 
 namespace mtl
@@ -404,4 +406,4 @@ using xorshift128plus = xorshift128plus_engine<uint64_t,
 											   0x8a5cd789635d2dff, 0x121fd2155c472f96>;
 
 
-}
+} // namespace mtl end

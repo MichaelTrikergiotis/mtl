@@ -4,8 +4,11 @@
 // 
 // Header for performing casts and converting between types.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp" // various definitions
 #include <cmath>           // std::pow
 #include <charconv> 	   // std::from_chars
 #include <system_error>    // std::errc
@@ -698,7 +701,7 @@ inline auto to_num_noex(const std::string& input) noexcept
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 4756 )
-#endif 
+#endif  // _MSC_VER
 
 
 // ================================================================================================
@@ -939,7 +942,8 @@ struct rounding_cast_deductor_noex
 	}
 };
 
-}
+} // namespace detail end
+
 
 /// Rounds and casts a floating point number to int, long or long long. Can throw 
 /// std::overflow_error if the requested value doesn't fit the target type.
@@ -984,7 +988,7 @@ inline auto rounding_cast_noex(FloatingPoint number, bool& success) noexcept
 // stop suppressing MSVC warnings about false positives
 #if defined(_MSC_VER)
 #pragma warning( pop )
-#endif
+#endif // _MSC_VER
 
 
 } // namespace mtl end

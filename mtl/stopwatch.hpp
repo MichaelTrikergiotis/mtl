@@ -4,12 +4,14 @@
 //  
 // Header for mtl::chrono::stopwatch.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 
-
-#include <chrono> // std::chrono::time_point, std::chrono::high_resolution_clock,
-				  // std::chrono::duration, std::milli, std::micro, std::nano
+#include "definitions.hpp" // various definitions
+#include <chrono> 		   // std::chrono::time_point, std::chrono::high_resolution_clock,
+				           // std::chrono::duration, std::milli, std::micro, std::nano
 
 
 namespace mtl

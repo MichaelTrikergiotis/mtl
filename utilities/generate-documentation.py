@@ -5,9 +5,16 @@
 #
 # Generates markdown documentation that contains a list of all for classes and
 # functions for mtl.
+#
+# Copyright (c) Michael Trikergiotis. All Rights Reserved.
+# Licensed under the MIT license. See LICENSE in the project root for
+# license information.
+# See ThirdPartyNotices.txt in the project root for third party licenses
+# information.
 
 import re
 import os
+import zlib
 from common import check_cwd, get_headers, get_sources
 
 
@@ -176,10 +183,18 @@ def find_line_source(filename, item_name):
     with open(filename, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
+    # a list of possible matches
+    match_list = []
+    match_list.append((' ' + item_name + ','))
+    match_list.append((' ' + item_name + ' '))
+    match_list.append((' ' + item_name + '\n'))
+    match_list.append((' ' + item_name + '\r\n'))
+
     count = 1
+    cmnt = '// -------------------------------------------------------'
     for idx in range(0, len(lines)):
-        if item_name in lines[idx]:
-            cmnt = '// -------------------------------------------------------'
+        # if any of the elements exists in the current line
+        if any(match in lines[idx] for match in match_list):
             # check the line above to be the comment format we want
             if cmnt in lines[idx-1]:
                 # check the line below to be the comment format we want
@@ -216,6 +231,18 @@ def generate_navigation(sources):
         menu.append(')')
     menu.append(' |\n')
     return ''.join(menu)
+
+
+def crc32(file_path):
+    '''
+    Given the path to a file returns the CRC32 hash for the entire file.
+    '''
+    # read the entire file as binary
+    binary_file = None
+    with open(file_path, 'rb') as bf:
+        binary_file = bf.read()
+    # caclulate and return the CRC32 hash of a file using zlib
+    return '%08X' % (zlib.crc32(binary_file, 0) & 0xFFFFFFFF)
 
 
 def generate_documentation(sources):
@@ -338,13 +365,25 @@ def main_function():
     documentation = generate_documentation(sources)
 
     output_filename = '../docs/listing.md'
+
+    # keep a crc32 hash from the file before modification
+    crc32_before = crc32(output_filename)
+
     # write the generated documentation
     with open(output_filename, 'w', encoding='utf-8') as f:
         for line in documentation:
             f.write((line + '\n'))
 
-    print('Finished generating documentation. The output is stored ', end='')
-    print('in {}.'.format(output_filename[3:]))
+    # keep a crc32 hash from the file after modification
+    crc32_after = crc32(output_filename)
+
+    # if the file changed
+    if crc32_before != crc32_after:
+        print('Finished generating documentation. The ', end='')
+        print('output is stored in {}.'.format(output_filename[3:]))
+    # if the file didn't change
+    else:
+        print('Documentation is the same. No changes.')
 
 
 if __name__ == "__main__":

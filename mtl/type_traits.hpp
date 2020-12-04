@@ -4,24 +4,28 @@
 // 
 // Header for type traits used to make template metaprogramming easier and more expresive.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
-#include <array>        // std::array
-#include <vector>       // std::vector
-#include <deque>        // std::deque
-#include <forward_list> // std::forward_list
-#include <list>         // std::list
-#include <set>          // std::set, std::multiset
-#include <map>          // std::map, std::multimap
-#include <unordered_set>// std::unordered_set, std::unordered_multiset
-#include <unordered_map>// std::unordered_map, std::unordered_map
-#include <stack>        // std::stack
-#include <queue>        // std::queue, std::priority_queue
-#include <utility>      // std::pair
-#include <iterator>     // std::input_iterator_tag, std::output_iterator_tag, std::iterator_traits
-#include <type_traits>  // std::false_type, std::true_type, std::enable_if_t, std::conditional,
-                        // std::integral_constant, std::is_base_of_v, std::is_same_v,
-						// std::is_convertible_v, std::remove_cv_t, std::remove_reference_t
+#include "definitions.hpp" // various definitions
+#include <array>           // std::array
+#include <vector>          // std::vector
+#include <deque>           // std::deque
+#include <forward_list>    // std::forward_list
+#include <list>            // std::list
+#include <set>             // std::set, std::multiset
+#include <map>             // std::map, std::multimap
+#include <unordered_set>   // std::unordered_set, std::unordered_multiset
+#include <unordered_map>   // std::unordered_map, std::unordered_map
+#include <stack>           // std::stack
+#include <queue>           // std::queue, std::priority_queue
+#include <utility>         // std::pair
+#include <iterator>        // std::input_iterator_tag, std::output_iterator_tag, 
+						   // std::iterator_traits
+#include <type_traits>     // std::false_type, std::true_type, std::enable_if_t, std::conditional,
+                           // std::integral_constant, std::is_base_of_v, std::is_same_v,
+						   // std::is_convertible_v, std::remove_cv_t, std::remove_reference_t
 
 
 
@@ -132,7 +136,7 @@ struct has_emplace_back_adapter
 	<Type, void(typename Type::value_type)>::value>::value;
 };
 
-}  //  namespace detail
+}  //  namespace detail end
 
 
 /// Detects if the type has the emplace_back function.
@@ -227,7 +231,7 @@ std::pair<typename Type::value_type::first_type, typename Type::value_type::seco
 };
 
 
-}  //  namespace detail
+}  //  namespace detail end
 
 
 /// Detects if the type has the find function.

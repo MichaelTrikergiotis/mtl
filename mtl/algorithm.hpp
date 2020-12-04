@@ -4,26 +4,26 @@
 // 
 // Header for algorithms.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp"  // various definitions
 #include <vector>           // std::vector
 #include <list>             // std::list
 #include <unordered_set>    // std::unordered_set
 #include <functional>       // std::equal_to, std::hash, std::less
-#include <tuple>            // std::tuple, std::make_tuple, std::get, std::tuple_size_v
+#include <tuple>            // std::tuple, std::get, std::tuple_size_v
 #include <utility>          // std::pair, std::forward
 #include <stdexcept>        // std::invalid_argument
 #include <cstddef>          // std::ptrdiff_t
-#include <iterator>         // std::iterator_traits, std::next, std::advance, std::distance
-							// std::forward_iterator_tag
-#include <algorithm>        // std::remove, std::remove_if, std::adjacent_find, std::unique, 
-						    // std::find, std::search, std::for_each, std::unique, std::sort, 
-							// std::reverse, std::includes
+#include <iterator>         // std::next, std::advance, std::forward_iterator_tag
+#include <algorithm>        // std::remove, std::adjacent_find, std::find, std::for_each,
+							// std::unique, std::sort, std::includes 
 #include <type_traits>      // std::enable_if_t, std::remove_cv_t, std::add_pointer_t,
 							// std::add_lvalue_reference_t
 #include "type_traits.hpp"  // mtl::is_number_v, mtl::has_find_v
-#include "container.hpp"    // mtl::reserve, mtl::emplace_back
-#include "utility.hpp"      // MTL_ASSERT_MSG
+#include "container.hpp"    // mtl::emplace_back
 
 
 
@@ -170,6 +170,7 @@ inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate bin
 		}
 	}
 }
+
 } // namespace detail end
 
 
@@ -243,7 +244,7 @@ inline Iter not_unique(Iter first, Iter last, BinaryPredicate binary_pred)
 	// move all duplicates excluding the original to the front
 	auto it = detail::not_unique_exclusive_impl(first, last, binary_pred);
 	// move only a single copy of each duplicate to the front and return an iterator to new end
-	return std::unique(first, it);
+	return std::unique(first, it, binary_pred);
 }
 
 
@@ -464,7 +465,8 @@ inline void rem_duplicates_preserve(Container& container, Hash hash, BinaryPredi
 template<typename Container>
 inline void keep_duplicates_inclusive_sorted(Container& container)
 {
-	container.erase(mtl::not_unique_inclusive(container.begin(), container.end()), container.end());
+	container.erase(mtl::not_unique_inclusive(container.begin(), container.end()), 
+											  container.end());
 }
 
 /// Keeps duplicates including the original duplicate. Allows you to pass a binary predicate for
@@ -613,7 +615,8 @@ inline void keep_duplicates_inclusive_preserve(Container& container)
 template<typename Container>
 inline void keep_duplicates_exclusive_sorted(Container& container)
 {
-	container.erase(mtl::not_unique_exclusive(container.begin(), container.end()), container.end());
+	container.erase(mtl::not_unique_exclusive(container.begin(), container.end()), 
+											  container.end());
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
@@ -1026,6 +1029,7 @@ inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_fir
 // ------------------------------------------------------------------------------------------------
 // mtl::for_each for std::tuple 
 // ------------------------------------------------------------------------------------------------
+
 namespace detail
 {
 
@@ -1086,7 +1090,7 @@ inline void for_each(std::pair<Type1, Type2>& std_pair, Function&& func)
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::for_each for ranges
+// mtl::for_each for two iterators
 // ------------------------------------------------------------------------------------------------
 
 /// Applies a function to all elements. A drop in replacement for std::for_each that works on

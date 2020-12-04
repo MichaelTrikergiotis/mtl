@@ -4,10 +4,12 @@
 // 
 // Header for mathematical algorithms.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp" // various definitions
 #include <algorithm>       // std::max
-#include <limits>          // std::numeric_limits
 #include <cmath>           // std::fabs, std::round
 #include <stdexcept>       // std::invalid_argument
 #include <type_traits>	   // std::enable_if_t
@@ -115,7 +117,7 @@ percent_whole(Number percent, Number portion)
 		throw std::invalid_argument(
 		"The percent parameter is zero. This results in division by zero.");
 	}
-#endif
+#endif // MTL_DIV_ZERO_THROW end
 
 	constexpr Number hundred = static_cast<Number>(100.0);
 	// calculate the portion
@@ -211,7 +213,7 @@ percent(Number whole, Number portion)
 		throw std::invalid_argument(
 		"The whole parameter is zero. This results in division by zero.");
 	}
-#endif
+#endif // MTL_DIV_ZERO_THROW end
 
 	constexpr Number hundred = static_cast<Number>(100.0);
 	// find the percentage of the portion from the whole

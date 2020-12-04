@@ -4,8 +4,11 @@
 // 
 // Header for algorithms related to random number generation.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+#include "definitions.hpp"      // various definitions
 #include <random>				// std::random_device, std::uniform_int_distribution
 #include <iterator>				// std::next, std::distance
 #include <algorithm>			// std::iter_swap

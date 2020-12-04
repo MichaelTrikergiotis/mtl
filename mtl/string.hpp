@@ -5,10 +5,12 @@
 // Header for the mtl::string namespace that contains various algorithms used for manipulating
 // strings.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 
-
+#include "definitions.hpp"   // various definitions
 #include <algorithm>         // std::copy, std::fill
 #include <string>            // std::string, std::string::npos
 #include <cstring>           // std::strlen, std::strstr
@@ -1085,7 +1087,7 @@ inline void split(const std::string& input, Container& output, const std::string
 		return;
 	}
 
-	// remember the start position
+	// remember the starting position
 	size_t start = 0;
 	// position of the first match
 	size_t match_pos = input.find(delimiter);
@@ -1093,12 +1095,12 @@ inline void split(const std::string& input, Container& output, const std::string
 	// keep the position for the last item
 	size_t last_pos = 0;
 
-	// add all tokens to the vector except the last one
+	// add all tokens to the container except the last one
 	while (match_pos != std::string::npos)
 	{
 		last_pos = match_pos;
 
-		// everything is fine add the token to the vector
+		// everything is fine add the token to the container
 		mtl::emplace_back(output, input.substr(start, match_pos - start)); // GCOVR_EXCL_LINE
 		
 		// set the a new starting position
@@ -1115,8 +1117,8 @@ inline void split(const std::string& input, Container& output, const std::string
 	}
 
 
-	// if nothing is on the vector add the entire input string because it means there are no places
-	// that it needed to be split
+	// if the container is empty add the entire input string because it means there are no
+	// places that it needs to be split
 	if (output.empty()) { mtl::emplace_back(output, input); }
 }
 
@@ -1255,7 +1257,7 @@ inline void replace_long_heap(std::string& input, const std::string& match,
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(result >= 0, 
 		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert the result to size_t with no problems as this can't be negative
 		difference = static_cast<size_t>(result);
@@ -1360,7 +1362,7 @@ inline void replace_long(std::string& input, const std::string& match,
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(result >= 0,
 		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
-#endif
+#endif // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert the result to size_t with no problems as this can't be negative
 		difference = static_cast<size_t>(result);
