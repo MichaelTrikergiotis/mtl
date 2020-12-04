@@ -60,6 +60,6 @@
 *.pdf   binary
 
 # compressed files
-*.zir   binary
+*.zip   binary
 *.rar   binary
 *.7z    binary
