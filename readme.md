@@ -13,21 +13,21 @@ Modern, fast, easy. Makes C++ a joy to use.
 
 ## Introduction
 
-The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It also includes some functionality that other languages like Python or C# include by default in their standard libraries.
+The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. **mtl** provides a lot of functionality that other languages include by default in their standard libraries.
 
 **mtl** tries to be as standard compliant as possible by following the C++ standard library naming and uses the C++ standard algorithms and containers.
 
 A nice feature of the library is that it has detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
 
-For a quick overview of the functionality that **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
+For a quick overview of what **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
 
 ## Getting started
 
 - For **mtl** you need a **C++ 17** compiler. For compiler compatibility refer to the [compiler documentation](./docs/documentation.md#C++-version-and-compiler-compatibility).
 - For installation instructions refer to the [installation documentation](./docs/documentation.md#Installation).
 - For running the tests refer to the [tests documentation](./docs/documentation.md#How-to-run-the-tests).
+- For contributing refer to the [contribution documentation](./contributing.md).
 - For general documentation refer to the [documentation](./docs/documentation.md).
-- For contributing refer to the [contributing documentation](./contributing.md).
 
 ## Examples
 
@@ -115,19 +115,19 @@ If the file was read successfully the `read_ok` boolean is set to true and the `
 
 1. High Performance. Be just as fast or faster than the C++ standard library and Boost, in case of similar algorithms.
 2. Retain the only pay for what you use philosophy of C++ but be as high level as possible.
-3. Be easy to use, if you know how to use C++ standard library you don't need to learn almost anything new.
+3. Be easy to use. If you know how to use C++ standard library you don't need to learn almost anything new.
 4. Be very well tested with very high test coverage.
 5. Be very well commented and documented.
-6. With many good high quality examples for all parts of the library.
-7. Be portable with the least amount of platform specific code possible. If something is much better we will still use platform specific code.
-8. If something exists in another language, works well, we like it and translates nicely to C++ we use it.
-9. Be versatile and serve different usage needs.
+6. Be cross platform and portable. Use the least amount of platform specific code.
+7. Be versatile and serve different usage needs.
+8. Have many high quality examples for all parts of the library.
+9. If something exists in another language, works well and translates nicely to C++ we use it.
 10. Use modern C++ 17, not old style C++, C with classes or C. Use naming conventions close to the C++ standard library.
 
 ## Non-goals
 
 1. Reinvent the wheel. If there is an algorithm that is known to be the best and fits our license we use it.
-2. Stop being easy to use and be expert focused for no good reason. If there is a function that can perform better we still have the easy to use everyday version and also include a more specialized version with better performance.
+2. Stop being easy to use and be expert focused for no good reason.
 3. Be another C++ standard library implementation. There are a lot out there. **mtl** adds onto C++ standard library and doesn't replace it.
 4. Fit the needs of absolutely everyone. The C++ community is huge and used in numerous industries, we can't please everyone.
 5. Fit the needs of only a particular industry excluding all the others.
