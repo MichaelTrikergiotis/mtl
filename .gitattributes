@@ -3,11 +3,16 @@
 *.hpp   linguist-language=cpp
 *.h     linguist-language=cpp
 
-# set everything to auto except the following
+# set everything to auto
 * text=auto
 
-# set .sh line endings to LF to avoid errors
+# set .sh line endings to LF
 *.sh text eol=lf
+
+# set .bat and .cmd line endings to CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
 
 # source files
 *.c     text diff=c
