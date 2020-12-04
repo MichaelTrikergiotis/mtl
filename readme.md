@@ -105,7 +105,7 @@ Read all lines of a file :
 
 ```c++
 std::vector<std::string> lines;
-bool read_ok = mtl::filesystem::read_all_lines("../document.txt", lines);
+bool read_ok = mtl::filesystem::read_all_lines("document.txt", lines);
 ```
 
 If the file was read successfully the `read_ok` boolean is set to true and the `std::vector<std::string>` lines contain all lines read from the file.
