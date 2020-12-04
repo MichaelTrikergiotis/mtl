@@ -50,11 +50,15 @@
 *.out   binary
 
 # images
+*.ai    binary
 *.psd   binary
 *.png   binary
 *.svg   binary
 *.jpg   binary
+*.jpeg  binary
 *.ttf   binary
+*.gif   binary
+*.ico   binary
 
 # documents
 *.pdf   binary
@@ -63,3 +67,5 @@
 *.zip   binary
 *.rar   binary
 *.7z    binary
+*.gz    binary
+*.bz2   binary
