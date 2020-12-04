@@ -4,7 +4,9 @@
 // 
 // Header for algorithms used to manipulate containers in a generic fashion.
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "definitions.hpp" // various definitions
 #include <type_traits>     // std::enable_if_t

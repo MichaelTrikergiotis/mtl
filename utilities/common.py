@@ -4,6 +4,12 @@
 # 24/10/2020
 #
 # Common functionality shared between Python scripts in utilities folder.
+#
+# Copyright (c) Michael Trikergiotis. All Rights Reserved.
+# Licensed under the MIT license. See LICENSE in the project root for
+# license information.
+# See ThirdPartyNotices.txt in the project root for third party licenses
+# information.
 
 import os
 import sys

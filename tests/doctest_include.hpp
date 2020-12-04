@@ -3,8 +3,10 @@
 // 05/08/2020
 // 
 // Header that just includes doctest library and supresses the multiple warnings related with it.
-//
-// For information about third party licenses check ThirdPartyNotices.txt.
+// 
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 
 // supress MSVC warnings about doctest.h

@@ -6,6 +6,12 @@
 # The script's current capabilities :
 # 1.) Report lines beyond a certain length.
 # 2.) Report lines with comments that are not formatted properly.
+#
+# Copyright (c) Michael Trikergiotis. All Rights Reserved.
+# Licensed under the MIT license. See LICENSE in the project root for
+# license information.
+# See ThirdPartyNotices.txt in the project root for third party licenses
+# information.
 
 
 from common import check_cwd, get_headers, get_sources

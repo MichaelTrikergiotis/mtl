@@ -5,6 +5,12 @@
 #
 # Generates markdown documentation that contains a list of all for classes and
 # functions for mtl.
+#
+# Copyright (c) Michael Trikergiotis. All Rights Reserved.
+# Licensed under the MIT license. See LICENSE in the project root for
+# license information.
+# See ThirdPartyNotices.txt in the project root for third party licenses
+# information.
 
 import re
 import os

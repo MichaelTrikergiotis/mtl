@@ -8,7 +8,9 @@
 // Satisfies requirements for RandomNumberEngine :
 // https:// en.cppreference.com/w/cpp/named_req/RandomNumberEngine
 // 
-// For information about third party licenses check ThirdPartyNotices.txt.
+// Copyright (c) Michael Trikergiotis. All Rights Reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information. 
+// See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "definitions.hpp" // various definitions
 #include <cstdint>		   // uint64_t
