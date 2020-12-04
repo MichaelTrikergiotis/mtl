@@ -17,4 +17,4 @@ Although we try to remain very close to C++ standard library naming scheme there
 
 **All your pull requests should target the dev branch.**
 
-For any questions regarding contributing to **mtl** don't hesitate to open an issue asking anything you want.
+If you don't understand something or need clarification please open an issue.
