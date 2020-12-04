@@ -383,7 +383,7 @@ def main_function():
         print('output is stored in {}.'.format(output_filename[3:]))
     # if the file didn't change
     else:
-        print('Documentation is the same. No changes.')
+        print('No changes to the documentation file.')
 
 
 if __name__ == "__main__":
