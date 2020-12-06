@@ -40,8 +40,8 @@ These are functions that perform an action but do not throw exceptions and are m
 
 ### Functions ending with ```_sorted```
 
-Functions that end with ```_sorted``` expect the range / container to be sorted to work properly. If the elements are not sorted then behavior is undefined, but that usually means they tend to just produce incorrect results. An example of this is ```mtl::rem_duplicates``` that doesn't require the elements to be sorted, and sorts them before removing duplicates. But in case you know you have sorted elements then you can use ```mtl::rem_duplicates_sorted``` to have significant gains in performance.
+Functions that end with ```_sorted``` expect the container to be sorted to work properly. If the elements are not sorted then behavior is undefined, but that usually means they tend to just produce incorrect results. An example of this is ```mtl::rem_duplicates``` that doesn't require the elements to be sorted, and sorts them before removing duplicates. But in case you know you have sorted elements then you can use ```mtl::rem_duplicates_sorted``` to have significant gains in performance.
 
 ### Functions ending with ```_preserve```
 
-Functions that end with ```_preserve``` preserve the ordering of elements for the range / container. An example of this is ```mtl::rem_duplicates``` that removes duplicate items but doesn't preserve ordering and ```mtl::rem_duplicates_preserve``` that preserves the exact ordering of the elements that remain.
+Functions that end with ```_preserve``` preserve the ordering of elements for the container. An example of this is ```mtl::rem_duplicates``` that removes duplicate items but doesn't preserve ordering and ```mtl::rem_duplicates_preserve``` that preserves the exact ordering of the elements that remain.
