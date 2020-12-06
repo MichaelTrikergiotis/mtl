@@ -43,7 +43,7 @@ Now you have a `std::vector<std::string>` that contains the following elements `
 
 [**EXAMPLE 2**]
 
-Joining all the tokens from a container to an `std::string` with all the names separated by comma and a space :
+Joining all the elements of a container to an `std::string` with all the names separated by comma and a space :
 
 ```c++
 const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", "Helen" };
