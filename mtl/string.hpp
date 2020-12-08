@@ -395,7 +395,7 @@ inline bool contains(const char* input, const char* match)
 // ===============================================================================================
 // STRIP_FRONT  - Strips all matching characters from the front.
 // STRIP_BACK   - Strips all matching characters from the back.
-// STRIP        - Strips all matching characters from the back and front.
+// STRIP        - Strips all matching characters from the front and back.
 // ===============================================================================================
 
 /// Strips all matching characters from the front side of the string. Performs no heap 
@@ -412,21 +412,24 @@ inline void strip_front(std::string& str, const char match = ' ')
 		++count;
 	}
 
-	// if there is at least one character that matches and the number of characters matching
-	// is less that the total length of the string
-	if ((count > 0) && (count < str.size()))
+	// if there are no matches leave
+	if(count == 0)
+	{
+		return;
+	}
+
+	// if the number of characters matching are less that the total length of the string
+	if (count < str.size())
 	{
 		// create an iterator from the copying should start from
 		auto iter = std::next(str.begin(), static_cast<std::string::difference_type>(count));
 		// copy the characters of the std::string to the front of the std::string
 		std::copy(iter, str.end(), str.begin());
-		// remove unwated characters from the end since the string is moved
+		// remove unwated characters from the end
 		str.resize(str.size() - count);
 	}
-
-	// if there is at least one character that matches and the number of characters matching
-	// is equal to the total length of the string the resize the string to zero / empty
-	if ((count > 0) && (count == str.size()))
+	// else if the number of characters matching are equal to the total length of the string
+	else if (count == str.size())
 	{
 		str.resize(0);
 	}
@@ -457,7 +460,7 @@ inline void strip_back(std::string& str, const char match = ' ')
 /// @param[in] match An optional character to remove if it matches.
 inline void strip(std::string& str, const char match = ' ')
 {
-	// strip the back first so the strip front has to copy fewer characters to move around
+	// strip the back first so the strip_front has to copy fewer characters
 	strip_back(str, match);
 	strip_front(str, match);
 }

@@ -493,7 +493,7 @@ TEST_CASE("mtl::string::strip_front")
     CHECK_EQ(number, std::string("303# "));
 
     
-    // one where nothing matches
+    // test where nothing matches
     std::string no_match = "ABCDEF";
     mtl::string::strip_front(no_match, '2');
     CHECK_EQ(no_match, std::string("ABCDEF"));
@@ -502,17 +502,32 @@ TEST_CASE("mtl::string::strip_front")
     mtl::string::strip_front(delimiter_middle, 'N');
     CHECK_EQ(delimiter_middle, std::string("|NNNNN"));
     
-    // one where it is a single character long and removes all characters
+    // test where the input is a single character long and removes all characters
     std::string single_char = "A";
     mtl::string::strip_front(single_char, 'A');
     CHECK_EQ(single_char.size(), 0);
     CHECK_EQ(single_char, std::string());
 
-    // one where it is multiple characters long and removes all characters
+    // test where the input is multiple characters long and removes all characters
     std::string all_same_chars = "AAAAA";
     mtl::string::strip_front(all_same_chars, 'A');
     CHECK_EQ(all_same_chars.size(), 0);
     CHECK_EQ(all_same_chars, std::string());
+
+    // test where there is one character to remove and the size of the remaining string
+    // is also one
+    std::string same_length_single = " a";
+    mtl::string::strip_front(same_length_single);
+    CHECK_EQ(same_length_single.size(), 1);
+    CHECK_EQ(same_length_single, std::string("a"));
+
+    // test where the amount of characters to remove are the same as the size of the remaining
+    // string
+    std::string same_length = "  aa";
+    mtl::string::strip_front(same_length);
+    CHECK_EQ(same_length.size(), 2);
+    CHECK_EQ(same_length, std::string("aa"));
+
 
 
     // check that is works correctly with UTF8 strings
@@ -544,7 +559,7 @@ TEST_CASE("mtl::string::strip_back")
     CHECK_EQ(number, std::string(" #303"));
 
 
-    // one where nothing matches
+    // test where nothing matches
     std::string no_match = "ABCDEF";
     mtl::string::strip_back(no_match, '2');
     CHECK_EQ(no_match, std::string("ABCDEF"));
@@ -553,17 +568,31 @@ TEST_CASE("mtl::string::strip_back")
     mtl::string::strip_back(delimiter_middle, 'N');
     CHECK_EQ(delimiter_middle, std::string("NNNNN|"));
     
-    // one where it is a single character long and removes all characters
+    // test where the input is a single character long and removes all characters
     std::string single_char = "A";
     mtl::string::strip_back(single_char, 'A');
     CHECK_EQ(single_char.size(), 0);
     CHECK_EQ(single_char, std::string());
 
-    // one where it is multiple characters long and removes all characters
+    // test where the input is multiple characters long and removes all characters
     std::string all_same_chars = "AAAAA";
     mtl::string::strip_back(all_same_chars, 'A');
     CHECK_EQ(all_same_chars.size(), 0);
     CHECK_EQ(all_same_chars, std::string());
+
+    // test where there is one character to remove and the size of the remaining string
+    // is also one
+    std::string same_length_single = "a ";
+    mtl::string::strip_back(same_length_single);
+    CHECK_EQ(same_length_single.size(), 1);
+    CHECK_EQ(same_length_single, std::string("a"));
+
+    // test where the amount of characters to remove are the same as the size of the remaining
+    // string
+    std::string same_length = "aa  ";
+    mtl::string::strip_back(same_length);
+    CHECK_EQ(same_length.size(), 2);
+    CHECK_EQ(same_length, std::string("aa"));
 
 
     // check that is works correctly with UTF8 strings
@@ -596,7 +625,7 @@ TEST_CASE("mtl::string::strip")
     CHECK_EQ(number, std::string("303"));
 
 
-    // one where nothing matches
+    // test where nothing matches
     std::string no_match = "ABCDEF";
     mtl::string::strip(no_match, '2');
     CHECK_EQ(no_match, std::string("ABCDEF"));
@@ -605,17 +634,62 @@ TEST_CASE("mtl::string::strip")
     mtl::string::strip(delimiter_middle, 'N');
     CHECK_EQ(delimiter_middle, std::string("|"));
     
-    // one where it is a single character long and removes all characters
+    // test where the input is a single character long and removes all characters
     std::string single_char = "A";
     mtl::string::strip(single_char, 'A');
     CHECK_EQ(single_char.size(), 0);
     CHECK_EQ(single_char, std::string());
 
-    // one where it is multiple characters long and removes all characters
+    // test where the input is multiple characters long and removes all characters
     std::string all_same_chars = "AAAAA";
     mtl::string::strip(all_same_chars, 'A');
     CHECK_EQ(all_same_chars.size(), 0);
     CHECK_EQ(all_same_chars, std::string());
+
+
+    // test where there is one character to remove from the front and the size of the remaining
+    // string is also one
+    std::string same_length_single_front = " a";
+    mtl::string::strip(same_length_single_front);
+    CHECK_EQ(same_length_single_front.size(), 1);
+    CHECK_EQ(same_length_single_front, std::string("a"));
+
+    // test where the amount of characters to remove from the front are the same as the size of the
+    // remaining string
+    std::string same_length_front = "  aa";
+    mtl::string::strip(same_length_front);
+    CHECK_EQ(same_length_front.size(), 2);
+    CHECK_EQ(same_length_front, std::string("aa"));
+
+
+    // test where there is one character to remove from the back and the size of the remaining
+    // string is also one
+    std::string same_length_single_back = "a ";
+    mtl::string::strip(same_length_single_back);
+    CHECK_EQ(same_length_single_back.size(), 1);
+    CHECK_EQ(same_length_single_back, std::string("a"));
+
+    // test where the amount of characters to remove from the back are the same as the size of the
+    // remaining string
+    std::string same_length_back = "aa  ";
+    mtl::string::strip(same_length_back);
+    CHECK_EQ(same_length_back.size(), 2);
+    CHECK_EQ(same_length_back, std::string("aa"));
+
+    
+    // test where there are two characters to remove, one in the front and one in the back and the
+    // size of the remaining string is also one
+    std::string same_length_two = " a ";
+    mtl::string::strip(same_length_two);
+    CHECK_EQ(same_length_two.size(), 1);
+    CHECK_EQ(same_length_two, std::string("a"));
+
+    // test where the amount of characters to remove are the twice the size of the remaining string
+    std::string twice_length = "  aa  ";
+    mtl::string::strip(twice_length);
+    CHECK_EQ(twice_length.size(), 2);
+    CHECK_EQ(twice_length, std::string("aa"));
+
 
 
     // check that is works correctly with UTF8 strings
@@ -1801,7 +1875,7 @@ TEST_CASE("mtl::string::replace for short std::string, more tests")
     CHECK_EQ(smaller_input, smaller_result);
 
 
-    // create one where is nothing to replace
+    // create a test where there is nothing to replace
     std::string no_match = long_string;
     mtl::string::replace(no_match, match, replacement);
     CHECK_EQ(no_match, long_string);
@@ -2057,7 +2131,7 @@ TEST_CASE("mtl::string::replace for long std::string")
     CHECK_EQ(smaller_input, smaller_result);
 
 
-    // create one where is nothing to replace
+    // create a test where there is nothing to replace
     std::string no_match = long_string;
     mtl::string::replace(no_match, match, replacement);
     CHECK_EQ(no_match, long_string);
