@@ -43,7 +43,7 @@ Now you have a `std::vector<std::string>` that contains the following elements `
 
 [**EXAMPLE 2**]
 
-Joining all the tokens from a container to an `std::string` with all the names separated by comma and a space :
+Join all the elements of a container to an `std::string` where each element is separated by comma and a space :
 
 ```c++
 const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", "Helen" };
@@ -101,14 +101,22 @@ The variable `time_taken_us` is a double for how many microseconds it took `my_s
 
 [**EXAMPLE 6**]
 
-Read all lines of a file :
+Write each element of a container on a different line of a file then read all lines of that file :
 
 ```c++
-std::vector<std::string> lines;
-bool read_ok = mtl::filesystem::read_all_lines("../document.txt", lines);
+const std::vector<std::string> countries { "Italy", "Brazil", "Greece", "Japan"};
+bool written_ok = mtl::filesystem::write_all_lines("countries.txt", countries.begin(), 
+                                                                    countries.end());
+
+std::vector<std::string> read_counties;
+bool read_ok = mtl::filesystem::read_all_lines("countries.txt", read_counties);
 ```
 
-If the file was read successfully the `read_ok` boolean is set to true and the `std::vector<std::string>` lines contain all lines read from the file.
+If the file was written successfully the `written_ok` boolean is set to true and each country from `countries` is written in a seperate line to the specified file.
+
+If the file was read successfully the `read_ok` boolean is set to true and the `read_counties` container contains all lines read from the specified file.
+
+Now if you compare `countries` and `read_counties` they will be equal.
 
 ## Goals
 

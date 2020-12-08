@@ -35,8 +35,8 @@ namespace filesystem
 // ================================================================================================
 
 
-/// Read an entire file to a std::string. The filename is what file to read from. The output is
-/// where the file will be read to. Returns if the file was read successfully.
+/// Read an entire file to an std::string. The filename is used to specify which file to read.
+/// The output is where the file will be placed. Returns if the file was read successfully.
 /// @param[in] filename The relative or absolute path to a file.
 /// @param[out] output An std::string where the file will be stored.
 /// @return Returns if the file was read successfully.
@@ -83,8 +83,8 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 #else
 	// when compiling in 32 bit mode size_t it is way smaller than std::uintmax_t so we have to
 	// check and not allow file to be read if is beyond what size_t can hold as we can't resize
-	// the output beyond size_t for a std::string, this usually will not happen as 32 bit OS can't
-	// use files beyond 4GB but better be safe than sorry
+	// the output beyond size_t for an std::string, this usually will not happen as 32 bit OS
+	// can't use files beyond 4GB but better be safe than sorry
 
 	// thow an assert in debug mode to alert the user
 	MTL_ASSERT_MSG((size <= std::numeric_limits<size_t>::max()),
@@ -114,7 +114,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 namespace detail
 {
 	// Specialized string splitting algorithm that takes into account CRLF characters when
-	// splitting newlines.
+	// splitting at newlines.
 	template<typename Container>
 	inline void specialized_split_crlf(const std::string& input, Container& output)
 	{
@@ -192,9 +192,9 @@ namespace detail
 } // namespace detail end
 
 
-/// Read an entire file in lines. The filename is what file to read from. The output is where
-/// the file will be read to. Allows you to reserve memory for the container. The container element
-/// type has to be std::string. Returns if the file was read successfully. 
+/// Read an entire file in lines. The filename is used to specify which file to read. The output
+/// is where the file will be placed. Allows you to reserve memory for the container. The 
+/// container element type has to be std::string. Returns if the file was read successfully. 
 /// @param[in] filename The relative or absolute path to a file.
 /// @param[out] output A container with element type std::string where all lines will be stored.
 /// @return Returns if all the lines where read successfully.
@@ -233,9 +233,9 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 // ================================================================================================
 
 
-/// Write a std::string to a file. The filename is what is the file to write to. The input is where
-/// to place the read file. Appends allow to append to the end of the file or overwrite it. Returns
-/// if the file was written successfully.
+/// Write an std::string to a file. The filename is used to specify which file to write. The
+/// input is where to place the read file. Append if set to true adds to the end of the file
+/// instead of overwriting it. Returns if the file was written successfully.
 /// @param[in] filename The relative or absolute path to a file.
 /// @param[in] input An std::string where the data will be read.
 /// @param[in] append An optional boolean to and append to the end of the file or overwrite it.
@@ -272,8 +272,9 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 // ================================================================================================
 
 
-/// Write a range to new lines in a file. The filename is what is the file to write to. The
-/// range from first to last is what to write to the file. Returns if the file was written
+/// Write a range to new lines in a file. The filename is used to specify which file to write. The
+/// elements in the range from first to last will be written to the file. Append if set to true
+/// adds to the end of the file instead of overwriting it. Returns if the file was written
 /// successfully.
 /// @param[in] filename The relative or absolute path to a file.
 /// @param[in] first An iterator to the start of a range. Element type can be any type convertible

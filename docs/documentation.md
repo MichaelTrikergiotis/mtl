@@ -65,7 +65,7 @@ Open the console and navigate to the the the **mtl** tests folder :
 
 ### LINUX with clang
 
-[**NOTE**] There is a CMake option ```ENABLE_LIBCXX``` to enable libc++.
+[**NOTE**] There is a CMake option ```ENABLE_LIBCXX``` to enable `libc++`.
 
 Open the console and navigate to the the the **mtl** tests folder :
 
@@ -77,7 +77,7 @@ Open the console and navigate to the the the **mtl** tests folder :
 
 ### WINDOWS with MSVC
 
-Open x64 Native Tools Command Prompt for VS 2019 (vcvars64.bat) and navigate to the the **mtl** tests folder :
+Open `x64 Native Tools Command Prompt for VS 2019` (`vcvars64.bat`) and navigate to the the **mtl** tests folder :
 
 1. ```mkdir build```
 2. ```cd build```
@@ -87,14 +87,14 @@ Open x64 Native Tools Command Prompt for VS 2019 (vcvars64.bat) and navigate to 
 
 ### WINDOWS with clang-cl
 
-[**NOTE**] Because of a bug in doctest 2.4 all colors for doctest are disabled for clang in Windows. For more info check :
+[**NOTE**] Because of a bug in `doctest` 2.4 all colors for `doctest` are disabled for `clang` in Windows. For more info check :
 [https://github.com/onqtam/doctest/issues/356](https://github.com/onqtam/doctest/issues/356)
 
 You must add **clang** to your path. If you don't know how to do that check [adding clang to your PATH](./docs/clang-windows.md).
 
 **You must have [Ninja](https://ninja-build.org/) installed.**
 
-Open x64 Native Tools Command Prompt for VS 2019 (vcvars64.bat) and navigate to the the **mtl** tests folder :
+Open `x64 Native Tools Command Prompt for VS 2019` (`vcvars64.bat`) and navigate to the the **mtl** tests folder :
 
 1. ```mkdir build```
 2. ```cd build```
@@ -115,7 +115,9 @@ Sadly gcovr doesn't allow to only exclude lines from branch coverage as that wou
 
 ## Naming Convetions
 
-For naming conventions as well as similarities and differences with the C++ standard library read [here](./differences.md).
+For naming conventions read [here](./naming.md).
+
+For naming similarities and differences with the C++ standard library read [here](./differences.md).
 
 ------------------------------------------------------------
 

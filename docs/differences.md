@@ -21,7 +21,7 @@ That said there are some differences in naming in **mtl** compared to the C++ st
 
 ### Functions starting with ```safe_```
 
-These are functions that are safer alternatives of C++ standard library or **mtl** functions. They try to elimitate or reduce the number of bugs and errors that can happen during development.
+These are functions that are safer alternatives of C++ standard library or **mtl** functions. They try to eliminate or reduce the number of bugs and errors that can happen during development.
 An example of these functions are ```mtl::safe_copy``` and ```mtl::safe_copy_n``` that are much safer versions of ```std::copy``` and ```std::copy_n```.
 
 ### Functions ending with ```_all```
@@ -33,15 +33,12 @@ a range of similar elements and joins them all to a ```std::string```.
 
 ### Functions ending with ```_noex```
 
-[**NOTE**]
-Functions that end with ```_noex```always come in two versions. One that uses the same exact number of parameters as the throwing version but returns a ```std::pair<Type, bool>``` instead of just the variable type. It uses the boolean of the ```std::pair``` to report errors instead of throwing. And there is a version that requires one more parameter, an extra boolean. This version returns the same type of variable as the throwing version but uses the output boolean to report success or failure in case of an error instead of throwing.
-
-These are functions that perform an action but do not throw exceptions and are marked as ```no_except```. An example is ```mtl::to_num``` that converts a ```std::string``` to a number of the user's choice and in case of an error throws an exception. The analogous function ```mtl::to_num_noex``` does the same but doesn't throw in case of an error and instead sets a boolean and returns 0.
+These are functions that perform the same action as their exception throwing counterparts but do not throw exceptions and are marked as ```no_except```. For example there is ```mtl::to_num``` that converts an ```std::string``` to the selected type of number and in case of an error throws an exception. The analogous function ```mtl::to_num_noex``` does the same but doesn't throw in case of an error. It has two overloads. One overload has the same number of parameters as ```mtl::to_num``` but that instead returns an ```std::pair<Type, bool>``` that contains the result and the `bool` that informs about success or failure. The second overload returns the same type as ```mtl::to_num``` but has one extra parameter, a `bool` used as an output to inform about success or failure.
 
 ### Functions ending with ```_sorted```
 
-Functions that end with ```_sorted``` expect the range / container to be sorted to work properly. If the elements are not sorted then behavior is undefined, but that usually means they tend to just produce incorrect results. An example of this is ```mtl::rem_duplicates``` that doesn't require the elements to be sorted, and sorts them before removing duplicates. But in case you know you have sorted elements then you can use ```mtl::rem_duplicates_sorted``` to have significant gains in performance.
+Functions that end with ```_sorted``` expect the container to be sorted to work properly. If the elements are not sorted then behavior is undefined, but that usually means they tend to just produce incorrect results. An example of this is ```mtl::rem_duplicates``` that doesn't require the elements to be sorted, and sorts them before removing duplicates. But in case you know you have sorted elements then you can use ```mtl::rem_duplicates_sorted``` to have significant gains in performance.
 
 ### Functions ending with ```_preserve```
 
-Functions that end with ```_preserve``` preserve the ordering of elements for the range / container. An example of this is ```mtl::rem_duplicates``` that removes duplicate items but doesn't preserve ordering and ```mtl::rem_duplicates_preserve``` that preserves the exact ordering of the elements that remain.
+Functions that end with ```_preserve``` preserve the ordering of elements for the container. An example of this is ```mtl::rem_duplicates``` that removes duplicate items but doesn't preserve ordering and ```mtl::rem_duplicates_preserve``` that preserves the exact ordering of the elements that remain.
