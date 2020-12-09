@@ -63,15 +63,15 @@ std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " li
 mtl::console::println(message);
 ```
 
-This should combine variables of various types together to an `std::string`. Then it should print to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
+`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
 
-The same as the above could be achieved with :
+The same output as the above could also be achieved with :
 
 ```c++
 mtl::console::print("Hello from ", 'a', planet, 12.24f, " lightyears away.", '\n');
 ```
 
-Please note that we use `mtl::console::print` with multiple variables and a newline at the end instead of `mtl::console::println` because `mtl::console::println` prints a newline character after each parameter you pass to it.
+Please note that we use `mtl::console::print` with the same variables as before but also add a newline variable at the end.
 
 [**EXAMPLE 4**]
 
