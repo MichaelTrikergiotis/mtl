@@ -2,7 +2,6 @@
 
 By submitting a pull request or a patch, you represent that you have the right to license your contribution to the mtl project owners and the community, agree that your contributions are licensed under the mtl license, and agree to future changes to the licensing.
 
-
 ## License
 
 The **mtl** is licensed under the [MIT license](./LICENSE).
