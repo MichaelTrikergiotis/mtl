@@ -104,19 +104,19 @@ The variable `time_taken_us` is a double for how many microseconds it took `my_s
 Write each element of a container on a different line of a file then read all lines of that file :
 
 ```c++
-const std::vector<std::string> countries { "Italy", "Brazil", "Greece", "Japan"};
+const std::vector<std::string> countries { "Italy", "Brazil", "Greece", "Japan" };
 bool written_ok = mtl::filesystem::write_all_lines("countries.txt", countries.begin(), 
                                                                     countries.end());
 
-std::vector<std::string> read_counties;
-bool read_ok = mtl::filesystem::read_all_lines("countries.txt", read_counties);
+std::vector<std::string> read_countries;
+bool read_ok = mtl::filesystem::read_all_lines("countries.txt", read_countries);
 ```
 
 If the file was written successfully the `written_ok` boolean is set to true and each country from `countries` is written in a seperate line to the specified file.
 
-If the file was read successfully the `read_ok` boolean is set to true and the `read_counties` container contains all lines read from the specified file.
+If the file was read successfully the `read_ok` boolean is set to true and the `read_countries` container contains all lines read from the specified file.
 
-Now if you compare `countries` and `read_counties` they will be equal.
+Now if you compare `countries` and `read_countries` they will be equal.
 
 ## Goals
 
