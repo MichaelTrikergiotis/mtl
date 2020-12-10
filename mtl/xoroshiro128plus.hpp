@@ -300,8 +300,8 @@ public:
 	// ============================================================================================
 
 	/// Fills the range first to last with values from the random number generator.
-	/// @param[in] first Iterator to the beginning of the range.
-	/// @param[in] last Iterator to the end of the range.
+	/// @param[out] first Iterator to the beginning of the range.
+	/// @param[out] last Iterator to the end of the range.
 	template<typename Iter>
 	void generate(Iter first, Iter last)
 	{
