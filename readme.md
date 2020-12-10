@@ -123,14 +123,14 @@ Now if you compare `countries` and `read_countries` they will be equal.
 
 1. High Performance. Be just as fast or faster than the C++ standard library and Boost, in case of similar algorithms.
 2. Retain the only pay for what you use philosophy of C++ but be as high level as possible.
-3. Be easy to use. If you know how to use C++ standard library you don't need to learn almost anything new.
-4. Be very well tested with very high test coverage.
-5. Be very well commented and documented.
-6. Be cross platform and portable. Use the least amount of platform specific code.
-7. Be versatile and serve different usage needs.
-8. Have many high quality examples for all parts of the library.
+3. Be cross platform and portable. Use the least amount of platform specific code.
+4. Be easy to use. If you know how to use C++ standard library you don't need to learn almost anything new.
+5. Be versatile and serve different usage needs.
+6. Be very well tested with very high test coverage.
+7. Be very well commented and documented.
+8. Have multiple high quality examples for all parts of the library.
 9. If something exists in another language, works well and translates nicely to C++ we use it.
-10. Use modern C++ 17, not old style C++, C with classes or C. Use naming conventions close to the C++ standard library.
+10. Use modern standard compliant C++ 17 not old style C++, C with classes or C.
 
 ## Non-goals
 
