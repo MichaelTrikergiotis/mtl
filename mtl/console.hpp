@@ -1161,7 +1161,7 @@ inline void println_color(const Type& arg,
 /// Allows you to print over already printed characters to the console. Flushes the stdout buffer 
 /// on every call. Can only overtype characters that are not on a previous line. Can only overtype 
 /// characters when the output is a console and not when redirecting to a file or a pipe.
-/// @param[in] arg An argument to overtype.
+/// @param[in] argument An argument to overtype.
 inline void overtype(const std::string& argument)
 {
 	// GCOVR_EXCL_START
@@ -1176,8 +1176,8 @@ inline void overtype(const std::string& argument)
     // create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
     // performance gain in the range of 2x to 8x times faster
-    std::string str(argument.size(), '\b');
-    fmt::print(str);
+    std::string multiple_backspaces(argument.size(), '\b');
+    fmt::print(multiple_backspaces);
 	
 	fmt::print(argument);
 	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
@@ -1187,7 +1187,7 @@ inline void overtype(const std::string& argument)
 /// Allows you to print over already printed characters to the console. Flushes the stdout buffer 
 /// on every call. Can only overtype characters that are not on a previous line. Can only overtype 
 /// characters when the output is a console and not when redirecting to a file or a pipe.
-/// @param[in] arg An argument to overtype.
+/// @param[in] argument An argument to overtype.
 inline void overtype(const char* argument)
 {
 	// GCOVR_EXCL_START
@@ -1203,8 +1203,8 @@ inline void overtype(const char* argument)
 	// create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
     // performance gain in the range of 2x to 8x times faster
-	std::string str(size, '\b');
-	fmt::print(str);
+	std::string multiple_backspaces(size, '\b');
+	fmt::print(multiple_backspaces);
 	
 	fmt::print(argument);
 	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux

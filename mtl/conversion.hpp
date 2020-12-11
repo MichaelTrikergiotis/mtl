@@ -658,36 +658,36 @@ struct to_num_deductor_noex_pair
 
 /// Convert a string to a number. Number type is automatically decuced. On error it throws 
 /// std::invalid_argument if no conversion could be performed. 
-/// @param[in] input An std::string representing a number.
+/// @param[in] value An std::string representing a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
-inline auto to_num(const std::string& input)
+inline auto to_num(const std::string& value)
 {
-	return detail::to_num_deductor(input);
+	return detail::to_num_deductor(value);
 }
 
 /// Convert a string to a number. Number type is automatically decuced. On error it returns 0 if it
 /// can not convert the value and the boolean is set to false.
-/// @param[in] input An std::string representing a number.
+/// @param[in] value An std::string representing a number.
 /// @param[out] success A boolean used to denote success or failure to covert to a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
-inline auto to_num_noex(const std::string& input, bool& success) noexcept
+inline auto to_num_noex(const std::string& value, bool& success) noexcept
 {
-	return detail::to_num_deductor_noex(input, success);
+	return detail::to_num_deductor_noex(value, success);
 }
 
 
 /// Convert a string to a number. Returns a std::pair containing the number and if it succeeded.
 /// Number type is automatically decuced. On error it returns a pair containing 0 for the 
 /// requested numeric type and a boolean set to false to indicate failure.
-/// @param[in] input An std::string representing a number.
+/// @param[in] value An std::string representing a number.
 /// @return An std::pair of any type of number and a boolean. You have to specify the resulting 
 ///         type and not use auto.
 [[nodiscard]]
-inline auto to_num_noex(const std::string& input) noexcept
+inline auto to_num_noex(const std::string& value) noexcept
 {
-	return detail::to_num_deductor_noex_pair(input);
+	return detail::to_num_deductor_noex_pair(value);
 }
 
 

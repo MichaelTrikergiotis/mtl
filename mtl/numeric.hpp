@@ -83,25 +83,25 @@ frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 	{ 
 		// we set the std::unordered_map bucket count to 1 because a bucket count of 0 can cause
 		// problems in some C++ standard library implementations
-		std_unordered_map output(static_cast<size_t>(1), hash, key_equal);
-		return output; 
+		std_unordered_map empty_container(static_cast<size_t>(1), hash, key_equal);
+		return empty_container; 
 	}
 
 	// an std::unordered_map with the bucket size as the number of elements with the given hash and
 	// the key equality functor, casting from std::ptrdiff to type size_t is ok since we previously
 	// checked size is not a negative number
-	std_unordered_map output(static_cast<size_t>(size), hash, key_equal);
+	std_unordered_map freq_table(static_cast<size_t>(size), hash, key_equal);
 
 	// reserve size to avoid allocations, we can safely cast to size_t as we checked previously
 	// size is not a negative number
-	output.reserve(static_cast<size_t>(size));
+	freq_table.reserve(static_cast<size_t>(size));
 
 	for (auto it = begin; it != end; ++it)
 	{
 		// add the element if it doesn't exist, increment the frequency counter if it does
-		output[*it]++;
+		freq_table[*it]++;
 	}
-	return output;
+	return freq_table;
 }
 
 

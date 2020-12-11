@@ -143,8 +143,8 @@ inline Container slice(const Container& container, const size_t start_pos, const
 	
 	
 	// if we are here then it mean nothing went wrong so we can safely do our work
-	Container output(start_it, end_it);
-	return output;
+	Container sliced_container(start_it, end_it);
+	return sliced_container;
 }
 
 
@@ -183,8 +183,8 @@ inline Container slice_n(const Container& container, const size_t start_pos, con
 	
 	
 	// if we are here then it mean nothing went wrong so we can safely do our work
-	Container output(start_it, end_it);
-	return output;
+	Container sliced_container(start_it, end_it);
+	return sliced_container;
 }
 
 

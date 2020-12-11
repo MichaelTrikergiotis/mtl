@@ -36,11 +36,11 @@ namespace filesystem
 
 
 /// Read an entire file to an std::string. The filename is used to specify which file to read.
-/// The output is where the file will be placed. Returns if the file was read successfully.
+/// The read_data is where the read file will be stored. Returns if the file was read successfully.
 /// @param[in] filename The relative or absolute path to a file.
-/// @param[out] output An std::string where the file will be stored.
+/// @param[out] read_data An std::string where the read file will be stored.
 /// @return Returns if the file was read successfully.
-inline bool read_file(const std::filesystem::path& filename, std::string& output)
+inline bool read_file(const std::filesystem::path& filename, std::string& read_data)
 {
 
 #ifndef MTL_DISABLE_SOME_ASSERTS
@@ -79,7 +79,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 	// with the macro __LP64__ and for MSVC with the macro _WIN64
 #if defined(__LP64__) || defined(_WIN64)
 	// resize the output to be exactly the same size as the file
-	output.resize(size);
+	read_data.resize(size);
 #else
 	// when compiling in 32 bit mode size_t it is way smaller than std::uintmax_t so we have to
 	// check and not allow file to be read if is beyond what size_t can hold as we can't resize
@@ -94,11 +94,11 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 	if (size > std::numeric_limits<size_t>::max()) { return false; }
 
 	// resize the output to be exactly the same size as the file
-	output.resize(static_cast<size_t>(size));
+	read_data.resize(static_cast<size_t>(size));
 #endif // __LP64__ end
 
 	// read the file and place it in the output
-	in_file.read(output.data(), static_cast<std::streamsize>(size));
+	in_file.read(read_data.data(), static_cast<std::streamsize>(size));
 
 	// if we reached this point it means success
 	return true;
@@ -113,25 +113,26 @@ inline bool read_file(const std::filesystem::path& filename, std::string& output
 
 namespace detail
 {
-	// Specialized string splitting algorithm that takes into account CRLF characters when
+	// Splits the given string at newlines and stores them to the given container. Specialized
+	// string splitting algorithm that takes into account both LF and CRLF characters when
 	// splitting at newlines.
 	template<typename Container>
-	inline void specialized_split_crlf(const std::string& input, Container& output)
+	inline void specialized_split_crlf(const std::string& read_data, Container& split_lines)
 	{
 		// GCOVR_EXCL_START
 		
 		// handle the case where there is only one character and it is a newline
-		if((input.size() == 1) && (input[0] == '\n'))
+		if((read_data.size() == 1) && (read_data[0] == '\n'))
 		{
-			mtl::emplace_back(output, std::string("")); 
-			mtl::emplace_back(output, std::string("")); 
+			mtl::emplace_back(split_lines, std::string("")); 
+			mtl::emplace_back(split_lines, std::string("")); 
 			return;
 		}
 
 		// handle the case where there is only one character and it is not a newline
-		if((input.size() == 1) && (input[0] != '\n'))
+		if((read_data.size() == 1) && (read_data[0] != '\n'))
 		{
-			mtl::emplace_back(output, input); 
+			mtl::emplace_back(split_lines, read_data); 
 			return;
 		}
 
@@ -140,7 +141,7 @@ namespace detail
 		// remember the starting position
 		size_t start = 0;
 		// position of the first match
-		size_t match_pos = input.find(delimiter);
+		size_t match_pos = read_data.find(delimiter);
 
 		// keep the position for the last item
 		size_t last_pos = 0;
@@ -153,38 +154,38 @@ namespace detail
 			if(match_pos > 0)
 			{
 				// lf case
-				if(input[match_pos - 1] != '\r')
+				if(read_data[match_pos - 1] != '\r')
 				{
-					mtl::emplace_back(output, input.substr(start, match_pos - start)); 
+					mtl::emplace_back(split_lines, read_data.substr(start, match_pos - start)); 
 				}
 				// crlf case
 				else
 				{
-					mtl::emplace_back(output, input.substr(start, match_pos - (start+1)));
+					mtl::emplace_back(split_lines, read_data.substr(start, match_pos - (start+1)));
 				}
 			}
 			else
 			{
-				mtl::emplace_back(output, input.substr(start, match_pos - start)); 
+				mtl::emplace_back(split_lines, read_data.substr(start, match_pos - start)); 
 			}	
 			
 			// set the new starting position
 			start = match_pos + 1;
 			// find a new position in the input string if there are any matches left
-			match_pos = input.find(delimiter, start);
+			match_pos = read_data.find(delimiter, start);
 		}
 
 		// if there are tokens in the output
-		if(output.empty() == false)
+		if(split_lines.empty() == false)
 		{
 			// add the last item using the last position
-			mtl::emplace_back(output, input.substr(last_pos + 1)); 
+			mtl::emplace_back(split_lines, read_data.substr(last_pos + 1)); 
 		}
 
 
 		// if the container is empty add the entire input string because it means there are no
 		// places that it needs to be split
-		if (output.empty()) { mtl::emplace_back(output, input); }
+		if (split_lines.empty()) { mtl::emplace_back(split_lines, read_data); }
 
 		// GCOVR_EXCL_STOP
 	}
@@ -192,14 +193,14 @@ namespace detail
 } // namespace detail end
 
 
-/// Read an entire file in lines. The filename is used to specify which file to read. The output
-/// is where the file will be placed. Allows you to reserve memory for the container. The 
-/// container element type has to be std::string. Returns if the file was read successfully. 
+/// Read an entire file in lines. The filename is used to specify which file to read. The 
+/// read_lines is where the file will be placed. Allows you to reserve memory for the container. 
+/// The container element type has to be std::string. Returns if the file was read successfully. 
 /// @param[in] filename The relative or absolute path to a file.
-/// @param[out] output A container with element type std::string where all lines will be stored.
+/// @param[out] read_lines A container with element type std::string to store the read lines.
 /// @return Returns if all the lines where read successfully.
 template<typename Container>
-inline bool read_all_lines(const std::filesystem::path& filename, Container& output)
+inline bool read_all_lines(const std::filesystem::path& filename, Container& read_lines)
 {
 	std::string internal_buffer;
 	// try to read the file into the buffer
@@ -209,12 +210,12 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 		if (internal_buffer.empty() == false)
 		{
 			// split each line to an output container at each newline
-			mtl::filesystem::detail::specialized_split_crlf(internal_buffer, output);
+			mtl::filesystem::detail::specialized_split_crlf(internal_buffer, read_lines);
 			// if the last element is empty remove it, we are sure that the output is not empty
 			// become we know that the internal buffer is bigger than 0 if we reached this point
-			if (output.back().empty())
+			if (read_lines.back().empty())
 			{
-				output.pop_back();
+				read_lines.pop_back();
 			}
 		}
 	}
@@ -234,13 +235,13 @@ inline bool read_all_lines(const std::filesystem::path& filename, Container& out
 
 
 /// Write an std::string to a file. The filename is used to specify which file to write. The
-/// input is where to place the read file. Append if set to true adds to the end of the file
-/// instead of overwriting it. Returns if the file was written successfully.
+/// write_data is what to write to the file. Append if set to true adds to the end of the
+/// file instead of overwriting it. Returns if the file was written successfully.
 /// @param[in] filename The relative or absolute path to a file.
-/// @param[in] input An std::string where the data will be read.
+/// @param[in] write_data An std::string to write to the file.
 /// @param[in] append An optional boolean to and append to the end of the file or overwrite it.
 /// @return Returns if the file was written successfully.
-inline bool write_file(const std::filesystem::path& filename, const std::string& input,
+inline bool write_file(const std::filesystem::path& filename, const std::string& write_data,
 					   const bool append = false)
 {
 	// what mode to open the file
@@ -259,7 +260,7 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 	out_file.exceptions(std::ofstream::badbit | std::ofstream::failbit);
 
 	// write the data to file
-	out_file.write(input.data(), static_cast<std::streamsize>(input.size()));
+	out_file.write(write_data.data(), static_cast<std::streamsize>(write_data.size()));
 
 	// if we reached this point it means we succeded
 	return true;
