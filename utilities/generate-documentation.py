@@ -20,19 +20,19 @@ from common import check_cwd, get_headers, get_sources
 
 def keep_tests(sources):
     '''
-    Given a list of sources keep only files that contain "tests_filename.cpp".
+    Given a list of sources keep only files that contain tests_filename.cpp.
     '''
     keep = []
     for source in sources:
         # use regular expression to search if a file contains tests_ and ends
         # with the .cpp extension
-        found = re.search("tests_.*cpp", str(source))
+        found = re.search('tests_.*cpp', str(source))
         if found:
             keep.append(source)
 
     # if the list is empty there is an error
     if len(keep) == 0:
-        raise Exception("Error. Could not match any files with tests_.cpp.")
+        raise Exception('Error. Could not match any files with tests_.cpp.')
 
     return keep
 
@@ -47,8 +47,8 @@ def extract_filename(source_path):
     filename = os.path.basename(source_path)
 
     # if filename is empty here there is an error
-    if filename == "" or filename == None:
-        raise Exception("Could not extract filename from path.")
+    if filename == '' or filename == None:
+        raise Exception('Could not extract filename from path.')
 
     return filename
 
@@ -59,8 +59,8 @@ def convert_header(filename):
     with the same name.
     '''
     # if filename is empty here there is an error
-    if filename == "" or filename == None:
-        raise Exception("Could not extract filename from path.")
+    if filename == '' or filename == None:
+        raise Exception('Could not extract filename from path.')
 
     # remove tests_ from the start and .cpp from the end
     if filename.startswith('tests_') and filename.endswith('.cpp'):
@@ -71,10 +71,10 @@ def convert_header(filename):
     else:
         print(filename)
         # if the filename doesn't match throw an error
-        raise Exception("Filename doesn't seem to be correct.")
+        raise Exception('Filename does not seem to be correct.')
 
     # add .hpp at the end
-    filename = filename + ".hpp"
+    filename = filename + '.hpp'
     return filename
 
 
@@ -85,8 +85,8 @@ def get_comments(source_path):
     '''
     header_name = convert_header(extract_filename(source_path))
     lines = []
-    with open(source_path, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    with open(source_path, 'r', encoding='utf-8') as input_file:
+        lines = input_file.readlines()
 
     # find where we start
     start_index = 1
@@ -114,7 +114,7 @@ def generate_names(comments):
     functions and classes.
     '''
     # join all to a string
-    combined = ""
+    combined = ''
     combined = combined.join(comments)
     # remove '//  '
     combined = combined.replace('// ', '')
@@ -141,7 +141,7 @@ def remove_namespaces(item_name):
     # the header file has the name of the item with capital letters
     item_name = item_name.upper()
     start_index = item_name.rfind('::')
-    formatted_name = ""
+    formatted_name = ''
     if start_index == -1:
         formatted_name = item_name
     else:
@@ -157,14 +157,14 @@ def find_line_header(filename, item_name):
     is located in the header.
     '''
     lines = []
-    with open(filename, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    with open(filename, 'r', encoding='utf-8') as input_file:
+        lines = input_file.readlines()
 
     count = 1
     formatted_name = remove_namespaces(item_name)
     for line in lines:
-        # with adding spaces in the front and back we make sure the name isn't just a substring
-        # of another string
+        # by adding spaces in the front and back we make sure the name isn't
+        # just a part of another name
         if (' ' + formatted_name + ' ') in line:
             return count
         count = count + 1
@@ -180,8 +180,8 @@ def find_line_source(filename, item_name):
     is located in the source file. 
     '''
     lines = []
-    with open(filename, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    with open(filename, 'r', encoding='utf-8') as input_file:
+        lines = input_file.readlines()
 
     # a list of possible matches
     match_list = []
@@ -238,11 +238,11 @@ def crc32(file_path):
     Given the path to a file returns the CRC32 hash for the entire file.
     '''
     # read the entire file as binary
-    binary_file = None
-    with open(file_path, 'rb') as bf:
-        binary_file = bf.read()
+    binary_data = None
+    with open(file_path, 'rb') as binary_file:
+        binary_data = binary_file.read()
     # caclulate and return the CRC32 hash of a file using zlib
-    return '%08X' % (zlib.crc32(binary_file, 0) & 0xFFFFFFFF)
+    return '%08X' % (zlib.crc32(binary_data, 0) & 0xFFFFFFFF)
 
 
 def generate_documentation(sources):
@@ -302,11 +302,11 @@ def generate_documentation(sources):
 
             # add the line number for item in the header as Markdown requires
             header_line_number = find_line_header(header_filename, name)
-            header_location = header_filename + "#L" + str(header_line_number)
+            header_location = header_filename + '#L' + str(header_line_number)
 
             # add the line number for item in the source as Markdown requires
             source_line_number = find_line_source(source_filename, name)
-            source_location = source_filename + "#L" + str(source_line_number)
+            source_location = source_filename + '#L' + str(source_line_number)
 
             # this stores how the markdown text will be formatted
             text = ''
@@ -370,9 +370,9 @@ def main_function():
     crc32_before = crc32(output_filename)
 
     # write the generated documentation
-    with open(output_filename, 'w', encoding='utf-8') as f:
+    with open(output_filename, 'w', encoding='utf-8') as input_file:
         for line in documentation:
-            f.write((line + '\n'))
+            input_file.write((line + '\n'))
 
     # keep a crc32 hash from the file after modification
     crc32_after = crc32(output_filename)
@@ -386,5 +386,5 @@ def main_function():
         print('No changes to the documentation file.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main_function()
