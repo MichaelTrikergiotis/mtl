@@ -32,7 +32,7 @@ if (WIN32)
         # for CMake versions above 3.15 for some configurations CMake may not add the /W3 flag
         # for us to replace so we have to add it to be sure
         if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.15.0")
-            add_compile_options(/W4)   
+            add_compile_options(/W4) 
         endif()
 
         # the /EHsc flag turns on standard C++ stack unwinding and C++ exception handling
@@ -58,17 +58,17 @@ if (WIN32)
        
        
         if(ENABLE_GNU_LIKE_CLANG)
-            message("-- Compiler used clang++")   
+            message("-- Compiler used clang++") 
             
             # enable a lot of warnings and turn them to errors for clang
-            add_compile_options(-Werror -Wall -Wextra)            
+            add_compile_options(-Werror -Wall -Wextra)
         else()
             
             message("-- Compiler used clang-cl")
 
             # because CMake adds the flag /W3 and we want the flag /W4 instead
             # we have to replace it in the C++ flags variable using REGEX REPLACE
-            string(REGEX REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")  
+            string(REGEX REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
             # for CMake versions above 3.15 for some configurations CMake may not add the /W3
             # flag for us to replace so we have to add it to be sure
@@ -89,7 +89,7 @@ if (WIN32)
     # put the automatically generated projects to their own folder to keep things clean
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# if the we are not in Windows then we must be in Linux or Unix so we  use gcc and clang flags
+# if the we are not in Windows then we must be in Linux or Unix so we use gcc and clang flags
 else()
 
     # clang-tidy with CMake doesn't work with MSBuild or Xcode generators it will do nothing
