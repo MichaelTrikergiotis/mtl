@@ -93,6 +93,7 @@ if (WIN32)
 else()
 
     # clang-tidy with CMake doesn't work with MSBuild or Xcode generators it will do nothing
+    # this is know and excepted behavior
     
 
     # clang-tidy is only enabled on Linux and Unix systems and will remain like that for the
