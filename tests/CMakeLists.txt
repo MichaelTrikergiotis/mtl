@@ -96,8 +96,7 @@ else()
     
 
     # clang-tidy is only enabled on Linux and Unix systems and will remain like that for the
-    # foreseeable future due to bugs in CMake and clang-tidy integration in Windows that are
-    # related to cl and clang-cl
+    # foreseeable future due to bugs in CMake and clang-tidy integration in Windows
     # List of bugs preventing the use of CMake with clang-tidy on Windows :
     # 1.) Seems like a clang-tidy cl driver mode bug on Windows :
     #     https://gitlab.kitware.com/cmake/cmake/-/issues/20512
