@@ -5,6 +5,7 @@
 # CMAKE_CXX_STANDARD_REQUIRED was introduced 
 cmake_minimum_required(VERSION 3.8)
 
+
 project(mtl)
 
 
@@ -56,12 +57,13 @@ if (WIN32)
             endif()
         endif()
        
-       
+        # enable gnu like flags for clang++ on Windows
         if(ENABLE_GNU_LIKE_CLANG)
             message("-- Compiler used clang++") 
             
             # enable a lot of warnings and turn them to errors for clang
             add_compile_options(-Werror -Wall -Wextra)
+        # enable cl like flags for clang-cl on Windows
         else()
             
             message("-- Compiler used clang-cl")
@@ -111,7 +113,7 @@ else()
     #     https://gitlab.kitware.com/cmake/cmake/-/issues/18731
 
 
-    # option that allows you to enable clang-tidy
+    # option that allows us to enable clang-tidy
     option(ENABLE_CLANG_TIDY "This option enables clang-tidy" OFF)
     if(ENABLE_CLANG_TIDY)
         # check if clang-tidy exists
@@ -164,7 +166,7 @@ include_directories(../../mtl)
 add_executable(tests main.cpp tests_algorithm.cpp tests_conversion.cpp tests_container.cpp tests_filesystem.cpp tests_math.cpp tests_numeric.cpp tests_random.cpp tests_safety.cpp tests_stopwatch.cpp tests_string.cpp tests_type_traits.cpp tests_utility.cpp tests_xoroshiro128plus.cpp tests_xorshift128plus.cpp tests_xoshiro256plus.cpp)
 
 
-# option to enable console tests
+# option to enable mtl::console tests
 option(ENABLE_CONSOLE_TESTS "This option enables the mtl::console tests" OFF)
 
 # if the option is enabled add the file responsible for testing mtl::console
