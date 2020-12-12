@@ -95,14 +95,15 @@ if (WIN32)
 else()
 
     # NOTE 1 :
-    # The following clang-tidy option with CMake doesn't work with MSBuild or Xcode generators it
-    # will do nothing, this is known and expected behavior.
-    
+    # The following CMake option to enable clang-tidy doesn't work with MSBuild or 
+    # Xcode generators. No errors are produced, clang-tidy just doesn't run. This is known and
+    # expected behavior.
+ 
 
     # NOTE 2 :
-    # The following clang-tidy option is only enabled on Linux and Unix systems and will remain
-    # like that for the foreseeable future due to bugs in CMake and clang-tidy integration in
-    # Windows when targeting cl and clang-cl.
+    # We provide the following CMake option to enable clang-tidy only for Linux and Unix. 
+    # We will not add this option to CMake on Windows in the foreseeable future due to bugs in
+    # CMake and clang-tidy integration in Windows when targeting cl and clang-cl.
     #
     # List of bugs preventing the use of CMake with clang-tidy on Windows :
     # 1.) Seems like a clang-tidy cl driver mode bug on Windows :
