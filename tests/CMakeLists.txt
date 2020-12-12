@@ -7,7 +7,10 @@ cmake_minimum_required(VERSION 3.8)
 
 project(mtl)
 
-message("-- CMake Vesion is ${CMAKE_VERSION}.")
+
+message("-- CMake version is ${CMAKE_VERSION}")
+message("-- CMake generator is ${CMAKE_GENERATOR}")
+
 
 #set the standard to C++ 17
 set(CMAKE_CXX_STANDARD 17)
@@ -89,6 +92,39 @@ if (WIN32)
 # if the we are not in Windows then we must be in Linux or Unix so we  use gcc and clang flags
 else()
 
+    # clang-tidy with CMake doesn't work with MSBuild or Xcode generators it will do nothing
+    
+
+    # clang-tidy is only enabled on Linux and Unix systems and will remain like that for the
+    # foreseeable future due to bugs in CMake and clang-tidy integration in Windows that are
+    # related to cl and clang-cl
+    # List of bugs preventing the use of CMake with clang-tidy on Windows :
+    # 1.) Seems like a clang-tidy cl driver mode bug on Windows :
+    #     https://gitlab.kitware.com/cmake/cmake/-/issues/20512
+    # 2.) Although closed the following bug is present even after CMake 3.17 (3.18.2 tested)
+    #     https://gitlab.kitware.com/cmake/cmake/-/issues/20737
+    # 3.) Although closed the following bug is present even after CMake 3.17 (3.18.2 tested)
+    #     https://gitlab.kitware.com/cmake/cmake/-/issues/18731
+
+
+    # option that allows you to enable clang-tidy
+    option(ENABLE_CLANG_TIDY "This option enables clang-tidy" OFF)
+    if(ENABLE_CLANG_TIDY)
+        # check if clang-tidy exists
+        find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+        # if we couldn't find clang-tidy print an warning message and continue
+        if(NOT CLANG_TIDY_COMMAND)
+            message(WARNING "-- Could not find clang-tidy")
+            set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
+        # if we found clang-tidy pass the correct flags and print a message that clang-tidy is enabled
+        else()
+            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-cppcoreguidelines-pro-*,-modernize-use-auto,-modernize-use-equals-delete,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-modernize-use-trailing-return-type")
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};-checks=${CLANG_TIDY_CHECKS};-warnings-as-errors=${CLANG_TIDY_CHECKS};-header-filter=.hpp;-quiet")
+            message("-- Enabled clang-tidy")
+        endif()
+    endif()
+
+
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         message("-- Compiler used clang++")
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
@@ -99,7 +135,7 @@ else()
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
         # option to enable libc++
-        option(ENABLE_LIBCXX "This option enables the libc++." OFF)
+        option(ENABLE_LIBCXX "This option enables the libc++" OFF)
 
         #if ENABLE_LIBCXX option is turned on add the all flags needed to use libc++
         if(ENABLE_LIBCXX)
