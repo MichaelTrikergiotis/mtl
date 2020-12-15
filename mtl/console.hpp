@@ -35,10 +35,18 @@
 #include <stdio.h>   // _fileno
 #include <stdexcept> // std::runtime_error
 #include <mutex>     // std::mutex, std::lock_guard
+
+#if defined(__MINGW32__) || defined(__MINGW64__)
+// we need to include the lowercase windows.h header because it fixes a cross-compilation issue
+// when compiling with mingw on Linux targeting Windows
+#include <windows.h>
+#else
+// use the Windows.h header like normal
 #include <Windows.h> // HANDLE, WORD, DWORD, COORD, TCHAR, CONSOLE_SCREEN_BUFFER_INFO, 
 					 // STD_OUTPUT_HANDLE, GetStdHandle, SetConsoleTextAttribute,
 					 // SetConsoleCursorPosition, GetConsoleScreenBufferInfo,
 					 // FillConsoleOutputCharacter, FillConsoleOutputAttribute
+#endif // __MINGW32__ and __MINGW64__ end
 
 
 // Linux / Unix only headers
