@@ -13,7 +13,7 @@ message("-- CMake version is ${CMAKE_VERSION}")
 message("-- CMake generator is ${CMAKE_GENERATOR}")
 
 
-#set the standard to C++ 17
+# set the standard to C++ 17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -41,7 +41,7 @@ if (WIN32)
         # the analyze flag turns on MSVC static analyzer
         add_compile_options(/EHsc /WX /analyze)
 
-    #check if the compiler is clang
+    # check if the compiler is clang
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
         # option to enable clang++
@@ -82,7 +82,7 @@ if (WIN32)
             # the /WX flag turns warnings to errors
             add_compile_options(/EHsc /WX)
         endif()
-    #check if the compiler is g++
+    # check if the compiler is g++
     elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
         message("-- Compiler used g++")
         # enable a lot of warnings and turn them to errors for gcc
