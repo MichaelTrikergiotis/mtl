@@ -82,14 +82,21 @@ if (WIN32)
             # the /WX flag turns warnings to errors
             add_compile_options(/EHsc /WX)
         endif()
- 
+    #check if the compiler is g++
+    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+        message("-- Compiler used g++")
+        # enable a lot of warnings and turn them to errors for gcc
+        add_compile_options(-Werror -Wall -Wextra)
     endif()
-    
 
-    # set tests as the default project for the Visual Studio solution
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT tests) 
-    # put the automatically generated projects to their own folder to keep things clean
-    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+    # when building with MSBuild
+    if("${CMAKE_GENERATOR}" MATCHES "^Visual Studio")
+        message("-- Building with MSBuild")
+        # set tests as the default project for the Visual Studio solution
+        set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT tests) 
+        # put the automatically generated projects to their own folder to keep things clean
+        set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+    endif()
 
 # if the we are not in Windows then we must be in Linux or Unix so we use gcc and clang flags
 else()
