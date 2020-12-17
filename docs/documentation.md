@@ -23,7 +23,7 @@ Other C++ 17 conforming compilers may work correctly but are not currently activ
 
 Tested compiler and operating systems combinations :
 
-1. MSVC and clang on Windows
+1. MSVC, gcc and clang on Windows
 2. gcc and clang on Linux
 3. gcc and clang on MacOS
 
