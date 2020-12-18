@@ -131,12 +131,12 @@ inline bool enable_win_ascii()
 
 // If this is false we are in Windows 10 v.1607 or later. If this is set to true then we are in
 // older versions of Windows and have to use WIN32 API for some of the console functionality.
-const bool legacy_windows = !(enable_win_ascii());
+static const bool legacy_windows = !(enable_win_ascii());
 
 
 // Mutex used to lock legacy Windows console functions that use WIN32 API to interact with the
 // console and allows them to be thread safe.
-std::mutex console_mutex_legacy_win;
+static std::mutex console_mutex_legacy_win;
 
 
 #else
@@ -153,7 +153,7 @@ inline bool is_terminal()
 
 
 // Reports if we are running in the terminal or not.
-const bool inside_terminal = is_terminal();
+static const bool inside_terminal = is_terminal();
 
 
 } // namespace detail end
