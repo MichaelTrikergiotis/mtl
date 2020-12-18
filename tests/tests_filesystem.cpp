@@ -25,18 +25,18 @@
 
 
 // ------------------------------------------------------------------------------------------------
-// Create some UTF8 strings to check if functions can handle UTF8 without problem.
+// Create some UTF8 strings to check if the mtl functions can handle UTF8 without errors.
 // ------------------------------------------------------------------------------------------------
 
 
 // We have to use reinterpret_cast<const char*>(u8"utf8_str") so the tests can be compiled for
-// both C++ 17 and C++ 20 or later where the flag gcc/clang flag -fno-char8_t or the
+// both C++ 17 and C++ 20 or later where the gcc and clang flag -fno-char8_t or the
 // MSVC /Zc:char8_t- flag was not used. This is because C++ 20 introduced a breaking change,
 // u8 string literals are now char8_t type instead of char_t type. 
 // For more information check :
 // http:// www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
-// https:// stackoverflow.com/a/57453713
 // https:// docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
+// https:// stackoverflow.com/a/57453713
 
 // String containing UTF8 text from various languages.
 const std::string text1 
@@ -51,6 +51,9 @@ const std::string text2
 // Strings that will be used as a filename conaining UTF8 text from various languages.
 const std::string filename_base (reinterpret_cast<const char*>
 (u8"_test_file_αρχείο_ファイル_文件_файл"));
+
+
+
 
 
 int filename_id = 0;
@@ -77,11 +80,8 @@ TEST_CASE("mtl::filesystem::write_file with empty file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // empty string
     std::string empty;
@@ -95,14 +95,8 @@ TEST_CASE("mtl::filesystem::write_file with empty file")
     auto filesize = std::filesystem::file_size(filename);
     REQUIRE_EQ((filesize == 0), true);
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -114,6 +108,9 @@ TEST_CASE("mtl::filesystem::write_file with empty file")
 TEST_CASE("mtl::filesystem::read_file with non-existent file")
 {
     const std::string non_existent = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(non_existent);
 
     // make sure the file doesn't exist
     REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
@@ -131,6 +128,9 @@ TEST_CASE("mtl::filesystem::read_file with non-existent file")
 
     // make sure the file still doesn't exist
     REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
+
+    // delete the file used for this test case
+    std::filesystem::remove(non_existent);
 }
 
 
@@ -142,11 +142,8 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // empty string
     std::string empty;
@@ -166,27 +163,16 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ(read_data.empty(), true);
 
-
-
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // create the file
     bool written_correctly = mtl::filesystem::write_file(filename, text1);
@@ -218,24 +204,16 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ((read_data == correct_data ), true);
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file with LF")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newlines = "Hi \nHi\n Hi \n Hi\n\n Hi \n\n Hi\n\n Hi \n \nHi";
     const std::string text_newlines_two_times = text_with_newlines + text_with_newlines;
@@ -271,24 +249,16 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ((read_data == correct_data), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file with CRLF")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newlines = "Hi \r\nHi\r\n Hi \r\n Hi\r\n\r\n";
     const std::string text_newlines_two_times = text_with_newlines + text_with_newlines;
@@ -324,13 +294,8 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ((read_data == correct_data), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -338,11 +303,8 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newlines = "Hi \r\nHi\n Hi \r\n Hi\n\r\n";
     const std::string text_newlines_two_times = text_with_newlines + text_with_newlines;
@@ -378,13 +340,8 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ((read_data == correct_data), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -396,6 +353,9 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed
 TEST_CASE("mtl::filesystem::read_all_lines with non-existent file")
 {
     const std::string non_existent = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(non_existent);
 
     // make sure the file doesn't exist
     REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
@@ -413,17 +373,17 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-existent file")
 
     // make sure the file still doesn't exist
     REQUIRE_EQ((std::filesystem::is_regular_file(non_existent)), false);
+
+    // delete the file used for this test case
+    std::filesystem::remove(non_existent);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string single_char("h");
 
@@ -444,25 +404,16 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
     REQUIRE_EQ((read_data.at(0) == single_char), true);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single LF character file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string single_newline("\n");
 
@@ -484,25 +435,16 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single LF character file")
     REQUIRE_EQ((read_data.at(0) == empty), true);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with two characters CRLF file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string single_newline("\r\n");
 
@@ -524,25 +466,16 @@ TEST_CASE("mtl::filesystem::read_all_lines with two characters CRLF file")
     REQUIRE_EQ(read_data.at(0), empty);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only LF characters")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string newlines("\n\n\n\n");
 
@@ -566,25 +499,16 @@ TEST_CASE("mtl::filesystem::read_all_lines a file containing only LF characters"
     REQUIRE_EQ(read_data, desired_result);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only CRLF characters")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string newlines("\r\n\r\n\r\n\r\n");
 
@@ -608,25 +532,16 @@ TEST_CASE("mtl::filesystem::read_all_lines a file containing only CRLF character
     REQUIRE_EQ(read_data, desired_result);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only mixed LF and CRLF characters")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string newlines("\r\n\n\r\n\n");
 
@@ -650,14 +565,8 @@ TEST_CASE("mtl::filesystem::read_all_lines a file containing only mixed LF and C
     REQUIRE_EQ(read_data, desired_result);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -666,11 +575,8 @@ TEST_CASE("mtl::filesystem::read_all_lines with LF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\nHi\nHi\nHi\nHi\nHi\nHi\nHi";
 
@@ -691,13 +597,8 @@ TEST_CASE("mtl::filesystem::read_all_lines with LF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -705,11 +606,8 @@ TEST_CASE("mtl::filesystem::read_all_lines with CRLF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi";
 
@@ -730,24 +628,16 @@ TEST_CASE("mtl::filesystem::read_all_lines with CRLF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::read_all_lines with mixed LF and CRLF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\r\nHi\nHi\r\nHi\nHi\r\nHi\nHi\r\nHi";
 
@@ -768,13 +658,8 @@ TEST_CASE("mtl::filesystem::read_all_lines with mixed LF and CRLF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -787,11 +672,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with LF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\nHi\nHi\n";
     std::vector<std::string> crlf_lines {crlf_text, crlf_text, crlf_text};
@@ -815,24 +697,16 @@ TEST_CASE("mtl::filesystem::write_all_lines with LF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
     
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_all_lines with CRLF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\r\nHi\r\nHi\r\n";
     std::vector<std::string> crlf_lines {crlf_text, crlf_text, crlf_text};
@@ -856,24 +730,16 @@ TEST_CASE("mtl::filesystem::write_all_lines with CRLF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
     
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_all_lines with mixed LF and CRLF")
 {
     const std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string crlf_text = "Hi\r\nHi\nHi\r\n";
     std::vector<std::string> crlf_lines {crlf_text, crlf_text, crlf_text};
@@ -897,13 +763,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with mixed LF and CRLF")
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
     REQUIRE_EQ((read_data == desired_result), true);
     
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -912,11 +773,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with integers")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // create the file by writting all number from the container, mtl::filesystem::write_all_lines
     // can accept any type of element that can be converted to std::string by mtl::to_string
@@ -942,24 +800,16 @@ TEST_CASE("mtl::filesystem::write_all_lines with integers")
     REQUIRE_EQ((read_data == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_all_lines with floats")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // create the file by writting all numbers from the container, 
     // mtl::filesystem::write_all_lines can accept any type of element that can be converted to 
@@ -987,13 +837,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with floats")
     REQUIRE_EQ((read_data == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1007,11 +852,8 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // empty std::vector<std::string>
     std::vector<std::string> empty;
@@ -1034,14 +876,8 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
 
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1050,11 +886,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     // create the file by writting all lines from the container
     std::vector<std::string> text_data1 {text1, text1, text1, text1, text1};
@@ -1094,13 +927,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     CHECK_EQ((read_data2 == correct_data), true);
 
 
-    // if the file exists delete it
-    if(std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1109,11 +937,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string text_with_newline = "R\nG\nB";
     // create the file by writting all lines from the container
@@ -1155,13 +980,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     CHECK_EQ((read_data2 == correct_data_twice), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1169,11 +989,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string text_with_newline = "R\r\nG\r\nB";
     // create the file by writting all lines from the container
@@ -1215,24 +1032,16 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     CHECK_EQ((read_data2 == correct_data_twice), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixed LF and CRLF")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     std::string text_with_newline = "R\nG\r\nB";
     // create the file by writting all lines from the container
@@ -1274,13 +1083,8 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixe
     CHECK_EQ((read_data2 == correct_data_twice), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    CHECK_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1293,11 +1097,8 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newline = "\nR\nG\nB\nCMYK\n\nR\nG\nB\n\n";
     
@@ -1321,24 +1122,16 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
     REQUIRE_EQ((read_lines == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with CRLF")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newline = "\r\nR\r\nG\r\nB\r\nCMYK\r\n\r\nR\r\nG\r\nB\r\n\r\n";
     
@@ -1362,24 +1155,16 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
     REQUIRE_EQ((read_lines == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines mixed LF and CRLF")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::string text_with_newline = "\nR\r\nG\nB\nCMYK\r\n\r\nR\nG\r\nB\n\r\n";
     
@@ -1403,13 +1188,8 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines mixe
     REQUIRE_EQ((read_lines == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
 
 
@@ -1421,11 +1201,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 {
     std::string filename = generate_filename();
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
 
     const std::vector<std::string> data
     { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
@@ -1449,19 +1226,9 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
     REQUIRE_EQ((read_line == correct_data), true);
 
 
-    // if the file exists delete it
-    if (std::filesystem::is_regular_file(filename))
-    {
-        std::filesystem::remove(filename);
-    }
-    // make sure the file doesn't exist
-    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), false);
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
 }
-
-
-
-
-
 
 
 
@@ -1470,17 +1237,12 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 TEST_CASE("Check again to make sure that all files created do not exist")
 {
     // we check again for existing files because if a test fails it will not delete it's 
-    // associated file
+    // associated temporary file
     for(const auto& filename : filenames)
     {
-        // check the file doesn't exist
-        bool file_exists = std::filesystem::is_regular_file(filename);
-        CHECK_EQ(file_exists, false);
         // if the file still exists delete it
-        if(file_exists)
-        {
-            std::filesystem::remove(filename);
-        }
+        std::filesystem::remove(filename);
+
         // check that the file was deleted properly, incase it existed
         CHECK_EQ(std::filesystem::is_regular_file(filename), false);
     }
