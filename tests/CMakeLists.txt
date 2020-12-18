@@ -101,27 +101,7 @@ if (WIN32)
 # if the we are not in Windows then we must be in Linux or Unix so we use gcc and clang flags
 else()
 
-    # NOTE 1 :
-    # The following CMake option to enable clang-tidy doesn't work with MSBuild or 
-    # Xcode generators. No errors are produced, clang-tidy just doesn't run. This is known and
-    # expected behavior.
- 
-
-    # NOTE 2 :
-    # We provide the following CMake option to enable clang-tidy only for Linux and Unix. 
-    # We will not add this option to CMake on Windows in the foreseeable future due to bugs in
-    # CMake and clang-tidy integration in Windows when targeting cl and clang-cl.
-    #
-    # List of bugs preventing the use of CMake with clang-tidy on Windows :
-    # 1.) Seems like a clang-tidy cl driver mode bug on Windows :
-    #     https://gitlab.kitware.com/cmake/cmake/-/issues/20512
-    # 2.) Although closed the following bug is present even after CMake 3.17 (3.18.2 tested)
-    #     https://gitlab.kitware.com/cmake/cmake/-/issues/20737
-    # 3.) Although closed the following bug is present even after CMake 3.17 (3.18.2 tested)
-    #     https://gitlab.kitware.com/cmake/cmake/-/issues/18731
-
-
-    # option that allows us to enable clang-tidy
+    # option that enables clang-tidy
     option(ENABLE_CLANG_TIDY "This option enables clang-tidy" OFF)
     if(ENABLE_CLANG_TIDY)
         # check if clang-tidy exists
