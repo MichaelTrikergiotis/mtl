@@ -75,10 +75,10 @@ There are 116 non-member functions.
 
 ## filesystem.hpp
 
-- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L34) [(Examples)](../tests/tests_filesystem.cpp#L111)
-- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L110) [(Examples)](../tests/tests_filesystem.cpp#L392)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L233) [(Examples)](../tests/tests_filesystem.cpp#L73)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L272) [(Examples)](../tests/tests_filesystem.cpp#L783)
+- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L34) [(Examples)](../tests/tests_filesystem.cpp#L105)
+- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L110) [(Examples)](../tests/tests_filesystem.cpp#L349)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L233) [(Examples)](../tests/tests_filesystem.cpp#L76)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L272) [(Examples)](../tests/tests_filesystem.cpp#L668)
 
 ---------------------------------------------------
 
