@@ -5,44 +5,44 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="512"
-   height="256"
-   viewBox="0 0 135.46496 67.73248"
+   id="svg8"
    version="1.1"
-   id="svg8">
+   viewBox="0 0 135.46496 67.73248"
+   height="256"
+   width="512">
   <defs
      id="defs2">
     <font
-       horiz-adv-x="1024"
-       id="font3744"
-       horiz-origin-x="0"
-       horiz-origin-y="0"
-       vert-origin-x="45"
+       vert-adv-y="90"
        vert-origin-y="90"
-       vert-adv-y="90">
+       vert-origin-x="45"
+       horiz-origin-y="0"
+       horiz-origin-x="0"
+       id="font3744"
+       horiz-adv-x="1024">
       <font-face
-         units-per-em="1024"
+         font-family="SVGFont 1"
          id="font-face3746"
-         font-family="SVGFont 1" />
+         units-per-em="1024" />
       <missing-glyph
-         d="M0,0h1000v1024h-1000z"
-         id="missing-glyph3748" />
+         id="missing-glyph3748"
+         d="M0,0h1000v1024h-1000z" />
     </font>
     <font
-       horiz-adv-x="1024"
-       id="font3744-9"
-       horiz-origin-x="0"
-       horiz-origin-y="0"
-       vert-origin-x="45"
+       vert-adv-y="90"
        vert-origin-y="90"
-       vert-adv-y="90">
+       vert-origin-x="45"
+       horiz-origin-y="0"
+       horiz-origin-x="0"
+       id="font3744-9"
+       horiz-adv-x="1024">
       <font-face
-         units-per-em="1024"
+         font-family="SVGFont 1"
          id="font-face3746-1"
-         font-family="SVGFont 1" />
+         units-per-em="1024" />
       <missing-glyph
-         d="M0,0h1000v1024h-1000z"
-         id="missing-glyph3748-9" />
+         id="missing-glyph3748-9"
+         d="M0,0h1000v1024h-1000z" />
     </font>
   </defs>
   <metadata
@@ -58,32 +58,34 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(0,-33.33708)"
+     style="display:inline"
      id="layer6"
-     style="display:inline">
+     transform="translate(0.52916,-33.33708)">
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58320045px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458001"
-       x="28.484724"
+       id="text152"
        y="83.254501"
-       id="text152"><tspan
-         id="tspan150"
-         x="28.484724"
+       x="28.484724"
+       style="font-style:normal;font-weight:normal;font-size:10.58320045px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#550082;fill-opacity:1;stroke:#550082;stroke-width:0.79373997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:52.91600037px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#550082;fill-opacity:1;stroke:#550082;stroke-width:0.79373997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          y="83.254501"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:52.91600037px;font-family:roboto;-inkscape-font-specification:'roboto Bold';stroke-width:0.26458001">mtl</tspan></text>
+         x="28.484724"
+         id="tspan150">mtl</tspan></text>
   </g>
   <g
-     transform="translate(0,-33.33708)"
-     id="g123">
+     id="g123"
+     transform="translate(0,-33.33708)">
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58320141px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458001"
-       x="-0.44992113"
+       id="text160"
        y="87.49501"
-       id="text160"><tspan
-         id="tspan158"
-         x="-0.44992113"
+       x="0.079238869"
+       style="font-style:normal;font-weight:normal;font-size:10.58320141px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.52916002;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:59.97146606px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#800000;stroke-width:0.52916002;stroke-miterlimit:4;stroke-dasharray:none"
          y="87.49501"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:59.97146606px;font-family:roboto;-inkscape-font-specification:'roboto Bold';fill:#800000;stroke-width:0.26458001">&lt;     &gt;</tspan></text>
+         x="0.079238869"
+         id="tspan158">&lt;<tspan
+   id="tspan4527"
+   style="fill:#000000;fill-opacity:1;stroke:#ff9700;stroke-width:0.52916002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">     </tspan>&gt;</tspan></text>
   </g>
 </svg>
