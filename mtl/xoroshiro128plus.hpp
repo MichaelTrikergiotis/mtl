@@ -283,9 +283,6 @@ public:
 	[[nodiscard]]
 	result_type operator()()
 	{
-		// ----------------------------------------------------------------------------------------
-		// xoroshiro128plus algorithm
-		// ----------------------------------------------------------------------------------------
 		state_type seed1 = _state.seed_1;
 		state_type seed2 = _state.seed_2;
 		state_type result = seed1 + seed2;

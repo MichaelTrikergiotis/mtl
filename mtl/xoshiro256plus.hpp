@@ -339,9 +339,6 @@ public:
 	[[nodiscard]]
 	result_type operator()()
 	{
-		// ----------------------------------------------------------------------------------------
-		// xoshiro256plus algorithm
-		// ----------------------------------------------------------------------------------------
 		state_type result = _state.seed_1 + _state.seed_2 + _state.seed_3 +
 							_state.seed_4;
 		const state_type stored_seed = _state.seed_2 << 17;

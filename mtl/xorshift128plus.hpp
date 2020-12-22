@@ -286,9 +286,6 @@ public:
 	[[nodiscard]]
 	result_type operator()()
 	{
-		// ----------------------------------------------------------------------------------------
-		// xorshift128plus algorithm
-		// ----------------------------------------------------------------------------------------
 		state_type seed1 = _state.seed_1;
 		state_type seed2 = _state.seed_2;
 		_state.seed_1 = seed2;
