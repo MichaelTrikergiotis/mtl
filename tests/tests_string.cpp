@@ -1014,7 +1014,7 @@ TEST_CASE("mtl::string::to_string")
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::string::join_all, mtl::string::join
+// mtl::string::join_all
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::string::join_all")
@@ -1161,13 +1161,84 @@ TEST_CASE("mtl::string::join_all with output")
     mtl::string::join_all(smiles.begin(), smiles.end(), two_smiles, "");
     CHECK_EQ((two_smiles == smiley), false);
     CHECK_EQ((two_smiles == two_smileys), true);
-
     
     std::string two_smiles_delim;
     mtl::string::join_all(smiles.begin(), smiles.end(), two_smiles_delim, "|");
     CHECK_EQ((two_smiles_delim == smiley), false);
     CHECK_EQ((two_smiles_delim == two_smileys_delimiter), true);
 }
+
+TEST_CASE("mtl::string::join_all with non-empty output")
+{
+    std::vector<std::string> blanks { "", "" };
+    std::string str_only_delim = "^^^";
+    mtl::string::join_all(blanks.begin(), blanks.end(), str_only_delim, std::string("###"));
+    CHECK_EQ(str_only_delim, std::string("^^^###"));
+
+    const char* empty_cs = "";
+    std::vector<const char*> blanks_cs { empty_cs, empty_cs};
+    std::string str_only_delim2 = "^^^";
+    mtl::string::join_all(blanks_cs.begin(), blanks_cs.end(), str_only_delim2, std::string("###"));
+    CHECK_EQ(str_only_delim2, std::string("^^^###"));
+   
+    std::vector<char> vc {'a', 'b', 'c'};
+    std::string vc_s = "abc";
+    mtl::string::join_all(vc.begin(), vc.end(), vc_s, "");
+    std::string desired_chars = "abcabc";
+    CHECK_EQ(vc_s, desired_chars);
+
+    std::vector<std::string> names {"Bill", "Mary", "Nick"};
+    std::string names_s = "Peter|";
+    mtl::string::join_all(names.begin(), names.end(), names_s, '|');
+    std::string names_desired = "Peter|Bill|Mary|Nick";
+    CHECK_EQ(names_s, names_desired);
+
+    std::string names_s2 = "Peter|";
+    mtl::string::join_all(names.begin(), names.end(), names_s2, std::string("|"));
+    CHECK_EQ(names_s2, names_desired);
+
+    std::string names_s3 = "Peter|";
+    std::string some_delimiter = "|";
+    mtl::string::join_all(names.begin(), names.end(), names_s3, some_delimiter);
+    CHECK_EQ(names_s3, names_desired);
+
+    std::string numbers_str = "00";
+    std::vector<std::string> numbers { "11", "22" };
+    std::string big_delimiter = "[12345]";
+    mtl::string::join_all(numbers.begin(), numbers.end(), numbers_str, big_delimiter);
+    CHECK_EQ(numbers_str, std::string("0011[12345]22"));
+
+    // reserving output to avoid allocations
+    std::vector<int> vi { 100, 111, 222, 333, 444, 555, 666, 777, 888, 999 };
+    std::string reserved_output = "123";
+    // we know the ouput will be 33 characters long so we reserve space to avoid allocations
+    reserved_output.reserve(11 * 3);
+    mtl::string::join_all(vi.begin(), vi.end(), reserved_output, "");
+
+
+    // check that is works correctly with UTF8 strings
+    std::vector<std::string> smiles { smiley, smiley };
+    std::string four_smiles = smiley + smiley;
+    mtl::string::join_all(smiles.begin(), smiles.end(), four_smiles, "");
+    CHECK_EQ((four_smiles == smiley), false);
+    CHECK_EQ((four_smiles == two_smileys), false);
+    CHECK_EQ((four_smiles == (two_smileys + two_smileys)), true);
+
+    std::string two_smiles_delim;
+    mtl::string::join_all(smiles.begin(), smiles.end(), two_smiles_delim, "|");
+    CHECK_EQ((two_smiles_delim == smiley), false);
+    CHECK_EQ((two_smiles_delim == two_smileys_delimiter), true);
+
+    std::string four_smiles_delim = two_smiles_delim;
+    mtl::string::join_all(smiles.begin(), smiles.end(), four_smiles_delim, "|");
+    CHECK_EQ((four_smiles_delim == smiley), false);
+    CHECK_EQ((four_smiles_delim == two_smileys_delimiter), false);
+    CHECK_EQ((four_smiles_delim == (two_smileys_delimiter + two_smileys_delimiter)), true);
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::string::join
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::string::join")
 {
