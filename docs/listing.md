@@ -42,13 +42,13 @@ There are 116 non-member functions.
 
 ## console.hpp
 
-- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L164) [(Examples)](../tests/tests_console.cpp#L71)
-- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L193) [(Examples)](../tests/tests_console.cpp#L71)
-- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L227) [(Examples)](../tests/tests_console.cpp#L338)
-- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L479) [(Examples)](../tests/tests_console.cpp#L605)
-- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L480) [(Examples)](../tests/tests_console.cpp#L854)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1166) [(Examples)](../tests/tests_console.cpp#L1016)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1224) [(Examples)](../tests/tests_console.cpp#L1396)
+- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L165) [(Examples)](../tests/tests_console.cpp#L71)
+- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L194) [(Examples)](../tests/tests_console.cpp#L71)
+- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L228) [(Examples)](../tests/tests_console.cpp#L338)
+- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L480) [(Examples)](../tests/tests_console.cpp#L605)
+- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L481) [(Examples)](../tests/tests_console.cpp#L854)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1167) [(Examples)](../tests/tests_console.cpp#L1016)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1225) [(Examples)](../tests/tests_console.cpp#L1396)
 
 ---------------------------------------------------
 
@@ -75,10 +75,10 @@ There are 116 non-member functions.
 
 ## filesystem.hpp
 
-- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L34) [(Examples)](../tests/tests_filesystem.cpp#L105)
-- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L110) [(Examples)](../tests/tests_filesystem.cpp#L349)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L233) [(Examples)](../tests/tests_filesystem.cpp#L76)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L272) [(Examples)](../tests/tests_filesystem.cpp#L668)
+- `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L105)
+- `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L111) [(Examples)](../tests/tests_filesystem.cpp#L349)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L239) [(Examples)](../tests/tests_filesystem.cpp#L76)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L278) [(Examples)](../tests/tests_filesystem.cpp#L668)
 
 ---------------------------------------------------
 
@@ -141,27 +141,27 @@ There are 116 non-member functions.
 
 ## string.hpp
 
-- `mtl::string::is_upper` [(Documentation)](../mtl/string.hpp#L39) [(Examples)](../tests/tests_string.cpp#L85)
-- `mtl::string::is_lower` [(Documentation)](../mtl/string.hpp#L41) [(Examples)](../tests/tests_string.cpp#L85)
-- `mtl::string::to_upper` [(Documentation)](../mtl/string.hpp#L112) [(Examples)](../tests/tests_string.cpp#L153)
-- `mtl::string::to_lower` [(Documentation)](../mtl/string.hpp#L114) [(Examples)](../tests/tests_string.cpp#L153)
-- `mtl::string::is_ascii` [(Documentation)](../mtl/string.hpp#L167) [(Examples)](../tests/tests_string.cpp#L241)
-- `mtl::string::is_alphabetic` [(Documentation)](../mtl/string.hpp#L219) [(Examples)](../tests/tests_string.cpp#L289)
-- `mtl::string::is_numeric` [(Documentation)](../mtl/string.hpp#L221) [(Examples)](../tests/tests_string.cpp#L289)
-- `mtl::string::is_alphanum` [(Documentation)](../mtl/string.hpp#L222) [(Examples)](../tests/tests_string.cpp#L289)
-- `mtl::string::contains` [(Documentation)](../mtl/string.hpp#L326) [(Examples)](../tests/tests_string.cpp#L396)
-- `mtl::string::strip_front` [(Documentation)](../mtl/string.hpp#L396) [(Examples)](../tests/tests_string.cpp#L472)
-- `mtl::string::strip_back` [(Documentation)](../mtl/string.hpp#L397) [(Examples)](../tests/tests_string.cpp#L472)
-- `mtl::string::strip` [(Documentation)](../mtl/string.hpp#L398) [(Examples)](../tests/tests_string.cpp#L472)
-- `mtl::string::pad_front` [(Documentation)](../mtl/string.hpp#L471) [(Examples)](../tests/tests_string.cpp#L706)
-- `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L474) [(Examples)](../tests/tests_string.cpp#L706)
-- `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L477) [(Examples)](../tests/tests_string.cpp#L706)
-- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L637) [(Examples)](../tests/tests_string.cpp#L924)
-- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L754) [(Examples)](../tests/tests_string.cpp#L1017)
-- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L931) [(Examples)](../tests/tests_string.cpp#L1017)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1069) [(Examples)](../tests/tests_string.cpp#L1215)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1198) [(Examples)](../tests/tests_string.cpp#L1759)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1506) [(Examples)](../tests/tests_string.cpp#L2417)
+- `mtl::string::is_upper` [(Documentation)](../mtl/string.hpp#L40) [(Examples)](../tests/tests_string.cpp#L85)
+- `mtl::string::is_lower` [(Documentation)](../mtl/string.hpp#L42) [(Examples)](../tests/tests_string.cpp#L85)
+- `mtl::string::to_upper` [(Documentation)](../mtl/string.hpp#L113) [(Examples)](../tests/tests_string.cpp#L153)
+- `mtl::string::to_lower` [(Documentation)](../mtl/string.hpp#L115) [(Examples)](../tests/tests_string.cpp#L153)
+- `mtl::string::is_ascii` [(Documentation)](../mtl/string.hpp#L168) [(Examples)](../tests/tests_string.cpp#L241)
+- `mtl::string::is_alphabetic` [(Documentation)](../mtl/string.hpp#L220) [(Examples)](../tests/tests_string.cpp#L289)
+- `mtl::string::is_numeric` [(Documentation)](../mtl/string.hpp#L222) [(Examples)](../tests/tests_string.cpp#L289)
+- `mtl::string::is_alphanum` [(Documentation)](../mtl/string.hpp#L223) [(Examples)](../tests/tests_string.cpp#L289)
+- `mtl::string::contains` [(Documentation)](../mtl/string.hpp#L327) [(Examples)](../tests/tests_string.cpp#L396)
+- `mtl::string::strip_front` [(Documentation)](../mtl/string.hpp#L397) [(Examples)](../tests/tests_string.cpp#L472)
+- `mtl::string::strip_back` [(Documentation)](../mtl/string.hpp#L398) [(Examples)](../tests/tests_string.cpp#L472)
+- `mtl::string::strip` [(Documentation)](../mtl/string.hpp#L399) [(Examples)](../tests/tests_string.cpp#L472)
+- `mtl::string::pad_front` [(Documentation)](../mtl/string.hpp#L472) [(Examples)](../tests/tests_string.cpp#L706)
+- `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L475) [(Examples)](../tests/tests_string.cpp#L706)
+- `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L478) [(Examples)](../tests/tests_string.cpp#L706)
+- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L638) [(Examples)](../tests/tests_string.cpp#L924)
+- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L755) [(Examples)](../tests/tests_string.cpp#L1017)
+- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L932) [(Examples)](../tests/tests_string.cpp#L1017)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1070) [(Examples)](../tests/tests_string.cpp#L1215)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1202) [(Examples)](../tests/tests_string.cpp#L1759)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1510) [(Examples)](../tests/tests_string.cpp#L2417)
 
 ---------------------------------------------------
 
