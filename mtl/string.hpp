@@ -1093,6 +1093,9 @@ inline void split(const std::string& value, Container& result, const std::string
 		return;
 	}
 
+	// the size of the container before we start modifying it
+	const auto original_size = result.size();
+
 	// remember the starting position
 	size_t start = 0;
 	// position of the first match
@@ -1117,8 +1120,11 @@ inline void split(const std::string& value, Container& result, const std::string
 		match_pos = value.find(delimiter, start);
 	}
 
-	// if there are tokens in the output
-	if(result.empty() == false)
+	// how much we added to the container
+	const auto size_difference = result.size() - original_size;
+
+	// if container changed size it means there are tokens in the output
+	if(size_difference > 0)
 	{
 		// add the last item using the last position
 		const std::string_view token(value.data() + (last_pos + delimiter.size()));
@@ -1126,9 +1132,9 @@ inline void split(const std::string& value, Container& result, const std::string
 	}
 
 
-	// if the container is empty add the entire input string because it means there are no
-	// places that it needs to be split
-	if (result.empty()) { mtl::emplace_back(result, value); }
+	// if the container's size didn't change at all then add the entire input string because it
+	// means there are no places that it needs to be split
+	if (size_difference == 0) { mtl::emplace_back(result, value); }
 }
 
 

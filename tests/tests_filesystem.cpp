@@ -378,6 +378,72 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-existent file")
     std::filesystem::remove(non_existent);
 }
 
+TEST_CASE("mtl::filesystem::read_all_lines with a single line file")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    std::string single_line("abcd01234567890");
+
+    bool written_correctly = false;
+    written_correctly = mtl::filesystem::write_file(filename, single_line);
+
+    // check that the file exists
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    
+
+    // there should only be a single line
+    std::vector<std::string> read_data;
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ(read_data.size(), 1);
+    REQUIRE_EQ((read_data.at(0) == single_line), true);
+    
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single line file")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    std::string single_line("abcd01234567890");
+
+    bool written_correctly = false;
+    written_correctly = mtl::filesystem::write_file(filename, single_line);
+
+    // check that the file exists
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    
+     std::vector<std::string> desired_result { "abcd01234567890", "abcd01234567890" };
+    // there should only be a single line
+    std::vector<std::string> read_data { "abcd01234567890" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ(read_data.size(), 2);
+    REQUIRE_EQ((read_data.at(0) == single_line), true);
+    REQUIRE_EQ((read_data.at(1) == single_line), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+    
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+
+
 TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
 {
     std::string filename = generate_filename();
@@ -402,6 +468,40 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
     REQUIRE_EQ(read_data.empty(), false);
     REQUIRE_EQ(read_data.size(), 1);
     REQUIRE_EQ((read_data.at(0) == single_char), true);
+
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single character file")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    std::string single_char("h");
+
+    bool written_correctly = false;
+    written_correctly = mtl::filesystem::write_file(filename, single_char);
+
+    // check that the file exists
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    
+
+    std::vector<std::string> desired_data { "h", "h" };
+    std::vector<std::string> read_data    { "h" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ(read_data.size(), 2);
+    REQUIRE_EQ((read_data.at(0) == single_char), true);
+    REQUIRE_EQ((read_data.at(1) == single_char), true);
+    REQUIRE_EQ((read_data == desired_data), true);
 
 
     // delete the file used for this test case
@@ -601,6 +701,39 @@ TEST_CASE("mtl::filesystem::read_all_lines with LF")
     std::filesystem::remove(filename);
 }
 
+TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and LF")
+{
+    const std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string crlf_text = "Hi\nHi\nHi\nHi\nHi\nHi\nHi\nHi";
+
+    // write the file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read all lines of the file and check contents are what we want
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi",
+                                                "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    std::vector<std::string> read_data        { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
 
 TEST_CASE("mtl::filesystem::read_all_lines with CRLF")
 {
@@ -632,6 +765,39 @@ TEST_CASE("mtl::filesystem::read_all_lines with CRLF")
     std::filesystem::remove(filename);
 }
 
+TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and CRLF")
+{
+    const std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string crlf_text = "Hi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi\r\nHi";
+
+    // write the file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read all lines of the file and check contents are what we want
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi",
+                                                "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    std::vector<std::string> read_data        { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
 TEST_CASE("mtl::filesystem::read_all_lines with mixed LF and CRLF")
 {
     const std::string filename = generate_filename();
@@ -651,8 +817,41 @@ TEST_CASE("mtl::filesystem::read_all_lines with mixed LF and CRLF")
     REQUIRE_EQ((filesize > 0), true);
 
     // read all lines of the file and check contents are what we want
-    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi"};
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
     std::vector<std::string> read_data;
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data.size() == desired_result.size()), true);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and mixed LF and CRLF")
+{
+    const std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string crlf_text = "Hi\r\nHi\nHi\r\nHi\nHi\r\nHi\nHi\r\nHi";
+
+    // write the file
+    bool written_correctly = mtl::filesystem::write_file(filename, crlf_text);
+
+    // check that the file exists and is more than 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize > 0), true);
+
+    // read all lines of the file and check contents are what we want
+    std::vector<std::string> desired_result = { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi",
+                                                "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    std::vector<std::string> read_data        { "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi", "Hi" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
     bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
     REQUIRE_EQ((read_data.size() == desired_result.size()), true);
@@ -880,6 +1079,40 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
     std::filesystem::remove(filename);
 }
 
+TEST_CASE("mtl::filesystem::write_all_lines and read_all_lines non-empty output but empty file")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    // empty std::vector<std::string>
+    std::vector<std::string> empty;
+
+    // create an empty file
+    bool written_correctly = false;
+    written_correctly = mtl::filesystem::write_all_lines(filename, empty.begin(), empty.end());
+
+    // check that the file exists and is exactly 0 bytes
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    auto filesize = std::filesystem::file_size(filename);
+    REQUIRE_EQ((filesize == 0), true);
+
+    std::vector<std::string> desired_result { "a" };
+    std::vector<std::string> read_data      { "a" };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_data.empty(), false);
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ(read_data.size(), 1);
+    REQUIRE_EQ((read_data == desired_result), true);
+
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
 
 
 TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::read_all_lines")
@@ -890,7 +1123,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     std::filesystem::remove(filename);
 
     // create the file by writting all lines from the container
-    std::vector<std::string> text_data1 {text1, text1, text1, text1, text1};
+    std::vector<std::string> text_data1 { text1, text1, text1, text1, text1 };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
                                                              text_data1.end());
 
@@ -922,9 +1155,9 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     read_correctly = mtl::filesystem::read_all_lines(filename, read_data2);
     std::vector<std::string> correct_data(text_data1.begin(), text_data1.end());
     correct_data.insert(correct_data.end(), text_data1.begin(), text_data1.end());
-    CHECK_EQ(read_correctly, true);
-    CHECK_EQ((read_data2.size() == correct_data.size()), true);
-    CHECK_EQ((read_data2 == correct_data), true);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data2.size() == correct_data.size()), true);
+    REQUIRE_EQ((read_data2 == correct_data), true);
 
 
     // delete the file used for this test case
@@ -975,9 +1208,9 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     read_correctly = mtl::filesystem::read_all_lines(filename, read_data2);
     std::vector<std::string> correct_data_twice(correct_data.begin(), correct_data.end());
     correct_data_twice.insert(correct_data_twice.end(), correct_data.begin(), correct_data.end());
-    CHECK_EQ(read_correctly, true);
-    CHECK_EQ((read_data2.size() == correct_data_twice.size()), true);
-    CHECK_EQ((read_data2 == correct_data_twice), true);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data2.size() == correct_data_twice.size()), true);
+    REQUIRE_EQ((read_data2 == correct_data_twice), true);
 
 
     // delete the file used for this test case
@@ -1027,9 +1260,9 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     read_correctly = mtl::filesystem::read_all_lines(filename, read_data2);
     std::vector<std::string> correct_data_twice(correct_data.begin(), correct_data.end());
     correct_data_twice.insert(correct_data_twice.end(), correct_data.begin(), correct_data.end());
-    CHECK_EQ(read_correctly, true);
-    CHECK_EQ((read_data2.size() == correct_data_twice.size()), true);
-    CHECK_EQ((read_data2 == correct_data_twice), true);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data2.size() == correct_data_twice.size()), true);
+    REQUIRE_EQ((read_data2 == correct_data_twice), true);
 
 
     // delete the file used for this test case
@@ -1078,9 +1311,9 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixe
     read_correctly = mtl::filesystem::read_all_lines(filename, read_data2);
     std::vector<std::string> correct_data_twice(correct_data.begin(), correct_data.end());
     correct_data_twice.insert(correct_data_twice.end(), correct_data.begin(), correct_data.end());
-    CHECK_EQ(read_correctly, true);
-    CHECK_EQ((read_data2.size() == correct_data_twice.size()), true);
-    CHECK_EQ((read_data2 == correct_data_twice), true);
+    REQUIRE_EQ(read_correctly, true);
+    REQUIRE_EQ((read_data2.size() == correct_data_twice.size()), true);
+    REQUIRE_EQ((read_data2 == correct_data_twice), true);
 
 
     // delete the file used for this test case
@@ -1126,6 +1359,42 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
     std::filesystem::remove(filename);
 }
 
+TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output and LF")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string text_with_newline = "\nR\nG\nB\nCMYK\n\nR\nG\nB\n\n";
+    
+    bool written_correctly = mtl::filesystem::write_file(filename, text_with_newline);
+
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+    
+    std::vector<std::string> read_lines { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_lines.empty(), false);
+
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_lines);
+
+    REQUIRE_EQ(read_correctly, true);
+
+    const std::vector<std::string> correct_data
+    { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "",
+      "", "R", "G", "B", "CMYK", "", "R", "G", "B", "" };
+
+    REQUIRE_EQ(read_lines.empty(), false);
+    REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
+    REQUIRE_EQ((read_lines == correct_data), true);
+
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with CRLF")
 {
     std::string filename = generate_filename();
@@ -1149,6 +1418,43 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
 
     const std::vector<std::string> correct_data
     { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
+
+    REQUIRE_EQ(read_lines.empty(), false);
+    REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
+    REQUIRE_EQ((read_lines == correct_data), true);
+
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output and CRLF")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string text_with_newline = "\r\nR\r\nG\r\nB\r\nCMYK\r\n\r\nR\r\nG\r\nB\r\n\r\n";
+    
+    bool written_correctly = mtl::filesystem::write_file(filename, text_with_newline);
+
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+    
+    std::vector<std::string> read_lines { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_lines.empty(), false);
+    
+
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_lines);
+
+    REQUIRE_EQ(read_correctly, true);
+
+    const std::vector<std::string> correct_data
+    { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "",
+      "", "R", "G", "B", "CMYK", "", "R", "G", "B", "" };
 
     REQUIRE_EQ(read_lines.empty(), false);
     REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
@@ -1191,6 +1497,43 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines mixe
     // delete the file used for this test case
     std::filesystem::remove(filename);
 }
+
+TEST_CASE("mtl::filesystem::write_file with read_all_lines non-empty output and mixed LF and CRLF")
+{
+    std::string filename = generate_filename();
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string text_with_newline = "\nR\r\nG\nB\nCMYK\r\n\r\nR\nG\r\nB\n\r\n";
+    
+    bool written_correctly = mtl::filesystem::write_file(filename, text_with_newline);
+
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+    
+    std::vector<std::string> read_lines { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "", };
+    // for this specific test make sure the output container is not empty
+    REQUIRE_EQ(read_lines.empty(), false);
+
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_lines);
+
+    REQUIRE_EQ(read_correctly, true);
+
+    const std::vector<std::string> correct_data
+    { "", "R", "G", "B", "CMYK", "", "R", "G", "B", "",
+      "", "R", "G", "B", "CMYK", "", "R", "G", "B", "" };
+
+    REQUIRE_EQ(read_lines.empty(), false);
+    REQUIRE_EQ((read_lines.size() == correct_data.size()), true);
+    REQUIRE_EQ((read_lines == correct_data), true);
+
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
 
 
 // ------------------------------------------------------------------------------------------------

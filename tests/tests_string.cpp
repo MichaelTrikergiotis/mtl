@@ -1375,6 +1375,128 @@ TEST_CASE("mtl::string::split with std::string with char delimiter and nothing t
     CHECK_EQ((result3 == desired2), true); 
 }
 
+
+TEST_CASE("mtl::string::split with std::string with const char* delimiter")
+{
+    std::vector<std::string> desired { "a", "b", "c"};
+    
+    std::vector<std::string> result1 = mtl::string::split("a b c", " ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 3), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "a b c";
+    const char* delimiter = " ";
+    std::vector<std::string> result2 = mtl::string::split(input, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 3), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::string input2 = "a|b|c";
+    std::vector<std::string> result3 = mtl::string::split(input2, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 3), true);
+    CHECK_EQ((result3 == desired), true);  
+
+    std::string input3 = "a|b|c ";
+    std::vector<std::string> result4 = mtl::string::split(input3, "|");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 3), true);
+    CHECK_EQ((result4 == desired), false);  
+
+    std::vector<std::string> desired2 { "a", "b", "c", ""};
+    std::string input4 = "a|b|c|";
+    std::vector<std::string> result5 = mtl::string::split(input4, "|");
+    CHECK_EQ(result5.empty(), false);
+    CHECK_EQ((result5.size() == 4), true);
+    CHECK_EQ((result5 == desired2), true); 
+
+    std::vector<std::string> greetings = { "Hello", "Hello", "Hello", "Hello", };
+    std::string combined_greetings = "Hello<|>Hello<|>Hello<|>Hello";
+    auto split_greets = mtl::string::split(combined_greetings, "<|>");
+    CHECK_EQ(split_greets.empty(), false);
+    CHECK_EQ((split_greets.size() == 4), true);
+    CHECK_EQ((split_greets == greetings), true);  
+
+    std::vector<std::string> greetings2 = { "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings2 = "Hello<|>Hello<|>Hello<|>Hello<|>";
+    const char* greet_delim = "<|>";
+    std::vector<std::string> split_greets2 = mtl::string::split(combined_greetings2, greet_delim);
+    CHECK_EQ(split_greets2.empty(), false);
+    CHECK_EQ((split_greets2.size() == 5), true);
+    CHECK_EQ((split_greets2 == greetings2), true);  
+
+    std::vector<std::string> greetings3 = { "", "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings3 = "<|>Hello<|>Hello<|>Hello<|>Hello<|>";
+    std::vector<std::string> split_greets3 = mtl::string::split(combined_greetings3, greet_delim);
+    CHECK_EQ(split_greets3.empty(), false);
+    CHECK_EQ((split_greets3.size() == 6), true);
+    CHECK_EQ((split_greets3 == greetings3), true);  
+
+    // check that is works correctly with UTF8 strings
+    std::vector<std::string> smileys = { smiley, smiley };
+    const char* delim = "|";
+    std::vector<std::string> two_smiles = mtl::string::split(two_smileys_delimiter, delim);
+    CHECK_EQ(two_smiles.empty(), false);
+    CHECK_EQ((two_smiles.size() == 2), true);
+    CHECK_EQ((two_smiles == smileys), true);
+
+    std::vector<std::string> uni_parts = { "abcdefghijklmnopqrst", "ABCDEFGHIJKLMNOPQRST"};
+    std::vector<std::string> uni_split = mtl::string::split(one_nonascii, smiley);
+    CHECK_EQ(uni_split.empty(), false);
+    CHECK_EQ((uni_split.size() == 2), true);
+    CHECK_EQ((uni_split == uni_parts), true);  
+}
+
+TEST_CASE("mtl::string::split with std::string with const char* delimiter and nothing to split")
+{
+    std::vector<std::string> desired { "abc"};
+    
+    std::vector<std::string> result1 = mtl::string::split("abc", " ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 1), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "abc";
+    const char* delimiter = " ";
+    std::vector<std::string> result2 = mtl::string::split(input, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 1), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::vector<std::string> desired2 { "a b c"};
+    std::string input2 = "a b c";
+    std::vector<std::string> result3 = mtl::string::split(input2, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 1), true);
+    CHECK_EQ((result3 == desired2), true); 
+
+    std::vector<std::string> result4 = mtl::string::split(input2, "");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 1), true);
+    CHECK_EQ((result4 == desired2), true);
+
+    // check that is works correctly with UTF8 strings
+    std::vector<std::string> smileys = { two_smileys_delimiter };
+    const char* delim = "#";
+    std::vector<std::string> two_smiles = mtl::string::split(two_smileys_delimiter, delim);
+    CHECK_EQ(two_smiles.empty(), false);
+    CHECK_EQ((two_smiles.size() == 1), true);
+    CHECK_EQ((two_smiles == smileys), true);
+
+    std::vector<std::string> uni_parts = { one_nonascii };
+    std::vector<std::string> uni_split = mtl::string::split(one_nonascii, delim);
+    CHECK_EQ(uni_split.empty(), false);
+    CHECK_EQ((uni_split.size() == 1), true);
+    CHECK_EQ((uni_split == uni_parts), true);  
+}
+
+
+
 TEST_CASE("mtl::string::split with std::string with std::string delimiter")
 {
     std::vector<std::string> desired { "a", "b", "c"};
@@ -1501,22 +1623,44 @@ TEST_CASE("mtl::string::split with std::string with std::string delimiter and no
 
 
 
-TEST_CASE("mtl::string::split with output and empty std::string and char delimiter")
+TEST_CASE("mtl::string::split with output on empty std::string and char delimiter")
 {
     std::vector<std::string> empty_result; 
     mtl::string::split(std::string(), empty_result, ' ');
     CHECK_EQ(empty_result.empty(), true);
-    
-    
+  
     std::string empty;
     std::vector<std::string> empty_result2;
     mtl::string::split(empty, empty_result2, ' ');
     CHECK_EQ(empty_result2.empty(), true);
 }
 
+TEST_CASE("mtl::string::split with output on empty std::string and const char* delimiter")
+{
+    std::vector<std::string> empty_result;
+    mtl::string::split(std::string(), empty_result, " ");
+    CHECK_EQ(empty_result.empty(), true);
+
+    std::string empty;
+    std::vector<std::string> empty_result2;
+    mtl::string::split(empty, empty_result2, " ");
+    CHECK_EQ(empty_result2.empty(), true);
+}
+
+TEST_CASE("mtl::string::split with output on empty std::string and empty const char* delimiter")
+{
+    std::vector<std::string> empty_result;
+    mtl::string::split(std::string(), empty_result, "");
+    CHECK_EQ(empty_result.empty(), true);
+
+    std::string empty;
+    std::vector<std::string> empty_result2;
+    mtl::string::split(empty, empty_result2, "");
+    CHECK_EQ(empty_result2.empty(), true);
+}
 
 
-TEST_CASE("mtl::string::split with output and empty std::string and std::string delimiter")
+TEST_CASE("mtl::string::split with output on empty std::string and std::string delimiter")
 {
     std::vector<std::string> empty_result;
     mtl::string::split(std::string(), empty_result, std::string(" "));
@@ -1528,7 +1672,7 @@ TEST_CASE("mtl::string::split with output and empty std::string and std::string 
     CHECK_EQ(empty_result2.empty(), true);
 }
 
-TEST_CASE("mtl::string::split with output and empty std::string and empty std::string delimiter")
+TEST_CASE("mtl::string::split with output on empty std::string and empty std::string delimiter")
 {
     std::vector<std::string> empty_result;
     mtl::string::split(std::string(), empty_result, std::string());
@@ -1541,7 +1685,7 @@ TEST_CASE("mtl::string::split with output and empty std::string and empty std::s
 }
 
 
-TEST_CASE("mtl::string::split with output with std::string with char delimiter")
+TEST_CASE("mtl::string::split with output and char delimiter")
 {
     std::vector<std::string> desired { "a", "b", "c"};
     
@@ -1583,7 +1727,7 @@ TEST_CASE("mtl::string::split with output with std::string with char delimiter")
     CHECK_EQ((result5 == desired2), true); 
 }
 
-TEST_CASE("mtl::string::split with output with std::string with char delimiter and no split")
+TEST_CASE("mtl::string::split with output and char delimiter and nothing to split")
 {
     std::vector<std::string> desired { "abc" };
     
@@ -1611,7 +1755,145 @@ TEST_CASE("mtl::string::split with output with std::string with char delimiter a
     CHECK_EQ((result3 == desired2), true); 
 }
 
-TEST_CASE("mtl::string::split with output with std::string with std::string delimiter")
+
+TEST_CASE("mtl::string::split with output and const char* delimiter")
+{
+    std::vector<std::string> desired { "a", "b", "c"};
+    
+    std::vector<std::string> result1;
+    mtl::string::split(std::string("a b c"), result1," ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 3), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "a b c";
+    const char* delimiter = " ";
+    std::vector<std::string> result2;
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 3), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::string input2 = "a|b|c";
+    std::vector<std::string> result3;
+    mtl::string::split(input2, result3, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 3), true);
+    CHECK_EQ((result3 == desired), true);  
+
+    std::string input3 = "a|b|c ";
+    std::vector<std::string> result4;
+    mtl::string::split(input3, result4, "|");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 3), true);
+    CHECK_EQ((result4 == desired), false);  
+
+    std::vector<std::string> desired2 { "a", "b", "c", ""};
+    std::string input4 = "a|b|c|";
+    std::vector<std::string> result5;
+    mtl::string::split(input4, result5, "|");
+    CHECK_EQ(result5.empty(), false);
+    CHECK_EQ((result5.size() == 4), true);
+    CHECK_EQ((result5 == desired2), true); 
+
+    std::vector<std::string> greetings = { "Hello", "Hello", "Hello", "Hello", };
+    std::string combined_greetings = "Hello<|>Hello<|>Hello<|>Hello";
+    std::vector<std::string> split_greets;
+    mtl::string::split(combined_greetings, split_greets, "<|>");
+    CHECK_EQ(split_greets.empty(), false);
+    CHECK_EQ((split_greets.size() == 4), true);
+    CHECK_EQ((split_greets == greetings), true);  
+
+    std::vector<std::string> greetings2 = { "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings2 = "Hello<|>Hello<|>Hello<|>Hello<|>";
+    const char* greet_delim = "<|>";
+    std::vector<std::string> split_greets2;
+    mtl::string::split(combined_greetings2, split_greets2, greet_delim);
+    CHECK_EQ(split_greets2.empty(), false);
+    CHECK_EQ((split_greets2.size() == 5), true);
+    CHECK_EQ((split_greets2 == greetings2), true);  
+
+    std::vector<std::string> greetings3 = { "", "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings3 = "<|>Hello<|>Hello<|>Hello<|>Hello<|>";
+    std::vector<std::string> split_greets3;
+    mtl::string::split(combined_greetings3, split_greets3, greet_delim);
+    CHECK_EQ(split_greets3.empty(), false);
+    CHECK_EQ((split_greets3.size() == 6), true);
+    CHECK_EQ((split_greets3 == greetings3), true);  
+
+    // check that is works correctly with UTF8 strings
+    std::vector<std::string> smileys = { smiley, smiley };
+    const char* delim = "|";
+    std::vector<std::string> two_smiles;
+    mtl::string::split(two_smileys_delimiter, two_smiles, delim);
+    CHECK_EQ(two_smiles.empty(), false);
+    CHECK_EQ((two_smiles.size() == 2), true);
+    CHECK_EQ((two_smiles == smileys), true);
+
+    std::vector<std::string> uni_parts = { "abcdefghijklmnopqrst", "ABCDEFGHIJKLMNOPQRST"};
+    std::vector<std::string> uni_split;
+    mtl::string::split(one_nonascii, uni_split, smiley);
+    CHECK_EQ(uni_split.empty(), false);
+    CHECK_EQ((uni_split.size() == 2), true);
+    CHECK_EQ((uni_split == uni_parts), true);  
+}
+
+TEST_CASE("mtl::string::split with output and const char* delim and nothing to split")
+{
+    std::vector<std::string> desired { "abc"};
+    
+    std::vector<std::string> result1;
+    mtl::string::split(std::string("abc"), result1, " ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 1), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "abc";
+    const char* delimiter = " ";
+    std::vector<std::string> result2;
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 1), true);
+    CHECK_EQ((result2 == desired), true);
+
+    std::vector<std::string> desired2 { "a b c"};
+    std::string input2 = "a b c";
+    std::vector<std::string> result3;
+    mtl::string::split(input2, result3, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 1), true);
+    CHECK_EQ((result3 == desired2), true); 
+
+    std::vector<std::string> result4;
+    mtl::string::split(input2, result4, "");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 1), true);
+    CHECK_EQ((result4 == desired2), true);
+
+    // check that is works correctly with UTF8 strings
+    std::vector<std::string> smileys = { two_smileys_delimiter };
+    const char* delim = "#";
+    std::vector<std::string> two_smiles;
+    mtl::string::split(two_smileys_delimiter, two_smiles, delim);
+    CHECK_EQ(two_smiles.empty(), false);
+    CHECK_EQ((two_smiles.size() == 1), true);
+    CHECK_EQ((two_smiles == smileys), true);
+
+    std::vector<std::string> uni_parts = { one_nonascii };
+    std::vector<std::string> uni_split;
+    mtl::string::split(one_nonascii, uni_split, delim);
+    CHECK_EQ(uni_split.empty(), false);
+    CHECK_EQ((uni_split.size() == 1), true);
+    CHECK_EQ((uni_split == uni_parts), true);  
+}
+
+
+
+TEST_CASE("mtl::string::split with output and std::string delimiter")
 {
     std::vector<std::string> desired { "a", "b", "c"};
     
@@ -1695,7 +1977,7 @@ TEST_CASE("mtl::string::split with output with std::string with std::string deli
     CHECK_EQ((uni_split == uni_parts), true);  
 }
 
-TEST_CASE("mtl::string::split with output with std::string with string delimiter and no split")
+TEST_CASE("mtl::string::split with output and string delimiter and nothing to split")
 {
     std::vector<std::string> desired { "abc"};
     
@@ -1748,8 +2030,290 @@ TEST_CASE("mtl::string::split with output with std::string with string delimiter
 
 
 
+TEST_CASE("mtl::string::split with non-empty output and char delimiter")
+{
+    std::vector<std::string> desired { "a", "b", "c", "a", "b", "c"};
+    
+    std::vector<std::string> result1 {"a", "b", "c"};
+    mtl::string::split(std::string("a b c"), result1, ' ');
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 6), true);
+    CHECK_EQ((result1 == desired), true);
 
 
+    std::string input = "a b c";
+    std::vector<std::string> result2 {"a", "b", "c"};
+    mtl::string::split(input, result2, ' ');
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 6), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::string input2 = "a|b|c";
+    std::vector<std::string> result3 {"a", "b", "c"};
+    mtl::string::split(input2, result3, '|');
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 6), true);
+    CHECK_EQ((result3 == desired), true);  
+
+    std::string input3 = "a|b|c ";
+    std::vector<std::string> result4 {"a", "b", "c"};
+    mtl::string::split(input3, result4, '|');
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 6), true);
+    CHECK_EQ((result4 == desired), false);  
+
+    std::vector<std::string> desired2 { "a", "b", "c", "", "a", "b", "c", ""};
+    std::string input4 = "a|b|c|";
+    std::vector<std::string> result5 {"a", "b", "c", ""};
+    mtl::string::split(input4, result5, '|');
+    CHECK_EQ(result5.empty(), false);
+    CHECK_EQ((result5.size() == 8), true);
+    CHECK_EQ((result5 == desired2), true); 
+}
+
+TEST_CASE("mtl::string::split with non-empty output and char delimiter and nothing to split")
+{
+    std::vector<std::string> desired { "abc", "abc" };
+    
+    std::vector<std::string> result1 { "abc" };
+    mtl::string::split(std::string("abc"), result1, ' ');
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 2), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "abc";
+    std::vector<std::string> result2 { "abc" };
+    mtl::string::split(input, result2, ' ');
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 2), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::vector<std::string> desired2 { "a b c", "a b c"};
+    std::string input2 = "a b c";
+    std::vector<std::string> result3 { "a b c" };
+    mtl::string::split(input2, result3, '|');
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 2), true);
+    CHECK_EQ((result3 == desired2), true); 
+}
+
+
+TEST_CASE("mtl::string::split with non-empty output and const char* delimiter")
+{
+    std::vector<std::string> desired { "a", "b", "c", "a", "b", "c"};
+    
+    std::vector<std::string> result1 { "a", "b", "c"};
+    mtl::string::split(std::string("a b c"), result1, " ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 6), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "a b c";
+    const char* delimiter = " ";
+    std::vector<std::string> result2 { "a", "b", "c"};
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 6), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::string input2 = "a|b|c";
+    std::vector<std::string> result3 { "a", "b", "c"};
+    mtl::string::split(input2, result3, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 6), true);
+    CHECK_EQ((result3 == desired), true);  
+
+    std::string input3 = "a|b|c ";
+    std::vector<std::string> result4 { "a", "b", "c"};
+    mtl::string::split(input3, result4, "|");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 6), true);
+    CHECK_EQ((result4 == desired), false);  
+
+    std::vector<std::string> desired2 { "a", "b", "c", "", "a", "b", "c", ""};
+    std::string input4 = "a|b|c|";
+    std::vector<std::string> result5 { "a", "b", "c", "" };
+    mtl::string::split(input4, result5, "|");
+    CHECK_EQ(result5.empty(), false);
+    CHECK_EQ((result5.size() == 8), true);
+    CHECK_EQ((result5 == desired2), true); 
+
+    std::vector<std::string> greetings = { "Hello", "Hello", "Hello", "Hello", "Hello", "Hello", 
+                                           "Hello", "Hello" };
+    std::string combined_greetings = "Hello<|>Hello<|>Hello<|>Hello";
+    std::vector<std::string> split_greets {"Hello", "Hello", "Hello", "Hello" };
+    mtl::string::split(combined_greetings, split_greets, "<|>");
+    CHECK_EQ(split_greets.empty(), false);
+    CHECK_EQ((split_greets.size() == 8), true);
+    CHECK_EQ((split_greets == greetings), true);  
+
+    std::vector<std::string> greetings2 = { "Hello", "Hello", "Hello", "Hello", "",
+                                            "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings2 = "Hello<|>Hello<|>Hello<|>Hello<|>";
+    const char* greet_delim = "<|>";
+    std::vector<std::string> split_greets2 { "Hello", "Hello", "Hello", "Hello", "" };
+    mtl::string::split(combined_greetings2, split_greets2, greet_delim);
+    CHECK_EQ(split_greets2.empty(), false);
+    CHECK_EQ((split_greets2.size() == 10), true);
+    CHECK_EQ((split_greets2 == greetings2), true);  
+
+    std::vector<std::string> greetings3 = { "", "Hello", "Hello", "Hello", "Hello", "", 
+                                            "", "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings3 = "<|>Hello<|>Hello<|>Hello<|>Hello<|>";
+    std::vector<std::string> split_greets3  { "", "Hello", "Hello", "Hello", "Hello", "" };
+    mtl::string::split(combined_greetings3, split_greets3, greet_delim);
+    CHECK_EQ(split_greets3.empty(), false);
+    CHECK_EQ((split_greets3.size() == 12), true);
+    CHECK_EQ((split_greets3 == greetings3), true);  
+}
+
+TEST_CASE("mtl::string::split with non-empty output and const char* delim and nothing to split")
+{
+    std::vector<std::string> desired { "abc", "abc" };
+    
+    std::vector<std::string> result1 { "abc" };
+    mtl::string::split(std::string("abc"), result1, " ");
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 2), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "abc";
+    const char* delimiter = " ";
+    std::vector<std::string> result2 { "abc" };
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 2), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::vector<std::string> desired2 { "a b c", "a b c"};
+    std::string input2 = "a b c";
+    std::vector<std::string> result3 { "a b c" };
+    mtl::string::split(input2, result3, "|");
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 2), true);
+    CHECK_EQ((result3 == desired2), true); 
+
+    std::vector<std::string> result4 { "a b c" };
+    mtl::string::split(input2, result4, "");
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 2), true);
+    CHECK_EQ((result4 == desired2), true);
+}
+
+
+
+TEST_CASE("mtl::string::split with non-empty output and std::string delimiter")
+{
+    std::vector<std::string> desired { "a", "b", "c", "a", "b", "c"};
+    
+    std::vector<std::string> result1 { "a", "b", "c"};
+    mtl::string::split(std::string("a b c"), result1, std::string(" "));
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 6), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "a b c";
+    std::string delimiter = " ";
+    std::vector<std::string> result2 { "a", "b", "c"};
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 6), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::string input2 = "a|b|c";
+    std::vector<std::string> result3 { "a", "b", "c"};
+    mtl::string::split(input2, result3, std::string("|"));
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 6), true);
+    CHECK_EQ((result3 == desired), true);  
+
+    std::string input3 = "a|b|c ";
+    std::vector<std::string> result4 { "a", "b", "c"};
+    mtl::string::split(input3, result4, std::string("|"));
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 6), true);
+    CHECK_EQ((result4 == desired), false);  
+
+    std::vector<std::string> desired2 { "a", "b", "c", "", "a", "b", "c", ""};
+    std::string input4 = "a|b|c|";
+    std::vector<std::string> result5 { "a", "b", "c", "" };
+    mtl::string::split(input4, result5, std::string("|"));
+    CHECK_EQ(result5.empty(), false);
+    CHECK_EQ((result5.size() == 8), true);
+    CHECK_EQ((result5 == desired2), true); 
+
+    std::vector<std::string> greetings = { "Hello", "Hello", "Hello", "Hello", "Hello", "Hello", 
+                                           "Hello", "Hello" };
+    std::string combined_greetings = "Hello<|>Hello<|>Hello<|>Hello";
+    std::vector<std::string> split_greets {"Hello", "Hello", "Hello", "Hello" };
+    mtl::string::split(combined_greetings, split_greets, std::string("<|>"));
+    CHECK_EQ(split_greets.empty(), false);
+    CHECK_EQ((split_greets.size() == 8), true);
+    CHECK_EQ((split_greets == greetings), true);  
+
+    std::vector<std::string> greetings2 = { "Hello", "Hello", "Hello", "Hello", "",
+                                            "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings2 = "Hello<|>Hello<|>Hello<|>Hello<|>";
+    std::string greet_delim = "<|>";
+    std::vector<std::string> split_greets2 { "Hello", "Hello", "Hello", "Hello", "" };
+    mtl::string::split(combined_greetings2, split_greets2, greet_delim);
+    CHECK_EQ(split_greets2.empty(), false);
+    CHECK_EQ((split_greets2.size() == 10), true);
+    CHECK_EQ((split_greets2 == greetings2), true);  
+
+    std::vector<std::string> greetings3 = { "", "Hello", "Hello", "Hello", "Hello", "", 
+                                            "", "Hello", "Hello", "Hello", "Hello", "" };
+    std::string combined_greetings3 = "<|>Hello<|>Hello<|>Hello<|>Hello<|>";
+    std::vector<std::string> split_greets3  { "", "Hello", "Hello", "Hello", "Hello", "" };
+    mtl::string::split(combined_greetings3, split_greets3, greet_delim);
+    CHECK_EQ(split_greets3.empty(), false);
+    CHECK_EQ((split_greets3.size() == 12), true);
+    CHECK_EQ((split_greets3 == greetings3), true);  
+}
+
+TEST_CASE("mtl::string::split with non-empty output and string delimiter and nothing to split")
+{
+    std::vector<std::string> desired { "abc", "abc" };
+    
+    std::vector<std::string> result1 { "abc" };
+    mtl::string::split(std::string("abc"), result1, std::string(" "));
+
+    CHECK_EQ(result1.empty(), false);
+    CHECK_EQ((result1.size() == 2), true);
+    CHECK_EQ((result1 == desired), true);
+
+
+    std::string input = "abc";
+    std::string delimiter = " ";
+    std::vector<std::string> result2 { "abc" };
+    mtl::string::split(input, result2, delimiter);
+    CHECK_EQ(result2.empty(), false);
+    CHECK_EQ((result2.size() == 2), true);
+    CHECK_EQ((result2 == desired), true);  
+
+    std::vector<std::string> desired2 { "a b c", "a b c"};
+    std::string input2 = "a b c";
+    std::vector<std::string> result3 { "a b c" };
+    mtl::string::split(input2, result3, std::string("|"));
+    CHECK_EQ(result3.empty(), false);
+    CHECK_EQ((result3.size() == 2), true);
+    CHECK_EQ((result3 == desired2), true); 
+
+    std::vector<std::string> result4 { "a b c" };
+    mtl::string::split(input2, result4, std::string());
+    CHECK_EQ(result4.empty(), false);
+    CHECK_EQ((result4.size() == 2), true);
+    CHECK_EQ((result4 == desired2), true);
+}
 
 
 

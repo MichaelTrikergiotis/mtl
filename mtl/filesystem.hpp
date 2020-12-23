@@ -119,9 +119,7 @@ namespace detail
 	// splitting at newlines.
 	template<typename Container>
 	inline void specialized_split_crlf(const std::string& read_data, Container& split_lines)
-	{
-		// GCOVR_EXCL_START
-		
+	{	
 		// handle the case where there is only one character and it is a newline
 		if((read_data.size() == 1) && (read_data[0] == '\n'))
 		{
@@ -136,6 +134,9 @@ namespace detail
 			mtl::emplace_back(split_lines, read_data); 
 			return;
 		}
+
+		// the size of the container before we start modifying it
+		const auto original_size = split_lines.size();
 
 		const std::string delimiter ("\n");
 
@@ -180,8 +181,11 @@ namespace detail
 			match_pos = read_data.find(delimiter, start);
 		}
 
-		// if there are tokens in the output
-		if(split_lines.empty() == false)
+		// how much we added to the container
+		const auto size_difference = split_lines.size() - original_size;
+
+		// if container changed size it means there are tokens in the output
+		if(size_difference > 0)
 		{
 			// add the last item using the last position
 			const std::string_view token(read_data.data() + (last_pos + 1));
@@ -189,11 +193,12 @@ namespace detail
 		}
 
 
-		// if the container is empty add the entire input string because it means there are no
-		// places that it needs to be split
-		if (split_lines.empty()) { mtl::emplace_back(split_lines, read_data); }
-
-		// GCOVR_EXCL_STOP
+		// if the container's size didn't change at all then add the entire input string because
+		// it means there are no places that it needs to be split
+		if (size_difference == 0)
+		{ 
+			mtl::emplace_back(split_lines, read_data); 
+		}
 	}
 
 } // namespace detail end
