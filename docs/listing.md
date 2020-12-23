@@ -77,8 +77,8 @@ There are 116 non-member functions.
 
 - `mtl::filesystem::read_file` [(Documentation)](../mtl/filesystem.hpp#L35) [(Examples)](../tests/tests_filesystem.cpp#L105)
 - `mtl::filesystem::read_all_lines` [(Documentation)](../mtl/filesystem.hpp#L111) [(Examples)](../tests/tests_filesystem.cpp#L349)
-- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L239) [(Examples)](../tests/tests_filesystem.cpp#L76)
-- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L278) [(Examples)](../tests/tests_filesystem.cpp#L668)
+- `mtl::filesystem::write_file` [(Documentation)](../mtl/filesystem.hpp#L244) [(Examples)](../tests/tests_filesystem.cpp#L76)
+- `mtl::filesystem::write_all_lines` [(Documentation)](../mtl/filesystem.hpp#L283) [(Examples)](../tests/tests_filesystem.cpp#L867)
 
 ---------------------------------------------------
 
@@ -160,8 +160,8 @@ There are 116 non-member functions.
 - `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L755) [(Examples)](../tests/tests_string.cpp#L1017)
 - `mtl::string::join` [(Documentation)](../mtl/string.hpp#L932) [(Examples)](../tests/tests_string.cpp#L1017)
 - `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1070) [(Examples)](../tests/tests_string.cpp#L1215)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1202) [(Examples)](../tests/tests_string.cpp#L1759)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1510) [(Examples)](../tests/tests_string.cpp#L2417)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1208) [(Examples)](../tests/tests_string.cpp#L2323)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1516) [(Examples)](../tests/tests_string.cpp#L2981)
 
 ---------------------------------------------------
 
