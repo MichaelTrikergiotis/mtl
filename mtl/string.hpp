@@ -724,8 +724,8 @@ inline std::string to_string(const char value)
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also
 /// supports user defined types that have the operator<< overloaded for std::ostream. 
-///  Specialization for std::pair with extra option that allows to define a delimiter between the
-///  two items of the std::pair.
+/// Specialization for std::pair with extra option that allows to define a delimiter between the
+/// two items of the std::pair.
 /// @param[in] value Any type that can be converted to std::string.
 /// @param[in] delimiter A delimiter that will be used between the pair.
 /// @return An std::string.
@@ -740,7 +740,6 @@ inline std::string to_string(const std::pair<T1, T2>& value, const std::string& 
 	// create a string to add the two parts together
 	std::string result;
 
-	// reserve space to avoid allocations;
 	result.reserve(first_part.size() + second_part.size() + delimiter.size());
 
 	// add all the parts together with a delimiter inbetween them
@@ -755,11 +754,11 @@ inline std::string to_string(const std::pair<T1, T2>& value, const std::string& 
 // JOIN_ALL - Joins all items from a range (first, last) and returns a std::string.
 // ===============================================================================================
 
-/// Join all items of a range from first to last with a delimiter. Allows you to specify the output
-/// string so you can reserve memory.
+/// Join all items of a range from first to last with a delimiter. Allows you to specify the 
+/// output string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
-/// @param[out] result Where the result will be placed that you can use reserve.
+/// @param[out] result Where the result will be placed.
 /// @param[in] delimiter Delimiter to use when joining the elements.
 template<typename Iter>
 inline std::enable_if_t
@@ -780,7 +779,6 @@ join_all(Iter first, Iter last, std::string& result, const std::string& delimite
 		total_size += it->size() + delim_size;
 	}
 
-	// reserve space to avoid extra allocations
 	result.reserve(total_size);
 
 	// join the string with a delimiter
@@ -810,10 +808,10 @@ join_all(Iter first, Iter last, std::string& result, const std::string& delimite
 
 
 /// Join all items of a range from first to last with a delimiter. Allows you to specify the output
-/// string so you can reserve memory.
+/// string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
-/// @param[out] result Where the result will be placed that you can use reserve.
+/// @param[out] result Where the result will be placed.
 /// @param[in] delimiter Delimiter to use when joining the elements.
 template<typename Iter>
 inline std::enable_if_t
@@ -858,10 +856,10 @@ join_all(Iter first, Iter last, std::string& result, const std::string& delimite
 
 
 /// Join all items of a range from first to last with a delimiter. Allows you to specify the output
-/// string so you can reserve memory.
+/// string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
-/// @param[out] result Where the result will be placed that you can use reserve.
+/// @param[out] result Where the result will be placed.
 /// @param[in] delimiter Delimiter to use when joining the elements.
 template<typename Iter>
 inline void join_all(Iter first, Iter last, std::string& result, const char delimiter)
@@ -873,10 +871,10 @@ inline void join_all(Iter first, Iter last, std::string& result, const char deli
 
 
 /// Join all items of a range from first to last with a delimiter. Allows you to specify the output
-/// string so you can reserve memory.
+/// string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
-/// @param[out] result Where the result will be placed that you can use reserve.
+/// @param[out] result Where the result will be placed.
 /// @param[in] delimiter Delimiter to use when joining the elements.
 template<typename Iter>
 inline void join_all(Iter first, Iter last, std::string& result, const char* delimiter)
@@ -1036,7 +1034,6 @@ inline std::string join_select_impl(const Type& type, Args&&... args)
 	count_size_impl(size, type, args...);
 
 	std::string result;
-	// reserve space to avoid unnecessary allocations
 	result.reserve(size); 
 	join_impl(result, type, std::forward<Args>(args)...);
 	return result;
