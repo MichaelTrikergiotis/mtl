@@ -10,6 +10,7 @@
 
 #include "definitions.hpp" // various definitions
 #include <string>          // std::string
+#include <string_view>     // std::string_view
 #include <cstring>         // std::strlen
 #include <vector>          // std::vector
 #include <iterator>        // std::distance
@@ -731,7 +732,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			}
 
 			// get the part
-			std::string part = argument_newline.substr(start, match_pos - start);
+			const std::string_view part(argument_newline.data() + start, match_pos - start);
 
 			// print the part
 			fmt::print("{}", part);
@@ -756,7 +757,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		if ((last_pos + 1) < argument_newline.size())
 		{
 			// print the last part
-			auto part = argument_newline.substr(last_pos + 1);
+			const std::string_view part(argument_newline.data() + (last_pos + 1));
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
@@ -1025,7 +1026,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 			// GCOVR_EXCL_START
 			
 			// get the part
-			std::string part = argument_newline.substr(start, match_pos - start);
+			const std::string_view part(argument_newline.data() + start, match_pos - start);
 			
 
 			// print the part and then newline character with default colors
@@ -1045,7 +1046,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		if ((last_pos + 1) < argument_newline.size())
 		{
 			// get the last part
-			auto part = argument_newline.substr(last_pos + 1);
+			const std::string_view part(argument_newline.data() + (last_pos + 1));
 
 			// print the last part
 			fmt::print("{}{}{}\033[0m\x1B[K", fg_color, bg_color, part);

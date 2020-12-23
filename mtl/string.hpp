@@ -13,6 +13,7 @@
 #include "definitions.hpp"   // various definitions
 #include <algorithm>         // std::copy, std::fill
 #include <string>            // std::string, std::string::npos
+#include <string_view>       // std::string_view
 #include <cstring>           // std::strlen, std::strstr
 #include <iterator>          // std::iterator_traits, std::next, std::advance, std::distance
 #include <utility>           // std::pair, std::forward
@@ -1106,7 +1107,9 @@ inline void split(const std::string& value, Container& result, const std::string
 		last_pos = match_pos;
 
 		// everything is fine add the token to the container
-		mtl::emplace_back(result, value.substr(start, match_pos - start)); // GCOVR_EXCL_LINE
+		const std::string_view token(value.data() + start, match_pos - start);
+		mtl::emplace_back(result, token);
+
 		
 		// set the a new starting position
 		start = match_pos + delimiter.size();
@@ -1118,7 +1121,8 @@ inline void split(const std::string& value, Container& result, const std::string
 	if(result.empty() == false)
 	{
 		// add the last item using the last position
-		mtl::emplace_back(result, value.substr(last_pos + delimiter.size())); // GCOVR_EXCL_LINE
+		const std::string_view token(value.data() + (last_pos + delimiter.size()));
+		mtl::emplace_back(result, token);
 	}
 
 

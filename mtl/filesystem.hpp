@@ -12,6 +12,7 @@
 #include <filesystem>      // std::filesystem::file_size, std::filesystem::path, 
 						   // std::filesystem::is_regular_file
 #include <string>          // std::string
+#include <string_view>     // std::string_view
 #include <cstdint>         // std::uintmax_t
 #include <fstream>		   // std::ofstream, std::ifstream
 #include <system_error>    // std::error_code
@@ -156,17 +157,21 @@ namespace detail
 				// lf case
 				if(read_data[match_pos - 1] != '\r')
 				{
-					mtl::emplace_back(split_lines, read_data.substr(start, match_pos - start)); 
+					const std::string_view token(read_data.data() + start, match_pos - start);
+					mtl::emplace_back(split_lines, token);
 				}
 				// crlf case
 				else
 				{
-					mtl::emplace_back(split_lines, read_data.substr(start, match_pos - (start+1)));
+					const auto crlf_position = match_pos - (start + 1);
+					const std::string_view token(read_data.data() + start, crlf_position);
+					mtl::emplace_back(split_lines, token);
 				}
 			}
 			else
 			{
-				mtl::emplace_back(split_lines, read_data.substr(start, match_pos - start)); 
+				const std::string_view token(read_data.data() + start, match_pos - start);
+				mtl::emplace_back(split_lines, token);
 			}	
 			
 			// set the new starting position
@@ -179,7 +184,8 @@ namespace detail
 		if(split_lines.empty() == false)
 		{
 			// add the last item using the last position
-			mtl::emplace_back(split_lines, read_data.substr(last_pos + 1)); 
+			const std::string_view token(read_data.data() + (last_pos + 1));
+			mtl::emplace_back(split_lines, token);
 		}
 
 
