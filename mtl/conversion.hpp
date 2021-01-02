@@ -13,6 +13,7 @@
 #include <charconv> 	   // std::from_chars
 #include <system_error>    // std::errc
 #include <string>          // std::string
+#include <string_view>     // std::string_view
 #include <limits>          // std::numeric_limits
 #include <utility>         // std::pair
 #include <stdexcept>       // std::overflow_error, std::invalid_argument
@@ -372,17 +373,19 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 // of error.
 struct to_num_deductor
 {
-	// raw pointer to string reference, the pointer is not an owner but a const observer
-	const std::string* _t;
-	// constructor that just points the pointer to the correct string
-	to_num_deductor(const std::string& t) { _t = &t; }
+	// View of the string that will be converted.
+	const std::string_view value_v;
+
+	// Constructor.
+	to_num_deductor(const std::string& value) : value_v(value) { }
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
 		IntegralType result = static_cast<IntegralType>(0);
-		auto [ptr, error] = std::from_chars(_t->data(), _t->data() + _t->size(), result);
+		auto [ptr, error] = std::from_chars(value_v.data(), value_v.data() + value_v.size(), 
+											result);
 		if (error == std::errc())
 		{
 			return result;
@@ -448,17 +451,17 @@ struct to_num_deductor
 	// automatic deduction where return type is float
 	operator float()
 	{
-		return to_double_impl<float>(_t->data());
+		return to_double_impl<float>(value_v.data());
 	}
 	// automatic deduction where return type is double
 	operator double()
 	{
-		return to_double_impl<double>(_t->data());
+		return to_double_impl<double>(value_v.data());
 	}
 	// automatic deduction where return type is long double
 	operator long double()
 	{
-		return to_double_impl<long double>(_t->data());
+		return to_double_impl<long double>(value_v.data());
 	}
 };
 
@@ -467,25 +470,29 @@ struct to_num_deductor
 // in case of error.
 struct to_num_deductor_noex
 {
-	// raw pointer to string reference, the pointer is not an owner but a const observer
-	const std::string* _t;
-	// raw pointer to bool reference
-	bool* _success;
-	// constructor that just points the pointer to the correct string
-	to_num_deductor_noex(const std::string& t, bool& success) { _t = &t; _success = &success; }
+	// View of the string that will be converted.
+	const std::string_view value_v;
+
+	// Pointer to the success state.
+	bool* success_v;
+
+	// Constructor.
+	to_num_deductor_noex(const std::string& value, bool& success) : value_v(value), 
+																	success_v(&success) { }
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
 		IntegralType result = static_cast<IntegralType>(0);
-		auto [ptr, error] = std::from_chars(_t->data(), _t->data() + _t->size(), result);
+		auto [ptr, error] = std::from_chars(value_v.data(), value_v.data() + value_v.size(), 
+											result);
 		if (error == std::errc())
 		{
-			*_success = true;
+			*success_v = true;
 			return result;
 		}
-		*_success = false;
+		*success_v = false;
 		return static_cast<IntegralType>(0);
 	}
 
@@ -545,17 +552,17 @@ struct to_num_deductor_noex
 	// automatic deduction where return type is float
 	operator float()
 	{
-		return to_double_impl_noex<float>(_t->data(), *_success);
+		return to_double_impl_noex<float>(value_v.data(), *success_v);
 	}
 	// automatic deduction where return type is double
 	operator double()
 	{
-		return to_double_impl_noex<double>(_t->data(), *_success);
+		return to_double_impl_noex<double>(value_v.data(), *success_v);
 	}
 	// automatic deduction where return type is long double
 	operator long double()
 	{
-		return to_double_impl_noex<long double>(_t->data(), *_success);
+		return to_double_impl_noex<long double>(value_v.data(), *success_v);
 	}
 };
 
@@ -564,17 +571,19 @@ struct to_num_deductor_noex
 // in case of error. Deductor for std::pair specialization.
 struct to_num_deductor_noex_pair
 {
-	// raw pointer to string reference, the pointer is not an owner but a const observer
-	const std::string* _t;
-	// constructor that just points the pointer to the correct string
-	to_num_deductor_noex_pair(const std::string& t) { _t = &t; }
+	// View of the string that will be converted.
+	const std::string_view value_v;
+
+	// Constructor.
+	to_num_deductor_noex_pair(const std::string& value) : value_v(value) {}
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
 	std::pair<IntegralType, bool> to_integral_impl()
 	{
 		IntegralType result = static_cast<IntegralType>(0);
-		auto [ptr, error] = std::from_chars(_t->data(), _t->data() + _t->size(), result);
+		auto [ptr, error] = std::from_chars(value_v.data(), value_v.data() + value_v.size(), 
+											result);
 		if (error == std::errc())
 		{
 			return std::pair<IntegralType, bool>(result, true);
@@ -639,17 +648,17 @@ struct to_num_deductor_noex_pair
 	// automatic deduction where return type is float
 	operator std::pair<float, bool>()
 	{
-		return to_double_impl_noex<float>(_t->data());
+		return to_double_impl_noex<float>(value_v.data());
 	}
 	// automatic deduction where return type is double
 	operator std::pair<double, bool>()
 	{
-		return to_double_impl_noex<double>(_t->data());
+		return to_double_impl_noex<double>(value_v.data());
 	}
 	// automatic deduction where return type is long double
 	operator std::pair<long double, bool>()
 	{
-		return to_double_impl_noex<long double>(_t->data());
+		return to_double_impl_noex<long double>(value_v.data());
 	}
 };
 
