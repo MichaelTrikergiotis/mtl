@@ -29,14 +29,14 @@ There are 116 non-member functions.
 - `mtl::rem_duplicates_sorted` [(Documentation)](../mtl/algorithm.hpp#L254) [(Examples)](../tests/tests_algorithm.cpp#L2135)
 - `mtl::rem_duplicates` [(Documentation)](../mtl/algorithm.hpp#L255) [(Examples)](../tests/tests_algorithm.cpp#L2324)
 - `mtl::rem_duplicates_preserve` [(Documentation)](../mtl/algorithm.hpp#L256) [(Examples)](../tests/tests_algorithm.cpp#L2478)
-- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L848) [(Examples)](../tests/tests_algorithm.cpp#L2641)
-- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L901) [(Examples)](../tests/tests_algorithm.cpp#L2789)
-- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L902) [(Examples)](../tests/tests_algorithm.cpp#L2950)
-- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L983) [(Examples)](../tests/tests_algorithm.cpp#L3111)
-- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1025) [(Examples)](../tests/tests_algorithm.cpp#L3231)
-- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1110) [(Examples)](../tests/tests_algorithm.cpp#L3306)
-- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1139) [(Examples)](../tests/tests_algorithm.cpp#L3394)
-- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1175) [(Examples)](../tests/tests_algorithm.cpp#L3484)
+- `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L849) [(Examples)](../tests/tests_algorithm.cpp#L2641)
+- `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L902) [(Examples)](../tests/tests_algorithm.cpp#L2789)
+- `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L903) [(Examples)](../tests/tests_algorithm.cpp#L2950)
+- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L984) [(Examples)](../tests/tests_algorithm.cpp#L3111)
+- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1026) [(Examples)](../tests/tests_algorithm.cpp#L3231)
+- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1111) [(Examples)](../tests/tests_algorithm.cpp#L3306)
+- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1140) [(Examples)](../tests/tests_algorithm.cpp#L3394)
+- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1176) [(Examples)](../tests/tests_algorithm.cpp#L3484)
 
 ---------------------------------------------------
 
