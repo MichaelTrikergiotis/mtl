@@ -32,11 +32,11 @@ There are 116 non-member functions.
 - `mtl::contains` [(Documentation)](../mtl/algorithm.hpp#L849) [(Examples)](../tests/tests_algorithm.cpp#L2641)
 - `mtl::contains_all` [(Documentation)](../mtl/algorithm.hpp#L902) [(Examples)](../tests/tests_algorithm.cpp#L2789)
 - `mtl::contains_all_sorted` [(Documentation)](../mtl/algorithm.hpp#L903) [(Examples)](../tests/tests_algorithm.cpp#L2950)
-- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L984) [(Examples)](../tests/tests_algorithm.cpp#L3111)
-- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L1026) [(Examples)](../tests/tests_algorithm.cpp#L3231)
-- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1111) [(Examples)](../tests/tests_algorithm.cpp#L3306)
-- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1140) [(Examples)](../tests/tests_algorithm.cpp#L3394)
-- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1176) [(Examples)](../tests/tests_algorithm.cpp#L3484)
+- `mtl::for_each` [(Documentation)](../mtl/algorithm.hpp#L985) [(Examples)](../tests/tests_algorithm.cpp#L3111)
+- `mtl::for_adj_pairs` [(Documentation)](../mtl/algorithm.hpp#L1070) [(Examples)](../tests/tests_algorithm.cpp#L3186)
+- `mtl::for_all_pairs` [(Documentation)](../mtl/algorithm.hpp#L1099) [(Examples)](../tests/tests_algorithm.cpp#L3274)
+- `mtl::fill_range` [(Documentation)](../mtl/algorithm.hpp#L1135) [(Examples)](../tests/tests_algorithm.cpp#L3366)
+- `mtl::range` [(Documentation)](../mtl/algorithm.hpp#L1178) [(Examples)](../tests/tests_algorithm.cpp#L3488)
 
 ---------------------------------------------------
 
