@@ -980,47 +980,6 @@ contains_all_sorted(const ContainerContains& container_contains,
 }
 
 
-// ================================================================================================
-// FILL_RANGE - Copies an input range to an output range repeatedly.
-// ================================================================================================
-
-/// Copies an input range to an output range repeatedly until the output range is filled. If the 
-/// input range is larger than the output range only the part of the input range that fits in the 
-/// output range is copied. Input range and output range can be from different kind of containers
-/// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
-/// functionality as std::fill but instead of accepting a single value it works with a range of 
-/// values.
-/// @param[in] in_first Iterator to the the start of the input range.
-/// @param[in] in_last Iterator to the the end of the input range.
-/// @param[out] out_first Iterator to the the start of the output range.
-/// @param[out] out_last Iterator to the the end of the output range.
-template<typename FwdIterIn, typename FwdIterOut>
-inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
-					   FwdIterOut out_last)
-{
-	// leave the function if any of the two ranges is empty
-	if ((in_first == in_last) || (out_first == out_last)) { return; }
-
-	// iterator to the start of the input range
-	auto input_it = in_first;
-
-	for (auto it = out_first; it != out_last; ++it)
-	{
-		// copy input range element to output range element
-		*it = *input_it;
-
-		// move the input iterator one element forward
-		std::advance(input_it, 1);
-
-		// if the input iterator reaches the end of the range set it to the beginning of the range
-		if (input_it == in_last)
-		{
-			input_it = in_first;
-		}
-	}
-}
-
-
 
 // ================================================================================================
 // FOR_EACH - Applies a function to all elements. A drop in replacement for std::for_each that 
@@ -1165,6 +1124,49 @@ inline void for_all_pairs(FwdIter first, FwdIter last, Func&& func)
 				// apply the function to each pair of elements
 				func(*previous, *it);
 			}
+		}
+	}
+}
+
+
+
+
+// ================================================================================================
+// FILL_RANGE - Copies an input range to an output range repeatedly.
+// ================================================================================================
+
+/// Copies an input range to an output range repeatedly until the output range is filled. If the 
+/// input range is larger than the output range only the part of the input range that fits in the 
+/// output range is copied. Input range and output range can be from different kind of containers
+/// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
+/// functionality as std::fill but instead of accepting a single value it works with a range of 
+/// values.
+/// @param[in] in_first Iterator to the the start of the input range.
+/// @param[in] in_last Iterator to the the end of the input range.
+/// @param[out] out_first Iterator to the the start of the output range.
+/// @param[out] out_last Iterator to the the end of the output range.
+template<typename FwdIterIn, typename FwdIterOut>
+inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
+					   FwdIterOut out_last)
+{
+	// leave the function if any of the two ranges is empty
+	if ((in_first == in_last) || (out_first == out_last)) { return; }
+
+	// iterator to the start of the input range
+	auto input_it = in_first;
+
+	for (auto it = out_first; it != out_last; ++it)
+	{
+		// copy input range element to output range element
+		*it = *input_it;
+
+		// move the input iterator one element forward
+		std::advance(input_it, 1);
+
+		// if the input iterator reaches the end of the range set it to the beginning of the range
+		if (input_it == in_last)
+		{
+			input_it = in_first;
 		}
 	}
 }

@@ -31,8 +31,8 @@
 // mtl::keep_duplicates_sorted, mtl::keep_duplicates_inclusive_preserve, 
 // mtl::keep_duplicates_exclusive_preserve, mtl::keep_duplicates_preserve,
 // mtl::rem_duplicates_sorted, mtl::rem_duplicates, mtl::rem_duplicates_preserve, mtl::contains, 
-// mtl::contains_all, mtl::contains_all_sorted, mtl::fill_range, mtl::for_each, mtl::for_adj_pairs,
-// mtl::for_all_pairs, mtl::range
+// mtl::contains_all, mtl::contains_all_sorted, mtl::for_each, mtl::for_adj_pairs,
+// mtl::for_all_pairs, mtl::fill_range, mtl::range
 
 
 
@@ -3108,126 +3108,6 @@ TEST_CASE("mtl::contains_all_sorted for containers<std::string> with find functi
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::fill_range
-// ------------------------------------------------------------------------------------------------
-
-TEST_CASE("mtl::fill_range with empty range")
-{
-    constexpr size_t size = 10;
-    std::vector<int> sequence;
-    std::vector<int> vi(size, 1);
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
-    CHECK_EQ(sequence.empty(), true);
-    CHECK_EQ(vi.empty(), false);
-    CHECK_EQ(vi.size(), size);
-    CHECK_EQ(static_cast<size_t>(ones), size);
-}
-
-TEST_CASE("mtl::fill_range with empty container")
-{
-    constexpr size_t size = 0;
-    std::vector<int> sequence {1, 2, 3, 4, 5};
-    std::vector<int> vi;
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
-    CHECK_EQ(sequence.empty(), false);
-    CHECK_EQ(vi.empty(), true);
-    CHECK_EQ(vi.size(), size);
-    CHECK_EQ(static_cast<size_t>(ones), size);
-}
-
-TEST_CASE("mtl::fill_range with empty range and empty container")
-{
-    constexpr size_t size = 0;
-    std::vector<int> sequence;
-    std::vector<int> vi;
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
-    CHECK_EQ(sequence.empty(), true);
-    CHECK_EQ(vi.empty(), true);
-    CHECK_EQ(vi.size(), size);
-    CHECK_EQ(static_cast<size_t>(ones), size);
-}
-
-TEST_CASE("mtl::fill_range with smaller input larger ouput")
-{
-    constexpr size_t size = 50;
-    std::vector<int> sequence {1, 2, 3, 4, 5};
-    std::vector<int> vi(size);
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
-    std::ptrdiff_t twos = std::count(vi.begin(), vi.end(), 2);
-    std::ptrdiff_t threes = std::count(vi.begin(), vi.end(), 3);
-    std::ptrdiff_t fours = std::count(vi.begin(), vi.end(), 4);
-    std::ptrdiff_t fives = std::count(vi.begin(), vi.end(), 5);
-    REQUIRE_EQ(ones, 10);
-    REQUIRE_EQ(twos, 10);
-    REQUIRE_EQ(threes, 10);
-    REQUIRE_EQ(fours,  10);
-    REQUIRE_EQ(fives,  10);
-}
-
-TEST_CASE("mtl::fill_range with same size input and ouput")
-{
-    std::vector<int> sequence {1, 2, 3, 4, 5};
-    std::vector<int> vi(sequence.size());
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    REQUIRE_EQ(sequence.size(), vi.size());
-    REQUIRE_EQ((sequence == vi), true);
-}
-
-TEST_CASE("mtl::fill_range with larger input and smaller ouput")
-{
-    std::vector<int> sequence {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    std::vector<int> vi(5);
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::vector<int> match {1, 2, 3, 4, 5};
-    REQUIRE_NE(vi.size(), sequence.size());
-    REQUIRE_EQ(vi.size(), match.size());
-    REQUIRE_EQ((match  == vi), true);
-}
-
-TEST_CASE("mtl::fill_range with std::string with smaller input larger ouput")
-{
-    constexpr size_t size = 50;
-    std::vector<std::string> sequence {"1", "2", "3", "4", "5"};
-    std::vector<std::string> vi(size);
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), std::string("1"));
-    std::ptrdiff_t twos = std::count(vi.begin(), vi.end(), std::string("2"));
-    std::ptrdiff_t threes = std::count(vi.begin(), vi.end(), std::string("3"));
-    std::ptrdiff_t fours = std::count(vi.begin(), vi.end(), std::string("4"));
-    std::ptrdiff_t fives = std::count(vi.begin(), vi.end(), std::string("5"));
-    REQUIRE_EQ(ones, 10);
-    REQUIRE_EQ(twos, 10);
-    REQUIRE_EQ(threes, 10);
-    REQUIRE_EQ(fours,  10);
-    REQUIRE_EQ(fives,  10);
-}
-
-TEST_CASE("mtl::fill_range with std::string with same size input and ouput")
-{
-    std::vector<std::string> sequence {"1", "2", "3", "4", "5"};
-    std::vector<std::string> vi(sequence.size());
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    REQUIRE_EQ(sequence.size(), vi.size());
-    REQUIRE_EQ((sequence == vi), true);
-}
-
-TEST_CASE("mtl::fill_range with std::string with larger input and smaller ouput")
-{
-    std::vector<std::string> sequence {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-    std::vector<std::string> vi(5);
-    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
-    std::vector<std::string> match {"1", "2", "3", "4", "5"};
-    REQUIRE_NE(vi.size(), sequence.size());
-    REQUIRE_EQ(vi.size(), match.size());
-    REQUIRE_EQ((match == vi), true);
-}
-
-
-// ------------------------------------------------------------------------------------------------
 // mtl::for_each
 // ------------------------------------------------------------------------------------------------
 
@@ -3477,6 +3357,130 @@ TEST_CASE("mtl::for_all_pairs for std::list<std::string>")
                        });
     REQUIRE_EQ(combined, result);
 }
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::fill_range
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::fill_range with empty range")
+{
+    constexpr size_t size = 10;
+    std::vector<int> sequence;
+    std::vector<int> vi(size, 1);
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
+    CHECK_EQ(sequence.empty(), true);
+    CHECK_EQ(vi.empty(), false);
+    CHECK_EQ(vi.size(), size);
+    CHECK_EQ(static_cast<size_t>(ones), size);
+}
+
+TEST_CASE("mtl::fill_range with empty container")
+{
+    constexpr size_t size = 0;
+    std::vector<int> sequence {1, 2, 3, 4, 5};
+    std::vector<int> vi;
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
+    CHECK_EQ(sequence.empty(), false);
+    CHECK_EQ(vi.empty(), true);
+    CHECK_EQ(vi.size(), size);
+    CHECK_EQ(static_cast<size_t>(ones), size);
+}
+
+TEST_CASE("mtl::fill_range with empty range and empty container")
+{
+    constexpr size_t size = 0;
+    std::vector<int> sequence;
+    std::vector<int> vi;
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
+    CHECK_EQ(sequence.empty(), true);
+    CHECK_EQ(vi.empty(), true);
+    CHECK_EQ(vi.size(), size);
+    CHECK_EQ(static_cast<size_t>(ones), size);
+}
+
+TEST_CASE("mtl::fill_range with smaller input larger ouput")
+{
+    constexpr size_t size = 50;
+    std::vector<int> sequence {1, 2, 3, 4, 5};
+    std::vector<int> vi(size);
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), 1);
+    std::ptrdiff_t twos = std::count(vi.begin(), vi.end(), 2);
+    std::ptrdiff_t threes = std::count(vi.begin(), vi.end(), 3);
+    std::ptrdiff_t fours = std::count(vi.begin(), vi.end(), 4);
+    std::ptrdiff_t fives = std::count(vi.begin(), vi.end(), 5);
+    REQUIRE_EQ(ones, 10);
+    REQUIRE_EQ(twos, 10);
+    REQUIRE_EQ(threes, 10);
+    REQUIRE_EQ(fours,  10);
+    REQUIRE_EQ(fives,  10);
+}
+
+TEST_CASE("mtl::fill_range with same size input and ouput")
+{
+    std::vector<int> sequence {1, 2, 3, 4, 5};
+    std::vector<int> vi(sequence.size());
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    REQUIRE_EQ(sequence.size(), vi.size());
+    REQUIRE_EQ((sequence == vi), true);
+}
+
+TEST_CASE("mtl::fill_range with larger input and smaller ouput")
+{
+    std::vector<int> sequence {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    std::vector<int> vi(5);
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::vector<int> match {1, 2, 3, 4, 5};
+    REQUIRE_NE(vi.size(), sequence.size());
+    REQUIRE_EQ(vi.size(), match.size());
+    REQUIRE_EQ((match  == vi), true);
+}
+
+TEST_CASE("mtl::fill_range with std::string with smaller input larger ouput")
+{
+    constexpr size_t size = 50;
+    std::vector<std::string> sequence {"1", "2", "3", "4", "5"};
+    std::vector<std::string> vi(size);
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::ptrdiff_t ones = std::count(vi.begin(), vi.end(), std::string("1"));
+    std::ptrdiff_t twos = std::count(vi.begin(), vi.end(), std::string("2"));
+    std::ptrdiff_t threes = std::count(vi.begin(), vi.end(), std::string("3"));
+    std::ptrdiff_t fours = std::count(vi.begin(), vi.end(), std::string("4"));
+    std::ptrdiff_t fives = std::count(vi.begin(), vi.end(), std::string("5"));
+    REQUIRE_EQ(ones, 10);
+    REQUIRE_EQ(twos, 10);
+    REQUIRE_EQ(threes, 10);
+    REQUIRE_EQ(fours,  10);
+    REQUIRE_EQ(fives,  10);
+}
+
+TEST_CASE("mtl::fill_range with std::string with same size input and ouput")
+{
+    std::vector<std::string> sequence {"1", "2", "3", "4", "5"};
+    std::vector<std::string> vi(sequence.size());
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    REQUIRE_EQ(sequence.size(), vi.size());
+    REQUIRE_EQ((sequence == vi), true);
+}
+
+TEST_CASE("mtl::fill_range with std::string with larger input and smaller ouput")
+{
+    std::vector<std::string> sequence {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+    std::vector<std::string> vi(5);
+    mtl::fill_range(sequence.begin(), sequence.end(), vi.begin(), vi.end());
+    std::vector<std::string> match {"1", "2", "3", "4", "5"};
+    REQUIRE_NE(vi.size(), sequence.size());
+    REQUIRE_EQ(vi.size(), match.size());
+    REQUIRE_EQ((match == vi), true);
+}
+
 
 
 
