@@ -214,8 +214,8 @@ TEST_CASE("mtl::not_unique_inclusive with custom predicate, custom class, std::l
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -396,8 +396,8 @@ TEST_CASE("mtl::not_unique_exclusive with custom predicate, custom class, std::l
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -573,8 +573,8 @@ TEST_CASE("mtl::not_unique with custom predicate, custom class, std::list")
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -741,8 +741,8 @@ TEST_CASE("mtl::keep_duplicates_inclusive with custom comp and pred, custom clas
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -900,8 +900,8 @@ TEST_CASE("mtl::keep_duplicates_exclusive with custom comp and pred, custom clas
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1061,8 +1061,8 @@ TEST_CASE("mtl::keep_duplicates with custom comparator and predicate, custom cla
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1253,8 +1253,8 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted with custom predicate, custom c
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1438,8 +1438,8 @@ TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate, custom c
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1631,8 +1631,8 @@ TEST_CASE("mtl::keep_duplicates_sorted with custom comp and pred, custom class, 
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1796,8 +1796,8 @@ TEST_CASE("mtl::keep_duplicates_inclusive_preserve with custom pred, custom clas
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -1961,8 +1961,8 @@ TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom hash / pred, custom cl
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -2124,8 +2124,8 @@ TEST_CASE("mtl::keep_duplicates_preserve with custom hash and pred, custom class
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -2314,8 +2314,8 @@ TEST_CASE("mtl::rem_duplicates_sorted with custom predicate, custom class, std::
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -2468,8 +2468,8 @@ TEST_CASE("mtl::rem_duplicates with custom comp and pred, custom class, std::lis
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
@@ -2629,8 +2629,8 @@ TEST_CASE("mtl::rem_duplicates_preserve with custom hash and predicate, custom c
     REQUIRE_EQ(custom_con.size(), desired_result.size());
     for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        auto cl_it = std::next(custom_con.begin(), i);
-        auto dr_it = std::next(desired_result.begin(), i);
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
         REQUIRE_EQ(cl_it->x, dr_it->x);
     }
 }
