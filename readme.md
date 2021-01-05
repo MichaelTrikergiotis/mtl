@@ -60,16 +60,16 @@ With `mtl::string::join` you can join different types of variables together with
 ```c++
 const std::string planet = " planet ";
 // the types of the arguments here are const char*, char, const std::string, float and const char*
-std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " lightyears away.");
+std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " light-years away.");
 mtl::console::println(message);
 ```
 
-`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
+`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 light-years away.` followed by a newline.
 
 The same output as the above could also be achieved with :
 
 ```c++
-mtl::console::print("Hello from ", 'a', planet, 12.24f, " lightyears away.", '\n');
+mtl::console::print("Hello from ", 'a', planet, 12.24f, " light-years away.", '\n');
 ```
 
 Please note that we use `mtl::console::print` with the same variables as before but also add a newline variable at the end.
