@@ -339,9 +339,6 @@ public:
 	[[nodiscard]]
 	result_type operator()()
 	{
-		// ----------------------------------------------------------------------------------------
-		// xoshiro256plus algorithm
-		// ----------------------------------------------------------------------------------------
 		state_type result = _state.seed_1 + _state.seed_2 + _state.seed_3 +
 							_state.seed_4;
 		const state_type stored_seed = _state.seed_2 << 17;
@@ -359,8 +356,8 @@ public:
 	// ============================================================================================
 
 	/// Fills the range first to last with values from the random number generator.
-	/// @param[in] first Iterator to the beginning of the range.
-	/// @param[in] last Iterator to the end of the range.
+	/// @param[out] first Iterator to the beginning of the range.
+	/// @param[out] last Iterator to the end of the range.
 	template<typename Iter>
 	void generate(Iter first, Iter last)
 	{

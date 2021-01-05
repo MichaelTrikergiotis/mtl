@@ -286,9 +286,6 @@ public:
 	[[nodiscard]]
 	result_type operator()()
 	{
-		// ----------------------------------------------------------------------------------------
-		// xorshift128plus algorithm
-		// ----------------------------------------------------------------------------------------
 		state_type seed1 = _state.seed_1;
 		state_type seed2 = _state.seed_2;
 		_state.seed_1 = seed2;
@@ -305,8 +302,8 @@ public:
 	// ============================================================================================
 
 	/// Fills the range first to last with values from the random number generator.
-	/// @param[in] first Iterator to the beginning of the range.
-	/// @param[in] last Iterator to the end of the range.
+	/// @param[out] first Iterator to the beginning of the range.
+	/// @param[out] last Iterator to the end of the range.
 	template<typename Iter>
 	void generate(Iter first, Iter last)
 	{

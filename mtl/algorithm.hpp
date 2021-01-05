@@ -730,15 +730,16 @@ inline void keep_duplicates_exclusive_preserve(Container& container)
 
 
 // ================================================================================================
-// KEEP_DUPLICATES_SORTED   - Keeps a single duplicate without preserving order. Requires the
-//                            container to be sorted.
-// KEEP_DUPLICATES          - Keeps a single duplicate without preserving ordering.
+// KEEP_DUPLICATES_SORTED   - Keeps a single copy of each duplicate without preserving order. 
+//                            Requires the container to be sorted.
+// KEEP_DUPLICATES          - Keeps a single copy of each duplicate without preserving ordering.
 // KEEP_DUPLICATES_PRESERVE - Keeps a single copy of each duplicate while preserving ordering.
 // ================================================================================================
 
 
 
-/// Keeps a single duplicate without preserving order. Requires the container to be sorted.
+/// Keeps a single copy of each duplicate without preserving order. Requires the container to be
+/// sorted.
 /// @param[in, out] container A container.
 template<typename Container>
 inline void keep_duplicates_sorted(Container& container)
@@ -748,9 +749,9 @@ inline void keep_duplicates_sorted(Container& container)
 	mtl::rem_duplicates(container);
 }
 
-/// Keeps a single duplicate without preserving order. Requires the container to be sorted. Allows
-/// you to pass a comparator that will be used to sort the containter and also a binary predicate
-/// for equality comparison of duplicate items. 
+/// Keeps a single copy of each duplicate without preserving order. Requires the container to be
+/// sorted. Allows you to pass a comparator that will be used to sort the containter and also a
+/// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -765,7 +766,7 @@ inline void keep_duplicates_sorted(Container& container, Compare comp, BinaryPre
 
 // --
 
-/// Keeps a single duplicate without preserving ordering.
+/// Keeps a single copy of each duplicate without preserving ordering.
 /// @param[in, out] container An std::list.
 template<typename Type>
 inline void keep_duplicates(std::list<Type>& container)
@@ -774,9 +775,9 @@ inline void keep_duplicates(std::list<Type>& container)
 	mtl::keep_duplicates_sorted(container);
 }
 
-/// Keeps a single duplicate without preserving ordering. Allows you to pass a comparison function
-/// object, that will be used to sort the containter and also a binary predicate for equality
-/// comparison of duplicate items. 
+/// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a 
+/// comparison function object, that will be used to sort the containter and also a binary
+/// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -788,7 +789,7 @@ inline void keep_duplicates(std::list<Type>& container, Compare comp, BinaryPred
 }
 
 
-/// Keeps a single duplicate without preserving ordering.
+/// Keeps a single copy of each duplicate without preserving ordering.
 /// @param[in, out] container A container.
 template<typename Container>
 inline void keep_duplicates(Container& container)
@@ -797,9 +798,9 @@ inline void keep_duplicates(Container& container)
 	mtl::keep_duplicates_sorted(container);
 }
 
-/// Keeps a single duplicate without preserving ordering. Allows you to pass a comparison function
-/// object, that will be used to sort the containter and also a binary predicate for equality
-/// comparison of duplicate items. 
+/// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a
+/// comparison function object, that will be used to sort the containter and also a binary
+/// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -821,7 +822,7 @@ template<typename Container>
 inline void keep_duplicates_preserve(Container& container)
 {
 	mtl::keep_duplicates_inclusive_preserve(container);
-	// keep a single duplicate only
+	// keep a single copy of each duplicate 
 	mtl::rem_duplicates_preserve(container);
 }
 
@@ -835,7 +836,7 @@ template<typename Container, typename Hash, typename BinaryPredicate>
 inline void keep_duplicates_preserve(Container& container, Hash hash, BinaryPredicate bp)
 {
 	mtl::keep_duplicates_inclusive_preserve(container, bp);
-	// keep a single duplicate only
+	// keep a single copy of each duplicate
 	mtl::rem_duplicates_preserve(container, hash, bp);
 }
 
@@ -976,47 +977,6 @@ contains_all_sorted(const ContainerContains& container_contains,
 	// find if all items exist in the sorted container
 	return std::includes(container_contains.begin(), container_contains.end(),
 						 elements_to_find.begin(), elements_to_find.end());
-}
-
-
-// ================================================================================================
-// FILL_RANGE - Copies an input range to an output range repeatedly.
-// ================================================================================================
-
-/// Copies an input range to an output range repeatedly until the output range is filled. If the 
-/// input range is larger than the output range only the part of the input range that fits in the 
-/// output range is copied. Input range and output range can be from different kind of containers
-/// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
-/// functionality as std::fill but instead of accepting a single value it works with a range of 
-/// values.
-/// @param[in] in_first Iterator to the the start of the input range.
-/// @param[in] in_last Iterator to the the end of the input range.
-/// @param[out] out_first Iterator to the the start of the output range.
-/// @param[out] out_last Iterator to the the end of the output range.
-template<typename FwdIterIn, typename FwdIterOut>
-inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
-					   FwdIterOut out_last)
-{
-	// leave the function if any of the two ranges is empty
-	if ((in_first == in_last) || (out_first == out_last)) { return; }
-
-	// iterator to the start of the input range
-	auto input_it = in_first;
-
-	for (auto it = out_first; it != out_last; ++it)
-	{
-		// copy input range element to output range element
-		*it = *input_it;
-
-		// move the input iterator one element forward
-		std::advance(input_it, 1);
-
-		// if the input iterator reaches the end of the range set it to the beginning of the range
-		if (input_it == in_last)
-		{
-			input_it = in_first;
-		}
-	}
 }
 
 
@@ -1164,6 +1124,49 @@ inline void for_all_pairs(FwdIter first, FwdIter last, Func&& func)
 				// apply the function to each pair of elements
 				func(*previous, *it);
 			}
+		}
+	}
+}
+
+
+
+
+// ================================================================================================
+// FILL_RANGE - Copies an input range to an output range repeatedly.
+// ================================================================================================
+
+/// Copies an input range to an output range repeatedly until the output range is filled. If the 
+/// input range is larger than the output range only the part of the input range that fits in the 
+/// output range is copied. Input range and output range can be from different kind of containers
+/// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
+/// functionality as std::fill but instead of accepting a single value it works with a range of 
+/// values.
+/// @param[in] in_first Iterator to the the start of the input range.
+/// @param[in] in_last Iterator to the the end of the input range.
+/// @param[out] out_first Iterator to the the start of the output range.
+/// @param[out] out_last Iterator to the the end of the output range.
+template<typename FwdIterIn, typename FwdIterOut>
+inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
+					   FwdIterOut out_last)
+{
+	// leave the function if any of the two ranges is empty
+	if ((in_first == in_last) || (out_first == out_last)) { return; }
+
+	// iterator to the start of the input range
+	auto input_it = in_first;
+
+	for (auto it = out_first; it != out_last; ++it)
+	{
+		// copy input range element to output range element
+		*it = *input_it;
+
+		// move the input iterator one element forward
+		std::advance(input_it, 1);
+
+		// if the input iterator reaches the end of the range set it to the beginning of the range
+		if (input_it == in_last)
+		{
+			input_it = in_first;
 		}
 	}
 }

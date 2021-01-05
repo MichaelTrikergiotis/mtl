@@ -13,6 +13,9 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
+# set .svg line endings to LF
+*.svg text eol=lf
+
 
 # source files
 *.c     text diff=c
@@ -53,7 +56,6 @@
 *.ai    binary
 *.psd   binary
 *.png   binary
-*.svg   binary
 *.jpg   binary
 *.jpeg  binary
 *.ttf   binary

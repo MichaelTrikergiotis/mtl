@@ -31,13 +31,13 @@
 // mtl::keep_duplicates_sorted, mtl::keep_duplicates_inclusive_preserve, 
 // mtl::keep_duplicates_exclusive_preserve, mtl::keep_duplicates_preserve,
 // mtl::rem_duplicates_sorted, mtl::rem_duplicates, mtl::rem_duplicates_preserve, mtl::contains, 
-// mtl::contains_all, mtl::contains_all_sorted, mtl::fill_range, mtl::for_each, mtl::for_adj_pairs,
-// mtl::for_all_pairs, mtl::range
+// mtl::contains_all, mtl::contains_all_sorted, mtl::for_each, mtl::for_adj_pairs,
+// mtl::for_all_pairs, mtl::fill_range, mtl::range
 
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::not_unique_inclusive, mtl::not_unique_exclusive, mtl::not_unique
+// mtl::not_unique_inclusive
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::not_unique_inclusive for empty std::vector")
@@ -93,9 +93,137 @@ TEST_CASE("mtl::not_unique_inclusive with custom predicate for std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_inclusive with custom predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    std::sort(custom_con.begin(), custom_con.end(), [](const auto& rhs, const auto& lhs)
+                                                    {
+                                                        return rhs.x < lhs.x;
+                                                    });
+
+    custom_con.erase(mtl::not_unique_inclusive(custom_con.begin(), custom_con.end(), 
+                                               [](const auto& rhs, const auto& lhs)
+                                               {
+                                                   return rhs.x == lhs.x;
+                                               }), custom_con.end());
+   
+    std::vector<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::not_unique_inclusive for empty std::list")
+{
+    std::list<int> numbers;
+    numbers.sort();
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	names.sort();
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::list")
+{
+    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
+    numbers.sort();
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::list<int> results { 1, 1, 2, 2, 3, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
+                                     "Maria", "Maria" };
+	names.sort();
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::list<std::string> results_names {"Bob", "Bob", "Joe", "Joe", "Maria", "Maria", "Maria"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive with custom predicate for std::list")
+{
+    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
+    numbers.sort();
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end(), std::equal_to<int>{}),
+                  numbers.end());
+    std::list<int> results { 1, 1, 2, 2, 3, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
+                                     "Maria", "Maria" };
+	names.sort();
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end(), 
+                                          std::equal_to<std::string>{}), names.end());
+    std::list<std::string> results_names {"Bob", "Bob", "Joe", "Joe", "Maria", "Maria", "Maria"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive with custom predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+
+    custom_con.erase(mtl::not_unique_inclusive(custom_con.begin(), custom_con.end(), 
+                                               [](const auto& rhs, const auto& lhs)
+                                               {
+                                                   return rhs.x == lhs.x;
+                                               }), custom_con.end());
+   
+    std::list<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
 
 
-
+// ------------------------------------------------------------------------------------------------
+// mtl::not_unique_exclusive
+// ------------------------------------------------------------------------------------------------
 
 
 TEST_CASE("mtl::not_unique_exclusive for empty std::vector")
@@ -149,41 +277,7 @@ TEST_CASE("mtl::not_unique_exclusive with custom predicate for std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
-
-
-TEST_CASE("mtl::not_unique for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    std::sort(numbers.begin(), numbers.end());
-    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	std::sort(names.begin(), names.end());
-    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::not_unique with custom predicate for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    std::sort(numbers.begin(), numbers.end());
-    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end(), std::equal_to<int>{}),
-                  numbers.end());
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	std::sort(names.begin(), names.end());
-    names.erase(mtl::not_unique(names.begin(), names.end(), std::equal_to<std::string>{}),
-                names.end());
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::not_unique with custom predicate for std::vector, custom class")
+TEST_CASE("mtl::not_unique_exclusive with custom predicate, custom class, std::vector")
 {
     class custom_class 
     {
@@ -197,64 +291,44 @@ TEST_CASE("mtl::not_unique with custom predicate for std::vector, custom class")
     c2.x = 2;
     custom_class c3;
     c3.x = 3;
-    std::vector<custom_class> custom_vec {c1, c2, c3, c3, c2, c1, c1};
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
 
-    std::sort(custom_vec.begin(), custom_vec.end(), [](const auto& rhs, const auto& lhs)
+    std::sort(custom_con.begin(), custom_con.end(), [](const auto& rhs, const auto& lhs)
                                                     {
                                                         return rhs.x < lhs.x;
                                                     });
 
-    custom_vec.erase(mtl::not_unique(custom_vec.begin(), custom_vec.end(), 
-                                     [](const auto& rhs, const auto& lhs)
-                                     {
-                                         return rhs.x == lhs.x;
-                                     }), custom_vec.end());
+    custom_con.erase(mtl::not_unique_exclusive(custom_con.begin(), custom_con.end(), 
+                                               [](const auto& rhs, const auto& lhs)
+                                               {
+                                                   return rhs.x == lhs.x;
+                                               }), custom_con.end());
    
-    std::vector<custom_class> desired_result {c1, c2, c3};
+    std::vector<custom_class> desired_result {c1, c1, c2, c3};
     
-    REQUIRE_EQ(custom_vec.size(), desired_result.size());
-    for(size_t i = 0; i < custom_vec.size(); ++i)
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
     {
-        REQUIRE_EQ(custom_vec[i].x, desired_result[i].x);
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
     }
 }
 
-// for std::list
-TEST_CASE("mtl::not_unique_inclusive for std::list")
+TEST_CASE("mtl::not_unique_exclusive for empty std::list")
 {
-    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
+    std::list<int> numbers;
     numbers.sort();
-    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
-    std::list<int> results { 1, 1, 2, 2, 3, 3, 3 };
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::list<int> results;
     CHECK_EQ((numbers == results), true);
 
-    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
-                                     "Maria", "Maria" };
+    std::list<std::string> names;
 	names.sort();
-    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
-    std::list<std::string> results_names {"Bob", "Bob", "Joe", "Joe", "Maria", "Maria", "Maria"};
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::list<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
-
-TEST_CASE("mtl::not_unique_inclusive with custom predicate for std::list")
-{
-    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
-    numbers.sort();
-    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end(), std::equal_to<int>{}),
-                  numbers.end());
-    std::list<int> results { 1, 1, 2, 2, 3, 3, 3 };
-    CHECK_EQ((numbers == results), true);
-
-    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
-                                     "Maria", "Maria" };
-	names.sort();
-    names.erase(mtl::not_unique_inclusive(names.begin(), names.end(), 
-                                          std::equal_to<std::string>{}), names.end());
-    std::list<std::string> results_names {"Bob", "Bob", "Joe", "Joe", "Maria", "Maria", "Maria"};
-    CHECK_EQ((names == results_names), true);
-}
-
-
 
 TEST_CASE("mtl::not_unique_exclusive for std::list")
 {
@@ -288,7 +362,150 @@ TEST_CASE("mtl::not_unique_exclusive with custom predicate for std::list")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_exclusive with custom predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+
+    custom_con.erase(mtl::not_unique_exclusive(custom_con.begin(), custom_con.end(), 
+                                               [](const auto& rhs, const auto& lhs)
+                                               {
+                                                   return rhs.x == lhs.x;
+                                               }), custom_con.end());
+   
+    std::list<custom_class> desired_result {c1, c1, c2, c3};
+    
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::not_unique
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::not_unique for empty std::vector")
+{
+    std::vector<int> numbers;
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+	std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique with custom predicate for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end(), std::equal_to<int>{}),
+                  numbers.end());
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end(), std::equal_to<std::string>{}),
+                names.end());
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique with custom predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    std::sort(custom_con.begin(), custom_con.end(), [](const auto& rhs, const auto& lhs)
+                                                    {
+                                                        return rhs.x < lhs.x;
+                                                    });
+
+    custom_con.erase(mtl::not_unique(custom_con.begin(), custom_con.end(), 
+                                     [](const auto& rhs, const auto& lhs)
+                                     {
+                                         return rhs.x == lhs.x;
+                                     }), custom_con.end());
+   
+    std::vector<custom_class> desired_result {c1, c2, c3};
+    
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::not_unique for empty std::list")
+{
+    std::list<int> numbers;
+    numbers.sort();
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	names.sort();
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::not_unique for std::list")
 {
@@ -322,9 +539,49 @@ TEST_CASE("mtl::not_unique with custom predicate for std::list")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique with custom predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+
+    custom_con.erase(mtl::not_unique(custom_con.begin(), custom_con.end(), 
+                                     [](const auto& rhs, const auto& lhs)
+                                     {
+                                         return rhs.x == lhs.x;
+                                     }), custom_con.end());
+   
+    std::list<custom_class> desired_result {c1, c2, c3};
+    
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
 
 // ------------------------------------------------------------------------------------------------
-// mtl::keep_duplicates_inclusive, mtl::keep_duplicates_exclusive, mtl::keep_duplicates
+// mtl::keep_duplicates_inclusive
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::keep_duplicates_inclusive for empty std::vector")
@@ -372,64 +629,57 @@ TEST_CASE("mtl::keep_duplicates_inclusive with custom comparator and predicate f
     CHECK_EQ((names == results_names), true);
 }
 
-
-
-TEST_CASE("mtl::keep_duplicates_exclusive for std::vector")
+TEST_CASE("mtl::keep_duplicates_inclusive with custom comp and pred, custom class, std::vector")
 {
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_exclusive(numbers);
-    std::vector<int> results {1, 2, 3, 3};
-    CHECK_EQ((numbers == results), true);
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates_exclusive(names);
-    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
 
-TEST_CASE("mtl::keep_duplicates_exclusive with custom comparator and predicate for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_exclusive(numbers, std::less<int>{}, std::equal_to<int>{});
-    std::vector<int> results {1, 2, 3, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates_exclusive(names, std::less<std::string>{}, std::equal_to<std::string>{});
-    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-
-
-TEST_CASE("mtl::keep_duplicates for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates(numbers);
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates(names);
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::keep_duplicates with custom comparator and custom predicate for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates(numbers, std::less<int>{}, std::equal_to<int>{});
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates(names, std::less<std::string>{}, std::equal_to<std::string>{});
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
+    mtl::keep_duplicates_inclusive(custom_con, 
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x < lhs.x;
+                                   },
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x == lhs.x;
+                                   });
+   
+    std::vector<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+    
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
 }
 
 
-// for std::list
+TEST_CASE("mtl::keep_duplicates_inclusive for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::keep_duplicates_inclusive(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	mtl::keep_duplicates_inclusive(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_inclusive for std::list")
 {
     std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -458,7 +708,137 @@ TEST_CASE("mtl::keep_duplicates_inclusive with custom comparator and predicate f
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive with custom comp and pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_inclusive(custom_con, 
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x < lhs.x;
+                                   },
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x == lhs.x;
+                                   });
+   
+    std::list<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+    
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::keep_duplicates_exclusive
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates_exclusive for empty std::vector")
+{
+    std::vector<int> numbers;
+    mtl::keep_duplicates_exclusive(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+	mtl::keep_duplicates_exclusive(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_exclusive(numbers);
+    std::vector<int> results {1, 2, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates_exclusive(names);
+    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive with custom comparator and predicate for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_exclusive(numbers, std::less<int>{}, std::equal_to<int>{});
+    std::vector<int> results {1, 2, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates_exclusive(names, std::less<std::string>{}, std::equal_to<std::string>{});
+    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive with custom comp and pred, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_exclusive(custom_con, 
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x < lhs.x;
+                                   },
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x == lhs.x;
+                                   });
+   
+    std::vector<custom_class> desired_result {c1, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::keep_duplicates_exclusive(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	mtl::keep_duplicates_exclusive(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_exclusive for std::list")
 {
@@ -486,6 +866,138 @@ TEST_CASE("mtl::keep_duplicates_exclusive with custom comparator and predicate f
     CHECK_EQ((names == results_names), true);
 }
 
+
+TEST_CASE("mtl::keep_duplicates_exclusive with custom comp and pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_exclusive(custom_con, 
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x < lhs.x;
+                                   },
+                                   [](const auto& rhs, const auto& lhs)
+                                   {
+                                       return rhs.x == lhs.x;
+                                   });
+   
+    std::list<custom_class> desired_result {c1, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::keep_duplicates
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates for empty std::vector")
+{
+    std::vector<int> numbers;
+    mtl::keep_duplicates(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+	mtl::keep_duplicates(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates(numbers);
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates(names);
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates with custom comparator and custom predicate for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates(numbers, std::less<int>{}, std::equal_to<int>{});
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates(names, std::less<std::string>{}, std::equal_to<std::string>{});
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates with custom comparator and predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates(custom_con, 
+                         [](const auto& rhs, const auto& lhs)
+                         {
+                             return rhs.x < lhs.x;
+                         },
+                         [](const auto& rhs, const auto& lhs)
+                         {
+                             return rhs.x == lhs.x;
+                         });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::keep_duplicates(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	mtl::keep_duplicates(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates for std::list")
 {
@@ -516,12 +1028,68 @@ TEST_CASE("mtl::keep_duplicates with custom comparator and custom predicate for 
 
 
 
+TEST_CASE("mtl::keep_duplicates with custom comparator and predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates(custom_con, 
+                         [](const auto& rhs, const auto& lhs)
+                         {
+                             return rhs.x < lhs.x;
+                         },
+                         [](const auto& rhs, const auto& lhs)
+                         {
+                             return rhs.x == lhs.x;
+                         });
+   
+    std::list<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
 
 
 
 // ------------------------------------------------------------------------------------------------
 // mtl::keep_duplicates_inclusive_sorted 
 // ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::vector")
+{
+    std::vector<int> numbers;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_inclusive_sorted(numbers);
+    std::vector<int> results ;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_inclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_inclusive_sorted for std::vector")
 {
@@ -559,89 +1127,61 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted with custom predicate for std::
     CHECK_EQ((names == results_names), true);
 }
 
-
-// ------------------------------------------------------------------------------------------------
-// mtl::keep_duplicates_exclusive_sorted
-// ------------------------------------------------------------------------------------------------
-
-
-TEST_CASE("mtl::keep_duplicates_exclusive_sorted for std::vector")
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted with custom predicate, custom class, std::vector")
 {
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(numbers.begin(), numbers.end());
-    mtl::keep_duplicates_exclusive_sorted(numbers);
-    std::vector<int> results {1, 2, 3, 3};
-    CHECK_EQ((numbers == results), true);
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
     // algorithms ending with _sorted require the container to be sorted
-    std::sort(names.begin(), names.end());
-	mtl::keep_duplicates_exclusive_sorted(names);
-    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
+    std::sort(custom_con.begin(), custom_con.end(),
+              [](const auto& rhs, const auto& lhs)
+              {
+                  return rhs.x < lhs.x;
+              });
+    mtl::keep_duplicates_inclusive_sorted(custom_con, 
+                                          [](const auto& rhs, const auto& lhs)
+                                          {
+                                              return rhs.x == lhs.x;
+                                          });
+   
+    std::vector<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
 }
 
-TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate for std::vector")
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::list")
 {
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    std::list<int> numbers;
     // algorithms ending with _sorted require the container to be sorted
-    std::sort(numbers.begin(), numbers.end());
-    mtl::keep_duplicates_exclusive_sorted(numbers, std::equal_to<int>{});
-    std::vector<int> results {1, 2, 3, 3};
+    numbers.sort();
+    mtl::keep_duplicates_inclusive_sorted(numbers);
+    std::list<int> results;
     CHECK_EQ((numbers == results), true);
 
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    std::list<std::string> names;
     // algorithms ending with _sorted require the container to be sorted
-    std::sort(names.begin(), names.end());
-	mtl::keep_duplicates_exclusive_sorted(names,  std::equal_to<std::string>{});
-    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
+    names.sort();
+	mtl::keep_duplicates_inclusive_sorted(names);
+    std::list<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
-
-
-
-
-// ------------------------------------------------------------------------------------------------
-// mtl::keep_duplicates_sorted
-// ------------------------------------------------------------------------------------------------
-
-TEST_CASE("mtl::keep_duplicates_sorted for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(numbers.begin(), numbers.end());
-    mtl::keep_duplicates_sorted(numbers);
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(names.begin(), names.end());
-	mtl::keep_duplicates_sorted(names);
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::keep_duplicates_sorted with custom comparator and predicate for std::vector")
-{
-    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(numbers.begin(), numbers.end());
-    mtl::keep_duplicates_sorted(numbers, std::less<int>{}, std::equal_to<int>{});
-    std::vector<int> results {1, 2, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(names.begin(), names.end());
-	mtl::keep_duplicates_sorted(names, std::less<std::string>{}, std::equal_to<std::string>{});
-    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
-    CHECK_EQ((names == results_names), true);
-}
-
-
-// for std::list
 
 TEST_CASE("mtl::keep_duplicates_inclusive_sorted for std::list")
 {
@@ -679,7 +1219,156 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted with custom predicate for std::
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted with custom predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    // algorithms ending with _sorted require the container to be sorted
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+    mtl::keep_duplicates_inclusive_sorted(custom_con, 
+                                          [](const auto& rhs, const auto& lhs)
+                                          {
+                                              return rhs.x == lhs.x;
+                                          });
+   
+    std::list<custom_class> desired_result {c1, c1, c1, c2, c2, c3, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::keep_duplicates_exclusive_sorted
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted for empty std::vector")
+{
+    std::vector<int> numbers;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_exclusive_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_exclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_exclusive_sorted(numbers);
+    std::vector<int> results {1, 2, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_exclusive_sorted(names);
+    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_exclusive_sorted(numbers, std::equal_to<int>{});
+    std::vector<int> results {1, 2, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_exclusive_sorted(names,  std::equal_to<std::string>{});
+    std::vector<std::string> results_names {"Bob", "Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(custom_con.begin(), custom_con.end(), [](const auto& rhs, const auto& lhs)
+                                                    {
+                                                        return rhs.x < lhs.x;
+                                                    });
+    mtl::keep_duplicates_exclusive_sorted(custom_con, 
+                                          [](const auto& rhs, const auto& lhs)
+                                          {
+                                              return rhs.x == lhs.x;
+                                          });
+   
+    std::vector<custom_class> desired_result {c1, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted for empty std::list")
+{
+    std::list<int> numbers;
+    // algorithms ending with _sorted require the container to be sorted
+    numbers.sort();
+    mtl::keep_duplicates_exclusive_sorted(numbers);
+    std::list<int> results ;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    names.sort();
+	mtl::keep_duplicates_exclusive_sorted(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_exclusive_sorted for std::list")
 {
@@ -715,7 +1404,160 @@ TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate for std::
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted with custom predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    // algorithms ending with _sorted require the container to be sorted
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+    mtl::keep_duplicates_exclusive_sorted(custom_con, 
+                                          [](const auto& rhs, const auto& lhs)
+                                          {
+                                              return rhs.x == lhs.x;
+                                          });
+   
+    std::list<custom_class> desired_result {c1, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::keep_duplicates_sorted
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates_sorted for empty std::vector")
+{
+    std::vector<int> numbers;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_sorted(numbers);
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_sorted(names);
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted with custom comparator and predicate for std::vector")
+{
+    std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_sorted(numbers, std::less<int>{}, std::equal_to<int>{});
+    std::vector<int> results {1, 2, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_sorted(names, std::less<std::string>{}, std::equal_to<std::string>{});
+    std::vector<std::string> results_names {"Bob", "Joe", "Mac"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted with custom comp and pred, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(custom_con.begin(), custom_con.end(), [](const auto& rhs, const auto& lhs)
+                                                    {
+                                                        return rhs.x < lhs.x;
+                                                    });
+    mtl::keep_duplicates_sorted(custom_con, 
+                                [](const auto& rhs, const auto& lhs)
+                                {
+                                    return rhs.x < lhs.x;
+                                },
+                                [](const auto& rhs, const auto& lhs)
+                                {
+                                    return rhs.x == lhs.x;
+                                });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted for empty std::list")
+{
+    std::list<int> numbers;
+    // algorithms ending with _sorted require the container to be sorted
+    numbers.sort();
+    mtl::keep_duplicates_sorted(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    names.sort();
+	mtl::keep_duplicates_sorted(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_sorted for std::list")
 {
@@ -751,6 +1593,49 @@ TEST_CASE("mtl::keep_duplicates_sorted with custom comparator and predicate for 
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_sorted with custom comp and pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    // algorithms ending with _sorted require the container to be sorted
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+    mtl::keep_duplicates_sorted(custom_con, 
+                                [](const auto& rhs, const auto& lhs)
+                                {
+                                    return rhs.x < lhs.x;
+                                },
+                                [](const auto& rhs, const auto& lhs)
+                                {
+                                    return rhs.x == lhs.x;
+                                });
+   
+    std::list<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // mtl::keep_duplicates_inclusive_preserve
@@ -790,7 +1675,7 @@ TEST_CASE("mtl::keep_duplicates_inclusive_preserve for std::vector")
 }
 
 
-TEST_CASE("mtl::keep_duplicates_inclusive_preserve custom comparator and predicate std::vector")
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve custom predicate std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
     mtl::keep_duplicates_inclusive_preserve(numbers, std::equal_to<int>{});
@@ -805,10 +1690,134 @@ TEST_CASE("mtl::keep_duplicates_inclusive_preserve custom comparator and predica
 }
 
 
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve with custom pred, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_inclusive_preserve(custom_con, 
+                                            [](const auto& rhs, const auto& lhs)
+                                            {
+                                                return rhs.x == lhs.x;
+                                            });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3, c3, c2, c1, c1};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::keep_duplicates_inclusive_preserve(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    
+    std::list<std::string> names;
+	mtl::keep_duplicates_inclusive_preserve(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve for std::list")
+{
+    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_inclusive_preserve(numbers);
+    std::list<int> results { 3, 1, 2, 2, 1, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    
+    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
+                                     "Maria", "Maria" };
+	mtl::keep_duplicates_inclusive_preserve(names);
+    std::list<std::string> results_names {"Maria", "Bob", "Joe", "Joe", "Bob", "Maria", "Maria"};
+    CHECK_EQ((names == results_names), true);
+}
+
+
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve custom predicate std::list")
+{
+    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_inclusive_preserve(numbers, std::equal_to<int>{});
+    std::list<int> results { 3, 1, 2, 2, 1, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
+                                     "Maria", "Maria" };
+	mtl::keep_duplicates_inclusive_preserve(names, std::equal_to<std::string>{});
+    std::list<std::string> results_names {"Maria", "Bob", "Joe", "Joe", "Bob", "Maria", "Maria"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve with custom pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_inclusive_preserve(custom_con, 
+                                            [](const auto& rhs, const auto& lhs)
+                                            {
+                                                return rhs.x == lhs.x;
+                                            });
+   
+    std::list<custom_class> desired_result {c1, c2, c3, c3, c2, c1, c1};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 // mtl::keep_duplicates_exclusive_preserve
 // ------------------------------------------------------------------------------------------------
 
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve for empty std::vector")
+{
+    std::vector<int> numbers;
+    mtl::keep_duplicates_exclusive_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates_exclusive_preserve(names);
+    std::vector<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_exclusive_preserve for std::vector")
 {
@@ -841,9 +1850,141 @@ TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom comparator and predica
 
 
 
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom hash / pred, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_exclusive_preserve(custom_con, 
+                                            [](const auto& element)
+                                            {
+                                                return std::hash<int>{}(element.x);
+                                            },
+                                            [](const auto& rhs, const auto& lhs)
+                                            {
+                                                return rhs.x == lhs.x;
+                                            });
+   
+    std::vector<custom_class> desired_result {c3, c2, c1, c1};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::keep_duplicates_exclusive_preserve(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+	mtl::keep_duplicates_exclusive_preserve(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve for std::list")
+{
+    std::list<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_exclusive_preserve(numbers);
+    std::list<int> results {2, 1, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates_exclusive_preserve(names);
+    std::list<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
+    CHECK_EQ((names == results_names), true);
+}
+
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom comparator and predicate std::list")
+{
+    std::list<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
+    mtl::keep_duplicates_exclusive_preserve(numbers, std::hash<int>{}, std::equal_to<int>{});
+    std::list<int> results {2, 1, 3, 3};
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+	mtl::keep_duplicates_exclusive_preserve(names, std::hash<std::string>{}, 
+                                            std::equal_to<std::string>{});
+    std::list<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom hash / pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_exclusive_preserve(custom_con, 
+                                            [](const auto& element)
+                                            {
+                                                return std::hash<int>{}(element.x);
+                                            },
+                                            [](const auto& rhs, const auto& lhs)
+                                            {
+                                                return rhs.x == lhs.x;
+                                            });
+   
+    std::list<custom_class> desired_result {c3, c2, c1, c1};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+
+
 // ------------------------------------------------------------------------------------------------
 // mtl::keep_duplicates_preserve
 // ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::keep_duplicates_preserve for empty std::vector")
+{
+    std::vector<int> numbers;
+    mtl::keep_duplicates_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+	mtl::keep_duplicates_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::keep_duplicates_preserve for std::vector")
 {
@@ -872,69 +2013,55 @@ TEST_CASE("mtl::keep_duplicates_preserve with custom comparator and predicate fo
     CHECK_EQ((names == results_names), true);
 }
 
-
-// for std::list
-
-TEST_CASE("mtl::keep_duplicates_inclusive_preserve for std::list")
+TEST_CASE("mtl::keep_duplicates_preserve with custom hash and pred, custom class, std::vector")
 {
-    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_inclusive_preserve(numbers);
-    std::list<int> results { 3, 1, 2, 2, 1, 3, 3 };
-    CHECK_EQ((numbers == results), true);
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
-    
-    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
-                                     "Maria", "Maria" };
-	mtl::keep_duplicates_inclusive_preserve(names);
-    std::list<std::string> results_names {"Maria", "Bob", "Joe", "Joe", "Bob", "Maria", "Maria"};
-    CHECK_EQ((names == results_names), true);
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_preserve(custom_con, 
+                                  [](const auto& element)
+                                  {
+                                      return std::hash<int>{}(element.x);
+                                  },
+                                  [](const auto& rhs, const auto& lhs)
+                                  {
+                                      return rhs.x == lhs.x;
+                                  });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
 }
 
-
-TEST_CASE("mtl::keep_duplicates_inclusive_preserve custom comparator and predicate std::list")
+TEST_CASE("mtl::keep_duplicates_preserve for empty std::list")
 {
-    std::list<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_inclusive_preserve(numbers, std::equal_to<int>{});
-    std::list<int> results { 3, 1, 2, 2, 1, 3, 3 };
+    std::list<int> numbers;
+    mtl::keep_duplicates_preserve(numbers);
+    std::list<int> results;
     CHECK_EQ((numbers == results), true);
 
-    std::list<std::string> names { "Peter", "Nick", "Maria", "Bob", "Joe", "Joe", "Bob",
-                                     "Maria", "Maria" };
-	mtl::keep_duplicates_inclusive_preserve(names, std::equal_to<std::string>{});
-    std::list<std::string> results_names {"Maria", "Bob", "Joe", "Joe", "Bob", "Maria", "Maria"};
+    std::list<std::string> names;
+	mtl::keep_duplicates_preserve(names);
+    std::list<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
-
-
-TEST_CASE("mtl::keep_duplicates_exclusive_preserve for std::list")
-{
-    std::list<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_exclusive_preserve(numbers);
-    std::list<int> results {2, 1, 3, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::list<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates_exclusive_preserve(names);
-    std::list<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
-    CHECK_EQ((names == results_names), true);
-}
-
-
-TEST_CASE("mtl::keep_duplicates_exclusive_preserve custom comparator and predicate std::list")
-{
-    std::list<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
-    mtl::keep_duplicates_exclusive_preserve(numbers, std::hash<int>{}, std::equal_to<int>{});
-    std::list<int> results {2, 1, 3, 3};
-    CHECK_EQ((numbers == results), true);
-
-    std::list<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
-	mtl::keep_duplicates_exclusive_preserve(names, std::hash<std::string>{}, 
-                                            std::equal_to<std::string>{});
-    std::list<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
-    CHECK_EQ((names == results_names), true);
-
-}
-
 
 TEST_CASE("mtl::keep_duplicates_preserve for std::list")
 {
@@ -964,11 +2091,48 @@ TEST_CASE("mtl::keep_duplicates_preserve with custom comparator and predicate fo
 }
 
 
+TEST_CASE("mtl::keep_duplicates_preserve with custom hash and pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::keep_duplicates_preserve(custom_con, 
+                                  [](const auto& element)
+                                  {
+                                      return std::hash<int>{}(element.x);
+                                  },
+                                  [](const auto& rhs, const auto& lhs)
+                                  {
+                                      return rhs.x == lhs.x;
+                                  });
+   
+    std::list<custom_class> desired_result {c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::rem_duplicates_sorted, mtl::rem_duplicates, mtl::rem_duplicates_preserve
+// mtl::rem_duplicates_sorted
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::rem_duplicates_sorted for empty std::vector")
@@ -1026,106 +2190,62 @@ TEST_CASE("mtl::rem_duplicates_sorted with custom predicate for std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::rem_duplicates_sorted with custom predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
-TEST_CASE("mtl::rem_duplicates for empty std::list")
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(custom_con.begin(), custom_con.end(),
+                                  [](const auto& rhs, const auto& lhs)
+                                  {
+                                      return rhs.x < lhs.x;
+                                  });
+
+    mtl::rem_duplicates_sorted(custom_con, 
+                               [](const auto& rhs, const auto& lhs)
+                               {
+                                   return rhs.x == lhs.x;
+                               });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3, c4};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::rem_duplicates_sorted for empty std::list")
 {
     std::list<int> numbers;
     // algorithms ending with _sorted require the container to be sorted
     numbers.sort();
-    mtl::rem_duplicates(numbers);
+    mtl::rem_duplicates_sorted(numbers);
     std::list<int> results;
-    CHECK_EQ(numbers.empty(), true);
-    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
     std::list<std::string> names;
     // algorithms ending with _sorted require the container to be sorted
     names.sort();
-    mtl::rem_duplicates(names);
+    mtl::rem_duplicates_sorted(names);
     std::list<std::string> results_names;
-    CHECK_EQ(names.empty(), true);
-    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
-TEST_CASE("mtl::rem_duplicates for empty std::vector")
-{
-    std::vector<int> numbers;
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(numbers.begin(), numbers.end());
-    mtl::rem_duplicates(numbers);
-    std::vector<int> results;
-    CHECK_EQ(numbers.empty(), true);
-    CHECK_EQ(results.empty(), true);
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names;
-    // algorithms ending with _sorted require the container to be sorted
-    std::sort(names.begin(), names.end());
-    mtl::rem_duplicates(names);
-    std::vector<std::string> results_names;
-    CHECK_EQ(names.empty(), true);
-    CHECK_EQ(results_names.empty(), true);
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::rem_duplicates for std::vector")
-{
-    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
-    mtl::rem_duplicates(numbers);
-    std::vector<int> results {1, 2, 3, 4, 5};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
-    mtl::rem_duplicates(names);
-    std::vector<std::string> results_names { "Bill", "Bob", "Joe" };
-    CHECK_EQ((names == results_names), true);
-}
-
-TEST_CASE("mtl::rem_duplicates with custom predicate for std::vector")
-{
-    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
-    mtl::rem_duplicates(numbers, std::less<int>{}, std::equal_to<int>{});
-    std::vector<int> results {1, 2, 3, 4, 5};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
-    mtl::rem_duplicates(names, std::less<std::string>{}, std::equal_to<std::string>{});
-    std::vector<std::string> results_names { "Bill", "Bob", "Joe" };
-    CHECK_EQ((names == results_names), true);
-}
-
-
-
-TEST_CASE("mtl::rem_duplicates_preserve for std::vector")
-{
-    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
-    mtl::rem_duplicates_preserve(numbers);
-    std::vector<int> results {2, 3, 1, 4, 5};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
-    mtl::rem_duplicates_preserve(names);
-    std::vector<std::string> results_names { "Bill", "Joe", "Bob" };
-    CHECK_EQ((names == results_names), true);
-}
-
-
-TEST_CASE("mtl::rem_duplicates_preserve with custom predicate for std::vector")
-{
-    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
-    mtl::rem_duplicates_preserve(numbers, std::hash<int>{}, std::equal_to<int>{});
-    std::vector<int> results {2, 3, 1, 4, 5};
-    CHECK_EQ((numbers == results), true);
-
-    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
-    mtl::rem_duplicates_preserve(names, std::hash<std::string>{}, std::equal_to<std::string>{});
-    std::vector<std::string> results_names { "Bill", "Joe", "Bob" };
-    CHECK_EQ((names == results_names), true);
-}
-
-
-// for std::list
 TEST_CASE("mtl::rem_duplicates_sorted for std::list")
 {
     std::list<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
@@ -1160,18 +2280,145 @@ TEST_CASE("mtl::rem_duplicates_sorted with custom predicate for std::list")
     CHECK_EQ((names == results_names), true);
 }
 
-
-
-TEST_CASE("mtl::rem_duplicates for std::list")
+TEST_CASE("mtl::rem_duplicates_sorted with custom predicate, custom class, std::list")
 {
-    std::list<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+    // algorithms ending with _sorted require the container to be sorted
+    custom_con.sort([](const auto& rhs, const auto& lhs)
+                    {
+                        return rhs.x < lhs.x;
+                    });
+
+    mtl::rem_duplicates_sorted(custom_con, 
+                               [](const auto& rhs, const auto& lhs)
+                               {
+                                   return rhs.x == lhs.x;
+                               });
+   
+    std::list<custom_class> desired_result {c1, c2, c3, c4};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::rem_duplicates
+// ------------------------------------------------------------------------------------------------
+
+
+TEST_CASE("mtl::rem_duplicates for empty std::vector")
+{
+    std::vector<int> numbers;
     mtl::rem_duplicates(numbers);
-    std::list<int> results {1, 2, 3, 4, 5};
+    std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
-    std::list<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
+    std::vector<std::string> names;
     mtl::rem_duplicates(names);
-    std::list<std::string> results_names { "Bill", "Bob", "Joe" };
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::rem_duplicates for std::vector")
+{
+    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
+    mtl::rem_duplicates(numbers);
+    std::vector<int> results {1, 2, 3, 4, 5};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
+    mtl::rem_duplicates(names);
+    std::vector<std::string> results_names { "Bill", "Bob", "Joe" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::rem_duplicates with custom predicate for std::vector")
+{
+    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
+    mtl::rem_duplicates(numbers, std::less<int>{}, std::equal_to<int>{});
+    std::vector<int> results {1, 2, 3, 4, 5};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
+    mtl::rem_duplicates(names, std::less<std::string>{}, std::equal_to<std::string>{});
+    std::vector<std::string> results_names { "Bill", "Bob", "Joe" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::rem_duplicates with custom comp and pred, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::rem_duplicates(custom_con, 
+                        [](const auto& rhs, const auto& lhs)
+                        {
+                            return rhs.x < lhs.x;
+                        },
+                        [](const auto& rhs, const auto& lhs)
+                        {
+                            return rhs.x == lhs.x;
+                        });
+   
+    std::vector<custom_class> desired_result {c1, c2, c3, c4};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::rem_duplicates for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::rem_duplicates(numbers);
+    std::list<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+    mtl::rem_duplicates(names);
+    std::list<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1188,7 +2435,138 @@ TEST_CASE("mtl::rem_duplicates with custom predicate for std::list")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::rem_duplicates with custom comp and pred, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::rem_duplicates(custom_con, 
+                        [](const auto& rhs, const auto& lhs)
+                        {
+                            return rhs.x < lhs.x;
+                        },
+                        [](const auto& rhs, const auto& lhs)
+                        {
+                            return rhs.x == lhs.x;
+                        });
+   
+    std::list<custom_class> desired_result {c1, c2, c3, c4};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::rem_duplicates_preserve
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::rem_duplicates_preserve for empty std::vector")
+{
+    std::vector<int> numbers;
+    mtl::rem_duplicates_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    mtl::rem_duplicates_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::rem_duplicates_preserve for std::vector")
+{
+    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
+    mtl::rem_duplicates_preserve(numbers);
+    std::vector<int> results {2, 3, 1, 4, 5};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
+    mtl::rem_duplicates_preserve(names);
+    std::vector<std::string> results_names { "Bill", "Joe", "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+
+TEST_CASE("mtl::rem_duplicates_preserve with custom predicate for std::vector")
+{
+    std::vector<int> numbers {2, 3, 1, 1, 3, 2, 4, 5, 5, 5, 5, 2, 3};
+    mtl::rem_duplicates_preserve(numbers, std::hash<int>{}, std::equal_to<int>{});
+    std::vector<int> results {2, 3, 1, 4, 5};
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names {"Bill", "Joe", "Bob", "Joe", "Bob", "Joe", "Bill" };
+    mtl::rem_duplicates_preserve(names, std::hash<std::string>{}, std::equal_to<std::string>{});
+    std::vector<std::string> results_names { "Bill", "Joe", "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::rem_duplicates_preserve with custom hash and predicate, custom class, std::vector")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
+
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::vector<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::rem_duplicates_preserve(custom_con, 
+                                 [](const auto& element)
+                                 {
+                                     return std::hash<int>{}(element.x);
+                                 },
+                                 [](const auto& rhs, const auto& lhs)
+                                 {
+                                     return rhs.x == lhs.x;
+                                 });
+   
+    std::vector<custom_class> desired_result {c4, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        REQUIRE_EQ(custom_con[i].x, desired_result[i].x);
+    }
+}
+
+TEST_CASE("mtl::rem_duplicates_preserve for empty std::list")
+{
+    std::list<int> numbers;
+    mtl::rem_duplicates_preserve(numbers);
+    std::list<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::list<std::string> names;
+    mtl::rem_duplicates_preserve(names);
+    std::list<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
 
 TEST_CASE("mtl::rem_duplicates_preserve for std::list")
 {
@@ -1218,10 +2596,45 @@ TEST_CASE("mtl::rem_duplicates_preserve with custom predicate for std::list")
 }
 
 
+TEST_CASE("mtl::rem_duplicates_preserve with custom hash and predicate, custom class, std::list")
+{
+    class custom_class 
+    {
+        public:
+        int x = 0;
+    };
 
-// ------------------------------------------------------------------------------------------------
-// mtl::contains, mtl::contains_all, mtl::contains_all_sorted
-// ------------------------------------------------------------------------------------------------
+    custom_class c1;
+    c1.x = 1;
+    custom_class c2;
+    c2.x = 2;
+    custom_class c3;
+    c3.x = 3;
+    custom_class c4;
+    c4.x = 4;
+    std::list<custom_class> custom_con {c4, c1, c2, c3, c3, c2, c1, c1};
+
+    mtl::rem_duplicates_preserve(custom_con, 
+                                 [](const auto& element)
+                                 {
+                                     return std::hash<int>{}(element.x);
+                                 },
+                                 [](const auto& rhs, const auto& lhs)
+                                 {
+                                     return rhs.x == lhs.x;
+                                 });
+   
+    std::list<custom_class> desired_result {c4, c1, c2, c3};
+
+    REQUIRE_EQ(custom_con.size(), desired_result.size());
+    for(size_t i = 0; i < custom_con.size(); ++i)
+    {
+        auto cl_it = std::next(custom_con.begin(), static_cast<std::ptrdiff_t>(i));
+        auto dr_it = std::next(desired_result.begin(), static_cast<std::ptrdiff_t>(i));
+        REQUIRE_EQ(cl_it->x, dr_it->x);
+    }
+}
+
 
 
 // ------------------------------------------------------------------------------------------------
@@ -1695,6 +3108,261 @@ TEST_CASE("mtl::contains_all_sorted for containers<std::string> with find functi
 
 
 // ------------------------------------------------------------------------------------------------
+// mtl::for_each
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::for_each results compared to std::for_each results with empty container")
+{
+    std::vector<int> v1;
+    auto v2 = v1;
+    std::vector<int> results;
+    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x * 10;});
+    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x * 10;});
+    CHECK_EQ((v1 == v2), true);
+    CHECK_EQ((v1 == results), true);
+    CHECK_EQ((v2 == results), true);
+}
+
+TEST_CASE("mtl::for_each results compared to std::for_each results")
+{
+    std::vector<int> v1 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
+    auto v2 = v1;
+    std::vector<int> results {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x * 10;});
+    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x * 10;});
+    CHECK_EQ((v1 == v2), true);
+    CHECK_EQ((v1 == results), true);
+    CHECK_EQ((v2 == results), true);
+}
+
+TEST_CASE("mtl::for_each results compared to std::for_each results, std::string")
+{
+    std::vector<std::string> v1 {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    auto v2 = v1;
+    std::vector<std::string> results {"00", "11", "22", "33", "44", "55", "66", "77", "88", "99", 
+                                      "1010"};
+    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x + x;});
+    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x + x;});
+    CHECK_EQ((v1 == v2), true);
+    CHECK_EQ((v1 == results), true);
+    CHECK_EQ((v2 == results), true);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of ints")
+{
+    auto tp = std::make_tuple(10, 20, 30, 40);
+    int total = 0;
+    mtl::for_each(tp, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of different types")
+{
+    auto tp = std::make_tuple(10, 'a', std::string("bcd"));
+    std::stringstream ss;
+    mtl::for_each(tp, [&ss](auto item) { ss << item;});
+    std::string result = "10abcd";
+    REQUIRE_EQ(ss.str(), result);
+}
+
+TEST_CASE("mtl::for_each for std::pair of ints")
+{
+    auto p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of different types")
+{
+    auto p = std::pair<int, std::string>(1337 , std::string("|0123456789"));
+    std::stringstream ss;
+    mtl::for_each(p, [&ss](auto item) { ss << item;});
+    std::string result = "1337|0123456789";
+    REQUIRE_EQ(ss.str(), result);
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::for_adj_pairs
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::for_adj_pairs for empty std::vector<int>, accumulation")
+{
+
+    std::vector<int> vi;
+    int result = 0;
+    int total = 0;
+    mtl::for_adj_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+    REQUIRE_EQ(vi.empty(), true);
+    REQUIRE_EQ(total, result);
+}
+
+TEST_CASE("mtl::for_adj_pairs for std::vector<int>, accumulation")
+{
+
+    std::vector<int> vi { 1, 2, 3, 4, 5 };
+    int result = 3 + 5 + 7 + 9;
+    int total = 0;
+    mtl::for_adj_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+    REQUIRE_EQ(total, result);
+}
+
+TEST_CASE("mtl::for_adj_pairs for std::vector<int>")
+{
+    std::vector<int> vi { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 };
+    mtl::for_adj_pairs(vi.begin(), vi.end(), [](auto rhs, auto lhs)
+                       {
+                          REQUIRE_EQ((rhs+lhs), 3);
+                       });
+
+}
+
+TEST_CASE("mtl::for_adj_pairs for std::vector<std::string>")
+{
+    std::vector<std::string> vs { "aa", "b", "cc", "d", "ee" };
+    mtl::for_adj_pairs(vs.begin(), vs.end(), [](auto rhs, auto lhs)
+                       {
+                          std::string combined = rhs + lhs;
+                          REQUIRE_EQ(combined.size(), size_t(3));
+                       });
+
+}
+
+
+TEST_CASE("mtl::for_adj_pairs for std::list<int>, accumulation")
+{
+
+    std::list<int> li { 1, 2, 3, 4, 5 };
+    int result = 3 + 5 + 7 + 9;
+    int total = 0;
+    mtl::for_adj_pairs(li.begin(), li.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+    REQUIRE_EQ(total, result);
+}
+
+TEST_CASE("mtl::for_adj_pairs for std::list<int>")
+{
+    std::list<int> li { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 };
+    mtl::for_adj_pairs(li.begin(), li.end(), [](auto rhs, auto lhs)
+                       {
+                          REQUIRE_EQ((rhs+lhs), 3);
+                       });
+
+}
+
+TEST_CASE("mtl::for_adj_pairs for std::list<std::string>")
+{
+    std::list<std::string> ls { "aa", "b", "cc", "d", "ee" };
+    mtl::for_adj_pairs(ls.begin(), ls.end(), [](auto rhs, auto lhs)
+                       {
+                          std::string combined = rhs + lhs;
+                          REQUIRE_EQ(combined.size(), size_t(3));
+                       });
+
+}
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::for_all_pairs
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::for_all_pairs for empty std::vector<int>, accumulation")
+{
+    std::vector<int> vi;
+    int result = 0;
+    int total = 0;
+    mtl::for_all_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+   REQUIRE_EQ(vi.empty(), true);
+   REQUIRE_EQ(total, result);
+}
+
+TEST_CASE("mtl::for_all_pairs for std::vector<int>, accumulation")
+{
+    std::vector<int> vi { 1, 2, 3, 4 };
+    int result = (1 + 2 + 1 + 3 + 1 + 4) + (2 + 3 + 2 + 4) + ( 3 + 4);
+    int total = 0;
+    mtl::for_all_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+   REQUIRE_EQ(total, result);
+}
+
+
+TEST_CASE("mtl::for_all_pairs for std::vector<int>, even")
+{
+    std::vector<int> vi { 2, 4, 6, 8, 10 };
+    mtl::for_all_pairs(vi.begin(), vi.end(), [](auto rhs, auto lhs)
+                       {
+                          REQUIRE_EQ(((rhs+lhs) % 2 == 0), true);
+                       });
+
+}
+
+TEST_CASE("mtl::for_all_pairs for std::vector<std::string>")
+{
+    std::vector<std::string> vs { "aa", "bb", "cc" };
+    std::string combined;
+    std::string result = "aabbaaccbbcc";
+    mtl::for_all_pairs(vs.begin(), vs.end(), [&combined](auto rhs, auto lhs)
+                       {
+                           combined += rhs + lhs;
+                       });
+    REQUIRE_EQ(combined, result);
+}
+
+
+TEST_CASE("mtl::for_all_pairs for std::list<int>, accumulation")
+{
+    std::list<int> li { 1, 2, 3, 4 };
+    int result = (1 + 2 + 1 + 3 + 1 + 4) + (2 + 3 + 2 + 4) + ( 3 + 4);
+    int total = 0;
+    mtl::for_all_pairs(li.begin(), li.end(), [&total](auto rhs, auto lhs)
+                       {
+                          total += rhs + lhs;
+                       });
+   REQUIRE_EQ(total, result);
+}
+
+
+TEST_CASE("mtl::for_all_pairs for std::list<int>, even")
+{
+    std::list<int> li { 2, 4, 6, 8, 10 };
+    mtl::for_all_pairs(li.begin(), li.end(), [](auto rhs, auto lhs)
+                       {
+                          REQUIRE_EQ(((rhs+lhs) % 2 == 0), true);
+                       });
+
+}
+
+TEST_CASE("mtl::for_all_pairs for std::list<std::string>")
+{
+    std::list<std::string> ls { "aa", "bb", "cc" };
+    std::string combined;
+    std::string result = "aabbaaccbbcc";
+    mtl::for_all_pairs(ls.begin(), ls.end(), [&combined](auto rhs, auto lhs)
+                       {
+                           combined += rhs + lhs;
+                       });
+    REQUIRE_EQ(combined, result);
+}
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
 // mtl::fill_range
 // ------------------------------------------------------------------------------------------------
 
@@ -1814,254 +3482,48 @@ TEST_CASE("mtl::fill_range with std::string with larger input and smaller ouput"
 }
 
 
-// ------------------------------------------------------------------------------------------------
-// mtl::for_each
-// ------------------------------------------------------------------------------------------------
 
-TEST_CASE("mtl::for_each results compared to std::for_each results")
-{
-    std::vector<int> v1 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
-    auto v2 = v1;
-    std::vector<int> results {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x * 10;});
-    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x * 10;});
-    CHECK_EQ((v1 == v2), true);
-    CHECK_EQ((v1 == results), true);
-    CHECK_EQ((v2 == results), true);
-}
-
-TEST_CASE("mtl::for_each results compared to std::for_each results, std::string")
-{
-    std::vector<std::string> v1 {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    auto v2 = v1;
-    std::vector<std::string> results {"00", "11", "22", "33", "44", "55", "66", "77", "88", "99", 
-                                      "1010"};
-    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x + x;});
-    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x + x;});
-    CHECK_EQ((v1 == v2), true);
-    CHECK_EQ((v1 == results), true);
-    CHECK_EQ((v2 == results), true);
-}
-
-TEST_CASE("mtl::for_each for std::tuple of ints")
-{
-    auto tp = std::make_tuple(10, 20, 30, 40);
-    int total = 0;
-    mtl::for_each(tp, [&total](auto num) { total += num;});
-    REQUIRE_EQ(total, 100);
-}
-
-TEST_CASE("mtl::for_each for std::tuple of different types")
-{
-    auto tp = std::make_tuple(10, 'a', std::string("bcd"));
-    std::stringstream ss;
-    mtl::for_each(tp, [&ss](auto item) { ss << item;});
-    std::string result = "10abcd";
-    REQUIRE_EQ(ss.str(), result);
-}
-
-TEST_CASE("mtl::for_each for std::pair of ints")
-{
-    auto p = std::pair<int, int>(70 , 30);
-    int total = 0;
-    mtl::for_each(p, [&total](auto num) { total += num;});
-    REQUIRE_EQ(total, 100);
-}
-
-TEST_CASE("mtl::for_each for std::tuple of different types")
-{
-    auto p = std::pair<int, std::string>(1337 , std::string("|0123456789"));
-    std::stringstream ss;
-    mtl::for_each(p, [&ss](auto item) { ss << item;});
-    std::string result = "1337|0123456789";
-    REQUIRE_EQ(ss.str(), result);
-}
-
-// ------------------------------------------------------------------------------------------------
-// mtl::for_adj_pairs, mtl::for_all_pairs
-// ------------------------------------------------------------------------------------------------
-
-// ------------------
-// mtl::for_adj_pairs
-// ------------------
-
-TEST_CASE("mtl::for_adj_pairs for empty std::vector<int>, accumulation")
-{
-
-    std::vector<int> vi;
-    int result = 0;
-    int total = 0;
-    mtl::for_adj_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-    REQUIRE_EQ(vi.empty(), true);
-    REQUIRE_EQ(total, result);
-}
-
-TEST_CASE("mtl::for_adj_pairs for std::vector<int>, accumulation")
-{
-
-    std::vector<int> vi { 1, 2, 3, 4, 5 };
-    int result = 3 + 5 + 7 + 9;
-    int total = 0;
-    mtl::for_adj_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-    REQUIRE_EQ(total, result);
-}
-
-TEST_CASE("mtl::for_adj_pairs for std::vector<int>")
-{
-    std::vector<int> vi { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 };
-    mtl::for_adj_pairs(vi.begin(), vi.end(), [](auto rhs, auto lhs)
-                       {
-                          REQUIRE_EQ((rhs+lhs), 3);
-                       });
-
-}
-
-TEST_CASE("mtl::for_adj_pairs for std::vector<std::string>")
-{
-    std::vector<std::string> vs { "aa", "b", "cc", "d", "ee" };
-    mtl::for_adj_pairs(vs.begin(), vs.end(), [](auto rhs, auto lhs)
-                       {
-                          std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
-                       });
-
-}
-
-
-TEST_CASE("mtl::for_adj_pairs for std::list<int>, accumulation")
-{
-
-    std::list<int> li { 1, 2, 3, 4, 5 };
-    int result = 3 + 5 + 7 + 9;
-    int total = 0;
-    mtl::for_adj_pairs(li.begin(), li.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-    REQUIRE_EQ(total, result);
-}
-
-TEST_CASE("mtl::for_adj_pairs for std::list<int>")
-{
-    std::list<int> li { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 };
-    mtl::for_adj_pairs(li.begin(), li.end(), [](auto rhs, auto lhs)
-                       {
-                          REQUIRE_EQ((rhs+lhs), 3);
-                       });
-
-}
-
-TEST_CASE("mtl::for_adj_pairs for std::list<std::string>")
-{
-    std::list<std::string> ls { "aa", "b", "cc", "d", "ee" };
-    mtl::for_adj_pairs(ls.begin(), ls.end(), [](auto rhs, auto lhs)
-                       {
-                          std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
-                       });
-
-}
-
-
-// ------------------
-// mtl::for_all_pairs
-// ------------------
-TEST_CASE("mtl::for_all_pairs for empty std::vector<int>, accumulation")
-{
-    std::vector<int> vi;
-    int result = 0;
-    int total = 0;
-    mtl::for_all_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-   REQUIRE_EQ(vi.empty(), true);
-   REQUIRE_EQ(total, result);
-}
-
-TEST_CASE("mtl::for_all_pairs for std::vector<int>, accumulation")
-{
-    std::vector<int> vi { 1, 2, 3, 4 };
-    int result = (1 + 2 + 1 + 3 + 1 + 4) + (2 + 3 + 2 + 4) + ( 3 + 4);
-    int total = 0;
-    mtl::for_all_pairs(vi.begin(), vi.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-   REQUIRE_EQ(total, result);
-}
-
-
-TEST_CASE("mtl::for_all_pairs for std::vector<int>, even")
-{
-    std::vector<int> vi { 2, 4, 6, 8, 10 };
-    mtl::for_all_pairs(vi.begin(), vi.end(), [](auto rhs, auto lhs)
-                       {
-                          REQUIRE_EQ(((rhs+lhs) % 2 == 0), true);
-                       });
-
-}
-
-TEST_CASE("mtl::for_all_pairs for std::vector<std::string>")
-{
-    std::vector<std::string> vs { "aa", "bb", "cc" };
-    std::string combined;
-    std::string result = "aabbaaccbbcc";
-    mtl::for_all_pairs(vs.begin(), vs.end(), [&combined](auto rhs, auto lhs)
-                       {
-                           combined += rhs + lhs;
-                       });
-    REQUIRE_EQ(combined, result);
-}
-
-
-TEST_CASE("mtl::for_all_pairs for std::list<int>, accumulation")
-{
-    std::list<int> li { 1, 2, 3, 4 };
-    int result = (1 + 2 + 1 + 3 + 1 + 4) + (2 + 3 + 2 + 4) + ( 3 + 4);
-    int total = 0;
-    mtl::for_all_pairs(li.begin(), li.end(), [&total](auto rhs, auto lhs)
-                       {
-                          total += rhs + lhs;
-                       });
-   REQUIRE_EQ(total, result);
-}
-
-
-TEST_CASE("mtl::for_all_pairs for std::list<int>, even")
-{
-    std::list<int> li { 2, 4, 6, 8, 10 };
-    mtl::for_all_pairs(li.begin(), li.end(), [](auto rhs, auto lhs)
-                       {
-                          REQUIRE_EQ(((rhs+lhs) % 2 == 0), true);
-                       });
-
-}
-
-TEST_CASE("mtl::for_all_pairs for std::list<std::string>")
-{
-    std::list<std::string> ls { "aa", "bb", "cc" };
-    std::string combined;
-    std::string result = "aabbaaccbbcc";
-    mtl::for_all_pairs(ls.begin(), ls.end(), [&combined](auto rhs, auto lhs)
-                       {
-                           combined += rhs + lhs;
-                       });
-    REQUIRE_EQ(combined, result);
-}
 
 // ------------------------------------------------------------------------------------------------
 // mtl::range
 // ------------------------------------------------------------------------------------------------
 
+TEST_CASE("mtl::range with empty range")
+{
+    int total = 0;
+    for(auto number : mtl::range(0, 0)) { total += number; }
+    REQUIRE_EQ(total, 0); 
 
+    for(auto number : mtl::range(1, 1)) { total += number; }
+    REQUIRE_EQ(total, 0); 
 
+    for(auto number : mtl::range(2, 2)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(3, 3)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(5, 5)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(555, 555)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(-1, -1)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(-2, -2)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(-3, -3)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(-5, -5)) { total += number; }
+    REQUIRE_EQ(total, 0); 
+
+    for(auto number : mtl::range(-555, -555)) { total += number; }
+    REQUIRE_EQ(total, 0);
+}
 
 TEST_CASE("mtl::range with int")
 {

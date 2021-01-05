@@ -65,7 +65,7 @@ TEST_CASE("mtl::chrono::stopwatch : Start and Stop function")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
     sw.stop();
     // approximately equal
     CHECK_GT(sw.elapsed_nano(),    0.0);

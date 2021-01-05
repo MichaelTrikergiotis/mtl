@@ -23,9 +23,9 @@ Other C++ 17 conforming compilers may work correctly but are not currently activ
 
 Tested compiler and operating systems combinations :
 
-1. MSVC and clang on Windows
-2. gcc and clang on Linux
-3. gcc and clang on MacOS
+1. MSVC, clang and gcc on Windows
+2. clang and gcc on Linux
+3. clang and gcc on MacOS
 
 ------------------------------------------------------------
 
@@ -49,9 +49,6 @@ int main()
 ## How to run the tests
 
 **You must have [CMake](https://cmake.org/) installed.**
-
-[**NOTE**]
-There is a CMake option ```ENABLE_CONSOLE_TESTS``` that enables all the tests for ```mtl::console```, that are disabled by default. If you want to visually inspect the ```mtl::console``` tests output use the ```-tce="*clear"``` option when running the tests.
 
 ### LINUX with gcc
 
@@ -90,7 +87,7 @@ Open `x64 Native Tools Command Prompt for VS 2019` (`vcvars64.bat`) and navigate
 [**NOTE**] Because of a bug in `doctest` 2.4 all colors for `doctest` are disabled for `clang` in Windows. For more info check :
 [https://github.com/onqtam/doctest/issues/356](https://github.com/onqtam/doctest/issues/356)
 
-You must add **clang** to your path. If you don't know how to do that check [adding clang to your PATH](./docs/clang-windows.md).
+You must add **clang** to your path. If you don't know how to do that check [adding clang to your PATH](./clang-windows.md).
 
 **You must have [Ninja](https://ninja-build.org/) installed.**
 

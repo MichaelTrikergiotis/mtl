@@ -14,11 +14,12 @@ Modern, fast, easy. Makes C++ a joy to use.
 ## Introduction
 
 The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It provides a lot of functionality that other languages include by default in their standard libraries.
+
 For a quick overview of what **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
 
-**mtl** tries to be as standard compliant as possible by using standard compliant C++ 17. Follows the C++ standard library naming scheme and uses the C++ standard library algorithms and containers.
+**mtl** tries to be as standard compliant as possible by using standard compliant C++ 17. It also follows the C++ standard library naming scheme and uses the C++ standard library algorithms and containers.
 
-A nice feature of the library is that it has detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
+A nice feature of the library is that it contains detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
 
 ## Getting started
 
@@ -63,15 +64,15 @@ std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " li
 mtl::console::println(message);
 ```
 
-This should combine variables of various types together to an `std::string`. Then it should print to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
+`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
 
-The same as the above could be achieved with :
+The same output as the above could also be achieved with :
 
 ```c++
 mtl::console::print("Hello from ", 'a', planet, 12.24f, " lightyears away.", '\n');
 ```
 
-Please note that we use `mtl::console::print` with multiple variables and a newline at the end instead of `mtl::console::println` because `mtl::console::println` prints a newline character after each parameter you pass to it.
+Please note that we use `mtl::console::print` with the same variables as before but also add a newline variable at the end.
 
 [**EXAMPLE 4**]
 
@@ -104,32 +105,32 @@ The variable `time_taken_us` is a double for how many microseconds it took `my_s
 Write each element of a container on a different line of a file then read all lines of that file :
 
 ```c++
-const std::vector<std::string> countries { "Italy", "Brazil", "Greece", "Japan"};
+const std::vector<std::string> countries { "Italy", "Brazil", "Greece", "Japan" };
 bool written_ok = mtl::filesystem::write_all_lines("countries.txt", countries.begin(), 
                                                                     countries.end());
 
-std::vector<std::string> read_counties;
-bool read_ok = mtl::filesystem::read_all_lines("countries.txt", read_counties);
+std::vector<std::string> read_countries;
+bool read_ok = mtl::filesystem::read_all_lines("countries.txt", read_countries);
 ```
 
 If the file was written successfully the `written_ok` boolean is set to true and each country from `countries` is written in a seperate line to the specified file.
 
-If the file was read successfully the `read_ok` boolean is set to true and the `read_counties` container contains all lines read from the specified file.
+If the file was read successfully the `read_ok` boolean is set to true and the `read_countries` container contains all lines read from the specified file.
 
-Now if you compare `countries` and `read_counties` they will be equal.
+Now if you compare `countries` and `read_countries` they will be equal.
 
 ## Goals
 
 1. High Performance. Be just as fast or faster than the C++ standard library and Boost, in case of similar algorithms.
 2. Retain the only pay for what you use philosophy of C++ but be as high level as possible.
-3. Be easy to use. If you know how to use C++ standard library you don't need to learn almost anything new.
-4. Be very well tested with very high test coverage.
-5. Be very well commented and documented.
-6. Be cross platform and portable. Use the least amount of platform specific code.
-7. Be versatile and serve different usage needs.
-8. Have many high quality examples for all parts of the library.
+3. Be cross platform and portable. Use the least amount of platform specific code.
+4. Be easy to use. If you know how to use C++ standard library you don't need to learn almost anything new.
+5. Be versatile and serve different usage needs.
+6. Be very well tested with very high test coverage.
+7. Be very well commented and documented.
+8. Have multiple high quality examples for all parts of the library.
 9. If something exists in another language, works well and translates nicely to C++ we use it.
-10. Use modern C++ 17, not old style C++, C with classes or C. Use naming conventions close to the C++ standard library.
+10. Use modern standard compliant C++ 17 not old style C++, C with classes or C.
 
 ## Non-goals
 

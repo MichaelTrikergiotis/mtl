@@ -29,10 +29,11 @@ jobs:
           windows-2019-cl,
           windows-2019-clang-cl,
           windows-2019-clang,
-          ubuntu-20.04-gcc-9,
-          ubuntu-20.04-clang-9,
-          macOS-10.15-xcode-11.3,
-          macOS-10.15-xcode-11.7
+          windows-2019-mingw,
+          ubuntu-20.04-gcc,
+          ubuntu-20.04-clang,
+          macOS-10.15-clang,
+          macOS-10.15-gcc
         ]
 
         include:
@@ -47,26 +48,30 @@ jobs:
           - name: windows-2019-clang
             os: windows-2019
             compiler: clang
+      
+          - name: windows-2019-mingw
+            os: windows-2019
+            compiler: mingw-w64
 
-          - name: ubuntu-20.04-gcc-9
+          - name: ubuntu-20.04-gcc
             os: ubuntu-20.04
             compiler: gcc
-            version: "9"
+            version: "10"
 
-          - name: ubuntu-20.04-clang-9
+          - name: ubuntu-20.04-clang
             os: ubuntu-20.04
             compiler: clang
-            version: "9"
-
-          - name: macOS-10.15-xcode-11.3
+            version: "10"
+         
+          - name: macOS-10.15-clang
             os: macOS-10.15
             compiler: xcode
-            version: "11.3"
-
-          - name: macOS-10.15-xcode-11.7
+            version: "12.2"
+         
+          - name: macOS-10.15-gcc
             os: macOS-10.15
-            compiler: xcode
-            version: "11.7"
+            compiler: gcc
+            version: "10"
 
     steps:
       - uses: actions/checkout@v2
@@ -76,6 +81,13 @@ jobs:
       - name: Install and setup Windows packages
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install and setup MSYS2 mingw
+        if: runner.os == 'Windows' && matrix.compiler == 'mingw-w64'
+        uses: msys2/setup-msys2@v2     
+        with:
+          msystem: MINGW64
+          install: mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake make gcc
 
       - name: Build Debug Windows MSVC
         if: runner.os == 'Windows' &&  matrix.compiler == 'cl'
@@ -109,6 +121,18 @@ jobs:
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug
           cmake --build . 
           .\tests.exe  
+
+      - name: Build Debug Windows mingw
+        if: runner.os == 'Windows' &&  matrix.compiler == 'mingw-w64'
+        shell: msys2 {0}
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug
+          cmake --build . -- -j2
+          ./tests
           
       - name: Build Release Windows MSVC
         if: runner.os == 'Windows' &&  matrix.compiler == 'cl'
@@ -143,6 +167,18 @@ jobs:
           cmake --build . 
           .\tests.exe
 
+      - name: Build Release Windows mingw
+        if: runner.os == 'Windows' &&  matrix.compiler == 'mingw-w64'
+        shell: msys2 {0}
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
+          cmake --build . -- -j2
+          ./tests
+
 
 
       # Linux 
@@ -151,7 +187,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ninja-build
+          sudo apt-get install -y ninja-build 
 
           if [ "${{ matrix.compiler }}" = "gcc" ]; then
             sudo apt-get install -y g++-${{ matrix.version }} g++-${{ matrix.version }}-multilib
@@ -174,17 +210,6 @@ jobs:
           cmake --build .
           ./tests
       
-      - name: Build Release Linux
-        if: runner.os == 'Linux'
-        run: |
-          cd tests
-          rm -rf build
-          mkdir build
-          cd build
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build .
-          ./tests
-
       - name: Build Debug Linux clang and libcxx
         if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
         run: |
@@ -193,6 +218,17 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+
+      - name: Build Release Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build .
           ./tests
       
@@ -205,9 +241,8 @@ jobs:
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build .
-          ./tests 
-
-      
+          ./tests
+     
 
       # macOS
 
@@ -226,8 +261,8 @@ jobs:
             export "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
           fi
 
-      - name: Build Debug MacOS
-        if: runner.os == 'MacOS'
+      - name: Build Debug MacOS clang
+        if: runner.os == 'MacOS' &&  matrix.compiler == 'xcode'
         run: |
           cd tests
           rm -rf build
@@ -237,8 +272,19 @@ jobs:
           cmake --build .
           ./tests
 
-      - name: Build Release MacOS
-        if: runner.os == 'MacOS'
+      - name: Build Debug MacOS gcc
+        if: runner.os == 'MacOS' &&  matrix.compiler == 'gcc'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10 -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+          ./tests
+
+      - name: Build Release MacOS clang
+        if: runner.os == 'MacOS' &&  matrix.compiler == 'xcode' 
         run: |
           cd tests
           rm -rf build
@@ -246,4 +292,15 @@ jobs:
           cd build
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build .
-          ./tests    
+          ./tests
+
+      - name: Build Release MacOS gcc
+        if: runner.os == 'MacOS' &&  matrix.compiler == 'gcc'
+        run: |
+          cd tests
+          rm -rf build
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10 -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ./tests

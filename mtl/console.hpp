@@ -10,6 +10,7 @@
 
 #include "definitions.hpp" // various definitions
 #include <string>          // std::string
+#include <string_view>     // std::string_view
 #include <cstring>         // std::strlen
 #include <vector>          // std::vector
 #include <iterator>        // std::distance
@@ -32,13 +33,21 @@
 #endif // WIN32_LEAN_AND_MEAN
 
 #include <io.h>      // _isatty
-#include <stdio.h>   // _fileno
+#include <cstdio>    // _fileno
 #include <stdexcept> // std::runtime_error
 #include <mutex>     // std::mutex, std::lock_guard
+
+#if defined(__MINGW32__) || defined(__MINGW64__)
+// we need to include the lowercase windows.h header because it fixes a cross-compilation issue
+// when compiling with mingw on Linux targeting Windows
+#include <windows.h>
+#else
+// use the Windows.h header like normal
 #include <Windows.h> // HANDLE, WORD, DWORD, COORD, TCHAR, CONSOLE_SCREEN_BUFFER_INFO, 
 					 // STD_OUTPUT_HANDLE, GetStdHandle, SetConsoleTextAttribute,
 					 // SetConsoleCursorPosition, GetConsoleScreenBufferInfo,
 					 // FillConsoleOutputCharacter, FillConsoleOutputAttribute
+#endif // __MINGW32__ and __MINGW64__ end
 
 
 // Linux / Unix only headers
@@ -123,12 +132,12 @@ inline bool enable_win_ascii()
 
 // If this is false we are in Windows 10 v.1607 or later. If this is set to true then we are in
 // older versions of Windows and have to use WIN32 API for some of the console functionality.
-const bool legacy_windows = !(enable_win_ascii());
+static const bool legacy_windows = !(enable_win_ascii());
 
 
 // Mutex used to lock legacy Windows console functions that use WIN32 API to interact with the
 // console and allows them to be thread safe.
-std::mutex console_mutex_legacy_win;
+static std::mutex console_mutex_legacy_win;
 
 
 #else
@@ -145,7 +154,7 @@ inline bool is_terminal()
 
 
 // Reports if we are running in the terminal or not.
-const bool inside_terminal = is_terminal();
+static const bool inside_terminal = is_terminal();
 
 
 } // namespace detail end
@@ -723,7 +732,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			}
 
 			// get the part
-			std::string part = argument_newline.substr(start, match_pos - start);
+			const std::string_view part(argument_newline.data() + start, match_pos - start);
 
 			// print the part
 			fmt::print("{}", part);
@@ -748,7 +757,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		if ((last_pos + 1) < argument_newline.size())
 		{
 			// print the last part
-			auto part = argument_newline.substr(last_pos + 1);
+			const std::string_view part(argument_newline.data() + (last_pos + 1));
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
@@ -1017,7 +1026,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 			// GCOVR_EXCL_START
 			
 			// get the part
-			std::string part = argument_newline.substr(start, match_pos - start);
+			const std::string_view part(argument_newline.data() + start, match_pos - start);
 			
 
 			// print the part and then newline character with default colors
@@ -1037,7 +1046,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		if ((last_pos + 1) < argument_newline.size())
 		{
 			// get the last part
-			auto part = argument_newline.substr(last_pos + 1);
+			const std::string_view part(argument_newline.data() + (last_pos + 1));
 
 			// print the last part
 			fmt::print("{}{}{}\033[0m\x1B[K", fg_color, bg_color, part);
@@ -1161,7 +1170,7 @@ inline void println_color(const Type& arg,
 /// Allows you to print over already printed characters to the console. Flushes the stdout buffer 
 /// on every call. Can only overtype characters that are not on a previous line. Can only overtype 
 /// characters when the output is a console and not when redirecting to a file or a pipe.
-/// @param[in] arg An argument to overtype.
+/// @param[in] argument An argument to overtype.
 inline void overtype(const std::string& argument)
 {
 	// GCOVR_EXCL_START
@@ -1176,8 +1185,8 @@ inline void overtype(const std::string& argument)
     // create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
     // performance gain in the range of 2x to 8x times faster
-    std::string str(argument.size(), '\b');
-    fmt::print(str);
+    std::string multiple_backspaces(argument.size(), '\b');
+    fmt::print(multiple_backspaces);
 	
 	fmt::print(argument);
 	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
@@ -1187,7 +1196,7 @@ inline void overtype(const std::string& argument)
 /// Allows you to print over already printed characters to the console. Flushes the stdout buffer 
 /// on every call. Can only overtype characters that are not on a previous line. Can only overtype 
 /// characters when the output is a console and not when redirecting to a file or a pipe.
-/// @param[in] arg An argument to overtype.
+/// @param[in] argument An argument to overtype.
 inline void overtype(const char* argument)
 {
 	// GCOVR_EXCL_START
@@ -1203,8 +1212,8 @@ inline void overtype(const char* argument)
 	// create a string consisting of \b that will move the cursor back, this allows us to avoid
     // printing \b multiple times and we instead need to print only once, this is a significant
     // performance gain in the range of 2x to 8x times faster
-	std::string str(size, '\b');
-	fmt::print(str);
+	std::string multiple_backspaces(size, '\b');
+	fmt::print(multiple_backspaces);
 	
 	fmt::print(argument);
 	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux

@@ -1,6 +1,6 @@
 # List of MACROS
 
-## The following MACROS require to pass parameters
+## The following MACROS require parameters to be passed
 
 [**Recommended to use**]
 
@@ -11,7 +11,7 @@ MTL_ASSERT_MSG
 This is a direct replacement for the C++ ```assert``` macro that has the same functionality but also includes a message to report the exact cause for the assert to the user.
 It is found in the *utility.hpp*. This macro is recommended to use as it adds more clarity than ```assert```.
 
-## The following the MACROS just need to be defined before including the appropriate mtl headers
+## The following the MACROS just need to be defined before the appropriate headers
 
 [**Recommended to use**]
 
@@ -19,7 +19,7 @@ It is found in the *utility.hpp*. This macro is recommended to use as it adds mo
 MTL_DIV_ZERO_THROW
 ```
 
-If the macro is defined doesn't allow some of the mathematical functions from math.hpp to perform division by zero and instead throws an exception of type ```std::invalid_argument```. It is recommended to define this flag to catch serious division by zero errors. The reason it is not defined by default is to follow the C++ way of not paying for what you don't use and also follow C++ standard library convention of not catching division by zero errors. This has some implications for performance. When defined and the code doesn't perform division by zero so we don't have to throw the performance hit, excluding autovectorization and inlining, should be very minimal. In the case we throw an exception the performance hit is very big, as is to be expected for the current implementation of exceptions in C++. With ```MTL_DIV_ZERO_THROW``` enabled even if we never throw autovectorization and function inlining can be potentially hindered depending on compiler and compiler flags. This macro is used in **mtl** tests found in the tests folder so we can test the **mtl** more thoroughly.
+If the macro is defined doesn't allow some of the mathematical functions from math.hpp to perform division by zero and instead throws an exception of type ```std::invalid_argument```. It is recommended to define this flag to catch division by zero errors. The reason it is not defined by default is to follow the C++ way of not paying for what you don't use and also follow C++ standard library convention of not catching division by zero errors. This has some implications for performance. When defined and the code doesn't perform division by zero, so we don't have to throw, the performance hit should be very minimal. In the case we throw an exception the performance hit is very big, as is to be expected for the current implementation of exceptions in C++. This macro is used in **mtl** tests found in the tests folder so we can test the **mtl** more thoroughly.
 
 ----------------------
 

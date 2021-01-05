@@ -5,11 +5,15 @@
 # CMAKE_CXX_STANDARD_REQUIRED was introduced 
 cmake_minimum_required(VERSION 3.8)
 
+
 project(mtl)
 
-message("-- CMake Vesion is ${CMAKE_VERSION}.")
 
-#set the standard to C++ 17
+message("-- CMake version is ${CMAKE_VERSION}")
+message("-- CMake generator is ${CMAKE_GENERATOR}")
+
+
+# set the standard to C++ 17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -29,7 +33,7 @@ if (WIN32)
         # for CMake versions above 3.15 for some configurations CMake may not add the /W3 flag
         # for us to replace so we have to add it to be sure
         if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.15.0")
-            add_compile_options(/W4)   
+            add_compile_options(/W4) 
         endif()
 
         # the /EHsc flag turns on standard C++ stack unwinding and C++ exception handling
@@ -37,7 +41,7 @@ if (WIN32)
         # the analyze flag turns on MSVC static analyzer
         add_compile_options(/EHsc /WX /analyze)
 
-    #check if the compiler is clang
+    # check if the compiler is clang
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
         # option to enable clang++
@@ -53,19 +57,20 @@ if (WIN32)
             endif()
         endif()
        
-       
+        # enable gnu like flags for clang++ on Windows
         if(ENABLE_GNU_LIKE_CLANG)
-            message("-- Compiler used clang++")   
+            message("-- Compiler used clang++") 
             
             # enable a lot of warnings and turn them to errors for clang
-            add_compile_options(-Werror -Wall -Wextra)            
+            add_compile_options(-Werror -Wall -Wextra)
+        # enable cl like flags for clang-cl on Windows
         else()
             
             message("-- Compiler used clang-cl")
 
             # because CMake adds the flag /W3 and we want the flag /W4 instead
             # we have to replace it in the C++ flags variable using REGEX REPLACE
-            string(REGEX REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")  
+            string(REGEX REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
             # for CMake versions above 3.15 for some configurations CMake may not add the /W3
             # flag for us to replace so we have to add it to be sure
@@ -77,17 +82,42 @@ if (WIN32)
             # the /WX flag turns warnings to errors
             add_compile_options(/EHsc /WX)
         endif()
- 
+    # check if the compiler is g++
+    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+        message("-- Compiler used g++")
+        # enable a lot of warnings and turn them to errors for gcc
+        add_compile_options(-Werror -Wall -Wextra)
     endif()
-    
 
-    # set tests as the default project for the Visual Studio solution
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT tests) 
-    # put the automatically generated projects to their own folder to keep things clean
-    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+    # when building with MSBuild
+    if("${CMAKE_GENERATOR}" MATCHES "^Visual Studio")
+        message("-- Building with MSBuild")
+        # set tests as the default project for the Visual Studio solution
+        set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT tests) 
+        # put the automatically generated projects to their own folder to keep things clean
+        set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+    endif()
 
-# if the we are not in Windows then we must be in Linux or Unix so we  use gcc and clang flags
+# if the we are not in Windows then we must be in Linux or Unix so we use gcc and clang flags
 else()
+
+    # option that enables clang-tidy
+    option(ENABLE_CLANG_TIDY "This option enables clang-tidy" OFF)
+    if(ENABLE_CLANG_TIDY)
+        # check if clang-tidy exists
+        find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+        # if we couldn't find clang-tidy print an warning message and continue
+        if(NOT CLANG_TIDY_COMMAND)
+            message(WARNING "-- Could not find clang-tidy")
+            set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
+        # if we found clang-tidy pass the correct flags and print a message that clang-tidy is enabled
+        else()
+            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-cppcoreguidelines-pro-*,-modernize-use-auto,-modernize-use-equals-delete,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-modernize-use-trailing-return-type")
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};-checks=${CLANG_TIDY_CHECKS};-warnings-as-errors=${CLANG_TIDY_CHECKS};-header-filter=.hpp;-quiet")
+            message("-- Enabled clang-tidy")
+        endif()
+    endif()
+
 
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         message("-- Compiler used clang++")
@@ -99,7 +129,7 @@ else()
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
         # option to enable libc++
-        option(ENABLE_LIBCXX "This option enables the libc++." OFF)
+        option(ENABLE_LIBCXX "This option enables the libc++" OFF)
 
         #if ENABLE_LIBCXX option is turned on add the all flags needed to use libc++
         if(ENABLE_LIBCXX)
@@ -124,7 +154,7 @@ include_directories(../../mtl)
 add_executable(tests main.cpp tests_algorithm.cpp tests_conversion.cpp tests_container.cpp tests_filesystem.cpp tests_math.cpp tests_numeric.cpp tests_random.cpp tests_safety.cpp tests_stopwatch.cpp tests_string.cpp tests_type_traits.cpp tests_utility.cpp tests_xoroshiro128plus.cpp tests_xorshift128plus.cpp tests_xoshiro256plus.cpp)
 
 
-# option to enable console tests
+# option to enable mtl::console tests
 option(ENABLE_CONSOLE_TESTS "This option enables the mtl::console tests" OFF)
 
 # if the option is enabled add the file responsible for testing mtl::console
