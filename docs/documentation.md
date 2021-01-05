@@ -52,7 +52,7 @@ int main()
 
 ### LINUX with gcc
 
-Open the console and navigate to the the the **mtl** tests folder :
+Open the terminal and navigate to the the the **mtl** tests folder :
 
 1. ```mkdir build```
 2. ```cd build```
@@ -64,7 +64,7 @@ Open the console and navigate to the the the **mtl** tests folder :
 
 [**NOTE**] There is a CMake option ```ENABLE_LIBCXX``` to enable `libc++`.
 
-Open the console and navigate to the the the **mtl** tests folder :
+Open the terminal and navigate to the the the **mtl** tests folder :
 
 1. ```mkdir build```
 2. ```cd build```
