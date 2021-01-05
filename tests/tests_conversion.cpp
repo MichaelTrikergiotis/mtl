@@ -4726,7 +4726,7 @@ TEST_CASE("mtl::numeric_cast")
     REQUIRE_LT(d, 1.21);
     REQUIRE_GT(d, 1.19);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long long int li = 300000000000L;
     short result = 0;
     REQUIRE_THROWS(result = mtl::numeric_cast<short>(li));
@@ -4749,7 +4749,7 @@ TEST_CASE("mtl::numeric_cast_noex with std::pair return")
     REQUIRE_GT(d.first, 1.19);
     REQUIRE_EQ(d.second, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long long int li = 300000000000L;
     std::pair<short, bool> si = mtl::numeric_cast_noex<short>(li);
     REQUIRE_EQ(si.first, 0);
@@ -4774,7 +4774,7 @@ TEST_CASE("mtl::numeric_cast_noex")
     REQUIRE_GT(d, 1.19);
     REQUIRE_EQ(success2, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success3 = true;
 
     long long int li = 300000000000L;
@@ -4849,7 +4849,7 @@ TEST_CASE("mtl::rounding_cast with int32_t return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1, i2);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long double ld = std::numeric_limits<long double>::max();
     int32_t failed_int = 0;
     REQUIRE_THROWS((failed_int = mtl::rounding_cast(ld)));
@@ -4865,7 +4865,7 @@ TEST_CASE("mtl::rounding_cast with int64_t return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1, i2);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long double ld = std::numeric_limits<long double>::max();
     int64_t x = 0;
     REQUIRE_THROWS((x = mtl::rounding_cast(ld)));
@@ -4951,7 +4951,7 @@ TEST_CASE("mtl::rounding_cast_noex with int32_t return type")
     REQUIRE_NE(i1, i2);
     REQUIRE_EQ(success, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success2 = false;
     long double ld = std::numeric_limits<long double>::max();
     int32_t failed_int = mtl::rounding_cast_noex(ld, success2);
@@ -4971,7 +4971,7 @@ TEST_CASE("mtl::rounding_cast_noex with int64_t return type")
     REQUIRE_NE(i1, i2);
     REQUIRE_EQ(success, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success2 = false;
     long double ld = std::numeric_limits<long double>::max();
     int64_t failed_int = mtl::rounding_cast_noex(ld, success2);
@@ -4991,7 +4991,7 @@ TEST_CASE("mtl::rounding_cast_noex with pair int32_t return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1.first, i2);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long double ld = std::numeric_limits<long double>::max();
     std::pair<int32_t, bool> failed_int = mtl::rounding_cast_noex(ld);
 
@@ -5009,7 +5009,7 @@ TEST_CASE("mtl::rounding_cast_noex with pair int64_t return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1.first, i2);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long double ld = std::numeric_limits<long double>::max();
     std::pair<int64_t, bool> failed_int = mtl::rounding_cast_noex(ld);
 
@@ -5028,7 +5028,7 @@ TEST_CASE("mtl::rounding_cast with int return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1, i2);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long double ld = std::numeric_limits<long double>::max();
     int failed_int = 0;
     REQUIRE_THROWS((failed_int = mtl::rounding_cast(ld)));
@@ -5044,7 +5044,7 @@ TEST_CASE("mtl::rounding_cast with long return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1, i2);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long double ld = std::numeric_limits<long double>::max();
     long failed_int = 0;
     REQUIRE_THROWS((failed_int = mtl::rounding_cast(ld)));   
@@ -5060,7 +5060,7 @@ TEST_CASE("mtl::rounding_cast with long long return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1, i2);
 
-    // we setup a case where it the test case throws
+    // we setup a case where the test case throws
     long double ld = std::numeric_limits<long double>::max();
     int x = 0;
     REQUIRE_THROWS((x = mtl::rounding_cast(ld)));
@@ -5079,7 +5079,7 @@ TEST_CASE("mtl::rounding_cast_noex with int return type")
     REQUIRE_NE(i1, i2);
     REQUIRE_EQ(success, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success2 = false;
     long double ld = std::numeric_limits<long double>::max();
     int failed_int = mtl::rounding_cast_noex(ld, success2);
@@ -5100,7 +5100,7 @@ TEST_CASE("mtl::rounding_cast_noex with long return type")
     REQUIRE_NE(i1, i2);
     REQUIRE_EQ(success, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success2 = false;
     long double ld = std::numeric_limits<long double>::max();
     long failed_int = mtl::rounding_cast_noex(ld, success2);
@@ -5120,7 +5120,7 @@ TEST_CASE("mtl::rounding_cast_noex with long long return type")
     REQUIRE_NE(i1, i2);
     REQUIRE_EQ(success, true);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     bool success2 = false;
     long double ld = std::numeric_limits<long double>::max();
     long long failed_int = mtl::rounding_cast_noex(ld, success2);
@@ -5203,7 +5203,7 @@ TEST_CASE("mtl::rounding_cast_noex with pair int return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1.first, i2);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long double ld = std::numeric_limits<long double>::max();
     std::pair<int, bool> failed_int = mtl::rounding_cast_noex(ld);
 
@@ -5222,7 +5222,7 @@ TEST_CASE("mtl::rounding_cast_noex with pair long return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1.first, i2);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long double ld = std::numeric_limits<long double>::max();
     std::pair<long, bool> failed_int = mtl::rounding_cast_noex(ld);
 
@@ -5240,7 +5240,7 @@ TEST_CASE("mtl::rounding_cast_noex with pair long long return type")
     REQUIRE_EQ(i2, 3);
     REQUIRE_NE(i1.first, i2);
 
-    // we setup a case where the cast should fail to cast
+    // we setup a case where the cast should fail
     long double ld = std::numeric_limits<long double>::max();
     std::pair<long long, bool> failed_int = mtl::rounding_cast_noex(ld);
 
