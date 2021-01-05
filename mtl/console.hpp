@@ -33,7 +33,7 @@
 #endif // WIN32_LEAN_AND_MEAN
 
 #include <io.h>      // _isatty
-#include <stdio.h>   // _fileno
+#include <cstdio>    // _fileno
 #include <stdexcept> // std::runtime_error
 #include <mutex>     // std::mutex, std::lock_guard
 
