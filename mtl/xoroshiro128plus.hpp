@@ -6,7 +6,7 @@
 // standard library requires. No inheritance used becacuse vptrs destroy performance.
 //  
 // Satisfies requirements for RandomNumberEngine :
-// https:// en.cppreference.com/w/cpp/named_req/RandomNumberEngine
+// en.cppreference.com/w/cpp/named_req/RandomNumberEngine
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
