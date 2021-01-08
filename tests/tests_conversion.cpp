@@ -2043,7 +2043,7 @@ TEST_CASE("mtl::numeric_cast to double")
 
     // Because double and long double are the exact same size in MSVC this shouldn't throw for MSVC
     // but should throw for other compilers.
-    // https:// stackoverflow.com/a/7120740
+    // stackoverflow.com/a/7120740
 #if defined(_MSC_VER)
     CHECK_NOTHROW((result = mtl::numeric_cast<test_type>(ld_min)));
     CHECK_NOTHROW((result = mtl::numeric_cast<test_type>(ld_max)));
@@ -3274,7 +3274,7 @@ TEST_CASE("mtl::numeric_cast_noex to double")
 
     // Because double and long double are the exact same size in MSVC this tests results will be
     // different for MSVC than it is for other compilers.
-    // https:// stackoverflow.com/a/7120740
+    // stackoverflow.com/a/7120740
 #if defined(_MSC_VER)
     result = mtl::numeric_cast_noex<test_type>(ld_min, success);
     CHECK_EQ(success, true);
@@ -4539,7 +4539,7 @@ TEST_CASE("mtl::numeric_cast_noex with std::pair to double")
 
     // because double and long double are the exact same size in MSVC this tests results will be
     // different for MSVC than it is for other compilers
-    // https:// stackoverflow.com/a/7120740
+    // stackoverflow.com/a/7120740
 #if defined(_MSC_VER)
     result = mtl::numeric_cast_noex<test_type>(ld_min);
     CHECK_EQ(result.second, true);
