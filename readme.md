@@ -7,7 +7,7 @@ Modern, fast, easy. Makes C++ a joy to use.
 ![mtl logo](./docs/mtl-logo.png)
 
 ------------------------------------------------------------
-| [Getting Started](#getting-started) | [Examples](#examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#listings) | [Goals](#goals) | [License](#license) |
+| [Getting Started](#getting-started) | [Quick Examples](#examples) | [Examples Repository](https://github.com/MichaelTrikergiotis/mtl-examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#listings) | [Goals](#goals) | [License](#license) |
 
 ------------------------------------------------------------
 
@@ -30,6 +30,8 @@ A nice feature of the library is that it contains detailed comments. If you don'
 - For general documentation refer to the [documentation](./docs/documentation.md).
 
 ## Examples
+
+If you want more indepth examples check the [mtl-examples repository](https://github.com/MichaelTrikergiotis/mtl-examples).
 
 [**EXAMPLE 1**]
 
