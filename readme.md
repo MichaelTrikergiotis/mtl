@@ -7,19 +7,19 @@ Modern, fast, easy. Makes C++ a joy to use.
 ![mtl logo](./docs/mtl-logo.png)
 
 ------------------------------------------------------------
-| [Getting Started](#getting-started) | [Examples](#examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#listings) | [Goals](#goals) | [License](#license) |
+| [Getting Started](#getting-started) | [Quick Examples](#examples) | [Examples Repository](https://github.com/MichaelTrikergiotis/mtl-examples) | [Documentation](./docs/documentation.md) | [Listings](./docs/documentation.md#listings) | [Goals](#goals) | [License](#license) |
 
 ------------------------------------------------------------
 
 ## Introduction
 
-The **mtl** or by it's full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It provides a lot of functionality that other languages include by default in their standard libraries.
+The **mtl** or by its full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It provides a lot of functionality that other programming languages include by default in their standard libraries.
 
 For a quick overview of what **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
 
 **mtl** tries to be as standard compliant as possible by using standard compliant C++ 17. It also follows the C++ standard library naming scheme and uses the C++ standard library algorithms and containers.
 
-A nice feature of the library is that it contains detailed comments. If you don't know how to use something the first place to look is it's comments. But there is also [documentation](./docs/documentation.md).
+A nice feature of the library is that it contains detailed comments. If you don't know how to use something the first place to look is the comments. But there is also [documentation](./docs/documentation.md).
 
 ## Getting started
 
@@ -30,6 +30,8 @@ A nice feature of the library is that it contains detailed comments. If you don'
 - For general documentation refer to the [documentation](./docs/documentation.md).
 
 ## Examples
+
+If you want more indepth examples check the [mtl-examples repository](https://github.com/MichaelTrikergiotis/mtl-examples).
 
 [**EXAMPLE 1**]
 
@@ -60,16 +62,16 @@ With `mtl::string::join` you can join different types of variables together with
 ```c++
 const std::string planet = " planet ";
 // the types of the arguments here are const char*, char, const std::string, float and const char*
-std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " lightyears away.");
+std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " light-years away.");
 mtl::console::println(message);
 ```
 
-`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 lightyears away.` followed by a newline.
+`mtl::string::join` combines variables of various types together to an `std::string`. Then `mtl::console::println` prints to the console the message `Hello from a planet 12.24 light-years away.` followed by a newline.
 
 The same output as the above could also be achieved with :
 
 ```c++
-mtl::console::print("Hello from ", 'a', planet, 12.24f, " lightyears away.", '\n');
+mtl::console::print("Hello from ", 'a', planet, 12.24f, " light-years away.", '\n');
 ```
 
 Please note that we use `mtl::console::print` with the same variables as before but also add a newline variable at the end.
@@ -148,4 +150,4 @@ The **mtl** is licensed under the [MIT license](./LICENSE).
 
 For third party licenses check [ThirdPartyNotices](./ThirdPartyNotices.txt).
 
-**mtl** by Michael Trikergiotis 2016-2020
+**mtl** by Michael Trikergiotis 2016-2021

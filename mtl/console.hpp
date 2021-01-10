@@ -436,7 +436,8 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 /// console plus one extra for the default color.
 enum class color : uint8_t
 {
-	// color sort order and codes from taken from https:// i.stack.imgur.com/9UVnC.png
+	// color sort order and codes from taken from :
+	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	/// Default Color.
 	default_color = 29,
@@ -533,7 +534,8 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 	WORD bg_color = original_bg;
 
 
-	// color sort order and codes from taken from https:// i.stack.imgur.com/9UVnC.png
+	// color sort order and codes from taken from :
+	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	// --------------------
 	// SET FOREGROUND COLOR
@@ -810,7 +812,8 @@ template<typename Type>
 inline void print_color_ascii(const Type& arg, mtl::console::color foreground_color,
 							  mtl::console::color background_color, bool newline = false)
 {
-	// color sort order and codes from taken from https:// i.stack.imgur.com/9UVnC.png
+	// color sort order and codes from taken from :
+	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	// set the starting ANSI escape code for foreground color
 	std::string fg_color = "\033[";
