@@ -43,8 +43,7 @@ namespace string
 // IS_LOWER - Returns if all characters in a std::string are lowercase ASCII characters.
 // ================================================================================================
 
-/// Returns if a character is an uppercase ASCII character. Doesn't have undefined behavior and
-/// doesn't throw exceptions.
+/// Returns if a character is an uppercase ASCII character.
 /// @param[in] character A character to check.
 /// @return If the character is an uppercase ASCII character.
 [[nodiscard]]
@@ -58,8 +57,7 @@ inline bool is_upper(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are uppercase ASCII characters. Doesn't have 
-/// undefined behavior and doesn't throw exceptions.
+/// Returns if all characters in a std::string are uppercase ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters are uppercase ASCII characters.
 [[nodiscard]]
@@ -76,8 +74,7 @@ inline bool is_upper(const std::string& value) noexcept
 }
 
 
-/// Returns if a character is an lowercase ASCII character. Doesn't have undefined behavior and
-/// doesn't throw exceptions.
+/// Returns if a character is an lowercase ASCII character.
 /// @param[in] character A character to check.
 /// @return If the character is an lowercase ASCII character.
 [[nodiscard]]
@@ -91,8 +88,7 @@ inline bool is_lower(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are lowercase ASCII characters. Doesn't have 
-/// undefined behavior and doesn't throw exceptions.
+/// Returns if all characters in a std::string are lowercase ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters are lowercase ASCII characters.
 [[nodiscard]]
@@ -116,8 +112,7 @@ inline bool is_lower(const std::string& value) noexcept
 // TO_LOWER - Converts all uppercase ASCII characters of a std::string to lowercase.
 // ================================================================================================
 
-/// Converts a lowercase ASCII character to uppercase. Doesn't have undefined behavior and
-/// doesn't throw exceptions.
+/// Converts a lowercase ASCII character to uppercase.
 /// @param[in, out] character A character to convert to uppercase.
 inline void to_upper(char& character) noexcept
 {
@@ -131,16 +126,14 @@ inline void to_upper(char& character) noexcept
 	}
 }
 
-/// Converts all lowercase ASCII characters in a std::string to uppercase. Doesn't have
-/// undefined behavior and doesn't throw exceptions.
+/// Converts all lowercase ASCII characters in a std::string to uppercase.
 /// @param[in, out] value An std::string to convert all it's characters to uppercase.
 inline void to_upper(std::string& value) noexcept
 {
 	for (auto& ch : value) { to_upper(ch); }
 }
 
-/// Converts an uppercase ASCII character to lowercase. Doesn't have undefined behavior and
-/// doesn't throw exceptions.
+/// Converts an uppercase ASCII character to lowercase.
 /// @param[in, out] character A character to convert to lowercase.
 inline void to_lower(char& character) noexcept
 {
@@ -155,7 +148,6 @@ inline void to_lower(char& character) noexcept
 }
 
 /// Converts all uppercase ASCII characters of a std::string to lowercase characters.
-/// Doesn't have undefined behavior and doesn't throw exceptions.
 /// @param[in, out] value An std::string to convert all it's characters to lowercase.
 inline void to_lower(std::string& value) noexcept
 {
@@ -170,8 +162,7 @@ inline void to_lower(std::string& value) noexcept
 // IS_ASCII - Returns if all characters in a std::string are ASCII characters.
 // ================================================================================================
 
-/// Returns if the character is an ASCII character. Doesn't have undefined behavior
-/// and doesn't throw exceptions.
+/// Returns if the character is an ASCII character.
 /// @param[in] character A integer to check.
 /// @return If the integer can be represented as an ASCII character.
 [[nodiscard]]
@@ -185,8 +176,7 @@ inline bool is_ascii(const int character) noexcept
 	return false;
 }
 
-/// Returns if the character is an ASCII character. Doesn't have undefined behavior
-/// and doesn't throw exceptions.
+/// Returns if the character is an ASCII character.
 /// @param[in] character A character to check.
 /// @return If the character is an ASCII character.
 [[nodiscard]]
@@ -196,8 +186,7 @@ inline bool is_ascii(const char character) noexcept
 	return is_ascii(value);
 }
 
-/// Returns if all the characters in a std::string are ASCII characters. Doesn't have
-/// undefined behavior and doesn't throw exceptions.
+/// Returns if all the characters in a std::string are ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all characters of the std::string are ASCII characters.
 [[nodiscard]]
@@ -224,8 +213,7 @@ inline bool is_ascii(const std::string& value) noexcept
 //                 characters or not.
 // ================================================================================================
 
-/// Returns if a character is an ASCII alphabetic character. Doesn't have undefined behavior and 
-/// doesn't throw exceptions.
+/// Returns if a character is an ASCII alphabetic character.
 /// @param[in] character A character to check.
 /// @return If the character is an ASCII alphabetic character.
 [[nodiscard]]
@@ -239,8 +227,7 @@ inline bool is_alphabetic(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII alphabetic characters. Doesn't have 
-/// undefined behavior and doesn't throw exceptions.
+/// Returns if all characters in a std::string are ASCII alphabetic characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII alphabetic characters.
 [[nodiscard]]
@@ -257,8 +244,7 @@ inline bool is_alphabetic(const std::string& value) noexcept
 	return true;
 }
 
-/// Returns if a character is an ASCII number. Doesn't have undefined behavior and doesn't throw
-/// exceptions.
+/// Returns if a character is an ASCII number.
 /// @param[in] character A character to check.
 /// @return If the character is an ASCII number.
 [[nodiscard]]
@@ -272,8 +258,7 @@ inline bool is_numeric(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII numbers. Doesn't have undefined behavior 
-/// and doesn't throw exceptions.
+/// Returns if all characters in a std::string are ASCII numbers.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII numeric characters.
 [[nodiscard]]
@@ -290,8 +275,7 @@ inline bool is_numeric(const std::string& value) noexcept
 	return true;
 }
 
-/// Returns if a character is an ASCII alphabetic or numeric character. Doesn't have undefined
-/// behavior and doesn't throw exceptions.
+/// Returns if a character is an ASCII alphabetic or numeric character.
 /// @param[in] character A character to check.
 /// @return If the character is an ASCII alphanumeric character.
 [[nodiscard]]
@@ -304,8 +288,7 @@ inline bool is_alphanum(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII alphabetic or numeric characters. Doesn't
-/// have undefined behavior and doesn't throw exceptions.
+/// Returns if all characters in a std::string are ASCII alphabetic or numeric characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII alphanumeric characters.
 [[nodiscard]]
