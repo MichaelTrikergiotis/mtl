@@ -82,68 +82,224 @@ const std::string smiley_spaces (reinterpret_cast<const char*>(u8" 😊 "));
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::string::is_upper / mtl::string::is_lower
+// mtl::string::is_upper
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::string::is_upper")
 {
     char small_char = 'a';
     char big_char = 'A';
-    CHECK_EQ(mtl::string::is_upper('a'), false);
     CHECK_EQ(mtl::string::is_upper(small_char), false);
-    CHECK_EQ(mtl::string::is_upper('A'), true);
     CHECK_EQ(mtl::string::is_upper(big_char), true);
 
+    // uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_upper(c), true);
+    }
+
+    // lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_upper(c), false);
+    }
+
+
+
+    std::string empty;
     std::string small_str = "aaaa";
     std::string big_str = "AAAA";
     std::string mixed_str = "aaaAAAaa";
     std::string numbers = "1111222";
+    std::string space = " ";
+    std::string spaces = "    ";
+    std::string underscore = "_";
+    std::string underscores = "__";
+    CHECK_EQ(mtl::string::is_upper(empty), true);
     CHECK_EQ(mtl::string::is_upper(small_str), false);
     CHECK_EQ(mtl::string::is_upper(big_str), true);
     CHECK_EQ(mtl::string::is_upper(mixed_str), false);
     CHECK_EQ(mtl::string::is_upper(numbers), false);
+    CHECK_EQ(mtl::string::is_upper(space), false);
+    CHECK_EQ(mtl::string::is_upper(spaces), false);
+    CHECK_EQ(mtl::string::is_upper(underscore), false);
+    CHECK_EQ(mtl::string::is_upper(underscores), false);
 
+
+    std::string small_str_space = " " + small_str;
+    std::string big_str_space = " " + big_str;
+    std::string mixed_str_space = " " + mixed_str;
+    std::string small_str_spaces = " " + small_str + " ";
+    std::string big_str_spaces = " " + big_str + " ";
+    std::string mixed_str_spaces = " " + mixed_str + " ";
+    CHECK_EQ(mtl::string::is_upper(small_str_space), false);
+    CHECK_EQ(mtl::string::is_upper(big_str_space), false);
+    CHECK_EQ(mtl::string::is_upper(mixed_str_space), false);
+    CHECK_EQ(mtl::string::is_upper(small_str_spaces), false);
+    CHECK_EQ(mtl::string::is_upper(big_str_spaces), false);
+    CHECK_EQ(mtl::string::is_upper(mixed_str_spaces), false);
+
+
+    std::string small_str_underscore = "_" + small_str;
+    std::string big_str_underscore = "_" + big_str;
+    std::string mixed_str_underscore = " " + mixed_str;
+    std::string small_str_underscores = "_" + small_str + "_";
+    std::string big_str_underscores = "_" + big_str + "_";
+    std::string mixed_str_underscores = "_" + mixed_str + "_";
+    CHECK_EQ(mtl::string::is_upper(small_str_underscore), false);
+    CHECK_EQ(mtl::string::is_upper(big_str_underscore), false);
+    CHECK_EQ(mtl::string::is_upper(mixed_str_underscore), false);
+    CHECK_EQ(mtl::string::is_upper(small_str_underscores), false);
+    CHECK_EQ(mtl::string::is_upper(big_str_underscores), false);
+    CHECK_EQ(mtl::string::is_upper(mixed_str_underscores), false);
+
+    // std::string with only uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_upper(s), true);
+    }
+
+    // std::string with only lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_upper(s), false);
+    }
+
+    // std::string with uppercase characters and some other characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "^:1#" + s + "#1:^";
+        CHECK_EQ(mtl::string::is_upper(s), false);
+    }
+
+    // std::string with lowercase characters and some other characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "^:1#" + s + "#1:^";
+        CHECK_EQ(mtl::string::is_upper(s), false);
+    }
+   
+
+    // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::is_upper(one_nonascii), false);
     CHECK_EQ(mtl::string::is_upper(only_nonascii), false);
     CHECK_EQ(mtl::string::is_upper(mixed_nonascii), false);
 }
 
 
+
+// ------------------------------------------------------------------------------------------------
+// mtl::string::is_lower
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::string::is_lower")
 {
     char small_char = 'a';
     char big_char = 'A';
-    CHECK_EQ(mtl::string::is_lower('a'), true);
     CHECK_EQ(mtl::string::is_lower(small_char), true);
-    CHECK_EQ(mtl::string::is_lower('A'), false);
     CHECK_EQ(mtl::string::is_lower(big_char), false);
 
-    char first_small = static_cast<char>(97);
-    char last_small  = static_cast<char>(122);
-    CHECK_EQ(mtl::string::is_lower(first_small), true);
-    CHECK_EQ(mtl::string::is_lower(last_small), true);
+    // uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_lower(c), false);
+    }
 
-    char some_small1 = static_cast<char>(98);
-    char some_small2  = static_cast<char>(121);
-    CHECK_EQ(mtl::string::is_lower(some_small1), true);
-    CHECK_EQ(mtl::string::is_lower(some_small2), true);
+    // lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_lower(c), true);
+    }
 
-    char not_small1 = static_cast<char>(96);
-    char not_small2  = static_cast<char>(123);
-    CHECK_EQ(mtl::string::is_lower(not_small1), false);
-    CHECK_EQ(mtl::string::is_lower(not_small2), false);
+    
 
-
-
+    std::string empty;
     std::string small_str = "aaaa";
     std::string big_str = "AAAA";
     std::string mixed_str = "aaaAAAaa";
     std::string numbers = "1111222";
+    std::string space = " ";
+    std::string spaces = "    ";
+    std::string underscore = "_";
+    std::string underscores = "__";
+    CHECK_EQ(mtl::string::is_lower(empty), true);
     CHECK_EQ(mtl::string::is_lower(small_str), true);
     CHECK_EQ(mtl::string::is_lower(big_str), false);
     CHECK_EQ(mtl::string::is_lower(mixed_str), false);
     CHECK_EQ(mtl::string::is_lower(numbers), false);
+    CHECK_EQ(mtl::string::is_lower(space), false);
+    CHECK_EQ(mtl::string::is_lower(spaces), false);
+    CHECK_EQ(mtl::string::is_lower(underscore), false);
+    CHECK_EQ(mtl::string::is_lower(underscores), false);
 
+
+    std::string small_str_space = " " + small_str;
+    std::string big_str_space = " " + big_str;
+    std::string mixed_str_space = " " + mixed_str;
+    std::string small_str_spaces = " " + small_str + " ";
+    std::string big_str_spaces = " " + big_str + " ";
+    std::string mixed_str_spaces = " " + mixed_str + " ";
+    CHECK_EQ(mtl::string::is_lower(small_str_space), false);
+    CHECK_EQ(mtl::string::is_lower(big_str_space), false);
+    CHECK_EQ(mtl::string::is_lower(mixed_str_space), false);
+    CHECK_EQ(mtl::string::is_lower(small_str_spaces), false);
+    CHECK_EQ(mtl::string::is_lower(big_str_spaces), false);
+    CHECK_EQ(mtl::string::is_lower(mixed_str_spaces), false);
+
+
+    std::string small_str_underscore = "_" + small_str;
+    std::string big_str_underscore = "_" + big_str;
+    std::string mixed_str_underscore = " " + mixed_str;
+    std::string small_str_underscores = "_" + small_str + "_";
+    std::string big_str_underscores = "_" + big_str + "_";
+    std::string mixed_str_underscores = "_" + mixed_str + "_";
+    CHECK_EQ(mtl::string::is_lower(small_str_underscore), false);
+    CHECK_EQ(mtl::string::is_lower(big_str_underscore), false);
+    CHECK_EQ(mtl::string::is_lower(mixed_str_underscore), false);
+    CHECK_EQ(mtl::string::is_lower(small_str_underscores), false);
+    CHECK_EQ(mtl::string::is_lower(big_str_underscores), false);
+    CHECK_EQ(mtl::string::is_lower(mixed_str_underscores), false);
+
+    // std::string with only uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_lower(s), false);
+    }
+
+    // std::string with only lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_lower(s), true);
+    }
+
+    // std::string with uppercase characters and some other characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "^:1#" + s + "#1:^";
+        CHECK_EQ(mtl::string::is_lower(s), false);
+    }
+
+    // std::string with lowercase characters and some other characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "^:1#" + s + "#1:^";
+        CHECK_EQ(mtl::string::is_lower(s), false);
+    }
+   
+
+    // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::is_lower(one_nonascii), false);
     CHECK_EQ(mtl::string::is_lower(only_nonascii), false);
     CHECK_EQ(mtl::string::is_lower(mixed_nonascii), false);
@@ -286,47 +442,122 @@ TEST_CASE("mtl::string::is_ascii")
 
 
 // ------------------------------------------------------------------------------------------------
-// mtl::string::is_alphabetic, mtl::string::is_numeric, mtl::string::is_alphanum
+// mtl::string::is_alphabetic
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::string::is_alphabetic")
 {
-    char alphabetic1 = 'd';
-    char alphabetic2 = 'J';
-    char non_alphabetic1 = '5';
-    char non_alphabetic2 = '#';
+    const char alphabetic1 = 'd';
+    const char alphabetic2 = 'J';
+    const char non_alphabetic1 = '5';
+    const char non_alphabetic2 = '#';
     CHECK_EQ(mtl::string::is_alphabetic(alphabetic1), true);
     CHECK_EQ(mtl::string::is_alphabetic(alphabetic2), true);
     CHECK_EQ(mtl::string::is_alphabetic(non_alphabetic1), false);
     CHECK_EQ(mtl::string::is_alphabetic(non_alphabetic2), false);
 
-    char first_small = static_cast<char>(97);
-    char last_small  = static_cast<char>(122);
-    CHECK_EQ(mtl::string::is_alphabetic(first_small), true);
-    CHECK_EQ(mtl::string::is_alphabetic(last_small), true);
+    // uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_alphabetic(c), true);
+    }
 
-    char some_small1 = static_cast<char>(98);
-    char some_small2  = static_cast<char>(121);
-    CHECK_EQ(mtl::string::is_alphabetic(some_small1), true);
-    CHECK_EQ(mtl::string::is_alphabetic(some_small2), true);
+    // lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_alphabetic(c), true);
+    }
 
-    char not_small1 = static_cast<char>(96);
-    char not_small2  = static_cast<char>(123);
-    CHECK_EQ(mtl::string::is_alphabetic(not_small1), false);
-    CHECK_EQ(mtl::string::is_alphabetic(not_small2), false);
+    // numeric characters
+    const std::vector<char> numbers { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    for(char number : numbers)
+    {
+        CHECK_EQ(mtl::string::is_alphabetic(number), false);
+    }
 
 
 
+    std::string empty;
     std::string alphab1 = "abcdefgGHFAAHH";
     std::string alphab2 = "M";
     std::string nalpha1 = "1234567890";
     std::string nalpha2 = "abcedfh5klmn";
     std::string other = "  #303# ";
+    std::string space = " ";
+    std::string spaces = "     ";
+    std::string underscore = "_";
+    std::string underscores = "____";
+    CHECK_EQ(mtl::string::is_alphabetic(empty), true);
     CHECK_EQ(mtl::string::is_alphabetic(alphab1), true);
     CHECK_EQ(mtl::string::is_alphabetic(alphab2), true);
     CHECK_EQ(mtl::string::is_alphabetic(nalpha1), false);
     CHECK_EQ(mtl::string::is_alphabetic(nalpha2), false);
     CHECK_EQ(mtl::string::is_alphabetic(other), false);
+    CHECK_EQ(mtl::string::is_alphabetic(space), false);
+    CHECK_EQ(mtl::string::is_alphabetic(spaces), false);
+    CHECK_EQ(mtl::string::is_alphabetic(underscore), false);
+    CHECK_EQ(mtl::string::is_alphabetic(underscores), false);
+
+    // std::string with only numeric characters
+    const std::string numbers_1 = "2";
+    const std::string numbers_2 = "48";
+    const std::string numbers_3 = "453";
+    const std::string numbers_all = "01234567890";
+    CHECK_EQ(mtl::string::is_alphabetic(numbers_1), false);
+    CHECK_EQ(mtl::string::is_alphabetic(numbers_2), false);
+    CHECK_EQ(mtl::string::is_alphabetic(numbers_3), false);
+    CHECK_EQ(mtl::string::is_alphabetic(numbers_all), false);
+
+
+    // std::string with only uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_alphabetic(s), true);
+    }
+
+    // std::string with only lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_alphabetic(s), true);
+    }
+    
+
+    // std::string with uppercase characters and numeric characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_alphabetic(s), false);
+    }
+
+    // std::string with lowercase characters and numeric characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_alphabetic(s), false);
+    }
+
+    // std::string with uppercase characters and other characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_alphabetic(s), false);
+    }
+
+    // std::string with lowercase characters and other characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_alphabetic(s), false);
+    }
+    
 
     // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::is_alphabetic(one_nonascii), false);
@@ -335,27 +566,124 @@ TEST_CASE("mtl::string::is_alphabetic")
 }
 
 
+
+// ------------------------------------------------------------------------------------------------
+// mtl::string::is_numeric
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::string::is_numeric")
 {
-    char alphabetic1 = 'd';
-    char alphabetic2 = 'J';
-    char non_alphabetic1 = '5';
-    char non_alphabetic2 = '#';
+    const char alphabetic1 = 'd';
+    const char alphabetic2 = 'J';
+    const char non_alphabetic1 = '5';
+    const char non_alphabetic2 = '#';
     CHECK_EQ(mtl::string::is_numeric(alphabetic1), false);
     CHECK_EQ(mtl::string::is_numeric(alphabetic2), false);
     CHECK_EQ(mtl::string::is_numeric(non_alphabetic1), true);
     CHECK_EQ(mtl::string::is_numeric(non_alphabetic2), false);
 
+    // uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_numeric(c), false);
+    }
+
+    // lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_numeric(c), false);
+    }
+
+    // numeric characters
+    const std::vector<char> numbers { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    for(char number : numbers)
+    {
+        CHECK_EQ(mtl::string::is_numeric(number), true);
+    }
+
+
+
+    std::string empty;
     std::string alphab1 = "abcdefgGHFAAHH";
     std::string alphab2 = "M";
     std::string nalpha1 = "1234567890";
     std::string nalpha2 = "abcedfh5klmn";
     std::string other = "  #303# ";
+    std::string space = " ";
+    std::string spaces = "    ";
+    std::string underscore = "_";
+    std::string underscores = "__";
+    CHECK_EQ(mtl::string::is_numeric(empty), true);
     CHECK_EQ(mtl::string::is_numeric(alphab1), false);
     CHECK_EQ(mtl::string::is_numeric(alphab2), false);
     CHECK_EQ(mtl::string::is_numeric(nalpha1), true);
     CHECK_EQ(mtl::string::is_numeric(nalpha2), false);
     CHECK_EQ(mtl::string::is_numeric(other), false);
+    CHECK_EQ(mtl::string::is_numeric(space), false);
+    CHECK_EQ(mtl::string::is_numeric(spaces), false);
+    CHECK_EQ(mtl::string::is_numeric(underscore), false);
+    CHECK_EQ(mtl::string::is_numeric(underscores), false);
+
+    // std::string with only numeric characters
+    const std::string numbers_1 = "2";
+    const std::string numbers_2 = "48";
+    const std::string numbers_3 = "453";
+    const std::string numbers_all = "01234567890";
+    CHECK_EQ(mtl::string::is_numeric(numbers_1), true);
+    CHECK_EQ(mtl::string::is_numeric(numbers_2), true);
+    CHECK_EQ(mtl::string::is_numeric(numbers_3), true);
+    CHECK_EQ(mtl::string::is_numeric(numbers_all), true);
+
+
+    // std::string with only uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+
+    // std::string with only lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+    
+
+    // std::string with uppercase characters and numeric characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+
+    // std::string with lowercase characters and numeric characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+
+    // std::string with uppercase characters and other characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+
+    // std::string with lowercase characters and other characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_numeric(s), false);
+    }
+    
 
     // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::is_numeric(one_nonascii), false);
@@ -364,27 +692,124 @@ TEST_CASE("mtl::string::is_numeric")
 }
 
 
+
+// ------------------------------------------------------------------------------------------------
+// mtl::string::is_alphanum
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::string::is_alphanum")
 {
-    char alphabetic1 = 'd';
-    char alphabetic2 = 'J';
-    char non_alphabetic1 = '5';
-    char non_alphabetic2 = '#';
+    const char alphabetic1 = 'd';
+    const char alphabetic2 = 'J';
+    const char non_alphabetic1 = '5';
+    const char non_alphabetic2 = '#';
     CHECK_EQ(mtl::string::is_alphanum(alphabetic1), true);
     CHECK_EQ(mtl::string::is_alphanum(alphabetic2), true);
     CHECK_EQ(mtl::string::is_alphanum(non_alphabetic1), true);
     CHECK_EQ(mtl::string::is_alphanum(non_alphabetic2), false);
 
+    // uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_alphanum(c), true);
+    }
+
+    // lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        char c = static_cast<char>(i);
+        CHECK_EQ(mtl::string::is_alphanum(c), true);
+    }
+
+    // numeric characters
+    const std::vector<char> numbers { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    for(char number : numbers)
+    {
+        CHECK_EQ(mtl::string::is_alphanum(number), true);
+    }
+
+
+
+    std::string empty;
     std::string alphab1 = "abcdefgGHFAAHH";
     std::string alphab2 = "M";
     std::string nalpha1 = "1234567890";
     std::string nalpha2 = "abcedfh5klmn";
     std::string other = "  #303# ";
+    std::string space = " ";
+    std::string spaces = "    ";
+    std::string underscore = "_";
+    std::string underscores = "__";
+    CHECK_EQ(mtl::string::is_alphanum(empty), true);
     CHECK_EQ(mtl::string::is_alphanum(alphab1), true);
     CHECK_EQ(mtl::string::is_alphanum(alphab2), true);
     CHECK_EQ(mtl::string::is_alphanum(nalpha1), true);
     CHECK_EQ(mtl::string::is_alphanum(nalpha2), true);
     CHECK_EQ(mtl::string::is_alphanum(other), false);
+    CHECK_EQ(mtl::string::is_alphanum(space), false);
+    CHECK_EQ(mtl::string::is_alphanum(spaces), false);
+    CHECK_EQ(mtl::string::is_alphanum(underscore), false);
+    CHECK_EQ(mtl::string::is_alphanum(underscores), false);
+
+    // std::string with only numeric characters
+    const std::string numbers_1 = "2";
+    const std::string numbers_2 = "48";
+    const std::string numbers_3 = "453";
+    const std::string numbers_all = "01234567890";
+    CHECK_EQ(mtl::string::is_alphanum(numbers_1), true);
+    CHECK_EQ(mtl::string::is_alphanum(numbers_2), true);
+    CHECK_EQ(mtl::string::is_alphanum(numbers_3), true);
+    CHECK_EQ(mtl::string::is_alphanum(numbers_all), true);
+
+
+    // std::string with only uppercase characters
+    for(int i = 65; i <= 90; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_alphanum(s), true);
+    }
+
+    // std::string with only lowercase characters
+    for(int i = 97; i <= 122; i++)
+    {
+        const std::string s (3, static_cast<char>(i));
+        CHECK_EQ(mtl::string::is_alphanum(s), true);
+    }
+    
+
+    // std::string with uppercase characters and numeric characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_alphanum(s), true);
+    }
+
+    // std::string with lowercase characters and numeric characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "7" + s + "333";
+        CHECK_EQ(mtl::string::is_alphanum(s), true);
+    }
+
+    // std::string with uppercase characters and other characters
+    for(int i = 65; i <= 90; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_alphanum(s), false);
+    }
+
+    // std::string with lowercase characters and other characters
+    for(int i = 97; i <= 122; i++)
+    {
+        std::string s (3, static_cast<char>(i));
+        s = "_^" + s + "^_";
+        CHECK_EQ(mtl::string::is_alphanum(s), false);
+    }
+    
 
     // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::is_alphanum(one_nonascii), false);
