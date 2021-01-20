@@ -72,7 +72,7 @@ inline std::enable_if_t<mtl::is_number_v<Number>, std::unordered_map<Key, Number
 frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 {
 	// typedef to shorten the type
-	using std_unordered_map = std::unordered_map<Key, Number, Hash, KeyEqual>;
+	using unordered_map_t = std::unordered_map<Key, Number, Hash, KeyEqual>;
 
 	// be carefull as the size can be negative
 	auto size = std::distance(begin, end);
@@ -83,14 +83,14 @@ frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 	{ 
 		// we set the std::unordered_map bucket count to 1 because a bucket count of 0 can cause
 		// problems in some C++ standard library implementations
-		std_unordered_map empty_container(static_cast<size_t>(1), hash, key_equal);
+		unordered_map_t empty_container(static_cast<size_t>(1), hash, key_equal);
 		return empty_container; 
 	}
 
 	// an std::unordered_map with the bucket size as the number of elements with the given hash and
 	// the key equality functor, casting from std::ptrdiff to type size_t is ok since we previously
 	// checked size is not a negative number
-	std_unordered_map freq_table(static_cast<size_t>(size), hash, key_equal);
+	unordered_map_t freq_table(static_cast<size_t>(size), hash, key_equal);
 
 	// reserve size to avoid allocations, we can safely cast to size_t as we checked previously
 	// size is not a negative number

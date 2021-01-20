@@ -3178,7 +3178,7 @@ TEST_CASE("mtl::for_each results compared to std::for_each results, std::string,
 }
 
 
-TEST_CASE("mtl::for_each for std::tuple of ints")
+TEST_CASE("mtl::for_each with std::tuple of integers")
 {
     auto tp = std::make_tuple(10, 20, 30, 40);
     int total = 0;
@@ -3186,7 +3186,7 @@ TEST_CASE("mtl::for_each for std::tuple of ints")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each for const std::tuple of ints")
+TEST_CASE("mtl::for_each with const std::tuple of integers")
 {
     const std::tuple<int, int, int, int> tp = std::make_tuple(10, 20, 30, 40);
     int total = 0;
@@ -3194,7 +3194,7 @@ TEST_CASE("mtl::for_each for const std::tuple of ints")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of ints, ref")
+TEST_CASE("mtl::for_each with std::tuple of integers, ref")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3216,7 +3216,7 @@ TEST_CASE("mtl::for_each for std::tuple of ints, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of ints, const ref")
+TEST_CASE("mtl::for_each with std::tuple of integers, const ref")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3238,7 +3238,7 @@ TEST_CASE("mtl::for_each for std::tuple of ints, const ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of ints, modify")
+TEST_CASE("mtl::for_each with std::tuple of integers, modify")
 {
     const int items = 10;
     const int desired_result = items * 1000;
@@ -3268,7 +3268,7 @@ TEST_CASE("mtl::for_each for std::tuple of ints, modify")
 
 
 
-TEST_CASE("mtl::for_each for std::tuple of different types")
+TEST_CASE("mtl::for_each with std::tuple of different types")
 {
     auto tp = std::make_tuple(10, 'a', std::string("bcd"));
     std::stringstream ss;
@@ -3277,7 +3277,7 @@ TEST_CASE("mtl::for_each for std::tuple of different types")
     REQUIRE_EQ(ss.str(), result);
 }
 
-TEST_CASE("mtl::for_each for const std::tuple of different types")
+TEST_CASE("mtl::for_each with const std::tuple of different types")
 {
     const std::tuple<int, char, std::string> tp = std::make_tuple(10, 'a', std::string("bcd"));
     std::stringstream ss;
@@ -3287,7 +3287,7 @@ TEST_CASE("mtl::for_each for const std::tuple of different types")
 }
 
 
-TEST_CASE("mtl::for_each for std::tuple of different types, ref")
+TEST_CASE("mtl::for_each with std::tuple of different types, ref")
 {
     const int items = 10;
     
@@ -3319,7 +3319,7 @@ TEST_CASE("mtl::for_each for std::tuple of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of different types, const ref")
+TEST_CASE("mtl::for_each with std::tuple of different types, const ref")
 {
     const int items = 10;
     
@@ -3351,7 +3351,7 @@ TEST_CASE("mtl::for_each for std::tuple of different types, const ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of different types, modify")
+TEST_CASE("mtl::for_each with std::tuple of different types, modify")
 {
     const int items = 10;
     
@@ -3392,7 +3392,7 @@ TEST_CASE("mtl::for_each for std::tuple of different types, modify")
 
 
 
-TEST_CASE("mtl::for_each for std::pair of ints")
+TEST_CASE("mtl::for_each with std::pair of integers")
 {
     auto p = std::pair<int, int>(70 , 30);
     int total = 0;
@@ -3400,7 +3400,7 @@ TEST_CASE("mtl::for_each for std::pair of ints")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each for const std::pair of ints")
+TEST_CASE("mtl::for_each with const std::pair of integers")
 {
     const std::pair<int, int> p = std::pair<int, int>(70 , 30);
     int total = 0;
@@ -3408,7 +3408,7 @@ TEST_CASE("mtl::for_each for const std::pair of ints")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each for std::pair of ints, ref")
+TEST_CASE("mtl::for_each with std::pair of integers, ref")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3430,7 +3430,7 @@ TEST_CASE("mtl::for_each for std::pair of ints, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::pair of ints, const ref")
+TEST_CASE("mtl::for_each with std::pair of integers, const ref")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3452,7 +3452,7 @@ TEST_CASE("mtl::for_each for std::pair of ints, const ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::pair of ints, modify")
+TEST_CASE("mtl::for_each with std::pair of integers, modify")
 {
     const int items = 10;
     const int desired_result = items * 1000;
@@ -3482,7 +3482,7 @@ TEST_CASE("mtl::for_each for std::pair of ints, modify")
 
 
 
-TEST_CASE("mtl::for_each for std::pair of different types")
+TEST_CASE("mtl::for_each with std::pair of different types")
 {
     auto tp = std::make_pair(10, std::string("abcd"));
     std::stringstream ss;
@@ -3491,7 +3491,7 @@ TEST_CASE("mtl::for_each for std::pair of different types")
     REQUIRE_EQ(ss.str(), result);
 }
 
-TEST_CASE("mtl::for_each for const std::pair of different types")
+TEST_CASE("mtl::for_each with const std::pair of different types")
 {
     const std::pair<int, std::string> tp = std::make_pair(10, std::string("abcd"));
     std::stringstream ss;
@@ -3501,7 +3501,7 @@ TEST_CASE("mtl::for_each for const std::pair of different types")
 }
 
 
-TEST_CASE("mtl::for_each for std::pair of different types, ref")
+TEST_CASE("mtl::for_each with std::pair of different types, ref")
 {
     const int items = 10;
     
@@ -3533,7 +3533,7 @@ TEST_CASE("mtl::for_each for std::pair of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::pair of different types, const ref")
+TEST_CASE("mtl::for_each with std::pair of different types, const ref")
 {
     const int items = 10;
     
@@ -3565,7 +3565,7 @@ TEST_CASE("mtl::for_each for std::pair of different types, const ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each for std::pair of different types, modify")
+TEST_CASE("mtl::for_each with std::pair of different types, modify")
 {
     const int items = 10;
     

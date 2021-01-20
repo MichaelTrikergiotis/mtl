@@ -997,13 +997,13 @@ namespace detail
 template<size_t Index, typename Function, typename... Types>
 struct for_each_tuple
 {
-	void operator() (std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (std::tuple<Types...>& value, Function&& func)
 	{
 		// use recursion to call all the other parts of the tuple
 		for_each_tuple<Index - 1, Function, Types...>{}
-		(std_tuple, std::forward<Function>(func));
+		(value, std::forward<Function>(func));
 		// call the given function for the specific index of the tuple
-		func(std::get<Index>(std_tuple));
+		func(std::get<Index>(value));
 	}
 };
 
@@ -1011,9 +1011,9 @@ struct for_each_tuple
 template<typename Function, typename... Types>
 struct for_each_tuple<0, Function, Types...>
 {
-	void operator() (std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (std::tuple<Types...>& value, Function&& func)
 	{
-		func(std::get<0>(std_tuple));
+		func(std::get<0>(value));
 	}
 };
 
@@ -1021,14 +1021,14 @@ struct for_each_tuple<0, Function, Types...>
 
 /// Applies a function to all elements. A drop in replacement for std::for_each that works on
 /// everything std::for_each works and also works on std::tuple and std::pair.
-/// @param[in] std_tuple An std::tuple.
+/// @param[in] value An std::tuple.
 /// @param[in] func A function to apply.
 template<typename Function, typename... Types>
-inline void for_each(std::tuple<Types...>& std_tuple, Function&& func)
+inline void for_each(std::tuple<Types...>& value, Function&& func)
 {
 	const auto size = std::tuple_size_v<std::tuple<Types...>>;
 	detail::for_each_tuple<size - 1, Function, Types...>{}
-	(std_tuple, std::forward<Function>(func));
+	(value, std::forward<Function>(func));
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -1042,13 +1042,13 @@ namespace detail
 template<size_t Index, typename Function, typename... Types>
 struct for_each_const_tuple
 {
-	void operator() (const std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (const std::tuple<Types...>& value, Function&& func)
 	{
 		// use recursion to call all the other parts of the tuple
 		for_each_const_tuple<Index - 1, Function, Types...>{}
-		(std_tuple, std::forward<Function>(func));
+		(value, std::forward<Function>(func));
 		// call the given function for the specific index of the tuple
-		func(std::get<Index>(std_tuple));
+		func(std::get<Index>(value));
 	}
 };
 
@@ -1056,9 +1056,9 @@ struct for_each_const_tuple
 template<typename Function, typename... Types>
 struct for_each_const_tuple<0, Function, Types...>
 {
-	void operator() (const std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (const std::tuple<Types...>& value, Function&& func)
 	{
-		func(std::get<0>(std_tuple));
+		func(std::get<0>(value));
 	}
 };
 
@@ -1066,14 +1066,14 @@ struct for_each_const_tuple<0, Function, Types...>
 
 /// Applies a function to all elements. A drop in replacement for std::for_each that works on
 /// everything std::for_each works and also works on std::tuple and std::pair.
-/// @param[in] std_tuple An std::tuple.
+/// @param[in] value An std::tuple.
 /// @param[in] func A function to apply.
 template<typename Function, typename... Types>
-inline void for_each(const std::tuple<Types...>& std_tuple, Function&& func)
+inline void for_each(const std::tuple<Types...>& value, Function&& func)
 {
 	const auto size = std::tuple_size_v<std::tuple<Types...>>;
 	detail::for_each_const_tuple<size - 1, Function, Types...>{}
-	(std_tuple, std::forward<Function>(func));
+	(value, std::forward<Function>(func));
 }
 
 
