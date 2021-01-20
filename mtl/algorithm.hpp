@@ -1002,7 +1002,7 @@ struct for_each_tuple
 		// use recursion to call all the other parts of the tuple
 		for_each_tuple<Index - 1, Function, Types...>{}
 		(std_tuple, std::forward<Function>(func));
-		// call function on current item of the array
+		// call the given function for the specific index of the tuple
 		func(std::get<Index>(std_tuple));
 	}
 };
@@ -1047,7 +1047,7 @@ struct for_each_const_tuple
 		// use recursion to call all the other parts of the tuple
 		for_each_const_tuple<Index - 1, Function, Types...>{}
 		(std_tuple, std::forward<Function>(func));
-		// call function on current item of the array
+		// call the given function for the specific index of the tuple
 		func(std::get<Index>(std_tuple));
 	}
 };
