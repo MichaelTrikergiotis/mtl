@@ -49,7 +49,7 @@ namespace string
 [[nodiscard]]
 inline bool is_upper(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 65) && (value <= 90))
 	{
 		return true;
@@ -80,7 +80,7 @@ inline bool is_upper(const std::string& value) noexcept
 [[nodiscard]]
 inline bool is_lower(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 97) && (value <= 122))
 	{
 		return true;
@@ -118,7 +118,7 @@ inline void to_upper(char& character) noexcept
 {
 	if (is_lower(character))
 	{
-		int value = static_cast<int>(character);
+		int value = static_cast<int>(static_cast<unsigned char>(character));
 		// it so happens that in an ASCII table the uppercase characters are 32 positions before 
 		// lowercase characters
 		value = value - 32;
@@ -139,7 +139,7 @@ inline void to_lower(char& character) noexcept
 {
 	if (is_upper(character))
 	{
-		int value = static_cast<int>(character);
+		int value = static_cast<int>(static_cast<unsigned char>(character));
 		// it so happens that in an ASCII table the lowercase characters are 32 positions after 
 		// uppercase characters
 		value = value + 32;
@@ -182,7 +182,7 @@ inline bool is_ascii(const int character) noexcept
 [[nodiscard]]
 inline bool is_ascii(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	return is_ascii(value);
 }
 
@@ -219,7 +219,7 @@ inline bool is_ascii(const std::string& value) noexcept
 [[nodiscard]]
 inline bool is_alphabetic(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if (((value >= 65) && (value <= 90)) || ((value >= 97) && (value <= 122)))
 	{
 		return true;
@@ -250,7 +250,7 @@ inline bool is_alphabetic(const std::string& value) noexcept
 [[nodiscard]]
 inline bool is_numeric(const char character) noexcept
 {
-	int value = static_cast<int>(character);
+	int value = static_cast<int>(static_cast<unsigned char>(character));
 	if ((value >= 48) && (value <= 57))
 	{
 		return true;
@@ -1222,7 +1222,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 	// find all matches and keep their index
 	while ((pos = value.find(match, pos)) != std::string::npos)
 	{
-		positions.push_back(pos);
+		positions.emplace_back(pos);
 		// move the position forward enough so we don't match the same thing again
 		pos += match.size();
 	}

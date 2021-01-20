@@ -351,7 +351,7 @@ TEST_CASE("mtl::percent_whole float")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_whole(perc, portion));
+        results.emplace_back(mtl::percent_whole(perc, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -433,7 +433,7 @@ TEST_CASE("mtl::percent_whole double")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_whole(perc, portion));
+        results.emplace_back(mtl::percent_whole(perc, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -516,7 +516,7 @@ TEST_CASE("mtl::percent_whole long double")
 
     for(auto & perc : percent)
     {
-        results.push_back(mtl::percent_whole(perc, portion));
+        results.emplace_back(mtl::percent_whole(perc, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -584,7 +584,7 @@ TEST_CASE("mtl::percent_whole int")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_whole(perc, portion));
+        results.emplace_back(mtl::percent_whole(perc, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -635,7 +635,7 @@ TEST_CASE("mtl::percent_portion float")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_portion(whole, perc));
+        results.emplace_back(mtl::percent_portion(whole, perc));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -685,7 +685,7 @@ TEST_CASE("mtl::percent_portion double")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_portion(whole, perc));
+        results.emplace_back(mtl::percent_portion(whole, perc));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -736,7 +736,7 @@ TEST_CASE("mtl::percent_portion long double")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_portion(whole, perc));
+        results.emplace_back(mtl::percent_portion(whole, perc));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -778,7 +778,7 @@ TEST_CASE("mtl::percent_portion int")
 
     for (auto& perc : percent)
     {
-        results.push_back(mtl::percent_portion(whole, perc));
+        results.emplace_back(mtl::percent_portion(whole, perc));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -853,7 +853,7 @@ TEST_CASE("mtl::percent float")
 
     for (auto& portion : portions)
     {
-        results.push_back(mtl::percent(whole, portion));
+        results.emplace_back(mtl::percent(whole, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -916,7 +916,7 @@ TEST_CASE("mtl::percent double")
 
     for (auto& portion : portions)
     {
-        results.push_back(mtl::percent(whole, portion));
+        results.emplace_back(mtl::percent(whole, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -979,7 +979,7 @@ TEST_CASE("mtl::percent long double")
 
     for (auto& portion : portions)
     {
-        results.push_back(mtl::percent(whole, portion));
+        results.emplace_back(mtl::percent(whole, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());
@@ -1033,7 +1033,7 @@ TEST_CASE("mtl::percent int")
 
     for (auto& portion : portions)
     {
-        results.push_back(mtl::percent(whole, portion));
+        results.emplace_back(mtl::percent(whole, portion));
     }
 
     REQUIRE_EQ(excepted.size(), results.size());

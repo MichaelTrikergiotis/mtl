@@ -3203,7 +3203,7 @@ TEST_CASE("mtl::for_each with std::tuple of integers, ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, 20, 30, 40);
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
     
     for(auto& t : vt)
@@ -3225,7 +3225,7 @@ TEST_CASE("mtl::for_each with std::tuple of integers, const ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, 20, 30, 40);
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
     
     for(const auto& t : vt)
@@ -3247,7 +3247,7 @@ TEST_CASE("mtl::for_each with std::tuple of integers, modify")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, 20, 30, 40);
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
 
     // modify elements
@@ -3303,7 +3303,7 @@ TEST_CASE("mtl::for_each with std::tuple of different types, ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, 'a', std::string("bcd"));
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
     
 
@@ -3335,7 +3335,7 @@ TEST_CASE("mtl::for_each with std::tuple of different types, const ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, 'a', std::string("bcd"));
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
     
 
@@ -3367,7 +3367,7 @@ TEST_CASE("mtl::for_each with std::tuple of different types, modify")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_tuple(10, "a", std::string("bcd"));
-        vt.push_back(tp);
+        vt.emplace_back(tp);
     }
 
     // modify elements
@@ -3417,7 +3417,7 @@ TEST_CASE("mtl::for_each with std::pair of integers, ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::pair<int, int>(35, 65);
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
     
     for(auto& t : vp)
@@ -3439,7 +3439,7 @@ TEST_CASE("mtl::for_each with std::pair of integers, const ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::pair<int, int>(35, 65);
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
     
     for(auto& t : vp)
@@ -3461,7 +3461,7 @@ TEST_CASE("mtl::for_each with std::pair of integers, modify")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::pair<int, int>(35, 65);
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
 
     // modify elements
@@ -3517,7 +3517,7 @@ TEST_CASE("mtl::for_each with std::pair of different types, ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_pair(10, std::string("abcd"));
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
     
 
@@ -3549,7 +3549,7 @@ TEST_CASE("mtl::for_each with std::pair of different types, const ref")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_pair(10, std::string("abcd"));
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
     
 
@@ -3581,7 +3581,7 @@ TEST_CASE("mtl::for_each with std::pair of different types, modify")
     for(int i = 0; i < items; i++)
     {
         auto tp = std::make_pair(10, std::string("abcd"));
-        vp.push_back(tp);
+        vp.emplace_back(tp);
     }
 
     // modify elements

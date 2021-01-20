@@ -412,7 +412,7 @@ inline void rem_duplicates_preserve_impl(Container& container, Hash hash, Binary
 		if (prev_size != database.size())
 		{
 			// keep the non duplicate item
-			non_duplicates.push_back(item);
+			mtl::emplace_back(non_duplicates, item);
 		}
 	}
 	container = non_duplicates;
@@ -711,7 +711,7 @@ inline void keep_duplicates_exclusive_preserve(Container& container, Hash hash, 
 		if (prev_size == database.size())
 		{
 			// keep the duplicate item
-			duplicates.push_back(item);
+			mtl::emplace_back(duplicates, item);
 		}
 	}
 	container = duplicates;

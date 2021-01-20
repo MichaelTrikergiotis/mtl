@@ -172,16 +172,20 @@ TEST_CASE("mtl::string::is_upper")
     // std::string with uppercase characters and some other characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "^:1#" + s + "#1:^";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("^:1#");
+        s += sc; 
+        s += std::string("#1:^");
         CHECK_EQ(mtl::string::is_upper(s), false);
     }
 
     // std::string with lowercase characters and some other characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "^:1#" + s + "#1:^";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("^:1#");
+        s += sc; 
+        s += std::string("#1:^");
         CHECK_EQ(mtl::string::is_upper(s), false);
     }
    
@@ -285,16 +289,20 @@ TEST_CASE("mtl::string::is_lower")
     // std::string with uppercase characters and some other characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "^:1#" + s + "#1:^";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("^:1#");
+        s += s;
+        s += std::string("#1:^");
         CHECK_EQ(mtl::string::is_lower(s), false);
     }
 
     // std::string with lowercase characters and some other characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "^:1#" + s + "#1:^";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("^:1#");
+        s += s;
+        s += std::string("#1:^");
         CHECK_EQ(mtl::string::is_lower(s), false);
     }
    
@@ -529,32 +537,40 @@ TEST_CASE("mtl::string::is_alphabetic")
     // std::string with uppercase characters and numeric characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_alphabetic(s), false);
     }
 
     // std::string with lowercase characters and numeric characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_alphabetic(s), false);
     }
 
     // std::string with uppercase characters and other characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_alphabetic(s), false);
     }
 
     // std::string with lowercase characters and other characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_alphabetic(s), false);
     }
     
@@ -655,32 +671,40 @@ TEST_CASE("mtl::string::is_numeric")
     // std::string with uppercase characters and numeric characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_numeric(s), false);
     }
 
     // std::string with lowercase characters and numeric characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_numeric(s), false);
     }
 
     // std::string with uppercase characters and other characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_numeric(s), false);
     }
 
     // std::string with lowercase characters and other characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_numeric(s), false);
     }
     
@@ -781,32 +805,40 @@ TEST_CASE("mtl::string::is_alphanum")
     // std::string with uppercase characters and numeric characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_alphanum(s), true);
     }
 
     // std::string with lowercase characters and numeric characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "7" + s + "333";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("7");
+        s += sc; 
+        s += std::string("333");
         CHECK_EQ(mtl::string::is_alphanum(s), true);
     }
 
     // std::string with uppercase characters and other characters
     for(int i = 65; i <= 90; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_alphanum(s), false);
     }
 
     // std::string with lowercase characters and other characters
     for(int i = 97; i <= 122; i++)
     {
-        std::string s (3, static_cast<char>(i));
-        s = "_^" + s + "^_";
+        std::string sc (3, static_cast<char>(i));
+        std::string s("_^");
+        s += sc; 
+        s += std::string("^_");
         CHECK_EQ(mtl::string::is_alphanum(s), false);
     }
     

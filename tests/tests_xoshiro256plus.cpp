@@ -130,8 +130,8 @@ TEST_CASE("constructor with one seed value")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -152,8 +152,8 @@ TEST_CASE("constructor with two seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -174,8 +174,8 @@ TEST_CASE("constructor with four seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -196,8 +196,8 @@ TEST_CASE("constructor with different first seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -218,8 +218,8 @@ TEST_CASE("constructor with different second seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -240,8 +240,8 @@ TEST_CASE("constructor with different third seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -262,8 +262,8 @@ TEST_CASE("constructor with different fourth seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -456,8 +456,8 @@ TEST_CASE("changing seed")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -479,8 +479,8 @@ TEST_CASE("changing two seeds")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -504,8 +504,8 @@ TEST_CASE("changing multiple seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -530,8 +530,8 @@ TEST_CASE("changing default seed and setting default seed again")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -556,8 +556,8 @@ TEST_CASE("changing two default seeds and setting default seed again")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -584,8 +584,8 @@ TEST_CASE("changing multiple default seed values and setting default seed values
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -608,8 +608,8 @@ TEST_CASE("copying seed values from another engine")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -646,8 +646,8 @@ TEST_CASE("operator >> used to set seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x2());
+        values1.emplace_back(x1());
+        values2.emplace_back(x2());
     }
     REQUIRE_EQ((values1 == values2), true);
 }
@@ -669,8 +669,8 @@ TEST_CASE("using engine with different default seed values")
     values2.reserve(size);
     for(size_t i = 0; i < size; i++)
     {
-        values1.push_back(x1());
-        values2.push_back(x_eng());
+        values1.emplace_back(x1());
+        values2.emplace_back(x_eng());
     }
     REQUIRE_EQ((values1 == values2), false);
 }
@@ -690,7 +690,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int>, check for min 
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     REQUIRE_EQ(values.empty(), false);
@@ -715,7 +715,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests")
     
     for(size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values set to 0
@@ -784,7 +784,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative m
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     REQUIRE_EQ(values.empty(), false);
@@ -809,7 +809,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests with nega
     
     for(size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values below min
@@ -870,7 +870,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> with negative n
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     REQUIRE_EQ(values.empty(), false);
@@ -895,7 +895,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<int> tests with nega
     
     for(size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values below min
@@ -958,7 +958,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<unsigned int>, min m
         auto value = dist(x1);
         CHECK_EQ((value >= min), true);
         CHECK_EQ((value <= max), true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
 
@@ -984,7 +984,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<unsigned int> tests"
     
     for(size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values set to 0
@@ -1067,7 +1067,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<float> tests")
 
     for (size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values set to 0
@@ -1152,7 +1152,7 @@ TEST_CASE("random engine with std::uniform_int_distribution<double> tests")
 
     for (size_t i = 0; i < size; i++)
     {
-        values.push_back(dist(x1));
+        values.emplace_back(dist(x1));
     }
 
     // there should be no values set to 0

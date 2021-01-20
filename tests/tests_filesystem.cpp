@@ -66,7 +66,7 @@ std::string generate_filename()
 {
     ++filename_id;
     std::string filename = std::to_string(filename_id) + filename_base;
-    filenames.push_back(filename);
+    filenames.emplace_back(filename);
     return filename;
 }
 
