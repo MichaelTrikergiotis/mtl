@@ -3116,6 +3116,19 @@ TEST_CASE("mtl::for_each results compared to std::for_each results with empty co
 {
     std::vector<int> v1;
     auto v2 = v1;
+    int v1_total = 0;
+    int v2_total = 0;
+    const int desired_result = 0;
+    mtl::for_each(v1.begin(), v1.end(), [&v1_total](auto x) { v1_total += x;});
+    std::for_each(v2.begin(), v2.end(), [&v2_total](auto x) { v2_total += x;});
+    CHECK_EQ((v1_total == desired_result), true);
+    CHECK_EQ((v2_total == desired_result), true);
+}
+
+TEST_CASE("mtl::for_each results compared to std::for_each with empty container, modify")
+{
+    std::vector<int> v1;
+    auto v2 = v1;
     std::vector<int> results;
     mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x * 10;});
     std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x * 10;});
@@ -3128,6 +3141,19 @@ TEST_CASE("mtl::for_each results compared to std::for_each results")
 {
     std::vector<int> v1 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
     auto v2 = v1;
+    int v1_total = 0;
+    int v2_total = 0;
+    const int desired_result = 55;
+    mtl::for_each(v1.begin(), v1.end(), [&v1_total](auto x) { v1_total += x;});
+    std::for_each(v2.begin(), v2.end(), [&v2_total](auto x) { v2_total += x;});
+    CHECK_EQ((v1_total == desired_result), true);
+    CHECK_EQ((v2_total == desired_result), true);
+}
+
+TEST_CASE("mtl::for_each results compared to std::for_each results, modify")
+{
+    std::vector<int> v1 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
+    auto v2 = v1;
     std::vector<int> results {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
     mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x * 10;});
     std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x * 10;});
@@ -3136,14 +3162,16 @@ TEST_CASE("mtl::for_each results compared to std::for_each results")
     CHECK_EQ((v2 == results), true);
 }
 
-TEST_CASE("mtl::for_each results compared to std::for_each results, std::string")
+
+
+TEST_CASE("mtl::for_each results compared to std::for_each results, std::string, modify")
 {
     std::vector<std::string> v1 {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     auto v2 = v1;
     std::vector<std::string> results {"00", "11", "22", "33", "44", "55", "66", "77", "88", "99", 
                                       "1010"};
-    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x = x + x;});
-    std::for_each(v2.begin(), v2.end(), [](auto& x) { x = x + x;});
+    mtl::for_each(v1.begin(), v1.end(), [](auto& x) { x += x;});
+    std::for_each(v2.begin(), v2.end(), [](auto& x) { x += x;});
     CHECK_EQ((v1 == v2), true);
     CHECK_EQ((v1 == results), true);
     CHECK_EQ((v2 == results), true);
@@ -3153,6 +3181,14 @@ TEST_CASE("mtl::for_each results compared to std::for_each results, std::string"
 TEST_CASE("mtl::for_each for std::tuple of ints")
 {
     auto tp = std::make_tuple(10, 20, 30, 40);
+    int total = 0;
+    mtl::for_each(tp, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each for const std::tuple of ints")
+{
+    const std::tuple<int, int, int, int> tp = std::make_tuple(10, 20, 30, 40);
     int total = 0;
     mtl::for_each(tp, [&total](auto num) { total += num;});
     REQUIRE_EQ(total, 100);
@@ -3235,6 +3271,15 @@ TEST_CASE("mtl::for_each for std::tuple of ints, modify")
 TEST_CASE("mtl::for_each for std::tuple of different types")
 {
     auto tp = std::make_tuple(10, 'a', std::string("bcd"));
+    std::stringstream ss;
+    mtl::for_each(tp, [&ss](auto item) { ss << item;});
+    std::string result = "10abcd";
+    REQUIRE_EQ(ss.str(), result);
+}
+
+TEST_CASE("mtl::for_each for const std::tuple of different types")
+{
+    const std::tuple<int, char, std::string> tp = std::make_tuple(10, 'a', std::string("bcd"));
     std::stringstream ss;
     mtl::for_each(tp, [&ss](auto item) { ss << item;});
     std::string result = "10abcd";
@@ -3355,6 +3400,14 @@ TEST_CASE("mtl::for_each for std::pair of ints")
     REQUIRE_EQ(total, 100);
 }
 
+TEST_CASE("mtl::for_each for const std::pair of ints")
+{
+    const std::pair<int, int> p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
 TEST_CASE("mtl::for_each for std::pair of ints, ref")
 {
     const int items = 10;
@@ -3432,6 +3485,15 @@ TEST_CASE("mtl::for_each for std::pair of ints, modify")
 TEST_CASE("mtl::for_each for std::pair of different types")
 {
     auto tp = std::make_pair(10, std::string("abcd"));
+    std::stringstream ss;
+    mtl::for_each(tp, [&ss](auto item) { ss << item;});
+    std::string result = "10abcd";
+    REQUIRE_EQ(ss.str(), result);
+}
+
+TEST_CASE("mtl::for_each for const std::pair of different types")
+{
+    const std::pair<int, std::string> tp = std::make_pair(10, std::string("abcd"));
     std::stringstream ss;
     mtl::for_each(tp, [&ss](auto item) { ss << item;});
     std::string result = "10abcd";
