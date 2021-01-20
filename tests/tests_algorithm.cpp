@@ -6,21 +6,22 @@
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "doctest_include.hpp" 
-#include <list>
-#include <vector>
-#include <deque>
-#include <set>
-#include <unordered_set>
-#include <map>
-#include <unordered_map>
-#include <string>
-#include <sstream>
-#include <tuple>
-#include <stdexcept>  // std::invalid_argument
-#include <cstddef>    // std::ptrdiff_t
-#include <iterator>   // std::ostream_iterator, std::back_insert_iterator
-#include <functional> // std::equal_to, std::less
-#include <algorithm>  // std::sort, std::count, std::for_each
+#include <list>           // std::list
+#include <vector>         // std::vector
+#include <deque>          // std::deque
+#include <set>            // std::set
+#include <unordered_set>  // std::unordered_set
+#include <map>            // std::map
+#include <unordered_map>  // std::unordered_map
+#include <string>         // std::string
+#include <sstream>        // std::stringstream
+#include <tuple>          // std::tuple
+#include <utility>        // std::pair, std::make_pair
+#include <stdexcept>      // std::invalid_argument
+#include <cstddef>        // std::ptrdiff_t
+#include <iterator>       // std::ostream_iterator, std::back_insert_iterator
+#include <functional>     // std::equal_to, std::less
+#include <algorithm>      // std::sort, std::count, std::for_each
 
 // THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
 // IN THE LINES BELOW THE HEADER
@@ -3148,6 +3149,7 @@ TEST_CASE("mtl::for_each results compared to std::for_each results, std::string"
     CHECK_EQ((v2 == results), true);
 }
 
+
 TEST_CASE("mtl::for_each for std::tuple of ints")
 {
     auto tp = std::make_tuple(10, 20, 30, 40);
@@ -3155,6 +3157,80 @@ TEST_CASE("mtl::for_each for std::tuple of ints")
     mtl::for_each(tp, [&total](auto num) { total += num;});
     REQUIRE_EQ(total, 100);
 }
+
+TEST_CASE("mtl::for_each for std::tuple of ints, ref")
+{
+    const int items = 10;
+    const int desired_result = items * 100;
+    int grand_total = 0;
+    std::vector<std::tuple<int, int, int, int>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, 20, 30, 40);
+        vt.push_back(tp);
+    }
+    
+    for(auto& t : vt)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 100);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of ints, const ref")
+{
+    const int items = 10;
+    const int desired_result = items * 100;
+    int grand_total = 0;
+    std::vector<std::tuple<int, int, int, int>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, 20, 30, 40);
+        vt.push_back(tp);
+    }
+    
+    for(const auto& t : vt)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 100);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of ints, modify")
+{
+    const int items = 10;
+    const int desired_result = items * 1000;
+    int grand_total = 0;
+    std::vector<std::tuple<int, int, int, int>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, 20, 30, 40);
+        vt.push_back(tp);
+    }
+
+    // modify elements
+    for(auto& t : vt)
+    {
+        mtl::for_each(t, [](auto& num) { num = num * 10; });
+    }
+    
+    for(const auto& t : vt)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 1000);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+
 
 TEST_CASE("mtl::for_each for std::tuple of different types")
 {
@@ -3165,6 +3241,112 @@ TEST_CASE("mtl::for_each for std::tuple of different types")
     REQUIRE_EQ(ss.str(), result);
 }
 
+
+TEST_CASE("mtl::for_each for std::tuple of different types, ref")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "10abcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::tuple<int, char, std::string>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, 'a', std::string("bcd"));
+        vt.push_back(tp);
+    }
+    
+
+    for(auto& t : vt)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "10abcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of different types, const ref")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "10abcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::tuple<int, char, std::string>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, 'a', std::string("bcd"));
+        vt.push_back(tp);
+    }
+    
+
+    for(const auto& t : vt)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "10abcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::tuple of different types, modify")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "20aabcdbcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::tuple<int, std::string, std::string>> vt;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_tuple(10, "a", std::string("bcd"));
+        vt.push_back(tp);
+    }
+
+    // modify elements
+    for(auto& t : vt)
+    {
+        mtl::for_each(t, [](auto& item) { item += item; });
+    }
+    
+
+    for(auto& t : vt)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "20aabcdbcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
+}
+
+
+
+
 TEST_CASE("mtl::for_each for std::pair of ints")
 {
     auto p = std::pair<int, int>(70 , 30);
@@ -3173,13 +3355,190 @@ TEST_CASE("mtl::for_each for std::pair of ints")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each for std::tuple of different types")
+TEST_CASE("mtl::for_each for std::pair of ints, ref")
 {
-    auto p = std::pair<int, std::string>(1337 , std::string("|0123456789"));
+    const int items = 10;
+    const int desired_result = items * 100;
+    int grand_total = 0;
+    std::vector<std::pair<int, int>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::pair<int, int>(35, 65);
+        vp.push_back(tp);
+    }
+    
+    for(auto& t : vp)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 100);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::pair of ints, const ref")
+{
+    const int items = 10;
+    const int desired_result = items * 100;
+    int grand_total = 0;
+    std::vector<std::pair<int, int>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::pair<int, int>(35, 65);
+        vp.push_back(tp);
+    }
+    
+    for(auto& t : vp)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 100);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::pair of ints, modify")
+{
+    const int items = 10;
+    const int desired_result = items * 1000;
+    int grand_total = 0;
+    std::vector<std::pair<int, int>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::pair<int, int>(35, 65);
+        vp.push_back(tp);
+    }
+
+    // modify elements
+    for(auto& t : vp)
+    {
+        mtl::for_each(t, [](auto& num) { num = num * 10; });
+    }
+    
+    for(const auto& t : vp)
+    {
+        int total = 0;
+        mtl::for_each(t, [&total](auto num) { total += num;});
+        REQUIRE_EQ(total, 1000);
+        grand_total += total;
+    }
+    REQUIRE_EQ(grand_total, desired_result);
+}
+
+
+
+TEST_CASE("mtl::for_each for std::pair of different types")
+{
+    auto tp = std::make_pair(10, std::string("abcd"));
     std::stringstream ss;
-    mtl::for_each(p, [&ss](auto item) { ss << item;});
-    std::string result = "1337|0123456789";
+    mtl::for_each(tp, [&ss](auto item) { ss << item;});
+    std::string result = "10abcd";
     REQUIRE_EQ(ss.str(), result);
+}
+
+
+TEST_CASE("mtl::for_each for std::pair of different types, ref")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "10abcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::pair<int, std::string>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_pair(10, std::string("abcd"));
+        vp.push_back(tp);
+    }
+    
+
+    for(auto& t : vp)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "10abcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::pair of different types, const ref")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "10abcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::pair<int, std::string>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_pair(10, std::string("abcd"));
+        vp.push_back(tp);
+    }
+    
+
+    for(const auto& t : vp)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "10abcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
+}
+
+TEST_CASE("mtl::for_each for std::pair of different types, modify")
+{
+    const int items = 10;
+    
+    std::string desired_result;
+    for(int i = 0; i < items; i++)
+    {
+        desired_result += "20abcdabcd";
+    }
+
+    std::string combined_result;
+
+    std::vector<std::pair<int, std::string>> vp;
+    for(int i = 0; i < items; i++)
+    {
+        auto tp = std::make_pair(10, std::string("abcd"));
+        vp.push_back(tp);
+    }
+
+    // modify elements
+    for(auto& t : vp)
+    {
+        mtl::for_each(t, [](auto& item) { item += item; });
+    }
+    
+
+    for(auto& t : vp)
+    {
+        std::stringstream ss;
+        mtl::for_each(t, [&ss](auto item) { ss << item;});
+        std::string result = "20abcdabcd";
+        REQUIRE_EQ(ss.str(), result);
+        combined_result += ss.str();
+    }
+
+    REQUIRE_EQ(combined_result, desired_result);
 }
 
 // ------------------------------------------------------------------------------------------------
