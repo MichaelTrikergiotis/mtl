@@ -52,7 +52,7 @@ TEST_CASE("mtl::rng with int check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10, true);
         REQUIRE_EQ(value <= 100, true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -71,7 +71,7 @@ TEST_CASE("mtl::rng with int check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050, true);
         REQUIRE_EQ(value <= 3999, true);
-        values2.push_back(value);
+        values2.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -137,7 +137,7 @@ TEST_CASE("mtl::rng with float check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0f, true);
         REQUIRE_EQ(value <= 100.0f, true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -169,7 +169,7 @@ TEST_CASE("mtl::rng with float check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0f, true);
         REQUIRE_EQ(value <= 3999.0f, true);
-        values2.push_back(value);
+        values2.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -256,7 +256,7 @@ TEST_CASE("mtl::rng with double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0, true);
         REQUIRE_EQ(value <= 100.0, true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -287,7 +287,7 @@ TEST_CASE("mtl::rng with double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0, true);
         REQUIRE_EQ(value <= 3999.0, true);
-        values2.push_back(value);
+        values2.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -377,7 +377,7 @@ TEST_CASE("mtl::rng with long double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 10.0l, true);
         REQUIRE_EQ(value <= 100.0l, true);
-        values.push_back(value);
+        values.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -408,7 +408,7 @@ TEST_CASE("mtl::rng with long double check various functions")
         auto value = rand.next();
         REQUIRE_EQ(value >= 1050.0l, true);
         REQUIRE_EQ(value <= 3999.0l, true);
-        values2.push_back(value);
+        values2.emplace_back(value);
     }
 
     // check that all values are not the same and there is some variance
@@ -693,7 +693,7 @@ TEST_CASE("mtl::random_choice with containers<int>")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi);
-        vi_v.push_back(*result);
+        vi_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -717,7 +717,7 @@ TEST_CASE("mtl::random_choice with containers<int>")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li);
-        li_v.push_back(*result);
+        li_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -810,7 +810,7 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi);
-        vi_v.push_back(*result);
+        vi_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -831,7 +831,7 @@ TEST_CASE("mtl::random_choice with containers<std::string>")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li);
-        li_v.push_back(*result);
+        li_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -927,7 +927,7 @@ TEST_CASE("mtl::random_choice with iterators of int")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi.begin(), vi.end());
-        vi_v.push_back(*result);
+        vi_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -948,7 +948,7 @@ TEST_CASE("mtl::random_choice with iterators of int")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li.begin(), li.end());
-        li_v.push_back(*result);
+        li_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -1043,7 +1043,7 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(vi.begin(), vi.end());
-        vi_v.push_back(*result);
+        vi_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(vi.begin(), vi.end(), *result) != vi.end())
@@ -1064,7 +1064,7 @@ TEST_CASE("mtl::random_choice with iterators of std::string")
     {
         // make a random choice from the container
         auto result = mtl::random_choice(li.begin(), li.end());
-        li_v.push_back(*result);
+        li_v.emplace_back(*result);
         // check that the value found exists within the container
         auto found = false;
         if(std::find(li.begin(), li.end(), *result) != li.end())
@@ -1300,7 +1300,7 @@ TEST_CASE("mtl::shuffle with containers<std::string>")
     v.reserve(size);
     for (size_t i = 0; i < size; i++)
     {
-        v.push_back(std::to_string(i));
+        v.emplace_back(std::to_string(i));
     }
     std::list<std::string> l(v.begin(), v.end());
 
@@ -1517,7 +1517,7 @@ TEST_CASE("mtl::shuffle with iterators with containers<std::string>")
     v.reserve(size);
     for (size_t i = 0; i < size; i++)
     {
-        v.push_back(std::to_string(i));
+        v.emplace_back(std::to_string(i));
     }
     std::list<std::string> l(v.begin(), v.end());
 

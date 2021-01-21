@@ -412,7 +412,7 @@ inline void rem_duplicates_preserve_impl(Container& container, Hash hash, Binary
 		if (prev_size != database.size())
 		{
 			// keep the non duplicate item
-			non_duplicates.push_back(item);
+			mtl::emplace_back(non_duplicates, item);
 		}
 	}
 	container = non_duplicates;
@@ -711,7 +711,7 @@ inline void keep_duplicates_exclusive_preserve(Container& container, Hash hash, 
 		if (prev_size == database.size())
 		{
 			// keep the duplicate item
-			duplicates.push_back(item);
+			mtl::emplace_back(duplicates, item);
 		}
 	}
 	container = duplicates;
@@ -997,13 +997,13 @@ namespace detail
 template<size_t Index, typename Function, typename... Types>
 struct for_each_tuple
 {
-	void operator() (std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (std::tuple<Types...>& value, Function&& func)
 	{
 		// use recursion to call all the other parts of the tuple
 		for_each_tuple<Index - 1, Function, Types...>{}
-		(std_tuple, std::forward<Function>(func));
-		// call function on current item of the array
-		func(std::get<Index>(std_tuple));
+		(value, std::forward<Function>(func));
+		// call the given function for the specific index of the tuple
+		func(std::get<Index>(value));
 	}
 };
 
@@ -1011,9 +1011,9 @@ struct for_each_tuple
 template<typename Function, typename... Types>
 struct for_each_tuple<0, Function, Types...>
 {
-	void operator() (std::tuple<Types...>& std_tuple, Function&& func)
+	void operator() (std::tuple<Types...>& value, Function&& func)
 	{
-		func(std::get<0>(std_tuple));
+		func(std::get<0>(value));
 	}
 };
 
@@ -1021,14 +1021,59 @@ struct for_each_tuple<0, Function, Types...>
 
 /// Applies a function to all elements. A drop in replacement for std::for_each that works on
 /// everything std::for_each works and also works on std::tuple and std::pair.
-/// @param[in] std_tuple An std::tuple.
+/// @param[in] value An std::tuple.
 /// @param[in] func A function to apply.
 template<typename Function, typename... Types>
-inline void for_each(std::tuple<Types...>& std_tuple, Function&& func)
+inline void for_each(std::tuple<Types...>& value, Function&& func)
 {
 	const auto size = std::tuple_size_v<std::tuple<Types...>>;
 	detail::for_each_tuple<size - 1, Function, Types...>{}
-	(std_tuple, std::forward<Function>(func));
+	(value, std::forward<Function>(func));
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::for_each for const std::tuple 
+// ------------------------------------------------------------------------------------------------
+
+namespace detail
+{
+
+// Helper struct for for_each function with std::tuple.
+template<size_t Index, typename Function, typename... Types>
+struct for_each_const_tuple
+{
+	void operator() (const std::tuple<Types...>& value, Function&& func)
+	{
+		// use recursion to call all the other parts of the tuple
+		for_each_const_tuple<Index - 1, Function, Types...>{}
+		(value, std::forward<Function>(func));
+		// call the given function for the specific index of the tuple
+		func(std::get<Index>(value));
+	}
+};
+
+// Helper struct for for_each function with std::tuple. Template specialization for index 0.
+template<typename Function, typename... Types>
+struct for_each_const_tuple<0, Function, Types...>
+{
+	void operator() (const std::tuple<Types...>& value, Function&& func)
+	{
+		func(std::get<0>(value));
+	}
+};
+
+} // namespace detail end
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] value An std::tuple.
+/// @param[in] func A function to apply.
+template<typename Function, typename... Types>
+inline void for_each(const std::tuple<Types...>& value, Function&& func)
+{
+	const auto size = std::tuple_size_v<std::tuple<Types...>>;
+	detail::for_each_const_tuple<size - 1, Function, Types...>{}
+	(value, std::forward<Function>(func));
 }
 
 
@@ -1042,6 +1087,21 @@ inline void for_each(std::tuple<Types...>& std_tuple, Function&& func)
 /// @param[in] func A function to apply.
 template<typename Function, typename Type1, typename Type2>
 inline void for_each(std::pair<Type1, Type2>& std_pair, Function&& func)
+{
+	func(std_pair.first);
+	func(std_pair.second);
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::for_each for const std::pair
+// ------------------------------------------------------------------------------------------------
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] std_pair An std::pair.
+/// @param[in] func A function to apply.
+template<typename Function, typename Type1, typename Type2>
+inline void for_each(const std::pair<Type1, Type2>& std_pair, Function&& func)
 {
 	func(std_pair.first);
 	func(std_pair.second);
