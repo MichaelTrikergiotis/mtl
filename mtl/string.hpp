@@ -157,24 +157,9 @@ inline void to_lower(std::string& value) noexcept
 
 
 // ================================================================================================
-// IS_ASCII - Returns if an integer is an ASCII character.
 // IS_ASCII - Returns if char is an ASCII character.
 // IS_ASCII - Returns if all characters in a std::string are ASCII characters.
 // ================================================================================================
-
-/// Returns if the character is an ASCII character.
-/// @param[in] character A integer to check.
-/// @return If the integer can be represented as an ASCII character.
-[[nodiscard]]
-inline bool is_ascii(const int character) noexcept
-{
-	// is the value within the ASCII range of characters
-	if ((character >= 0) && (character <= 127))
-	{
-		return true;
-	}
-	return false;
-}
 
 /// Returns if the character is an ASCII character.
 /// @param[in] character A character to check.
@@ -183,7 +168,12 @@ inline bool is_ascii(const int character) noexcept
 inline bool is_ascii(const char character) noexcept
 {
 	int value = static_cast<int>(static_cast<unsigned char>(character));
-	return is_ascii(value);
+	// is the value within the ASCII range of characters
+	if ((value >= 0) && (value <= 127))
+	{
+		return true;
+	}
+	return false;
 }
 
 /// Returns if all the characters in a std::string are ASCII characters.
@@ -974,7 +964,7 @@ inline void count_size_impl(size_t& size, const char)
 	size += 1;
 }
 
-// Count size for std::pairt<T, U>.
+// Count size for std::pair.
 template<typename Type1, typename Type2>
 inline void count_size_impl(size_t& size, const std::pair<Type1, Type2>& type)
 {
@@ -990,7 +980,7 @@ template<typename Type>
 inline void count_size_impl(size_t&, const Type&)
 {
 	// For non-specialized type the count is 0. All modern compilers with high otpimization
-	// setting turn this function into a NOOP.
+	// settings will turn this function into a NOOP.
 }
 
 
