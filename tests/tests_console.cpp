@@ -501,8 +501,6 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
 
 // --
 
-
-
 TEST_CASE("mtl::console::print_all with every option including padding to none")
 {
     auto vi = generate_numbers();
@@ -597,6 +595,24 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_b
     };
     REQUIRE_NOTHROW(mtl::console::print_all(vs.begin(), vs.end(), ")>|<(", 10, "<(", ")>", 
                     mtl::console::print_pad::both_back));
+    mtl::console::println("\n--------------\n\n\n");
+}
+
+TEST_CASE("mtl::console::print_all with conversion specifiers without formatting")
+{
+    // mtl::console::print_all does not format the passed arguments so strings like {}, {0}, {1}
+    // and %i etc should not cause formatting changes
+    const std::vector<std::string> conversion_specifiers
+    { "{}", "{0}", "{1}", "{2}", "%", "%c", "%s", "%d", "%i", "%o", "%x", "%X","%u","%f", "%F",
+      "%e", "%E", "%a", "%A", "%g", "%G", "%n", "%p", "#", "2.33#.2", "{#}", "{2.33#.2}" };
+
+    REQUIRE_NOTHROW(mtl::console::print("mtl::console::print_all does not format the passed "));
+    REQUIRE_NOTHROW(mtl::console::print("arguments, there should be no formatted text.\n"));
+    REQUIRE_NOTHROW(mtl::console::print("This should print the conversion specifiers and not "));
+    REQUIRE_NOTHROW(mtl::console::print("formatted text.\n"));
+    REQUIRE_NOTHROW(mtl::console::print_all(conversion_specifiers.begin(), 
+                                            conversion_specifiers.end(), "][", 10, "[", "]", 
+                                            mtl::console::print_pad::both_back));
     mtl::console::println("\n--------------\n\n\n");
 }
 
