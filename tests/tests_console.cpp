@@ -89,7 +89,7 @@ TEST_CASE("empty mtl::console::print")
     REQUIRE_NOTHROW((mtl::console::print()));
 }
 
-TEST_CASE("mtl::console::print print conversion specifiers without formatting, single item")
+TEST_CASE("mtl::console::print with conversion specifiers, single item")
 {
     // mtl::console::print does not format the passed arguments so strings like {}, {0} and %i etc
     // should not cause formatting changes
@@ -110,7 +110,7 @@ TEST_CASE("mtl::console::print print conversion specifiers without formatting, s
     REQUIRE_NOTHROW(mtl::console::print("\n\n\n"));
 }
 
-TEST_CASE("mtl::console::print print conversion specifiers without formatting, multiple items")
+TEST_CASE("mtl::console::print with conversion specifiers, multiple items")
 {
     // mtl::console::print does not format the passed arguments so strings like {}, {0} and %i etc
     // should not cause formatting changes
@@ -216,7 +216,7 @@ TEST_CASE("empty mtl::console::println")
     REQUIRE_NOTHROW((mtl::console::println()));
 }
 
-TEST_CASE("mtl::console::println print conversion specifiers without formatting, single item")
+TEST_CASE("mtl::console::println with conversion specifiers, single item")
 {
     // mtl::console::println does not format the passed arguments so strings like {}, {0} and %i 
     // etc should not cause formatting changes
@@ -236,7 +236,7 @@ TEST_CASE("mtl::console::println print conversion specifiers without formatting,
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 }
 
-TEST_CASE("mtl::console::println print conversion specifiers without formatting, multiple items")
+TEST_CASE("mtl::console::println with conversion specifiers, multiple items")
 {
     // mtl::console::println does not format the passed arguments so strings like {}, {0} and %i
     // etc should not cause formatting changes
@@ -598,7 +598,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_b
     mtl::console::println("\n--------------\n\n\n");
 }
 
-TEST_CASE("mtl::console::print_all with conversion specifiers without formatting")
+TEST_CASE("mtl::console::print_all with conversion specifiers")
 {
     // mtl::console::print_all does not format the passed arguments so strings like {}, {0}, {1}
     // and %i etc should not cause formatting changes
