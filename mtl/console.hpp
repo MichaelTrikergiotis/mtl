@@ -370,7 +370,6 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 	// convert all items to strings and keep them in a container to facilitate further processing
 	std::vector<std::string> items;
-
 	// find the number of elements
 	auto size_temp = std::distance(first, last);
 
@@ -381,33 +380,30 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 	// if iterators passed are 0 or negative do nothing
 	if (size_temp <= 0) { return; }
-
 	// convert the std::ptrdiff type to size_t this is safe as we checked it is not negative
 	const size_t size = static_cast<size_t>(size_temp);
 
 	// GCOVR_EXCL_START
-	// reserve vector size to avoid unnecessary allocations
+	// reserve space to avoid unnecessary allocations
 	items.reserve(size);
-
 	// convert all elements to strings and place them in the vector
 	for (auto it = first; it != last; ++it)
 	{
 		items.emplace_back(mtl::string::to_string(*it));
 	}
 
-	
 	// find the size of the string with the largest length so we can add padding
 	size_t largest = (std::max_element(items.begin(), items.end(),
 									   [](const auto& lhs, const auto& rhs)
 									   { return lhs.size() < rhs.size(); }))->size();
 
-	// create a memory buffer
-	fmt::memory_buffer memory;
-	// reserve some memory to avoid allocations, memory reserved is how many characters we want,
-	// we are somewhat convervative to avoid allocating way more memory than we need
-	memory.reserve(items.size() * 5);
+	// create a buffer
+	fmt::memory_buffer buffer;
+	// reserve some space to avoid allocations, we are somewhat convervative to avoid allocating
+	// way more space than we need
+	buffer.reserve(items.size() * 5);
 
-	// print the items in the console with newline characters
+	// print the items to the console with newline characters
 	if (newline_count > 0)
 	{
 		// counter to keep track when to change line
@@ -417,64 +413,58 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 		size_t last_counter = size;
 
 		for (auto& item : items)
-		{
-			
+		{		
 			// if counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
 			{
-				fmt::format_to(memory, "{}", line_start); 
+				fmt::format_to(buffer, "{}", line_start); 
 			}
 
 			// pad the item with the given padding style
 			mtl::console::detail::print_padding_impl(item, largest, padding_style); 
 
-			// print the item, in our case just hold it in the memory buffer
-			fmt::format_to(memory, "{}", item); 
+			// print the item, in our case just hold it in the buffer
+			fmt::format_to(buffer, "{}", item); 
 
 			// adjust the counters
 			++newline_counter;
 			--last_counter;
 			
-			
 			// check if we should print a delimiter or a line end character based on the counters
 			if ((newline_counter < newline_count) && (last_counter > 0)) 
 			{
-				fmt::format_to(memory, "{}", delimiter); 
+				fmt::format_to(buffer, "{}", delimiter); 
 			}
 			else
 			{
-				fmt::format_to(memory, "{}\n", line_end); 
+				fmt::format_to(buffer, "{}\n", line_end); 
 				newline_counter = 0;
 			}
-			
 		}
 	}
 	// print the items to the console without newline characters
 	else
 	{
-
-		fmt::format_to(memory, "{}", line_start); 
+		fmt::format_to(buffer, "{}", line_start); 
 		for (size_t i = 0; i < items.size(); ++i)
 		{
 			// pad the item with the given padding style
 			mtl::console::detail::print_padding_impl(items[i], largest, padding_style); 
 			
-
-			// print the item, in our case just hold it in the memory buffer
-			fmt::format_to(memory, "{}", items[i]); 
+			// print the item, in our case just hold it in the buffer
+			fmt::format_to(buffer, "{}", items[i]); 
 
 			// print the delimiter if it is not the last item
 			if (i < items.size() - 1) 
 			{ 
-				fmt::format_to(memory, "{}", delimiter); 
+				fmt::format_to(buffer, "{}", delimiter); 
 			}
 		}
-		fmt::format_to(memory, "{}", line_end); 
-		
+		fmt::format_to(buffer, "{}", line_end); 
 	}
-	// write the entire memory buffer to console, benchmarks show we gained 4x or more speed
-	// compared to the old code where we writing each individual item to console one at a time
-	fmt::print("{}", fmt::to_string(memory));
+	// write the entire buffer to the console, benchmarks show great performance gains 
+	// compared to when we were we printing each individual character to the console one at a time
+	fmt::print("{}", fmt::to_string(buffer));
 	// GCOVR_EXCL_STOP
 }
 
@@ -1243,9 +1233,9 @@ inline void overtype(const std::string& argument)
 	}
 	// GCOVR_EXCL_STOP
 
-    // create a string consisting of \b that will move the cursor back, this allows us to avoid
-    // printing \b multiple times and we instead need to print only once, this is a significant
-    // performance gain in the range of 2x to 8x times faster
+	// create a string consisting of backspace characters that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times and we instead need to
+	// print only one big string, this is a very significant performance gain
     std::string multiple_backspaces(argument.size(), '\b');
     fmt::print(multiple_backspaces);
 	
