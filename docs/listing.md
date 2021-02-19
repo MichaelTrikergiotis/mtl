@@ -45,10 +45,10 @@ There are 116 non-member functions.
 - `mtl::console::print` [(Documentation)](../mtl/console.hpp#L165) [(Examples)](../tests/tests_console.cpp#L71)
 - `mtl::console::println` [(Documentation)](../mtl/console.hpp#L205) [(Examples)](../tests/tests_console.cpp#L71)
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L286) [(Examples)](../tests/tests_console.cpp#L338)
-- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L539) [(Examples)](../tests/tests_console.cpp#L621)
-- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L540) [(Examples)](../tests/tests_console.cpp#L870)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1228) [(Examples)](../tests/tests_console.cpp#L1032)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1286) [(Examples)](../tests/tests_console.cpp#L1412)
+- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L529) [(Examples)](../tests/tests_console.cpp#L621)
+- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L530) [(Examples)](../tests/tests_console.cpp#L870)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1218) [(Examples)](../tests/tests_console.cpp#L1032)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1276) [(Examples)](../tests/tests_console.cpp#L1412)
 
 ---------------------------------------------------
 
