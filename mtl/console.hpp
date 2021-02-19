@@ -179,7 +179,7 @@ inline void print(const Arg& arg)
 
 /// Print all parameters to the console.
 /// @param[in] arg An argument of any type that can be printed.
-/// @param[in] args Any number of argument of any type that can be printed.
+/// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
 inline void print(const Arg& arg, Args&&... args)
 {
@@ -258,7 +258,7 @@ inline void println(const Arg& arg)
 
 /// Print each parameter followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
-/// @param[in] args Any number of argument of any type that can be printed.
+/// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
 inline void println(const Arg& arg, Args&&... args)
 {
