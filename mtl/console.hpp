@@ -21,7 +21,7 @@
 #include "utility.hpp"     // MTL_ASSERT_MSG
 #include "fmt_include.hpp" // fmt::print, fmt::memory_buffer, fmt::format_to, fmt::to_string
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
-						   // mtl::string::pad_back
+						   // mtl::string::pad_back, mtl::string::join
 
 
 // Windows only headers
@@ -165,6 +165,7 @@ static const bool inside_terminal = is_terminal();
 // PRINT - Prints all parameters to the console.
 // ================================================================================================
 
+
 /// Print nothing to the console.
 inline void print() {}
 
@@ -182,10 +183,20 @@ inline void print(const Arg& arg)
 template <typename Arg, typename... Args>
 inline void print(const Arg& arg, Args&&... args)
 {
-	// print the first argument
-	print(arg);
-	// call print recursively using pack expansion syntax for the rest of the arguments
-	print(std::forward<Args>(args)...);
+	// the number of variadic arguments
+	constexpr size_t number_args = sizeof...(args);
+
+	// if there are any variadic arguments
+	if constexpr(number_args > 0)
+	{
+		// concatenate all arguments to a single string, so we only need a single call to print
+		fmt::print("{}", mtl::string::join(arg, std::forward<Args>(args)...));
+	}
+	// if there are no variadic arguments
+	else
+	{
+		fmt::print("{}", arg);
+	}
 }
 
 
@@ -193,6 +204,43 @@ inline void print(const Arg& arg, Args&&... args)
 // ================================================================================================
 // PRINTLN - Prints each parameter to the console in a new line.
 // ================================================================================================
+
+namespace detail
+{
+	// Concatenates an argument and a newline at the end of a buffer.
+	inline void concat_to_buffer_newline(std::string& buffer, const std::string& arg)	
+	{
+		buffer += arg;
+		buffer.push_back('\n');
+	}
+
+	// Concatenates an argument and a newline at the end of a buffer.
+	template<typename Arg>
+	inline void concat_to_buffer_newline(std::string& buffer, const Arg& arg)	
+	{
+		buffer += mtl::string::to_string(arg);
+		buffer.push_back('\n');
+	}
+
+	// Concatenates all given arguments with a newline at the end of each and stores them in a
+	// buffer.
+	template<typename Arg, typename... Args>
+	inline void concat_to_buffer_newline(std::string& buffer, const Arg& arg, Args&&... args)	
+	{
+		concat_to_buffer_newline(buffer, arg);
+		concat_to_buffer_newline(buffer, args...);
+	}
+
+	// Concatenates all given arguments with a newline at the end of each and returns a string.
+	template<typename Arg, typename... Args>
+	inline std::string concat_arguments_newline(const Arg& arg, Args&&... args)	
+	{
+		std::string buffer;
+		concat_to_buffer_newline(buffer, arg, std::forward<Args>(args)...);
+		return buffer;
+	}	
+} // namespace detail end
+
 
 /// Print a new line to the console.
 inline void println()
@@ -214,10 +262,20 @@ inline void println(const Arg& arg)
 template <typename Arg, typename... Args>
 inline void println(const Arg& arg, Args&&... args)
 {
-	// println the first argument
-	println(arg);
-	// call println recursively using pack expansion syntax for the rest of the arguments
-	println(std::forward<Args>(args)...);
+	// the number of variadic arguments
+	constexpr size_t number_args = sizeof...(args);
+
+	// if there are any variadic arguments
+	if constexpr(number_args > 0)
+	{
+		// concatenate all arguments to a single string, so we only need a single call to print
+		fmt::print("{}", detail::concat_arguments_newline(arg, std::forward<Args>(args)...));
+	}
+	// if there are no variadic arguments
+	else
+	{
+		fmt::print("{}\n", arg);
+	}
 }
 
 
