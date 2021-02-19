@@ -41,13 +41,12 @@ so we can test the **mtl** more thoroughly.
 MTL_EXTERNALLY_SUPPLIED_FMT
 ```
 
-The **mtl** uses the amazing **fmt** library. **fmt** is used with it's header only implementation because **mtl** itself is header only. To make **mtl** more self-contained and easier to use by having less requirements to search and install external libraries all the headers for the **fmt** are included with **mtl** in the folder ```mtl/fmt```. But if the user want to use his own version of **fmt** then a problem arises, the problem of different versions for the same library. Including different versions of the same library is a bad practice that can lead to problems and errors. For that reason you can use the macro ```MTL_EXTERNALLY_SUPPLIED_FMT``` and then supply the **fmt** version of your choice instead of the one included with mtl. This macro is not recommended to be used if you don't need to because defining this macro without properly providing the **fmt** library will stop you from compiling successfully.
+The **mtl** uses the **fmt** library. The **fmt** library is used with its header only implementation because **mtl** itself is header only. To make **mtl** more self-contained and easier to use by having fewer requirements to search and install external libraries all the headers for the **fmt** library are included with **mtl** in the folder ```mtl/fmt```. In the case the user want to use his own version of **fmt** a problem arises, the problem of different versions for the same library. Including different versions of the same library is a bad practice that can lead to errors. For that reason you can use the macro ```MTL_EXTERNALLY_SUPPLIED_FMT``` and then supply the **fmt** version of your choice instead of the one included with **mtl**. This macro is not recommended being used if you don't need to because defining this macro without properly providing the **fmt** library will stop you from compiling successfully.
 
-Th **fmt** version included and tested with **mtl** is the latest version, we recommend to use that because of bugfixes and performance improvements. We do not test **mtl** with previous versions of **fmt**. If there is a compilation problem you may need to update your externally supplied **fmt** version to a newer one.
+The **fmt** version included and tested with **mtl** is the latest version, we recommend using that because of bugfixes and performance improvements. We do not test **mtl** with previous versions of **fmt**. If there is a compilation problem you may need to update your externally supplied **fmt** version to a newer one.
 
 There are some requirements for using this macro :
 
 1. The macro should be defined BEFORE any **mtl** headers are included and in all files that include **mtl** headers.
-2. You have to supply your own version of **fmt** and include all the **fmt** headers BEFORE including any of the **mtl** headers. Preferably the same version used in **mtl** or later.
-3. Prefer to include all headers from **fmt**. Although only ```fmt/format.h``` and ```fmt/ostream.h``` are used now in the future more **fmt** headers maybe be used.
-4. Your externally supplied version of **fmt** can be used either as a header only or not, doesn't make a difference.
+2. You have to supply your own version of **fmt** and include all the **fmt** headers BEFORE including any of the **mtl** headers. Preferably the same version used in **mtl**.
+3. Your externally supplied version of **fmt** can be used either as a header only or not, doesn't make a difference.
