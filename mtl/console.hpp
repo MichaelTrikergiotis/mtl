@@ -18,7 +18,6 @@
 #include <utility>         // std::forward
 #include <cstdio>          // std::fflush, stdout
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
-#include "utility.hpp"     // MTL_ASSERT_MSG
 #include "fmt_include.hpp" // fmt::print, fmt::memory_buffer, fmt::format_to, fmt::to_string
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
 						   // mtl::string::pad_back, mtl::string::join
@@ -283,7 +282,7 @@ inline void println(const Arg& arg, Args&&... args)
 // ================================================================================================
 // PRINT_PAD  - Enumeration that allows print_all to select which side you want the printed 
 //              element to be padded to.
-// PRINT_ALL  - Print all items in a range with multitude of fromatting options.
+// PRINT_ALL  - Print all elements in a range with multitude of fromatting options.
 // ================================================================================================
 
 
@@ -316,30 +315,30 @@ enum class print_pad
 namespace detail
 {
 
-// Adds padding to a string based on how big is the largest item with a given padding style.
-inline void print_padding_impl(std::string& item, const size_t largest, 
+// Adds padding to a string based on how long is the longest string with a given padding style.
+inline void print_padding_impl(std::string& element, const size_t longest, 
 							   const print_pad padding_style)
 {
-	const size_t item_size = item.size();
-	// check that the item can be padded based on size
-	if (item_size < largest)
+	const size_t element_size = element.size();
+	// check that the element can be padded based on size
+	if (element_size < longest)
 	{
 		// pad based on the selected padding style
 		if (padding_style == print_pad::front)
 		{
-			mtl::string::pad_front(item, largest - item_size, ' ');
+			mtl::string::pad_front(element, longest - element_size, ' ');
 		}
 		else if (padding_style == print_pad::both_front)
 		{
-			mtl::string::pad(item, largest - item_size, ' ', false);
+			mtl::string::pad(element, longest - element_size, ' ', false);
 		}
 		else if (padding_style == print_pad::both_back)
 		{
-			mtl::string::pad(item, largest - item_size, ' ', true);
+			mtl::string::pad(element, longest - element_size, ' ', true);
 		}
 		else if (padding_style == print_pad::back)
 		{
-			mtl::string::pad_back(item, largest - item_size, ' ');
+			mtl::string::pad_back(element, longest - element_size, ' ');
 		}
 	}
 }
@@ -348,15 +347,15 @@ inline void print_padding_impl(std::string& item, const size_t largest,
 
 
 
-/// Prints to console all items in a range. The newline_count affects after how many items the
-/// newline character will be used. Delimiter is a string used between all elements.
+/// Prints to console all elements in a range. The newline_count affects after how many elements 
+/// the newline character will be used. Delimiter is a string used between all elements.
 /// The line_start affects what gets printed when a new line starts and line_end affects what is
 /// printed when a line ends. Padding style allows you to pass an enumeration to select which side
-/// you want all elements to be padded. Padding only works with items that are ASCII characters.
+/// you want all elements to be padded. Padding only works correctly with ASCII characters.
 /// @param[in] first An iterator to the start of the range.
 /// @param[in] last An iterator to the end of the range.
 /// @param[in] delimiter An optional delimiter to use between each element.
-/// @param[in] newline_count The optional number of items after we print a new line.
+/// @param[in] newline_count The optional number of elements after we print a new line.
 /// @param[in] line_start An optional text to print on the start of a new line.
 /// @param[in] line_end An optional text to print on the end of a new line.
 /// @param[in] padding_style The optional mtl::console::print_pad style used to pad elements.
@@ -368,51 +367,52 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 {
 	if (first == last) { return; }
 
-	// convert all items to strings and keep them in a container to facilitate further processing
-	std::vector<std::string> items;
 	// find the number of elements
-	auto size_temp = std::distance(first, last);
-
-#ifndef MTL_DISABLE_SOME_ASSERTS 
-	// if the number of elements are less than 0 the iterators passed are incorrect
-	MTL_ASSERT_MSG(!(size_temp < 0), "Incorrect iterators passed.");
-#endif
-
+	auto iter_distance = std::distance(first, last);
 	// if iterators passed are 0 or negative do nothing
-	if (size_temp <= 0) { return; }
-	// convert the std::ptrdiff type to size_t this is safe as we checked it is not negative
-	const size_t size = static_cast<size_t>(size_temp);
+	if (iter_distance <= 0) { return; }
+	// convert to size_t as we checked it is not a negative number
+	const size_t num_elements = static_cast<size_t>(iter_distance);
 
 	// GCOVR_EXCL_START
+	
+	std::vector<std::string> elements;
 	// reserve space to avoid unnecessary allocations
-	items.reserve(size);
-	// convert all elements to strings and place them in the vector
+	elements.reserve(num_elements);
+	// convert all elements to strings and keep them in a container to facilitate further
+	// processing
 	for (auto it = first; it != last; ++it)
 	{
-		items.emplace_back(mtl::string::to_string(*it));
+		elements.emplace_back(mtl::string::to_string(*it));
 	}
 
-	// find the size of the string with the largest length so we can add padding
-	size_t largest = (std::max_element(items.begin(), items.end(),
-									   [](const auto& lhs, const auto& rhs)
-									   { return lhs.size() < rhs.size(); }))->size();
 
-	// create a buffer
+	size_t longest = 0;
+	// if padding is requested find the the string with the longest length so we can add the 
+	// correct amount of padding
+	if(padding_style != mtl::console::print_pad::none)
+	{
+		longest = 	(std::max_element(elements.begin(), elements.end(), 
+									  [](const auto& lhs, const auto& rhs)
+									  {
+										  return lhs.size() < rhs.size();
+									  }))->size();
+	}
+	
+
+	// create a buffer to store everything so we only have to print once
 	fmt::memory_buffer buffer;
-	// reserve some space to avoid allocations, we are somewhat convervative to avoid allocating
-	// way more space than we need
-	buffer.reserve(items.size() * 5);
 
-	// print the items to the console with newline characters
+	// if printing a newline after a certain number of elements is requested
 	if (newline_count > 0)
 	{
-		// counter to keep track when to change line
+		// counter to keep track when we need to print the newline character
 		size_t newline_counter = 0;
 
-		// countdown counter to keep track if it is the last element
-		size_t last_counter = size;
+		// counter to keep track if it is the last element
+		size_t last_element_counter = 0;
 
-		for (auto& item : items)
+		for (auto& element : elements)
 		{		
 			// if counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
@@ -420,18 +420,17 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 				fmt::format_to(buffer, "{}", line_start); 
 			}
 
-			// pad the item with the given padding style
-			mtl::console::detail::print_padding_impl(item, largest, padding_style); 
+			// pad the element with the given padding style
+			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 
-			// print the item, in our case just hold it in the buffer
-			fmt::format_to(buffer, "{}", item); 
+			// store the element in the buffer
+			fmt::format_to(buffer, "{}", element); 
 
-			// adjust the counters
 			++newline_counter;
-			--last_counter;
+			++last_element_counter;
 			
-			// check if we should print a delimiter or a line end character based on the counters
-			if ((newline_counter < newline_count) && (last_counter > 0)) 
+			// check if we should add a delimiter or a line end string based on the counters
+			if ((newline_counter < newline_count) && (last_element_counter < num_elements)) 
 			{
 				fmt::format_to(buffer, "{}", delimiter); 
 			}
@@ -442,28 +441,32 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			}
 		}
 	}
-	// print the items to the console without newline characters
+	// if printing a newline after a certain number of elements is not requested
 	else
 	{
 		fmt::format_to(buffer, "{}", line_start); 
-		for (size_t i = 0; i < items.size(); ++i)
+		// counter to keep track if it is the last element
+		size_t last_element_counter = 0;
+		for (auto& element : elements)
 		{
-			// pad the item with the given padding style
-			mtl::console::detail::print_padding_impl(items[i], largest, padding_style); 
+			// pad the element with the given padding style
+			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 			
-			// print the item, in our case just hold it in the buffer
-			fmt::format_to(buffer, "{}", items[i]); 
+			// store the element in the buffer
+			fmt::format_to(buffer, "{}", element); 
 
-			// print the delimiter if it is not the last item
-			if (i < items.size() - 1) 
+			++last_element_counter;
+			
+			// add the delimiter if it is not the last element
+			if (last_element_counter < num_elements)
 			{ 
 				fmt::format_to(buffer, "{}", delimiter); 
-			}
+			}		
 		}
 		fmt::format_to(buffer, "{}", line_end); 
 	}
 	// write the entire buffer to the console, benchmarks show great performance gains 
-	// compared to when we were we printing each individual character to the console one at a time
+	// compared to printing each individual element to the console one at a time
 	fmt::print("{}", fmt::to_string(buffer));
 	// GCOVR_EXCL_STOP
 }
@@ -766,7 +769,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
 
-		// keep the position for the last item
+		// keep the position for the last element
 		size_t last_pos = 0;
 
 		// print all parts except the last one
@@ -1066,7 +1069,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
 
-		// keep the position for the last item
+		// keep the position for the last element
 		size_t last_pos = 0;
 
 		// print all parts except the last one
@@ -1235,7 +1238,7 @@ inline void overtype(const std::string& argument)
 
 	// create a string consisting of backspace characters that will move the cursor back, this
 	// allows us to avoid printing the backspace character multiple times and we instead need to
-	// print only one big string, this is a very significant performance gain
+	// print only one string, this is a very significant performance gain
     std::string multiple_backspaces(argument.size(), '\b');
     fmt::print(multiple_backspaces);
 	
