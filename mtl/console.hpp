@@ -347,8 +347,8 @@ inline void print_padding_impl(std::string& value, const size_t length,
 
 
 
-/// Prints to console all elements in a range. The newline_threshold affects after how many elements 
-/// the newline character will be used. Delimiter is a string used between all elements.
+/// Prints to console all elements in a range. The newline_threshold affects after how many
+/// elements the newline character will be used. Delimiter is a string used between all elements.
 /// The line_start affects what gets printed when a new line starts and line_end affects what is
 /// printed when a line ends. Padding style allows you to pass an enumeration to select which side
 /// you want all elements to be padded. Padding only works correctly with ASCII characters.
