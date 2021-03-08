@@ -410,7 +410,7 @@ TEST_CASE("mtl::console::print_all with delimiter")
 
 }
 
-TEST_CASE("mtl::console::print_all with delimiter and per line items")
+TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 {
     auto vi = generate_numbers();
     // number in incresing order 10, 11, 12, 13, etc...
@@ -419,7 +419,7 @@ TEST_CASE("mtl::console::print_all with delimiter and per line items")
     mtl::console::println("\n----");
 }
 
-TEST_CASE("mtl::console::print_all without delimiter but with and per line items")
+TEST_CASE("mtl::console::print_all without delimiter but with newline threshold")
 {
     auto vi = generate_numbers();
     // number in incresing order 10, 11, 12, 13, etc...
@@ -428,7 +428,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with and per line items
     mtl::console::println("\n----");
 }
 
-TEST_CASE("mtl::console::print_all with delimiter, per line items and start/finish for lines")
+TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line start and finish")
 {
     auto vi = generate_numbers();
     // number in incresing order 10, 11, 12, 13, etc...
@@ -437,7 +437,7 @@ TEST_CASE("mtl::console::print_all with delimiter, per line items and start/fini
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all without delimiter but with per line and start/finish for lines")
+TEST_CASE("mtl::console::print_all without delimiter but with newline threshold and start/finish")
 {
     auto vi = generate_numbers();
     // number in incresing order 10, 11, 12, 13, etc...
@@ -448,7 +448,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with per line and start
 
 
 
-TEST_CASE("mtl::console::print_all with every option except delimiter and padding none")
+TEST_CASE("mtl::console::print_all with every option except delimiter, padding none")
 {
     auto vi = generate_numbers();
                 
@@ -458,7 +458,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
     mtl::console::println("----");   
 }
 
-TEST_CASE("mtl::console::print_all with every option except delimiter and padding front")
+TEST_CASE("mtl::console::print_all with every option except delimiter, padding front")
 {
     auto vi = generate_numbers();
                
@@ -467,7 +467,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option except delimiter and padding back")
+TEST_CASE("mtl::console::print_all with every option except delimiter, padding back")
 {
     auto vi = generate_numbers();
                 
@@ -476,7 +476,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option except delimiter and padding both_front")
+TEST_CASE("mtl::console::print_all with every option except delimiter, padding both_front")
 {
     auto vi = generate_numbers();
                 
@@ -486,7 +486,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option except delimiter and padding both_back")
+TEST_CASE("mtl::console::print_all with every option except delimiter, padding both_back")
 {
     auto vi = generate_numbers();
                 
@@ -498,7 +498,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter and paddin
 
 // --
 
-TEST_CASE("mtl::console::print_all with every option including padding to none")
+TEST_CASE("mtl::console::print_all with every option, padding none")
 {
     auto vi = generate_numbers();
                 
@@ -507,7 +507,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to none")
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to front")
+TEST_CASE("mtl::console::print_all with every option, padding front")
 {
     auto vi = generate_numbers();
                 
@@ -516,7 +516,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to front"
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to back")
+TEST_CASE("mtl::console::print_all with every option, padding back")
 {
     auto vi = generate_numbers();
 
@@ -527,7 +527,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to back")
 
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_front")
+TEST_CASE("mtl::console::print_all with every option, padding both_front")
 {
     auto vi = generate_numbers();
                 
@@ -537,7 +537,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_f
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_back")
+TEST_CASE("mtl::console::print_all with every option, padding both_back")
 {
     auto vi = generate_numbers();
                 
@@ -547,7 +547,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_b
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_front with char")
+TEST_CASE("mtl::console::print_all with every option, padding both_front with char")
 {
     std::vector<char> vc { 'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E', 
                            'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E', 
@@ -559,7 +559,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_f
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_back with char")
+TEST_CASE("mtl::console::print_all with every option, padding both_back with char")
 {
     std::vector<char> vc { 'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E', 
                            'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E', 
@@ -571,7 +571,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_b
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_front with string")
+TEST_CASE("mtl::console::print_all with every option, padding both_front with string")
 {
     std::vector<std::string> vs { 
     "a", "b", "c", "d", "e", "A", "B", "C", "D", "E", 
@@ -583,7 +583,7 @@ TEST_CASE("mtl::console::print_all with every option including padding to both_f
     mtl::console::println("----");
 }
 
-TEST_CASE("mtl::console::print_all with every option including padding to both_back with string")
+TEST_CASE("mtl::console::print_all with every option, padding both_back with string")
 {
     std::vector<std::string> vs { 
     "a", "b", "c", "d", "e", "A", "B", "C", "D", "E", 
