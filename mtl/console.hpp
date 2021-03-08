@@ -315,30 +315,30 @@ enum class print_pad
 namespace detail
 {
 
-// Adds padding to a string based on how long is the longest string with a given padding style.
-inline void print_padding_impl(std::string& element, const size_t longest, 
+// Adds padding to a string to match the target length with the given padding style.
+inline void print_padding_impl(std::string& value, const size_t length, 
 							   const print_pad padding_style)
 {
-	const size_t element_size = element.size();
-	// check that the element can be padded based on size
-	if (element_size < longest)
+	const size_t size = value.size();
+	// check if the string needs padding based on requested length
+	if (size < length)
 	{
-		// pad based on the selected padding style
+		// pad the given string with the selected padding style
 		if (padding_style == print_pad::front)
 		{
-			mtl::string::pad_front(element, longest - element_size, ' ');
+			mtl::string::pad_front(value, length - size, ' ');
 		}
 		else if (padding_style == print_pad::both_front)
 		{
-			mtl::string::pad(element, longest - element_size, ' ', false);
+			mtl::string::pad(value, length - size, ' ', false);
 		}
 		else if (padding_style == print_pad::both_back)
 		{
-			mtl::string::pad(element, longest - element_size, ' ', true);
+			mtl::string::pad(value, length - size, ' ', true);
 		}
 		else if (padding_style == print_pad::back)
 		{
-			mtl::string::pad_back(element, longest - element_size, ' ');
+			mtl::string::pad_back(value, length - size, ' ');
 		}
 	}
 }
@@ -355,10 +355,10 @@ inline void print_padding_impl(std::string& element, const size_t longest,
 /// @param[in] first An iterator to the start of the range.
 /// @param[in] last An iterator to the end of the range.
 /// @param[in] delimiter An optional delimiter to use between each element.
-/// @param[in] newline_count The optional number of elements after we print a new line.
-/// @param[in] line_start An optional text to print on the start of a new line.
-/// @param[in] line_end An optional text to print on the end of a new line.
-/// @param[in] padding_style The optional mtl::console::print_pad style used to pad elements.
+/// @param[in] newline_count The optional number of elements after a new line will be printed.
+/// @param[in] line_start An optional text to print at the start of a new line.
+/// @param[in] line_end An optional text to print at the end of a new line.
+/// @param[in] padding_style The optional padding style used to pad elements.
 template<typename Iter>
 inline void print_all(Iter first, Iter last, const std::string& delimiter = "", 
 					  size_t newline_count = 0, const std::string& line_start = "", 
@@ -369,7 +369,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 	// find the number of elements
 	auto iter_distance = std::distance(first, last);
-	// if iterators passed are 0 or negative do nothing
+	// check that the iterator distance is not zero or lower
 	if (iter_distance <= 0) { return; }
 	// convert to size_t as we checked it is not a negative number
 	const size_t num_elements = static_cast<size_t>(iter_distance);
@@ -379,8 +379,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	std::vector<std::string> elements;
 	// reserve space to avoid unnecessary allocations
 	elements.reserve(num_elements);
-	// convert all elements to strings and keep them in a container to facilitate further
-	// processing
+	// convert all elements to strings so we can manipulate them
 	for (auto it = first; it != last; ++it)
 	{
 		elements.emplace_back(mtl::string::to_string(*it));
@@ -388,8 +387,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 
 	size_t longest = 0;
-	// if padding is requested find the the string with the longest length so we can add the 
-	// correct amount of padding
+	// if padding is requested find the longest string so we can add the correct amount of padding
 	if(padding_style != mtl::console::print_pad::none)
 	{
 		longest = 	(std::max_element(elements.begin(), elements.end(), 
@@ -414,7 +412,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 		for (auto& element : elements)
 		{		
-			// if counter is 0 it means a new line is just starting
+			// if the counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
 			{
 				fmt::format_to(buffer, "{}", line_start); 
@@ -429,7 +427,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			++newline_counter;
 			++last_element_counter;
 			
-			// check if we should add a delimiter or a line end string based on the counters
+			// check if we should add a delimiter or if it the end of a line based on the counters
 			if ((newline_counter < newline_count) && (last_element_counter < num_elements)) 
 			{
 				fmt::format_to(buffer, "{}", delimiter); 
@@ -445,8 +443,10 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	else
 	{
 		fmt::format_to(buffer, "{}", line_start); 
+		
 		// counter to keep track if it is the last element
 		size_t last_element_counter = 0;
+
 		for (auto& element : elements)
 		{
 			// pad the element with the given padding style
@@ -465,9 +465,11 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 		}
 		fmt::format_to(buffer, "{}", line_end); 
 	}
+
 	// write the entire buffer to the console, benchmarks show great performance gains 
 	// compared to printing each individual element to the console one at a time
 	fmt::print("{}", fmt::to_string(buffer));
+	
 	// GCOVR_EXCL_STOP
 }
 
