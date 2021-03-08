@@ -42,13 +42,13 @@ There are 116 non-member functions.
 
 ## console.hpp
 
-- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L165) [(Examples)](../tests/tests_console.cpp#L71)
-- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L205) [(Examples)](../tests/tests_console.cpp#L71)
-- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L286) [(Examples)](../tests/tests_console.cpp#L338)
-- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L529) [(Examples)](../tests/tests_console.cpp#L621)
-- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L530) [(Examples)](../tests/tests_console.cpp#L870)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1218) [(Examples)](../tests/tests_console.cpp#L1032)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1276) [(Examples)](../tests/tests_console.cpp#L1412)
+- `mtl::console::print` [(Documentation)](../mtl/console.hpp#L164) [(Examples)](../tests/tests_console.cpp#L68)
+- `mtl::console::println` [(Documentation)](../mtl/console.hpp#L204) [(Examples)](../tests/tests_console.cpp#L68)
+- `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L285) [(Examples)](../tests/tests_console.cpp#L335)
+- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L534) [(Examples)](../tests/tests_console.cpp#L618)
+- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L535) [(Examples)](../tests/tests_console.cpp#L867)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1223) [(Examples)](../tests/tests_console.cpp#L1029)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1281) [(Examples)](../tests/tests_console.cpp#L1409)
 
 ---------------------------------------------------
 
