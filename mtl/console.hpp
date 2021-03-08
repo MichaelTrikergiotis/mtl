@@ -347,7 +347,7 @@ inline void print_padding_impl(std::string& value, const size_t length,
 
 
 
-/// Prints to console all elements in a range. The newline_count affects after how many elements 
+/// Prints to console all elements in a range. The newline_threshold affects after how many elements 
 /// the newline character will be used. Delimiter is a string used between all elements.
 /// The line_start affects what gets printed when a new line starts and line_end affects what is
 /// printed when a line ends. Padding style allows you to pass an enumeration to select which side
@@ -355,13 +355,13 @@ inline void print_padding_impl(std::string& value, const size_t length,
 /// @param[in] first An iterator to the start of the range.
 /// @param[in] last An iterator to the end of the range.
 /// @param[in] delimiter An optional delimiter to use between each element.
-/// @param[in] newline_count The optional number of elements after a new line will be printed.
+/// @param[in] newline_threshold The optional number of elements after a new line will be printed.
 /// @param[in] line_start An optional text to print at the start of a new line.
 /// @param[in] line_end An optional text to print at the end of a new line.
 /// @param[in] padding_style The optional padding style used to pad elements.
 template<typename Iter>
 inline void print_all(Iter first, Iter last, const std::string& delimiter = "", 
-					  size_t newline_count = 0, const std::string& line_start = "", 
+					  size_t newline_threshold = 0, const std::string& line_start = "", 
 					  const std::string& line_end = "",  
 					  mtl::console::print_pad padding_style = mtl::console::print_pad::none)
 {
@@ -402,7 +402,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	fmt::memory_buffer buffer;
 
 	// if printing a newline after a certain number of elements is requested
-	if (newline_count > 0)
+	if (newline_threshold > 0)
 	{
 		// counter to keep track when we need to print the newline character
 		size_t newline_counter = 0;
@@ -428,7 +428,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			++last_element_counter;
 			
 			// check if we should add a delimiter or if it the end of a line based on the counters
-			if ((newline_counter < newline_count) && (last_element_counter < num_elements)) 
+			if ((newline_counter < newline_threshold) && (last_element_counter < num_elements)) 
 			{
 				fmt::format_to(buffer, "{}", delimiter); 
 			}
