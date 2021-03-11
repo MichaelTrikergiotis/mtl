@@ -6,10 +6,14 @@
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "doctest_include.hpp" 
-#include <string>
+#include <string>  // std::string
 #include <sstream> // std::stringstream
 #include <ostream> // std::ostream
-#include <vector>
+#include <vector>  // std::vector
+#include <array>   // std::array
+#include <list>    // std::list
+#include <set>     // std::set
+#include <map>     // std::map
 #include <numeric>
 
 
@@ -372,7 +376,7 @@ TEST_CASE("mtl::console::print_all with empty std::vector")
 {
     std::vector<int> vi;
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end()));
-    mtl::console::println("\n----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with incorrect iterators")
@@ -387,7 +391,7 @@ TEST_CASE("mtl::console::print_all with incorrect iterators")
     // pass the iterator that is further along the vector as the first iterator to check what 
     // happens when you pass incorrect iterators
     REQUIRE_NOTHROW(mtl::console::print_all(bad_it, end_iter));
-    mtl::console::println("\n----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all")
@@ -396,19 +400,69 @@ TEST_CASE("mtl::console::print_all")
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end()));
-    mtl::console::println("\n----");
+    mtl::console::println("\n------------\n");
 }
 
-TEST_CASE("mtl::console::print_all with delimiter")
-{
-   
+
+TEST_CASE("mtl::console::print_all, integers with delimiter")
+{ 
     auto vi = generate_numbers();
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", "));
-    mtl::console::println("\n----");
-
+    mtl::console::println("\n------------\n");
 }
+
+TEST_CASE("mtl::console::print_all, doubles with delimiter")
+{ 
+    std::vector<double> vd { 1.1, 2.2, 3.3, 4.4, 5.5 };
+    REQUIRE_NOTHROW(mtl::console::print_all(vd.begin(), vd.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all, std::strings with delimiter")
+{ 
+    std::vector<std::string> vs { "AA", "BB", "CC" , "DD", "FF" };
+    REQUIRE_NOTHROW(mtl::console::print_all(vs.begin(), vs.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all, booleans with delimiter")
+{ 
+    std::array<bool, 6> ab { true, true, false, false, false, true };
+    REQUIRE_NOTHROW(mtl::console::print_all(ab.begin(), ab.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all with delimiter using std::array")
+{ 
+    std::array<int, 5> ai { 11, 22, 33, 44, 55 };
+    REQUIRE_NOTHROW(mtl::console::print_all(ai.begin(), ai.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all with delimiter using std::list")
+{ 
+    std::list<int> li { 111, 222, 333, 444, 555 };
+    REQUIRE_NOTHROW(mtl::console::print_all(li.begin(), li.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all with delimiter using std::set")
+{ 
+    std::set<int> si { 11, 22, 33, 44, 55, 11, 22, 33, 44, 55, 11, 22, 33, 44, 55 };
+    REQUIRE_NOTHROW(mtl::console::print_all(si.begin(), si.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+TEST_CASE("mtl::console::print_all with delimiter using std::map")
+{ 
+    std::map<std::string, int> msi { {"AA", 11}, {"BB", 22}, {"CC", 33}, {"DD", 44}, {"EE", 55} };
+    REQUIRE_NOTHROW(mtl::console::print_all(msi.begin(), msi.end(), ", "));
+    mtl::console::println("\n------------\n");
+}
+
+
 
 TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 {
@@ -416,7 +470,7 @@ TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10));
-    mtl::console::println("\n----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold")
@@ -425,7 +479,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with newline threshold"
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10));
-    mtl::console::println("\n----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line start and finish")
@@ -434,7 +488,7 @@ TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line st
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10, "[", "]"));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold and start/finish")
@@ -443,7 +497,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with newline threshold 
     // number in incresing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10, "[", "]"));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 
@@ -455,7 +509,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter, padding n
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 5, "[", "]", 
                     mtl::console::print_pad::none));
 
-    mtl::console::println("----");   
+    mtl::console::println("\n------------\n");   
 }
 
 TEST_CASE("mtl::console::print_all with every option except delimiter, padding front")
@@ -464,7 +518,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter, padding f
                
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 5, "[", "]", 
                     mtl::console::print_pad::front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option except delimiter, padding back")
@@ -473,7 +527,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter, padding b
                 
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 5, "[", "]", 
                     mtl::console::print_pad::back));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option except delimiter, padding both_front")
@@ -483,7 +537,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter, padding b
     REQUIRE_NOTHROW(
     mtl::console::print_all(vi.begin(), vi.end(), "", 5, "[", "]", 
                             mtl::console::print_pad::both_front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option except delimiter, padding both_back")
@@ -493,7 +547,7 @@ TEST_CASE("mtl::console::print_all with every option except delimiter, padding b
     REQUIRE_NOTHROW(
     mtl::console::print_all(vi.begin(), vi.end(), "", 5, "[", "]", 
                             mtl::console::print_pad::both_back));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 // --
@@ -504,7 +558,7 @@ TEST_CASE("mtl::console::print_all with every option, padding none")
                 
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "][", 5, "[", "]", 
                     mtl::console::print_pad::none));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding front")
@@ -513,7 +567,7 @@ TEST_CASE("mtl::console::print_all with every option, padding front")
                 
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "][", 5, "[", "]", 
                     mtl::console::print_pad::front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding back")
@@ -523,7 +577,7 @@ TEST_CASE("mtl::console::print_all with every option, padding back")
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "][", 5, "[", "]", 
                     mtl::console::print_pad::back));
 
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 
 }
 
@@ -534,7 +588,7 @@ TEST_CASE("mtl::console::print_all with every option, padding both_front")
     REQUIRE_NOTHROW(
     mtl::console::print_all(vi.begin(), vi.end(), "][", 5, "[", "]", 
                             mtl::console::print_pad::both_front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding both_back")
@@ -544,7 +598,7 @@ TEST_CASE("mtl::console::print_all with every option, padding both_back")
     REQUIRE_NOTHROW(
     mtl::console::print_all(vi.begin(), vi.end(), "][", 5, "[", "]", 
                             mtl::console::print_pad::both_back));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding both_front with char")
@@ -556,7 +610,7 @@ TEST_CASE("mtl::console::print_all with every option, padding both_front with ch
                            'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E' };
     REQUIRE_NOTHROW(mtl::console::print_all(vc.begin(), vc.end(), ")><(", 5, "<(", ")>", 
                     mtl::console::print_pad::both_front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding both_back with char")
@@ -568,7 +622,7 @@ TEST_CASE("mtl::console::print_all with every option, padding both_back with cha
                            'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E' };
     REQUIRE_NOTHROW(mtl::console::print_all(vc.begin(), vc.end(), ")><(", 5, "<(", ")>", 
                     mtl::console::print_pad::both_back));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding both_front with string")
@@ -580,7 +634,7 @@ TEST_CASE("mtl::console::print_all with every option, padding both_front with st
     };
     REQUIRE_NOTHROW(mtl::console::print_all(vs.begin(), vs.end(), ")>|<(", 10, "<(", ")>", 
                     mtl::console::print_pad::both_front));
-    mtl::console::println("----");
+    mtl::console::println("\n------------\n");
 }
 
 TEST_CASE("mtl::console::print_all with every option, padding both_back with string")
