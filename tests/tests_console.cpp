@@ -720,42 +720,19 @@ const std::vector<std::string> all_colors_names =
 
 TEST_CASE("mtl::console::print_color with no parameters passed")
 {
-    REQUIRE_NOTHROW(mtl::console::println("No parameters : "));
-    REQUIRE_NOTHROW(mtl::console::print_color(111));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color(222.22f));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color(333.333));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color(4444.444l));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color('c'));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color(""));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color("Hello world"));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    REQUIRE_NOTHROW(mtl::console::print_color(std::string("Hello world")));
-    REQUIRE_NOTHROW(mtl::console::println());
-    REQUIRE_NOTHROW(mtl::console::print_color("Some text\nwith\nnewlines\nin it.\n"));
-    REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
-
+    REQUIRE_NOTHROW(mtl::console::println("No parameters :"));
 
     int i = 111;
     REQUIRE_NOTHROW(mtl::console::print_color(i));
     REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    float f = 222.22f;
-    REQUIRE_NOTHROW(mtl::console::print_color(f));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
     double d = 333.333;
     REQUIRE_NOTHROW(mtl::console::print_color(d));
-    REQUIRE_NOTHROW(mtl::console::print_color(", "));
-    long double ld = 4444.444l;
-    REQUIRE_NOTHROW(mtl::console::print_color(ld));
     REQUIRE_NOTHROW(mtl::console::print_color(", "));
     const char c = 'c';
     REQUIRE_NOTHROW(mtl::console::print_color(c));
     REQUIRE_NOTHROW(mtl::console::print_color(", "));
+    const char* cs_empty = "";
+    REQUIRE_NOTHROW(mtl::console::print_color(cs_empty));
     const char* cs = "Hello world";
     REQUIRE_NOTHROW(mtl::console::print_color(cs));
     REQUIRE_NOTHROW(mtl::console::print_color(", "));
@@ -764,15 +741,10 @@ TEST_CASE("mtl::console::print_color with no parameters passed")
     REQUIRE_NOTHROW(mtl::console::println());
     std::string str_newlines = "Some text\nwith\nnewlines\nin it.\n";
     REQUIRE_NOTHROW(mtl::console::print_color(str_newlines));
+    const char* cs_newlines = "Some more text\nwith\nnewlines\nin it.\n";
+    REQUIRE_NOTHROW(mtl::console::print_color(cs_newlines));
     std::string text_nocolor = "Some noncolored text on this line.";
     REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
-
-    for (int x = 0; x < 10; x++)
-    {
-        REQUIRE_NOTHROW(mtl::console::print_color("["));
-        REQUIRE_NOTHROW(mtl::console::print_color(x + 1));
-        REQUIRE_NOTHROW(mtl::console::print_color("]"));
-    }
 
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 }
@@ -782,65 +754,32 @@ TEST_CASE("mtl::console::print_color with one parameter, all colors")
 {
     for(size_t x = 0; x < all_colors.size(); x++)
     {
-    REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground "));
-    REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
-    REQUIRE_NOTHROW(mtl::console::println(" : "));
-    auto current_color = all_colors.at(x);
-    REQUIRE_NOTHROW(mtl::console::print_color(111, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(222.22f, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(333.333, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(4444.444l, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color('c', current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color("Hello world", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(std::string("Hello world"), 
-                                              current_color));
-    REQUIRE_NOTHROW(mtl::console::println());
-    REQUIRE_NOTHROW(mtl::console::print_color("Some text\nwith\nnewlines\nin it.\n", 
-                                              current_color));
-    REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
+        REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground :"));
+        REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
+        REQUIRE_NOTHROW(mtl::console::println(" : "));
+        auto current_color = all_colors.at(x);
 
-
-    int i = 111;
-    REQUIRE_NOTHROW(mtl::console::print_color(i, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    float f = 222.22f;
-    REQUIRE_NOTHROW(mtl::console::print_color(f, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    double d = 333.333;
-    REQUIRE_NOTHROW(mtl::console::print_color(d, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    long double ld = 4444.444l;
-    REQUIRE_NOTHROW(mtl::console::print_color(ld, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    const char c = 'c';
-    REQUIRE_NOTHROW(mtl::console::print_color(c, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    const char* cs = "Hello world";
-    REQUIRE_NOTHROW(mtl::console::print_color(cs, current_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
-    std::string s = "Hello world";
-    REQUIRE_NOTHROW(mtl::console::print_color(s, current_color));
-    REQUIRE_NOTHROW(mtl::console::println());
-    std::string str_newlines = "Some text\nwith\nnewlines\nin it.\n";
-    REQUIRE_NOTHROW(mtl::console::print_color(str_newlines, current_color));
-    std::string text_nocolor = "Some noncolored text on this line.";
-    REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
-
-    for (int z = 0; z < 10; z++)
-    {
-        REQUIRE_NOTHROW(mtl::console::print_color("[", current_color));
-        REQUIRE_NOTHROW(mtl::console::print_color(z + 1, current_color));
-        REQUIRE_NOTHROW(mtl::console::print_color("]", current_color));
-    }
-
-    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
-
+        int i = 111;
+        REQUIRE_NOTHROW(mtl::console::print_color(i, current_color));
+        REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
+        double d = 333.333;
+        REQUIRE_NOTHROW(mtl::console::print_color(d, current_color));
+        REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
+        const char c = 'c';
+        REQUIRE_NOTHROW(mtl::console::print_color(c, current_color));
+        REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
+        const char* cs = "Hello world";
+        REQUIRE_NOTHROW(mtl::console::print_color(cs, current_color));
+        REQUIRE_NOTHROW(mtl::console::print_color(", ", current_color));
+        std::string s = "Hello world";
+        REQUIRE_NOTHROW(mtl::console::print_color(s, current_color));
+        REQUIRE_NOTHROW(mtl::console::println());
+        std::string str_newlines = "Some text\nwith\nnewlines\nin it.\n";
+        REQUIRE_NOTHROW(mtl::console::print_color(str_newlines, current_color));
+        std::string text_nocolor = "Some noncolored text on this line.";
+        REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
+        
+        REQUIRE_NOTHROW(mtl::console::println("\n\n"));
     }
 }
 
@@ -852,43 +791,17 @@ TEST_CASE("mtl::console::print_color with two parameters, all colors with all co
     {    
     REQUIRE_NOTHROW(mtl::console::print("Two parameters, foreground "));
     REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
-    REQUIRE_NOTHROW(mtl::console::print(", background "));
+    REQUIRE_NOTHROW(mtl::console::print(", background :"));
     REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(y)));
     REQUIRE_NOTHROW(mtl::console::println(" : "));
     auto foreground_color = all_colors.at(x);
     auto background_color = all_colors.at(y);
-    
-    REQUIRE_NOTHROW(mtl::console::print_color(111, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(222.22f, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(333.333, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(4444.444l, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color('c', foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color("Hello world", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(std::string("Hello world"),
-                                              foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::println());
-    REQUIRE_NOTHROW(mtl::console::print_color("Some text\nwith\nnewlines\nin it.\n",
-                                              foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
-
 
     int i = 111;
     REQUIRE_NOTHROW(mtl::console::print_color(i, foreground_color, background_color));
     REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    float f = 222.22f;
-    REQUIRE_NOTHROW(mtl::console::print_color(f, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
     double d = 333.333;
     REQUIRE_NOTHROW(mtl::console::print_color(d, foreground_color, background_color));
-    REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
-    long double ld = 4444.444l;
-    REQUIRE_NOTHROW(mtl::console::print_color(ld, foreground_color, background_color));
     REQUIRE_NOTHROW(mtl::console::print_color(", ", foreground_color, background_color));
     const char c = 'c';
     REQUIRE_NOTHROW(mtl::console::print_color(c, foreground_color, background_color));
@@ -904,13 +817,6 @@ TEST_CASE("mtl::console::print_color with two parameters, all colors with all co
     std::string text_nocolor = "Some noncolored text on this line.";
     REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
 
-    for (int z = 0; z < 10; z++)
-    {
-        REQUIRE_NOTHROW(mtl::console::print_color("[", foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::print_color(z + 1, foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::print_color("]", foreground_color, background_color));
-    }
-
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 
     }
@@ -924,26 +830,12 @@ TEST_CASE("mtl::console::print_color with two parameters, all colors with all co
 
 TEST_CASE("mtl::console::println_color with no parameters passed")
 {
-    REQUIRE_NOTHROW(mtl::console::println("No parameters : "));
-    REQUIRE_NOTHROW(mtl::console::println_color(111));
-    REQUIRE_NOTHROW(mtl::console::println_color(222.22f));
-    REQUIRE_NOTHROW(mtl::console::println_color(333.333));
-    REQUIRE_NOTHROW(mtl::console::println_color(4444.444l));
-    REQUIRE_NOTHROW(mtl::console::println_color('c'));
-    REQUIRE_NOTHROW(mtl::console::println_color("Hello world"));
-    REQUIRE_NOTHROW(mtl::console::println_color(std::string("Hello world")));
-    REQUIRE_NOTHROW(mtl::console::println_color("Some text\nwith\nnewlines\nin it.\n"));
-    REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
-
+    REQUIRE_NOTHROW(mtl::console::println("No parameters :"));
 
     int i = 111;
     REQUIRE_NOTHROW(mtl::console::println_color(i));
-    float f = 222.22f;
-    REQUIRE_NOTHROW(mtl::console::println_color(f));
     double d = 333.333;
     REQUIRE_NOTHROW(mtl::console::println_color(d));
-    long double ld = 4444.444l;
-    REQUIRE_NOTHROW(mtl::console::println_color(ld));
     const char c = 'c';
     REQUIRE_NOTHROW(mtl::console::println_color(c));
     const char* cs = "Hello world";
@@ -955,13 +847,7 @@ TEST_CASE("mtl::console::println_color with no parameters passed")
     std::string text_nocolor = "Some noncolored text on this line.";
     REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
 
-    for (int x = 0; x < 10; x++)
-    {
-        REQUIRE_NOTHROW(mtl::console::print_color("["));
-        REQUIRE_NOTHROW(mtl::console::print_color(x + 1));
-        REQUIRE_NOTHROW(mtl::console::println_color("]"));
-    }
-
+    
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 }
 
@@ -970,31 +856,16 @@ TEST_CASE("mtl::console::println_color with one parameter, all colors")
 {
     for (size_t x = 0; x < all_colors.size(); x++)
     {
-        REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground "));
+        REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
         REQUIRE_NOTHROW(mtl::console::println(" : "));
         auto current_color = all_colors.at(x);
-        REQUIRE_NOTHROW(mtl::console::println_color(111, current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(222.22f, current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(333.333, current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(4444.444l, current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color('c', current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color("Hello world", current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(std::string("Hello world"),
-                                                    current_color));
-        REQUIRE_NOTHROW(mtl::console::println_color("Some text\nwith\nnewlines\nin it.\n", 
-                                                    current_color));
-        REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
-
+        
 
         int i = 111;
         REQUIRE_NOTHROW(mtl::console::println_color(i, current_color));
-        float f = 222.22f;
-        REQUIRE_NOTHROW(mtl::console::println_color(f, current_color));
         double d = 333.333;
         REQUIRE_NOTHROW(mtl::console::println_color(d, current_color));
-        long double ld = 4444.444l;
-        REQUIRE_NOTHROW(mtl::console::println_color(ld, current_color));
         const char c = 'c';
         REQUIRE_NOTHROW(mtl::console::println_color(c, current_color));
         const char* cs = "Hello world";
@@ -1005,13 +876,6 @@ TEST_CASE("mtl::console::println_color with one parameter, all colors")
         REQUIRE_NOTHROW(mtl::console::println_color(str_newlines, current_color));
         std::string text_nocolor = "Some noncolored text on this line.";
         REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
-
-        for (int z = 0; z < 10; z++)
-        {
-            REQUIRE_NOTHROW(mtl::console::print_color("[", current_color));
-            REQUIRE_NOTHROW(mtl::console::print_color(z + 1, current_color));
-            REQUIRE_NOTHROW(mtl::console::println_color("]", current_color));
-        }
 
         REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 
@@ -1026,34 +890,16 @@ TEST_CASE("mtl::console::println_color with two parameters, all colors with all 
         {
         REQUIRE_NOTHROW(mtl::console::print("Two parameters, foreground "));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
-        REQUIRE_NOTHROW(mtl::console::print(", background "));
+        REQUIRE_NOTHROW(mtl::console::print(", background :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(y)));
         REQUIRE_NOTHROW(mtl::console::println(" : "));
         auto foreground_color = all_colors.at(x);
         auto background_color = all_colors.at(y);
-        REQUIRE_NOTHROW(mtl::console::println_color(111, foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(222.22f, foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(333.333, foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(4444.444l, foreground_color, 
-                                                    background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color('c', foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color("Hello world", foreground_color, 
-                                                    background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color(std::string("Hello world"),
-                                                    foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println_color("Some text\nwith\nnewlines\nin it.\n",
-                                                    foreground_color, background_color));
-        REQUIRE_NOTHROW(mtl::console::println("Some noncolored text on this line."));
-
 
         int i = 111;
         REQUIRE_NOTHROW(mtl::console::println_color(i, foreground_color, background_color));
-        float f = 222.22f;
-        REQUIRE_NOTHROW(mtl::console::println_color(f, foreground_color, background_color));
         double d = 333.333;
         REQUIRE_NOTHROW(mtl::console::println_color(d, foreground_color, background_color));
-        long double ld = 4444.444l;
-        REQUIRE_NOTHROW(mtl::console::println_color(ld, foreground_color, background_color));
         const char c = 'c';
         REQUIRE_NOTHROW(mtl::console::println_color(c, foreground_color, background_color));
         const char* cs = "Hello world";
@@ -1066,13 +912,6 @@ TEST_CASE("mtl::console::println_color with two parameters, all colors with all 
         std::string text_nocolor = "Some noncolored text on this line.";
         REQUIRE_NOTHROW(mtl::console::println(text_nocolor));
 
-        for (int z = 0; z < 10; z++)
-        {
-            REQUIRE_NOTHROW(mtl::console::print_color("[", foreground_color, background_color));
-            REQUIRE_NOTHROW(mtl::console::print_color(z + 1, foreground_color, 
-                                                      background_color));
-            REQUIRE_NOTHROW(mtl::console::println_color("]", foreground_color, background_color));
-        }
         REQUIRE_NOTHROW(mtl::console::println("\n\n"));
         }
     }
