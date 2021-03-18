@@ -3957,7 +3957,7 @@ TEST_CASE("mtl::range with float")
 {
     float total = 0.0f;
     for(auto number : mtl::range(1.0f, 5.0f)) { total += number; }
-    // approximate equality instead of equality because although the total's demical part is 0 
+    // approximate equality instead of equality because although the total's decimal part is 0 
     // gcc/clang with the flag -Wfloat-equal may complain about floating point comparison
     REQUIRE_LT(total, 10.0f + 0.01f); 
     REQUIRE_GT(total, 10.0f - 0.01f); 
@@ -3967,7 +3967,7 @@ TEST_CASE("mtl::range with double")
 {
     double total = 0.0;
     for(auto number : mtl::range(1.0, 5.0)) { total += number; }
-    // approximate equality instead of equality because although the total's demical part is 0 
+    // approximate equality instead of equality because although the total's decimal part is 0 
     // gcc/clang with the flag -Wfloat-equal may complain about floating point comparison
     REQUIRE_LT(total, 10.0 + 0.01); 
     REQUIRE_GT(total, 10.0 - 0.01);  

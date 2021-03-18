@@ -246,7 +246,7 @@ TEST_CASE("mtl::to_num floating point types with incorrect character, whole part
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with incorrect character, demical part")
+TEST_CASE("mtl::to_num floating point types with incorrect character, decimal part")
 {
     std::string number = "4.0g2";
     float f = 0.0f;
@@ -270,7 +270,7 @@ TEST_CASE("mtl::to_num floating point types with incorrect character, demical pa
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with incorrect character, demical part")
+TEST_CASE("mtl::to_num floating point types with incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '0' - 1;
@@ -296,7 +296,7 @@ TEST_CASE("mtl::to_num floating point types with incorrect character, demical pa
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with incorrect character, demical part")
+TEST_CASE("mtl::to_num floating point types with incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '9' + 1;
@@ -322,7 +322,7 @@ TEST_CASE("mtl::to_num floating point types with incorrect character, demical pa
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with scientific notation, starting + symbol")
+TEST_CASE("mtl::to_num floating point types with scientific notation, starting plus sign")
 {
     std::string number = "+4.0e2";
     float f = 0.0f;
@@ -346,7 +346,7 @@ TEST_CASE("mtl::to_num floating point types with scientific notation, starting +
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with scientific notation, + symbol notation")
+TEST_CASE("mtl::to_num floating point types with scientific notation, notation plus sign")
 {
     std::string number = "4.0e+2";
     float f = 0.0f;
@@ -370,7 +370,7 @@ TEST_CASE("mtl::to_num floating point types with scientific notation, + symbol n
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point types with scientific notation, negative number")
+TEST_CASE("mtl::to_num floating point types with scientific notation, starting minus sign")
 {
     std::string number = "-4.0e2";
     float f = 0.0f;
@@ -394,7 +394,7 @@ TEST_CASE("mtl::to_num floating point types with scientific notation, negative n
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num floating point with scientific notation, negative in the notation")
+TEST_CASE("mtl::to_num floating point with scientific notation, notation minus sign")
 {
     std::string number = "4.0e-2";
     float f = 0.0f;
@@ -798,7 +798,7 @@ TEST_CASE("mtl::to_num_noex floating point with with incorrect character, whole 
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex floating point with with incorrect character, decimal part")
 {
     std::string number = "4.0te2";
     bool success = false;
@@ -823,7 +823,7 @@ TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demica
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex floating point with with incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '0' - 1;
@@ -851,7 +851,7 @@ TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demica
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex floating point with with incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '9' + 1;
@@ -880,7 +880,7 @@ TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demica
 }
 
 
-TEST_CASE("mtl::to_num_noex floating point with scientific notation, starting + symbol")
+TEST_CASE("mtl::to_num_noex floating point with scientific notation, starting plus sign")
 {
     std::string number = "+4.0e2";
     bool success = false;
@@ -905,7 +905,7 @@ TEST_CASE("mtl::to_num_noex floating point with scientific notation, starting + 
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with scientific notation, + symbol in notation")
+TEST_CASE("mtl::to_num_noex floating point with scientific notation, notation plus sign")
 {
     std::string number = "4.0e+2";
     bool success = false;
@@ -930,7 +930,7 @@ TEST_CASE("mtl::to_num_noex floating point with scientific notation, + symbol in
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with scientific notation, negative number")
+TEST_CASE("mtl::to_num_noex floating point with scientific notation, starting minus sign")
 {
     std::string number = "-4.0e2";
     bool success = false;
@@ -955,7 +955,7 @@ TEST_CASE("mtl::to_num_noex floating point with scientific notation, negative nu
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex floating point with scientific notation, - symbol in notation")
+TEST_CASE("mtl::to_num_noex floating point with scientific notation, notation minus sign")
 {
     std::string number = "4.0e-2";
     bool success = false;
@@ -1420,7 +1420,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point, incorrect character, whol
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, decimal part")
 {
     std::string number = "4.0je2";
     std::pair<float, bool> f = mtl::to_num_noex(number);
@@ -1447,7 +1447,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demic
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '0' - 1;
@@ -1477,7 +1477,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demic
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
+TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, decimal part")
 {
     std::string number = "0.0";
     constexpr char c = '9' + 1;
@@ -1508,7 +1508,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demic
 }
 
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point scientific notation, starting +")
+TEST_CASE("mtl::to_num_noex std::pair, floating point scientific notation, starting plus sign")
 {
     std::string number = "+4.0e2";
     std::pair<float, bool> f = mtl::to_num_noex(number);
@@ -1535,7 +1535,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point scientific notation, start
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point, scientific notation, containing +")
+TEST_CASE("mtl::to_num_noex std::pair, floating point, scientific notation, notation plus sign")
 {
     std::string number = "4.0e+2";
     std::pair<float, bool> f = mtl::to_num_noex(number);
@@ -1562,7 +1562,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point, scientific notation, cont
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point with scientific notation, negative")
+TEST_CASE("mtl::to_num_noex std::pair, floating with scientific notation, strarting minus sign")
 {
     std::string number = "-4.0e2";
     std::pair<float, bool> f = mtl::to_num_noex(number);
@@ -1589,7 +1589,7 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point with scientific notation, 
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
-TEST_CASE("mtl::to_num_noex std::pair, floating point scientific notation, contains -")
+TEST_CASE("mtl::to_num_noex std::pair, floating point scientific notation, notation minus sign")
 {
     std::string number = "4.0e-2";
     std::pair<float, bool> f = mtl::to_num_noex(number);
