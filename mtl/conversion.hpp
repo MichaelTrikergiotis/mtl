@@ -78,7 +78,7 @@ inline FloatingPoint to_double_impl(const char* num)
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			throw std::invalid_argument("One or more characters are invalid. Can't be converted.");
 		}
 		++num;
@@ -104,7 +104,7 @@ inline FloatingPoint to_double_impl(const char* num)
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				throw std::invalid_argument(
 					"One or more characters are invalid. Can't be converted.");
 			}
@@ -188,7 +188,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			return std::pair<FloatingPoint, bool>(zero, false);
 		}
 		++num;
@@ -214,7 +214,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				return std::pair<FloatingPoint, bool>(zero, false);
 			}
 			++num;
@@ -300,7 +300,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			success = false;
 			return zero;
 		}
@@ -327,7 +327,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				success = false;
 				return zero;
 			}
