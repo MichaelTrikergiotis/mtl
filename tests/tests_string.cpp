@@ -124,7 +124,7 @@ TEST_CASE("mtl::string::is_upper")
         REQUIRE_EQ(mtl::string::is_upper(static_cast<char>(i)), false);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_upper(static_cast<char>(i)), false);
     }
@@ -267,7 +267,7 @@ TEST_CASE("mtl::string::is_lower")
         REQUIRE_EQ(mtl::string::is_lower(static_cast<char>(i)), false);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_lower(static_cast<char>(i)), false);
     }
@@ -497,7 +497,7 @@ TEST_CASE("mtl::string::is_ascii")
         REQUIRE_EQ(mtl::string::is_ascii(static_cast<char>(i)), true);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_ascii(static_cast<char>(i)), true);
     }
@@ -633,7 +633,7 @@ TEST_CASE("mtl::string::is_alphabetic")
         REQUIRE_EQ(mtl::string::is_alphabetic(static_cast<char>(i)), false);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_alphabetic(static_cast<char>(i)), false);
     }
@@ -787,7 +787,7 @@ TEST_CASE("mtl::string::is_numeric")
         REQUIRE_EQ(mtl::string::is_numeric(static_cast<char>(i)), false);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_numeric(static_cast<char>(i)), false);
     }
@@ -941,7 +941,7 @@ TEST_CASE("mtl::string::is_alphanum")
         REQUIRE_EQ(mtl::string::is_alphanum(static_cast<char>(i)), false);
     }
     // ASCII characters after lowercase characters
-    for(int i = 123; i < 127; i++)
+    for(int i = 123; i <= 127; i++)
     {
         REQUIRE_EQ(mtl::string::is_alphanum(static_cast<char>(i)), false);
     }
