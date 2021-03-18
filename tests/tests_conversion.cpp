@@ -115,6 +115,30 @@ TEST_CASE("mtl::to_num floating point types with scientific notation without zer
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
+TEST_CASE("mtl::to_num floating point types with scientific notation only")
+{
+    std::string number = "4.e";
+    float f = 0.0f;
+    double d = 0.0;
+    long double ld = 0.0L;
+    REQUIRE_NOTHROW(f = mtl::to_num(number));
+    REQUIRE_NOTHROW(d = mtl::to_num(number));
+    REQUIRE_NOTHROW(ld = mtl::to_num(number));
+
+    float f2 = 4.0F;
+    double d2 = 4.0;
+    long double ld2 = 4.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
 TEST_CASE("mtl::to_num floating point types with scientific notation, capital E")
 {
     std::string number = "4.0E2";
@@ -138,6 +162,65 @@ TEST_CASE("mtl::to_num floating point types with scientific notation, capital E"
     REQUIRE_GT(d, (d2 - 0.01));
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
+
+
+
+
+TEST_CASE("mtl::to_num floating point types with incorrect character, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+
+    float f = 0.0f;
+    double d = 0.0;
+    long double ld = 0.0L;
+    REQUIRE_NOTHROW(f = mtl::to_num(number));
+    REQUIRE_NOTHROW(d = mtl::to_num(number));
+    REQUIRE_NOTHROW(ld = mtl::to_num(number));
+
+    float f2 = 400.0F;
+    double d2 = 400.0;
+    long double ld2 = 400.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num floating point types with incorrect character, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+
+    float f = 0.0f;
+    double d = 0.0;
+    long double ld = 0.0L;
+    REQUIRE_NOTHROW(f = mtl::to_num(number));
+    REQUIRE_NOTHROW(d = mtl::to_num(number));
+    REQUIRE_NOTHROW(ld = mtl::to_num(number));
+
+    float f2 = 400.0F;
+    double d2 = 400.0;
+    long double ld2 = 400.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+
 
 TEST_CASE("mtl::to_num floating point types with incorrect character, whole part")
 {
@@ -172,6 +255,58 @@ TEST_CASE("mtl::to_num floating point types with incorrect character, demical pa
     REQUIRE_THROWS_AS(f = mtl::to_num(number), std::invalid_argument);
     REQUIRE_THROWS_AS(d = mtl::to_num(number), std::invalid_argument);
     REQUIRE_THROWS_AS(ld = mtl::to_num(number), std::invalid_argument);
+
+    float f2 = 0.0F;
+    double d2 = 0.0;
+    long double ld2 = 0.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num floating point types with incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+    float f = 0.0f;
+    double d = 0.0;
+    long double ld = 0.0L;
+    REQUIRE_THROWS(f = mtl::to_num(number));
+    REQUIRE_THROWS(d = mtl::to_num(number));
+    REQUIRE_THROWS(ld = mtl::to_num(number));
+
+    float f2 = 0.0F;
+    double d2 = 0.0;
+    long double ld2 = 0.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num floating point types with incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+    float f = 0.0f;
+    double d = 0.0;
+    long double ld = 0.0L;
+    REQUIRE_THROWS(f = mtl::to_num(number));
+    REQUIRE_THROWS(d = mtl::to_num(number));
+    REQUIRE_THROWS(ld = mtl::to_num(number));
 
     float f2 = 0.0F;
     double d2 = 0.0;
@@ -532,9 +667,90 @@ TEST_CASE("mtl::to_num_noex floating point types with scientific notation, witho
     REQUIRE_GT(ld, (ld2 - 0.01L));
 }
 
+TEST_CASE("mtl::to_num_noex floating point types with scientific notation only")
+{
+    std::string number = "4.e";
+    bool success = false;
+    float f = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    double d = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    long double ld = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+
+    float f2 = 4.0F;
+    double d2 = 4.0;
+    long double ld2 = 4.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
 TEST_CASE("mtl::to_num_noex floating point types with scientific notation, capital E")
 {
     std::string number = "4.0E2";
+    bool success = false;
+    float f = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    double d = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    long double ld = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+
+    float f2 = 400.0F;
+    double d2 = 400.0;
+    long double ld2 = 400.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex floating point types with incorrect character, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+
+    bool success = false;
+    float f = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    double d = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+    long double ld = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, true);
+
+    float f2 = 400.0F;
+    double d2 = 400.0;
+    long double ld2 = 400.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex floating point types with incorrect character, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+
     bool success = false;
     float f = mtl::to_num_noex(number, success);
     REQUIRE_EQ(success, true);
@@ -585,6 +801,62 @@ TEST_CASE("mtl::to_num_noex floating point with with incorrect character, whole 
 TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
 {
     std::string number = "4.0te2";
+    bool success = false;
+    float f = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+    double d = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+    long double ld = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+
+    float f2 = 0.0F;
+    double d2 = 0.0;
+    long double ld2 = 0.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+
+    bool success = false;
+    float f = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+    double d = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+    long double ld = mtl::to_num_noex(number, success);
+    REQUIRE_EQ(success, false);
+
+    float f2 = 0.0F;
+    double d2 = 0.0;
+    long double ld2 = 0.0L;
+
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f, (f2 + 0.01F));
+    REQUIRE_LT(d, (d2 + 0.01));
+    REQUIRE_LT(ld, (ld2 + 0.01L));
+    REQUIRE_GT(f, (f2 - 0.01F));
+    REQUIRE_GT(d, (d2 - 0.01));
+    REQUIRE_GT(ld, (ld2 - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex floating point with with incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+
     bool success = false;
     float f = mtl::to_num_noex(number, success);
     REQUIRE_EQ(success, false);
@@ -952,6 +1224,7 @@ TEST_CASE("mtl::to_num_noex not convertible value")
 // mtl::to_num_noex with std::pair
 // -----------------------------------------------------------------------------
 
+
 TEST_CASE("mtl::to_num_noex with std::pair, floating point types with scientific notation")
 {
     std::string number = "4.0e2";
@@ -1006,9 +1279,96 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point with scientific notation, 
     REQUIRE_GT(ld.first, (ld2.first - 0.01L));
 }
 
+TEST_CASE("mtl::to_num_noex std::pair, floating point with scientific notation only")
+{
+    std::string number = "4.e";
+    std::pair<float, bool> f = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<double, bool> d = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<long double, bool> ld = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+
+    auto f2 = std::make_pair<float, bool>(4.0F, true);
+    auto d2 = std::make_pair<double, bool>(4.0, true);
+    auto ld2 = std::make_pair<long double, bool>(4.0L, true);
+
+    REQUIRE_EQ(f.second, f2.second);
+    REQUIRE_EQ(d.second, d2.second);
+    REQUIRE_EQ(ld.second, ld2.second);
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f.first, (f2.first + 0.01F));
+    REQUIRE_LT(d.first, (d2.first + 0.01));
+    REQUIRE_LT(ld.first, (ld2.first + 0.01L));
+    REQUIRE_GT(f.first, (f2.first - 0.01F));
+    REQUIRE_GT(d.first, (d2.first - 0.01));
+    REQUIRE_GT(ld.first, (ld2.first - 0.01L));
+}
+
 TEST_CASE("mtl::to_num_noex std::pair, floating point with scientific notation, capital E")
 {
     std::string number = "4.0E2";
+    std::pair<float, bool> f = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<double, bool> d = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<long double, bool> ld = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+
+    auto f2 = std::make_pair<float, bool>(400.0F, true);
+    auto d2 = std::make_pair<double, bool>(400.0, true);
+    auto ld2 = std::make_pair<long double, bool>(400.0L, true);
+
+    REQUIRE_EQ(f.second, f2.second);
+    REQUIRE_EQ(d.second, d2.second);
+    REQUIRE_EQ(ld.second, ld2.second);
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f.first, (f2.first + 0.01F));
+    REQUIRE_LT(d.first, (d2.first + 0.01));
+    REQUIRE_LT(ld.first, (ld2.first + 0.01L));
+    REQUIRE_GT(f.first, (f2.first - 0.01F));
+    REQUIRE_GT(d.first, (d2.first - 0.01));
+    REQUIRE_GT(ld.first, (ld2.first - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex std::pair, floating point with incorrect char, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+
+    std::pair<float, bool> f = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<double, bool> d = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+    std::pair<long double, bool> ld = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, true);
+
+    auto f2 = std::make_pair<float, bool>(400.0F, true);
+    auto d2 = std::make_pair<double, bool>(400.0, true);
+    auto ld2 = std::make_pair<long double, bool>(400.0L, true);
+
+    REQUIRE_EQ(f.second, f2.second);
+    REQUIRE_EQ(d.second, d2.second);
+    REQUIRE_EQ(ld.second, ld2.second);
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f.first, (f2.first + 0.01F));
+    REQUIRE_LT(d.first, (d2.first + 0.01));
+    REQUIRE_LT(ld.first, (ld2.first + 0.01L));
+    REQUIRE_GT(f.first, (f2.first - 0.01F));
+    REQUIRE_GT(d.first, (d2.first - 0.01));
+    REQUIRE_GT(ld.first, (ld2.first - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex std::pair, floating point with incorrect char, scientific notation")
+{
+    std::string number = "4.0E2";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+
     std::pair<float, bool> f = mtl::to_num_noex(number);
     REQUIRE_EQ(f.second, true);
     std::pair<double, bool> d = mtl::to_num_noex(number);
@@ -1063,6 +1423,66 @@ TEST_CASE("mtl::to_num_noex std::pair, floating point, incorrect character, whol
 TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
 {
     std::string number = "4.0je2";
+    std::pair<float, bool> f = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+    std::pair<double, bool> d = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+    std::pair<long double, bool> ld = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+
+    auto f2 = std::make_pair<float, bool>(0.0F, false);
+    auto d2 = std::make_pair<double, bool>(0.0, false);
+    auto ld2 = std::make_pair<long double, bool>(0.0L, false);
+
+    REQUIRE_EQ(f.second, f2.second);
+    REQUIRE_EQ(d.second, d2.second);
+    REQUIRE_EQ(ld.second, ld2.second);
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f.first, (f2.first + 0.01F));
+    REQUIRE_LT(d.first, (d2.first + 0.01));
+    REQUIRE_LT(ld.first, (ld2.first + 0.01L));
+    REQUIRE_GT(f.first, (f2.first - 0.01F));
+    REQUIRE_GT(d.first, (d2.first - 0.01));
+    REQUIRE_GT(ld.first, (ld2.first - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '0' - 1;
+    number.push_back(c);
+
+    std::pair<float, bool> f = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+    std::pair<double, bool> d = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+    std::pair<long double, bool> ld = mtl::to_num_noex(number);
+    REQUIRE_EQ(f.second, false);
+
+    auto f2 = std::make_pair<float, bool>(0.0F, false);
+    auto d2 = std::make_pair<double, bool>(0.0, false);
+    auto ld2 = std::make_pair<long double, bool>(0.0L, false);
+
+    REQUIRE_EQ(f.second, f2.second);
+    REQUIRE_EQ(d.second, d2.second);
+    REQUIRE_EQ(ld.second, ld2.second);
+    // due to floating point numbers not being exact we have to do approximately equal
+    // instead of equal
+    REQUIRE_LT(f.first, (f2.first + 0.01F));
+    REQUIRE_LT(d.first, (d2.first + 0.01));
+    REQUIRE_LT(ld.first, (ld2.first + 0.01L));
+    REQUIRE_GT(f.first, (f2.first - 0.01F));
+    REQUIRE_GT(d.first, (d2.first - 0.01));
+    REQUIRE_GT(ld.first, (ld2.first - 0.01L));
+}
+
+TEST_CASE("mtl::to_num_noex std::pair, floating point incorrect character, demical part")
+{
+    std::string number = "0.0";
+    constexpr char c = '9' + 1;
+    number.push_back(c);
+    
     std::pair<float, bool> f = mtl::to_num_noex(number);
     REQUIRE_EQ(f.second, false);
     std::pair<double, bool> d = mtl::to_num_noex(number);

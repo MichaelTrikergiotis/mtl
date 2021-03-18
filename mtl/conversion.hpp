@@ -114,7 +114,7 @@ inline FloatingPoint to_double_impl(const char* num)
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
@@ -223,7 +223,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
@@ -337,7 +337,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
