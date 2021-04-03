@@ -392,7 +392,7 @@ inline void strip_front(std::string& value, const char match = ' ')
 		return;
 	}
 
-	// if the number of characters matching are less that the total length of the string
+	// if the number of characters matching are less that the length of the string
 	if (count < value.size())
 	{
 		// create an iterator from the copying should start from
@@ -402,8 +402,8 @@ inline void strip_front(std::string& value, const char match = ' ')
 		// remove unwated characters from the end
 		value.resize(value.size() - count);
 	}
-	// else if the number of characters matching are equal to the total length of the string
-	else if (count == value.size())
+	// else if the number of characters matching are equal to the length of the string
+	else
 	{
 		value.resize(0);
 	}
