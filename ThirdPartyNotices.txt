@@ -1,8 +1,9 @@
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+===================================================================================================
 
-Do Not Translate or Localize.
+Do not translate or localize.
 
-mtl (Modern Template Library) incorporates third party material from the projects listed below.
+mtl, the Modern Template Library incorporates third party material from the projects listed below.
 
 ===================================================================================================
 
