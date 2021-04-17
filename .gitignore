@@ -420,7 +420,7 @@ build.ninja
 rules.ninja
 *.manifest
 
-# gcc Test Coverage Files
+# gcov
 *.gcno
 *.gcda
 *.gcov
