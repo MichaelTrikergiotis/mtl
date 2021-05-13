@@ -89,7 +89,7 @@ private:
 	mtl::xoroshiro128plus engine;
 
 	// a selector that based on type selects the correct the uniform distrubition type
-	detail::uniform_distribution_type_selector<Type> ud_selector;
+	mtl::detail::uniform_distribution_type_selector<Type> ud_selector;
 
 public:
 
@@ -116,7 +116,7 @@ public:
 	/// @param[in] max A number for the maximum value that can be generated.
 	void set_min_max(Type min, Type max)
 	{
-		detail::uniform_distribution_type_selector<Type> di(min, max);
+		mtl::detail::uniform_distribution_type_selector<Type> di(min, max);
 		ud_selector = di;
 		engine.discard(1);
 	}
