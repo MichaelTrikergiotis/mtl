@@ -672,7 +672,7 @@ struct to_num_deductor_noex_pair
 [[nodiscard]]
 inline auto to_num(const std::string& value)
 {
-	return detail::to_num_deductor(value);
+	return mtl::detail::to_num_deductor(value);
 }
 
 /// Convert a string to a number. Number type is automatically decuced. On error it returns 0 if it
@@ -683,7 +683,7 @@ inline auto to_num(const std::string& value)
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value, bool& success) noexcept
 {
-	return detail::to_num_deductor_noex(value, success);
+	return mtl::detail::to_num_deductor_noex(value, success);
 }
 
 
@@ -696,7 +696,7 @@ inline auto to_num_noex(const std::string& value, bool& success) noexcept
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value) noexcept
 {
-	return detail::to_num_deductor_noex_pair(value);
+	return mtl::detail::to_num_deductor_noex_pair(value);
 }
 
 
@@ -962,7 +962,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast(FloatingPoint number)
 {
-	return detail::rounding_cast_deductor<FloatingPoint>(number);
+	return mtl::detail::rounding_cast_deductor<FloatingPoint>(number);
 }
 
 /// Rounds and casts a floating point number to int, long or long long. Doesn't throw exceptions.
@@ -975,7 +975,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast_noex(FloatingPoint number) noexcept
 {
-	return detail::rounding_cast_deductor_noex_pair<FloatingPoint>(number);
+	return mtl::detail::rounding_cast_deductor_noex_pair<FloatingPoint>(number);
 }
 
 /// Rounds and casts a floating point number to int, long or long long. Doesn't throw exceptions.
@@ -987,7 +987,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast_noex(FloatingPoint number, bool& success) noexcept
 {
-	return detail::rounding_cast_deductor_noex<FloatingPoint>(number, success);
+	return mtl::detail::rounding_cast_deductor_noex<FloatingPoint>(number, success);
 }
 
 
