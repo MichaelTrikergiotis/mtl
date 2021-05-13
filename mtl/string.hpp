@@ -1033,7 +1033,7 @@ template<typename Type, typename... Args>
 [[nodiscard]]
 inline std::string join(const Type& type, Args&&... args)
 {
-	return detail::join_select_impl(type, std::forward<Args>(args)...);
+	return mtl::string::detail::join_select_impl(type, std::forward<Args>(args)...);
 }
 
 // ===============================================================================================
