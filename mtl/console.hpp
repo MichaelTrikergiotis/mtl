@@ -232,7 +232,7 @@ namespace detail
 
 	// Concatenates all given arguments with a newline at the end of each and returns a string.
 	template<typename Arg, typename... Args>
-	inline std::string concat_arguments_newline(const Arg& arg, Args&&... args)	
+	inline std::string concat_args_newline(const Arg& arg, Args&&... args)	
 	{
 		std::string buffer;
 		concat_to_buffer_newline(buffer, arg, std::forward<Args>(args)...);
@@ -268,7 +268,8 @@ inline void println(const Arg& arg, Args&&... args)
 	if constexpr(number_args > 0)
 	{
 		// concatenate all arguments to a single string, so we only need a single call to print
-		fmt::print("{}", detail::concat_arguments_newline(arg, std::forward<Args>(args)...));
+		fmt::print("{}", mtl::console::detail::concat_args_newline(arg, 
+																   std::forward<Args>(args)...));
 	}
 	// if there are no variadic arguments
 	else
