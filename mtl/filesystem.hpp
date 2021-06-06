@@ -1,12 +1,15 @@
 #pragma once
-// filesystem by Michael Trikergiotis
+// filesystem header by Michael Trikergiotis
 // 26/04/2020
 // 
-// Header for mtl::filesystem.
+//
+// This header contains algorithms that interact with the filesystem.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <filesystem>      // std::filesystem::file_size, std::filesystem::path, 
