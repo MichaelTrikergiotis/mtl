@@ -215,20 +215,20 @@ There are 116 non-member functions.
 
 ## xoroshiro128plus.hpp
 
-- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L27) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L30)
-  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L27) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L32)
-  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L185) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L34)
-  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L219) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L36)
-  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L260) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L38)
-  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L269) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L40)
-  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L278) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L42)
-  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L296) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L44)
-  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L313) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L46)
-  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L327) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
-  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L344) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
-  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L363) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
-  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L376) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L54)
-- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L391) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L56)
+- [**CLASS**] `mtl::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L31) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L30)
+  - `mtl::xoroshiro128plus_engine::xoroshiro128plus_engine` [(Documentation)](../mtl/xoroshiro128plus.hpp#L31) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L32)
+  - `mtl::xoroshiro128plus_engine::operator=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L189) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L34)
+  - `mtl::xoroshiro128plus_engine::seed` [(Documentation)](../mtl/xoroshiro128plus.hpp#L223) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L36)
+  - `mtl::xoroshiro128plus_engine::min` [(Documentation)](../mtl/xoroshiro128plus.hpp#L264) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L38)
+  - `mtl::xoroshiro128plus_engine::max` [(Documentation)](../mtl/xoroshiro128plus.hpp#L273) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L40)
+  - `mtl::xoroshiro128plus_engine::operator()` [(Documentation)](../mtl/xoroshiro128plus.hpp#L282) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L42)
+  - `mtl::xoroshiro128plus_engine::generate` [(Documentation)](../mtl/xoroshiro128plus.hpp#L300) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L44)
+  - `mtl::xoroshiro128plus_engine::discard` [(Documentation)](../mtl/xoroshiro128plus.hpp#L317) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L46)
+  - `mtl::xoroshiro128plus_engine::operator<<` [(Documentation)](../mtl/xoroshiro128plus.hpp#L331) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L48)
+  - `mtl::xoroshiro128plus_engine::operator>>` [(Documentation)](../mtl/xoroshiro128plus.hpp#L348) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L50)
+  - `mtl::xoroshiro128plus_engine::operator==` [(Documentation)](../mtl/xoroshiro128plus.hpp#L367) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L52)
+  - `mtl::xoroshiro128plus_engine::operator!=` [(Documentation)](../mtl/xoroshiro128plus.hpp#L380) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L54)
+- [**CLASS**] `mtl::xoroshiro128plus` [(Documentation)](../mtl/xoroshiro128plus.hpp#L395) [(Examples)](../tests/tests_xoroshiro128plus.cpp#L56)
 
 ---------------------------------------------------
 
