@@ -119,8 +119,8 @@ There are 116 non-member functions.
 
 ## safety.hpp
 
-- `mtl::safe_copy` [(Documentation)](../mtl/safety.hpp#L25) [(Examples)](../tests/tests_safety.cpp#L30)
-- `mtl::safe_copy_n` [(Documentation)](../mtl/safety.hpp#L26) [(Examples)](../tests/tests_safety.cpp#L695)
+- `mtl::safe_copy` [(Documentation)](../mtl/safety.hpp#L28) [(Examples)](../tests/tests_safety.cpp#L30)
+- `mtl::safe_copy_n` [(Documentation)](../mtl/safety.hpp#L29) [(Examples)](../tests/tests_safety.cpp#L695)
 
 ---------------------------------------------------
 
