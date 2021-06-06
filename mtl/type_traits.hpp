@@ -1,12 +1,16 @@
 #pragma once
-// type traits by Michael Trikergiotis
+// type traits header by Michael Trikergiotis
 // 26/03/2018
 // 
-// Header for type traits used to make template metaprogramming easier and more expresive.
+//
+// This header contains algorithms that can be used to make template metaprogramming easier and 
+// more expressive.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <array>           // std::array
