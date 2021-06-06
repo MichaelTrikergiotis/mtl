@@ -3,7 +3,7 @@
 // 18/06/2018
 // 
 //
-// This header contains algorithms related with numbers.
+// This header contains algorithms related with manipulating numbers.
 //
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
