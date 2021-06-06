@@ -95,10 +95,10 @@ There are 116 non-member functions.
 
 ## numeric.hpp
 
-- `mtl::iota` [(Documentation)](../mtl/numeric.hpp#L27) [(Examples)](../tests/tests_numeric.cpp#L24)
-- `mtl::frequency` [(Documentation)](../mtl/numeric.hpp#L54) [(Examples)](../tests/tests_numeric.cpp#L534)
-- `mtl::mean` [(Documentation)](../mtl/numeric.hpp#L129) [(Examples)](../tests/tests_numeric.cpp#L755)
-- `mtl::median` [(Documentation)](../mtl/numeric.hpp#L159) [(Examples)](../tests/tests_numeric.cpp#L1104)
+- `mtl::iota` [(Documentation)](../mtl/numeric.hpp#L30) [(Examples)](../tests/tests_numeric.cpp#L24)
+- `mtl::frequency` [(Documentation)](../mtl/numeric.hpp#L57) [(Examples)](../tests/tests_numeric.cpp#L534)
+- `mtl::mean` [(Documentation)](../mtl/numeric.hpp#L132) [(Examples)](../tests/tests_numeric.cpp#L755)
+- `mtl::median` [(Documentation)](../mtl/numeric.hpp#L162) [(Examples)](../tests/tests_numeric.cpp#L1104)
 
 ---------------------------------------------------
 
