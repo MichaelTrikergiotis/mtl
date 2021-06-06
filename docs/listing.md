@@ -207,9 +207,9 @@ There are 116 non-member functions.
 
 ## utility.hpp
 
-- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L20) [(Examples)](../tests/tests_utility.cpp#L20)
-- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L40) [(Examples)](../tests/tests_utility.cpp#L75)
-- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L57) [(Examples)](../tests/tests_utility.cpp#L99)
+- `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L23) [(Examples)](../tests/tests_utility.cpp#L20)
+- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L43) [(Examples)](../tests/tests_utility.cpp#L75)
+- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L60) [(Examples)](../tests/tests_utility.cpp#L99)
 
 ---------------------------------------------------
 
