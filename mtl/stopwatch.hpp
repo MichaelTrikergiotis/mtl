@@ -1,8 +1,11 @@
 #pragma once
-// stopwatch by Michael Trikergiotis
+// stopwatch header by Michael Trikergiotis
 // 02/07/2017
+//
 //  
-// Header for mtl::chrono::stopwatch.
+// This header contains a stopwatch used to measure elapsed time between activation and
+// deactivation.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
