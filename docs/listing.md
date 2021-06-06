@@ -234,20 +234,20 @@ There are 116 non-member functions.
 
 ## xorshift128plus.hpp
 
-- [**CLASS**] `mtl::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L27) [(Examples)](../tests/tests_xorshift128plus.cpp#L32)
-  - `mtl::xorshift128plus_engine::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L27) [(Examples)](../tests/tests_xorshift128plus.cpp#L34)
-  - `mtl::xorshift128plus_engine::operator=` [(Documentation)](../mtl/xorshift128plus.hpp#L188) [(Examples)](../tests/tests_xorshift128plus.cpp#L36)
-  - `mtl::xorshift128plus_engine::seed` [(Documentation)](../mtl/xorshift128plus.hpp#L222) [(Examples)](../tests/tests_xorshift128plus.cpp#L38)
-  - `mtl::xorshift128plus_engine::min` [(Documentation)](../mtl/xorshift128plus.hpp#L263) [(Examples)](../tests/tests_xorshift128plus.cpp#L40)
-  - `mtl::xorshift128plus_engine::max` [(Documentation)](../mtl/xorshift128plus.hpp#L272) [(Examples)](../tests/tests_xorshift128plus.cpp#L42)
-  - `mtl::xorshift128plus_engine::operator()` [(Documentation)](../mtl/xorshift128plus.hpp#L281) [(Examples)](../tests/tests_xorshift128plus.cpp#L44)
-  - `mtl::xorshift128plus_engine::generate` [(Documentation)](../mtl/xorshift128plus.hpp#L301) [(Examples)](../tests/tests_xorshift128plus.cpp#L46)
-  - `mtl::xorshift128plus_engine::discard` [(Documentation)](../mtl/xorshift128plus.hpp#L318) [(Examples)](../tests/tests_xorshift128plus.cpp#L48)
-  - `mtl::xorshift128plus_engine::operator<<` [(Documentation)](../mtl/xorshift128plus.hpp#L332) [(Examples)](../tests/tests_xorshift128plus.cpp#L50)
-  - `mtl::xorshift128plus_engine::operator>>` [(Documentation)](../mtl/xorshift128plus.hpp#L349) [(Examples)](../tests/tests_xorshift128plus.cpp#L52)
-  - `mtl::xorshift128plus_engine::operator==` [(Documentation)](../mtl/xorshift128plus.hpp#L368) [(Examples)](../tests/tests_xorshift128plus.cpp#L54)
-  - `mtl::xorshift128plus_engine::operator!=` [(Documentation)](../mtl/xorshift128plus.hpp#L381) [(Examples)](../tests/tests_xorshift128plus.cpp#L56)
-- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L395) [(Examples)](../tests/tests_xorshift128plus.cpp#L58)
+- [**CLASS**] `mtl::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L31) [(Examples)](../tests/tests_xorshift128plus.cpp#L32)
+  - `mtl::xorshift128plus_engine::xorshift128plus_engine` [(Documentation)](../mtl/xorshift128plus.hpp#L31) [(Examples)](../tests/tests_xorshift128plus.cpp#L34)
+  - `mtl::xorshift128plus_engine::operator=` [(Documentation)](../mtl/xorshift128plus.hpp#L192) [(Examples)](../tests/tests_xorshift128plus.cpp#L36)
+  - `mtl::xorshift128plus_engine::seed` [(Documentation)](../mtl/xorshift128plus.hpp#L226) [(Examples)](../tests/tests_xorshift128plus.cpp#L38)
+  - `mtl::xorshift128plus_engine::min` [(Documentation)](../mtl/xorshift128plus.hpp#L267) [(Examples)](../tests/tests_xorshift128plus.cpp#L40)
+  - `mtl::xorshift128plus_engine::max` [(Documentation)](../mtl/xorshift128plus.hpp#L276) [(Examples)](../tests/tests_xorshift128plus.cpp#L42)
+  - `mtl::xorshift128plus_engine::operator()` [(Documentation)](../mtl/xorshift128plus.hpp#L285) [(Examples)](../tests/tests_xorshift128plus.cpp#L44)
+  - `mtl::xorshift128plus_engine::generate` [(Documentation)](../mtl/xorshift128plus.hpp#L305) [(Examples)](../tests/tests_xorshift128plus.cpp#L46)
+  - `mtl::xorshift128plus_engine::discard` [(Documentation)](../mtl/xorshift128plus.hpp#L322) [(Examples)](../tests/tests_xorshift128plus.cpp#L48)
+  - `mtl::xorshift128plus_engine::operator<<` [(Documentation)](../mtl/xorshift128plus.hpp#L336) [(Examples)](../tests/tests_xorshift128plus.cpp#L50)
+  - `mtl::xorshift128plus_engine::operator>>` [(Documentation)](../mtl/xorshift128plus.hpp#L353) [(Examples)](../tests/tests_xorshift128plus.cpp#L52)
+  - `mtl::xorshift128plus_engine::operator==` [(Documentation)](../mtl/xorshift128plus.hpp#L372) [(Examples)](../tests/tests_xorshift128plus.cpp#L54)
+  - `mtl::xorshift128plus_engine::operator!=` [(Documentation)](../mtl/xorshift128plus.hpp#L385) [(Examples)](../tests/tests_xorshift128plus.cpp#L56)
+- [**CLASS**] `mtl::xorshift128plus` [(Documentation)](../mtl/xorshift128plus.hpp#L399) [(Examples)](../tests/tests_xorshift128plus.cpp#L58)
 
 ---------------------------------------------------
 
