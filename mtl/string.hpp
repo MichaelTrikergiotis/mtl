@@ -1,9 +1,10 @@
 #pragma once
-// string manipulation by Michael Trikergiotis
+// string header by Michael Trikergiotis
 // 13/10/2017
 // 
-// Header for the mtl::string namespace that contains various algorithms used for manipulating
-// strings.
+//
+// This header contains algorithms used for manipulating strings.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
