@@ -1,12 +1,15 @@
 #pragma once
-// safety by Michael Trikergiotis
+// safety header by Michael Trikergiotis
 // 02/02/2018
 // 
-// Header for safe algorithms. Safe algorirthms heavily reduce potential for errors.
+//
+// This header contains safe algorithms that help reduce bugs.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <algorithm>       // std::copy
