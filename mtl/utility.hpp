@@ -1,12 +1,15 @@
 #pragma once
-// utility by Michael Trikergiotis
+// utility header by Michael Trikergiotis
 // 21/09/2016
 // 
-// Header for utility functions.
+//
+// This header contains various utility functions.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <cassert>	       // assert
