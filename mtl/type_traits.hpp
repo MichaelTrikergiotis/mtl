@@ -2,10 +2,10 @@
 // type traits header by Michael Trikergiotis
 // 26/03/2018
 // 
-//
+// 
 // This header contains algorithms that can be used to make template metaprogramming easier and 
 // more expressive.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 

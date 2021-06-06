@@ -2,15 +2,15 @@
 // xoroshiro128plus header by Michael Trikergiotis
 // 28/09/2018
 //  
-//
+// 
 // This header contains the implementation of the xoroshiro128plus random number generator in the
 // way that the C++ standard library requires for random number generation engines. No inheritance
 // is used because vptrs destroy performance.
-//
+// 
 // Satisfies the requirements for RandomNumberEngine :
 // en.cppreference.com/w/cpp/named_req/RandomNumberEngine
 // 
-//
+// 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.

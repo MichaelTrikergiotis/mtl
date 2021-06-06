@@ -2,9 +2,9 @@
 // safety header by Michael Trikergiotis
 // 02/02/2018
 // 
-//
+// 
 // This header contains safe algorithms that help reduce bugs.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.

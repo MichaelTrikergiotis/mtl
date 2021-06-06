@@ -2,9 +2,9 @@
 // container header by Michael Trikergiotis
 // 12/05/2020
 // 
-//
+// 
 // This header contains generic algorithms used to manipulate C++ containers.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.

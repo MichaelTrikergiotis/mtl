@@ -2,9 +2,9 @@
 // filesystem header by Michael Trikergiotis
 // 26/04/2020
 // 
-//
+// 
 // This header contains algorithms that interact with the filesystem.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 

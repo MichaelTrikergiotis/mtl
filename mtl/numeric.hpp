@@ -2,9 +2,9 @@
 // numeric header by Michael Trikergiotis
 // 18/06/2018
 // 
-//
+// 
 // This header contains algorithms related with manipulating numbers.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 

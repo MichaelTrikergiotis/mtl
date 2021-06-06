@@ -2,9 +2,9 @@
 // console header by Michael Trikergiotis
 // 09/09/2018
 // 
-//
+// 
 // This header contains algorithms that interact with the console.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 

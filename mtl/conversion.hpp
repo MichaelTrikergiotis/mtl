@@ -2,9 +2,9 @@
 // conversion header by Michael Trikergiotis
 // 04/05/2019
 // 
-//
+// 
 // This header contains algorithms for performing casts and converting between types.
-//
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
