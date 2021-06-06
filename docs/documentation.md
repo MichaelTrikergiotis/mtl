@@ -99,14 +99,12 @@ Open `x64 Native Tools Command Prompt for VS 2019` (`vcvars64.bat`) and navigate
 4. ```cmake --build .```
 5. ```tests.exe```
 
-### Note about line and branch coverage
+### Note about test coverage
 
-We strive to reach above 90% test line coverage. We test the **Modern Template Library** very extensively with multiple thousands of tests but due to gcovr's implementation for reporting C++ test coverage, achieving 100% coverage is simply impossible for all programs written in C++. For that reason we try very hard to keep branch coverage over 90% using the flags ```--exclude-unreachable-branches``` and ```--exclude-throw-branches```
-but even then we have to further use ```GCOVR_EXCL_LINE```, ```GCOVR_EXCL_START``` and ```GCOVR_EXCL_STOP``` to exclude lines that it is certain that they are incorrectly reported or function calls to third party code like the C++ standard library or external libraries that is not our responsibility to cover with tests. You can read about gcovr's inability to reach 100% coverage with C++ code and about uncovered branches at :
+We strive to reach the highest possible test coverage. We test the **Modern Template Library** very extensively with multiple thousands of tests but due to gcovr's implementation for reporting C++ test coverage, achieving 100% coverage is simply impossible for all programs written in C++.
+
+You can read about gcovr's inability to reach 100% coverage with C++ code and about uncovered branches at :
 [https://www.gcovr.com/en/stable/faq.html#why-does-c-code-have-so-many-uncovered-branches](https://www.gcovr.com/en/stable/faq.html#why-does-c-code-have-so-many-uncovered-branches)
-
-Sadly gcovr doesn't allow to only exclude lines from branch coverage as that would be very helpful for **mtl** because most of the excluded lines in **mtl** are for false branch coverage. This issue this is tracked at :
-[https://github.com/gcovr/gcovr/issues/121](https://github.com/gcovr/gcovr/issues/121)
 
 ------------------------------------------------------------
 
