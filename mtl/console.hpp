@@ -1,12 +1,15 @@
 ﻿#pragma once
-// console by Michael Trikergiotis
+// console header by Michael Trikergiotis
 // 09/09/2018
 // 
-// Header for mtl::console.
+//
+// This header contains algorithms that interact with the console.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <string>          // std::string
