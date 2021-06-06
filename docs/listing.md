@@ -54,11 +54,11 @@ There are 116 non-member functions.
 
 ## container.hpp
 
-- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L21) [(Examples)](../tests/tests_container.cpp#L27)
-- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L46) [(Examples)](../tests/tests_container.cpp#L126)
-- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L70) [(Examples)](../tests/tests_container.cpp#L262)
-- `mtl::slice` [(Documentation)](../mtl/container.hpp#L100) [(Examples)](../tests/tests_container.cpp#L401)
-- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L101) [(Examples)](../tests/tests_container.cpp#L1281)
+- `mtl::reserve` [(Documentation)](../mtl/container.hpp#L24) [(Examples)](../tests/tests_container.cpp#L27)
+- `mtl::push_back` [(Documentation)](../mtl/container.hpp#L49) [(Examples)](../tests/tests_container.cpp#L126)
+- `mtl::emplace_back` [(Documentation)](../mtl/container.hpp#L73) [(Examples)](../tests/tests_container.cpp#L262)
+- `mtl::slice` [(Documentation)](../mtl/container.hpp#L103) [(Examples)](../tests/tests_container.cpp#L401)
+- `mtl::slice_n` [(Documentation)](../mtl/container.hpp#L104) [(Examples)](../tests/tests_container.cpp#L1281)
 
 ---------------------------------------------------
 
