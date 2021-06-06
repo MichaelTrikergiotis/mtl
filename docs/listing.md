@@ -84,12 +84,12 @@ There are 116 non-member functions.
 
 ## math.hpp
 
-- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L22) [(Examples)](../tests/tests_math.cpp#L26)
-- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L23) [(Examples)](../tests/tests_math.cpp#L99)
-- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L24) [(Examples)](../tests/tests_math.cpp#L171)
-- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L92) [(Examples)](../tests/tests_math.cpp#L282)
-- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L93) [(Examples)](../tests/tests_math.cpp#L598)
-- `mtl::percent` [(Documentation)](../mtl/math.hpp#L94) [(Examples)](../tests/tests_math.cpp#L792)
+- `mtl::approx_equal_abs` [(Documentation)](../mtl/math.hpp#L23) [(Examples)](../tests/tests_math.cpp#L26)
+- `mtl::approx_equal_rel` [(Documentation)](../mtl/math.hpp#L24) [(Examples)](../tests/tests_math.cpp#L99)
+- `mtl::approx_equal_comb` [(Documentation)](../mtl/math.hpp#L25) [(Examples)](../tests/tests_math.cpp#L171)
+- `mtl::percent_whole` [(Documentation)](../mtl/math.hpp#L93) [(Examples)](../tests/tests_math.cpp#L282)
+- `mtl::percent_portion` [(Documentation)](../mtl/math.hpp#L94) [(Examples)](../tests/tests_math.cpp#L598)
+- `mtl::percent` [(Documentation)](../mtl/math.hpp#L95) [(Examples)](../tests/tests_math.cpp#L792)
 
 ---------------------------------------------------
 
