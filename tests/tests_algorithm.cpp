@@ -23,8 +23,7 @@
 #include <functional>     // std::equal_to, std::less
 #include <algorithm>      // std::sort, std::count, std::for_each
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/algorithm.hpp"
 // mtl::not_unique_inclusive, mtl::not_unique_exclusive, mtl::not_unique, 
 // mtl::keep_duplicates_inclusive, mtl::keep_duplicates_exclusive, mtl::keep_duplicates,

@@ -16,8 +16,7 @@
 // Disable some of the asserts in mtl so we can test more thoroughly.
 #define MTL_DISABLE_SOME_ASSERTS
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/string.hpp"
 // mtl::string::is_upper, mtl::string::is_lower, mtl::string::to_upper, mtl::string::to_lower,
 // mtl::string::is_ascii, mtl::string::is_alphabetic, mtl::string::is_numeric, 

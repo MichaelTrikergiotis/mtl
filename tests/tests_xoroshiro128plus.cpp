@@ -14,8 +14,7 @@
 #include <algorithm> // std::count_if, std::all_of
 #include <utility>   // std::move
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/xoroshiro128plus.hpp" 
 // [@class] mtl::xoroshiro128plus_engine,  mtl::xoroshiro128plus_engine::xoroshiro128plus_engine,
 // mtl::xoroshiro128plus_engine::operator=, mtl::xoroshiro128plus_engine::seed, 

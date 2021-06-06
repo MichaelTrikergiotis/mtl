@@ -21,8 +21,7 @@
 #include <iterator>
 #include <type_traits> // std::add_lvalue_reference_t, std::add_rvalue_reference_t
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/type_traits.hpp" 
 // mtl::are_same, mtl::has_reserve, 
 // mtl::has_push_back, mtl::has_emplace_back, mtl::has_size, mtl::has_find, mtl::is_sint, 

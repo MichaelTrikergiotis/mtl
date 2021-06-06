@@ -10,8 +10,7 @@
 #include <type_traits>        // std::is_copy_constructible_v, std::is_move_constructible_v,
                               // std::is_copy_assignable_v, std::is_move_assignable_v
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/utility.hpp" 
 // MTL_ASSERT_MSG, [@class] mtl::no_copy, [@class] mtl::no_move
 

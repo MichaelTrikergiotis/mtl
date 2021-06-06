@@ -12,8 +12,6 @@
 #include <stdexcept>  // std::invalid_argument, std::overflow_error
 
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
 #include "../mtl/conversion.hpp" 
 // mtl::to_num, mtl::to_num_noex, mtl::numeric_cast, mtl::numeric_cast_noex, 
 // mtl::rounding_cast, mtl::rounding_cast_noex

@@ -14,8 +14,7 @@
 #include <string>
 #include "../mtl/xoroshiro128plus.hpp" // mtl::xoroshiro128plus
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/random.hpp" 
 // [@class] mtl::rng, mtl::rng::rng, mtl::rng::set_min_max, mtl::rng::min, mtl::rng::max, 
 // mtl::rng::next, mtl::rng::seed, mtl::rng::seed_random, mtl::random_choice, mtl::shuffle

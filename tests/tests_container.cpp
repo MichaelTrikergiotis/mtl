@@ -17,8 +17,6 @@
 #include <map>
 
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
 #include "../mtl/container.hpp" 
 // mtl::reserve, mtl::push_back, mtl::emplace_back, mtl::slice, mtl::slice_n
 

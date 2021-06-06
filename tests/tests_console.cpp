@@ -17,8 +17,6 @@
 #include <numeric> // std::iota
 
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
 #include "../mtl/console.hpp" 
 // mtl::console::print, mtl::console::println, 
 // mtl::console::print_all, mtl::console::print_color, mtl::console::println_color,
