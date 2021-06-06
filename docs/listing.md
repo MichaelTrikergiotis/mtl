@@ -104,16 +104,16 @@ There are 116 non-member functions.
 
 ## random.hpp
 
-- [**CLASS**] `mtl::rng` [(Documentation)](../mtl/random.hpp#L27) [(Examples)](../tests/tests_random.cpp#L27)
-  - `mtl::rng::rng` [(Documentation)](../mtl/random.hpp#L27) [(Examples)](../tests/tests_random.cpp#L29)
-  - `mtl::rng::set_min_max` [(Documentation)](../mtl/random.hpp#L110) [(Examples)](../tests/tests_random.cpp#L31)
-  - `mtl::rng::min` [(Documentation)](../mtl/random.hpp#L125) [(Examples)](../tests/tests_random.cpp#L33)
-  - `mtl::rng::max` [(Documentation)](../mtl/random.hpp#L134) [(Examples)](../tests/tests_random.cpp#L35)
-  - `mtl::rng::next` [(Documentation)](../mtl/random.hpp#L143) [(Examples)](../tests/tests_random.cpp#L37)
-  - `mtl::rng::seed` [(Documentation)](../mtl/random.hpp#L152) [(Examples)](../tests/tests_random.cpp#L39)
-  - `mtl::rng::seed_random` [(Documentation)](../mtl/random.hpp#L185) [(Examples)](../tests/tests_random.cpp#L41)
-- `mtl::random_choice` [(Documentation)](../mtl/random.hpp#L197) [(Examples)](../tests/tests_random.cpp#L646)
-- `mtl::shuffle` [(Documentation)](../mtl/random.hpp#L250) [(Examples)](../tests/tests_random.cpp#L1117)
+- [**CLASS**] `mtl::rng` [(Documentation)](../mtl/random.hpp#L30) [(Examples)](../tests/tests_random.cpp#L27)
+  - `mtl::rng::rng` [(Documentation)](../mtl/random.hpp#L30) [(Examples)](../tests/tests_random.cpp#L29)
+  - `mtl::rng::set_min_max` [(Documentation)](../mtl/random.hpp#L113) [(Examples)](../tests/tests_random.cpp#L31)
+  - `mtl::rng::min` [(Documentation)](../mtl/random.hpp#L128) [(Examples)](../tests/tests_random.cpp#L33)
+  - `mtl::rng::max` [(Documentation)](../mtl/random.hpp#L137) [(Examples)](../tests/tests_random.cpp#L35)
+  - `mtl::rng::next` [(Documentation)](../mtl/random.hpp#L146) [(Examples)](../tests/tests_random.cpp#L37)
+  - `mtl::rng::seed` [(Documentation)](../mtl/random.hpp#L155) [(Examples)](../tests/tests_random.cpp#L39)
+  - `mtl::rng::seed_random` [(Documentation)](../mtl/random.hpp#L188) [(Examples)](../tests/tests_random.cpp#L41)
+- `mtl::random_choice` [(Documentation)](../mtl/random.hpp#L200) [(Examples)](../tests/tests_random.cpp#L646)
+- `mtl::shuffle` [(Documentation)](../mtl/random.hpp#L253) [(Examples)](../tests/tests_random.cpp#L1117)
 
 ---------------------------------------------------
 
