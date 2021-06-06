@@ -3,7 +3,7 @@
 // 12/05/2020
 // 
 //
-// This header contains algorithms used to manipulate C++ containers in a generic fashion.
+// This header contains generic algorithms used to manipulate C++ containers.
 //
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
