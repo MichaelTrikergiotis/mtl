@@ -1,12 +1,15 @@
 #pragma once
-// random by Michael Trikergiotis
+// random header by Michael Trikergiotis
 // 22/10/2017
 // 
-// Header for algorithms related to random number generation.
+//
+// This header contains algorithms related to random number generation.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp"      // various definitions
 #include <random>				// std::random_device, std::uniform_int_distribution
