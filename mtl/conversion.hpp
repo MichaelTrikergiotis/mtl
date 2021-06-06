@@ -1,12 +1,15 @@
 #pragma once
-// conversion by Michael Trikergiotis
+// conversion header by Michael Trikergiotis
 // 04/05/2019
 // 
-// Header for performing casts and converting between types.
+//
+// This header contains algorithms for performing casts and converting between types.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <cmath>           // std::pow
