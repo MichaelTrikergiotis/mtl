@@ -126,16 +126,16 @@ There are 116 non-member functions.
 
 ## stopwatch.hpp
 
-- [**CLASS**] `mtl::chrono::stopwatch` [(Documentation)](../mtl/stopwatch.hpp#L25) [(Examples)](../tests/tests_stopwatch.cpp#L26)
-  - `mtl::chrono::stopwatch::start` [(Documentation)](../mtl/stopwatch.hpp#L38) [(Examples)](../tests/tests_stopwatch.cpp#L28)
-  - `mtl::chrono::stopwatch::stop` [(Documentation)](../mtl/stopwatch.hpp#L48) [(Examples)](../tests/tests_stopwatch.cpp#L30)
-  - `mtl::chrono::stopwatch::reset` [(Documentation)](../mtl/stopwatch.hpp#L58) [(Examples)](../tests/tests_stopwatch.cpp#L32)
-  - `mtl::chrono::stopwatch::restart` [(Documentation)](../mtl/stopwatch.hpp#L69) [(Examples)](../tests/tests_stopwatch.cpp#L34)
-  - `mtl::chrono::stopwatch::elapsed_minutes` [(Documentation)](../mtl/stopwatch.hpp#L79) [(Examples)](../tests/tests_stopwatch.cpp#L36)
-  - `mtl::chrono::stopwatch::elapsed_seconds` [(Documentation)](../mtl/stopwatch.hpp#L95) [(Examples)](../tests/tests_stopwatch.cpp#L38)
-  - `mtl::chrono::stopwatch::elapsed_milli` [(Documentation)](../mtl/stopwatch.hpp#L108) [(Examples)](../tests/tests_stopwatch.cpp#L40)
-  - `mtl::chrono::stopwatch::elapsed_micro` [(Documentation)](../mtl/stopwatch.hpp#L121) [(Examples)](../tests/tests_stopwatch.cpp#L42)
-  - `mtl::chrono::stopwatch::elapsed_nano` [(Documentation)](../mtl/stopwatch.hpp#L134) [(Examples)](../tests/tests_stopwatch.cpp#L44)
+- [**CLASS**] `mtl::chrono::stopwatch` [(Documentation)](../mtl/stopwatch.hpp#L28) [(Examples)](../tests/tests_stopwatch.cpp#L26)
+  - `mtl::chrono::stopwatch::start` [(Documentation)](../mtl/stopwatch.hpp#L41) [(Examples)](../tests/tests_stopwatch.cpp#L28)
+  - `mtl::chrono::stopwatch::stop` [(Documentation)](../mtl/stopwatch.hpp#L51) [(Examples)](../tests/tests_stopwatch.cpp#L30)
+  - `mtl::chrono::stopwatch::reset` [(Documentation)](../mtl/stopwatch.hpp#L61) [(Examples)](../tests/tests_stopwatch.cpp#L32)
+  - `mtl::chrono::stopwatch::restart` [(Documentation)](../mtl/stopwatch.hpp#L72) [(Examples)](../tests/tests_stopwatch.cpp#L34)
+  - `mtl::chrono::stopwatch::elapsed_minutes` [(Documentation)](../mtl/stopwatch.hpp#L82) [(Examples)](../tests/tests_stopwatch.cpp#L36)
+  - `mtl::chrono::stopwatch::elapsed_seconds` [(Documentation)](../mtl/stopwatch.hpp#L98) [(Examples)](../tests/tests_stopwatch.cpp#L38)
+  - `mtl::chrono::stopwatch::elapsed_milli` [(Documentation)](../mtl/stopwatch.hpp#L111) [(Examples)](../tests/tests_stopwatch.cpp#L40)
+  - `mtl::chrono::stopwatch::elapsed_micro` [(Documentation)](../mtl/stopwatch.hpp#L124) [(Examples)](../tests/tests_stopwatch.cpp#L42)
+  - `mtl::chrono::stopwatch::elapsed_nano` [(Documentation)](../mtl/stopwatch.hpp#L137) [(Examples)](../tests/tests_stopwatch.cpp#L44)
 
 ---------------------------------------------------
 
