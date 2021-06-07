@@ -116,7 +116,7 @@ else()
             set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
         # if we found clang-tidy pass the correct flags and print a message that clang-tidy is enabled
         else()
-            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-cppcoreguidelines-pro-*,-modernize-use-auto,-modernize-use-equals-delete,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-modernize-use-trailing-return-type")
+            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-abseil-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-altera-struct-pack-align,-modernize-use-auto,-modernize-use-equals-delete,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-cppcoreguidelines-pro-*,-cppcoreguidelines-avoid-non-const-global-variables,-llvmlibc-callee-namespace,-llvmlibc-implementation-in-namespace,-llvmlibc-restrict-system-libc-headers")
             set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};-checks=${CLANG_TIDY_CHECKS};-warnings-as-errors=${CLANG_TIDY_CHECKS};-header-filter=.hpp;-quiet")
             message("-- Enabled clang-tidy")
         endif()
