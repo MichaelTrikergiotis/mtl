@@ -1,12 +1,15 @@
 #pragma once
-// algorithms by Michael Trikergiotis
+// algorithm header by Michael Trikergiotis
 // 09/09/2018
 // 
-// Header for algorithms.
+// 
+// This header contains generic algorithms for various purposes.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp"  // various definitions
 #include <vector>           // std::vector
@@ -98,8 +101,8 @@ template<typename Iter>
 [[nodiscard]]
 inline Iter not_unique_inclusive(Iter first, Iter last)
 {
-	return detail::not_unique_inclusive_impl(first, last, 
-											 std::equal_to<typename Iter::value_type>{});
+	return mtl::detail::not_unique_inclusive_impl(first, last, 
+											      std::equal_to<typename Iter::value_type>{});
 }
 
 /// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
@@ -114,7 +117,7 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_inclusive(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	return detail::not_unique_inclusive_impl(first, last, binary_pred);
+	return mtl::detail::not_unique_inclusive_impl(first, last, binary_pred);
 }
 
 
@@ -187,7 +190,7 @@ inline Iter not_unique_exclusive(Iter first, Iter last)
 	// use a shortened name for the item type of the range
 	using ItemType = typename Iter::value_type;
 	
-	return detail::not_unique_exclusive_impl(first, last, std::equal_to<ItemType>{});
+	return mtl::detail::not_unique_exclusive_impl(first, last, std::equal_to<ItemType>{});
 }
 
 
@@ -203,7 +206,7 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_exclusive(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	return detail::not_unique_exclusive_impl(first, last, binary_pred);
+	return mtl::detail::not_unique_exclusive_impl(first, last, binary_pred);
 }
 
 
@@ -223,7 +226,7 @@ inline Iter not_unique(Iter first, Iter last)
 	using ItemType = typename Iter::value_type;
 
 	// move all duplicates excluding the original to the front
-	auto it = detail::not_unique_exclusive_impl(first, last, std::equal_to<ItemType>{});
+	auto it = mtl::detail::not_unique_exclusive_impl(first, last, std::equal_to<ItemType>{});
 	// move only a single copy of each duplicate to the front and return an iterator to new end
 	return std::unique(first, it);
 }
@@ -242,7 +245,7 @@ template<typename Iter, typename BinaryPredicate>
 inline Iter not_unique(Iter first, Iter last, BinaryPredicate binary_pred)
 {
 	// move all duplicates excluding the original to the front
-	auto it = detail::not_unique_exclusive_impl(first, last, binary_pred);
+	auto it = mtl::detail::not_unique_exclusive_impl(first, last, binary_pred);
 	// move only a single copy of each duplicate to the front and return an iterator to new end
 	return std::unique(first, it, binary_pred);
 }
@@ -280,7 +283,7 @@ inline void rem_duplicates_sorted(Container& container)
 	// use a shortened name for the item type that is containted in the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function, default binary predicate
-	detail::rem_duplicates_sorted_impl(container, std::equal_to<ItemType>{});
+	mtl::detail::rem_duplicates_sorted_impl(container, std::equal_to<ItemType>{});
 }
 
 /// Removes duplicates in an already sorted container. This specialization allows you to pass a 
@@ -291,7 +294,7 @@ template<typename Container, typename BinaryPredicate>
 inline void rem_duplicates_sorted(Container& container, BinaryPredicate bp)
 {
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_sorted_impl(container, bp);
+	mtl::detail::rem_duplicates_sorted_impl(container, bp);
 }
 
 
@@ -324,7 +327,7 @@ inline void rem_duplicates(Container& container)
 	// use a shortened name for the item type that is containted in the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_impl(container, std::less<ItemType>{}, std::equal_to<ItemType>{});
+	mtl::detail::rem_duplicates_impl(container, std::less<ItemType>{}, std::equal_to<ItemType>{});
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
@@ -337,7 +340,7 @@ template<typename Container, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates(Container& container, Compare comp, BinaryPredicate bp)
 {
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_impl(container, comp, bp);
+	mtl::detail::rem_duplicates_impl(container, comp, bp);
 }
 
 
@@ -368,7 +371,7 @@ template<typename Type>
 inline void rem_duplicates(std::list<Type>& container)
 {
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_impl(container, std::less<Type>{}, std::equal_to<Type>{});
+	mtl::detail::rem_duplicates_impl(container, std::less<Type>{}, std::equal_to<Type>{});
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
@@ -381,7 +384,7 @@ template<typename Type, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates(std::list<Type>& container, Compare comp, BinaryPredicate bp)
 {
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_impl(container, comp, bp);
+	mtl::detail::rem_duplicates_impl(container, comp, bp);
 }
 
 
@@ -430,7 +433,7 @@ inline void rem_duplicates_preserve(Container& container)
 	using Type = typename Container::value_type;
 
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_preserve_impl(container, std::hash<Type>{}, std::equal_to<Type>{});
+	mtl::detail::rem_duplicates_preserve_impl(container, std::hash<Type>{}, std::equal_to<Type>{});
 }
 
 
@@ -445,7 +448,7 @@ template<typename Container, typename Hash,
 inline void rem_duplicates_preserve(Container& container, Hash hash, BinaryPredicate bp)
 {
 	// actual implementation of the duplicate removal function
-	detail::rem_duplicates_preserve_impl(container, hash, bp);
+	mtl::detail::rem_duplicates_preserve_impl(container, hash, bp);
 }
 
 
@@ -1027,7 +1030,7 @@ template<typename Function, typename... Types>
 inline void for_each(std::tuple<Types...>& value, Function&& func)
 {
 	const auto size = std::tuple_size_v<std::tuple<Types...>>;
-	detail::for_each_tuple<size - 1, Function, Types...>{}
+	mtl::detail::for_each_tuple<size - 1, Function, Types...>{}
 	(value, std::forward<Function>(func));
 }
 
@@ -1072,7 +1075,7 @@ template<typename Function, typename... Types>
 inline void for_each(const std::tuple<Types...>& value, Function&& func)
 {
 	const auto size = std::tuple_size_v<std::tuple<Types...>>;
-	detail::for_each_const_tuple<size - 1, Function, Types...>{}
+	mtl::detail::for_each_const_tuple<size - 1, Function, Types...>{}
 	(value, std::forward<Function>(func));
 }
 
@@ -1404,12 +1407,12 @@ public:
 /// @return A range from start to end with a given step.
 template<typename Type = int>
 [[nodiscard]]
-inline std::enable_if_t<mtl::is_number_v<Type>, detail::_range_generator<Type>>
+inline std::enable_if_t<mtl::is_number_v<Type>, mtl::detail::_range_generator<Type>>
 range(const Type start, const Type end, const Type step = 1)
 {
 	// generates an object with begin()/end() and cbegin()/cend() that can be incremented or 
 	// decremented
-	return detail::_range_generator<Type>(start, end, step);
+	return mtl::detail::_range_generator<Type>(start, end, step);
 }
 
 

@@ -2,7 +2,9 @@
 // doctect include header by Michael Trikergiotis
 // 05/08/2020
 // 
-// Header that just includes doctest library and supresses the multiple warnings related with it.
+//
+// This header includes the doctest library and suppresses multiple warnings related with it.
+//
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.

@@ -16,8 +16,7 @@
 // Disable some of the asserts in mtl so we can test more thoroughly.
 #define MTL_DISABLE_SOME_ASSERTS
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/filesystem.hpp" 
 // mtl::filesystem::read_file, mtl::filesystem::read_all_lines, 
 // mtl::filesystem::write_file, mtl::filesystem::write_all_lines

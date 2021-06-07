@@ -74,7 +74,7 @@ The same output as the above could also be achieved with :
 mtl::console::print("Hello from ", 'a', planet, 12.24f, " light-years away.", '\n');
 ```
 
-Please note that we use `mtl::console::print` with the same variables as before but also add a newline variable at the end.
+Please note that we use `mtl::console::print` with the same variables as before but also add a newline at the end.
 
 [**EXAMPLE 4**]
 

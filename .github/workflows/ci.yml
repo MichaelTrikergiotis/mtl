@@ -211,7 +211,9 @@ jobs:
           ./tests
       
       - name: Build Debug Linux clang and libcxx
-        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        # disabled for the time being
+        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        if: ${{ false }}
         run: |
           cd tests
           rm -rf build
@@ -233,7 +235,9 @@ jobs:
           ./tests
       
       - name: Build Release Linux clang and libcxx
-        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        # disabled for the time being
+        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
+        if: ${{ false }}
         run: |
           cd tests
           rm -rf build

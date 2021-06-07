@@ -10,13 +10,12 @@
 #include <stdexcept> // std::invalid_argument
 
 
-// some functions perform division and if one of specific paramter is zero it can cause division
-// by zero but by defining the following macro all functions that support this macro will throw an
-// exception instead of trying to divide by zero
+// Some functions perform division and if a specific parameter is zero it can cause division
+// by zero. By defining the following macro all functions that support this macro will throw an
+// exception instead of trying to divide by zero.
 #define MTL_DIV_ZERO_THROW
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/math.hpp" 
 // mtl::approx_equal_abs, mtl::approx_equal_rel, mtl::approx_equal_comb,
 // mtl::percent_whole, mtl::percent_portion, mtl::percent

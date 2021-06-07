@@ -13,8 +13,7 @@
 #include <algorithm> // std::count_if, std::all_of
 #include <utility>   // std::move
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/xorshift128plus.hpp" 
 // [@class] mtl::xorshift128plus_engine, mtl::xorshift128plus_engine::xorshift128plus_engine,
 // mtl::xorshift128plus_engine::operator=, mtl::xorshift128plus_engine::seed,

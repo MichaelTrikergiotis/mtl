@@ -10,7 +10,7 @@ If you have clang installed from the Visual Studio setup then **LLVM** directory
 
 You can learn how to add something to your PATH from [https://superuser.com/a/284351](https://superuser.com/a/284351).
 
-## Default locations for clang depending from where it was installed
+## Default locations for clang depending on installation method
 
 [**LLVM**]
 

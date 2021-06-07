@@ -1,12 +1,15 @@
 ﻿#pragma once
-// console by Michael Trikergiotis
+// console header by Michael Trikergiotis
 // 09/09/2018
 // 
-// Header for mtl::console.
+// 
+// This header contains algorithms that interact with the console.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <string>          // std::string
@@ -18,10 +21,9 @@
 #include <utility>         // std::forward
 #include <cstdio>          // std::fflush, stdout
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
-#include "utility.hpp"     // MTL_ASSERT_MSG
 #include "fmt_include.hpp" // fmt::print, fmt::memory_buffer, fmt::format_to, fmt::to_string
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
-						   // mtl::string::pad_back
+						   // mtl::string::pad_back, mtl::string::join
 
 
 // Windows only headers
@@ -165,6 +167,7 @@ static const bool inside_terminal = is_terminal();
 // PRINT - Prints all parameters to the console.
 // ================================================================================================
 
+
 /// Print nothing to the console.
 inline void print() {}
 
@@ -178,14 +181,24 @@ inline void print(const Arg& arg)
 
 /// Print all parameters to the console.
 /// @param[in] arg An argument of any type that can be printed.
-/// @param[in] args Any number of argument of any type that can be printed.
+/// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
 inline void print(const Arg& arg, Args&&... args)
 {
-	// print the first argument
-	print(arg);
-	// call print recursively using pack expansion syntax for the rest of the arguments
-	print(std::forward<Args>(args)...);
+	// the number of variadic arguments
+	constexpr size_t number_args = sizeof...(args);
+
+	// if there are any variadic arguments
+	if constexpr(number_args > 0)
+	{
+		// concatenate all arguments to a single string, so we only need a single call to print
+		fmt::print("{}", mtl::string::join(arg, std::forward<Args>(args)...));
+	}
+	// if there are no variadic arguments
+	else
+	{
+		fmt::print("{}", arg);
+	}
 }
 
 
@@ -193,6 +206,43 @@ inline void print(const Arg& arg, Args&&... args)
 // ================================================================================================
 // PRINTLN - Prints each parameter to the console in a new line.
 // ================================================================================================
+
+namespace detail
+{
+	// Concatenates an argument and a newline at the end of a buffer.
+	inline void concat_to_buffer_newline(std::string& buffer, const std::string& arg)	
+	{
+		buffer += arg;
+		buffer.push_back('\n');
+	}
+
+	// Concatenates an argument and a newline at the end of a buffer.
+	template<typename Arg>
+	inline void concat_to_buffer_newline(std::string& buffer, const Arg& arg)	
+	{
+		buffer += mtl::string::to_string(arg);
+		buffer.push_back('\n');
+	}
+
+	// Concatenates all given arguments with a newline at the end of each and stores them in a
+	// buffer.
+	template<typename Arg, typename... Args>
+	inline void concat_to_buffer_newline(std::string& buffer, const Arg& arg, Args&&... args)	
+	{
+		concat_to_buffer_newline(buffer, arg);
+		concat_to_buffer_newline(buffer, args...);
+	}
+
+	// Concatenates all given arguments with a newline at the end of each and returns a string.
+	template<typename Arg, typename... Args>
+	inline std::string concat_args_newline(const Arg& arg, Args&&... args)	
+	{
+		std::string buffer;
+		concat_to_buffer_newline(buffer, arg, std::forward<Args>(args)...);
+		return buffer;
+	}	
+} // namespace detail end
+
 
 /// Print a new line to the console.
 inline void println()
@@ -210,14 +260,25 @@ inline void println(const Arg& arg)
 
 /// Print each parameter followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
-/// @param[in] args Any number of argument of any type that can be printed.
+/// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
 inline void println(const Arg& arg, Args&&... args)
 {
-	// println the first argument
-	println(arg);
-	// call println recursively using pack expansion syntax for the rest of the arguments
-	println(std::forward<Args>(args)...);
+	// the number of variadic arguments
+	constexpr size_t number_args = sizeof...(args);
+
+	// if there are any variadic arguments
+	if constexpr(number_args > 0)
+	{
+		// concatenate all arguments to a single string, so we only need a single call to print
+		fmt::print("{}", mtl::console::detail::concat_args_newline(arg, 
+																   std::forward<Args>(args)...));
+	}
+	// if there are no variadic arguments
+	else
+	{
+		fmt::print("{}\n", arg);
+	}
 }
 
 
@@ -225,7 +286,7 @@ inline void println(const Arg& arg, Args&&... args)
 // ================================================================================================
 // PRINT_PAD  - Enumeration that allows print_all to select which side you want the printed 
 //              element to be padded to.
-// PRINT_ALL  - Print all items in a range with multitude of fromatting options.
+// PRINT_ALL  - Print all elements in a range with multitude of fromatting options.
 // ================================================================================================
 
 
@@ -258,30 +319,30 @@ enum class print_pad
 namespace detail
 {
 
-// Adds padding to a string based on how big is the largest item with a given padding style.
-inline void print_padding_impl(std::string& item, const size_t largest, 
+// Adds padding to a string to match the target length with the given padding style.
+inline void print_padding_impl(std::string& value, const size_t length, 
 							   const print_pad padding_style)
 {
-	const size_t item_size = item.size();
-	// check that the item can be padded based on size
-	if (item_size < largest)
+	const size_t size = value.size();
+	// check if the string needs padding based on requested length
+	if (size < length)
 	{
-		// pad based on the selected padding style
+		// pad the given string with the selected padding style
 		if (padding_style == print_pad::front)
 		{
-			mtl::string::pad_front(item, largest - item_size, ' ');
+			mtl::string::pad_front(value, length - size, ' ');
 		}
 		else if (padding_style == print_pad::both_front)
 		{
-			mtl::string::pad(item, largest - item_size, ' ', false);
+			mtl::string::pad(value, length - size, ' ', false);
 		}
 		else if (padding_style == print_pad::both_back)
 		{
-			mtl::string::pad(item, largest - item_size, ' ', true);
+			mtl::string::pad(value, length - size, ' ', true);
 		}
 		else if (padding_style == print_pad::back)
 		{
-			mtl::string::pad_back(item, largest - item_size, ' ');
+			mtl::string::pad_back(value, length - size, ' ');
 		}
 	}
 }
@@ -290,133 +351,129 @@ inline void print_padding_impl(std::string& item, const size_t largest,
 
 
 
-/// Prints to console all items in a range. The newline_count affects after how many items the
-/// newline character will be used. Delimiter is a string used between all elements.
+/// Prints to console all elements in a range. The newline_threshold affects after how many
+/// elements the newline character will be used. Delimiter is a string used between all elements.
 /// The line_start affects what gets printed when a new line starts and line_end affects what is
 /// printed when a line ends. Padding style allows you to pass an enumeration to select which side
-/// you want all elements to be padded. Padding only works with items that are ASCII characters.
+/// you want all elements to be padded. Padding only works correctly with ASCII characters.
 /// @param[in] first An iterator to the start of the range.
 /// @param[in] last An iterator to the end of the range.
 /// @param[in] delimiter An optional delimiter to use between each element.
-/// @param[in] newline_count The optional number of items after we print a new line.
-/// @param[in] line_start An optional text to print on the start of a new line.
-/// @param[in] line_end An optional text to print on the end of a new line.
-/// @param[in] padding_style The optional mtl::console::print_pad style used to pad elements.
+/// @param[in] newline_threshold The optional number of elements after a new line will be printed.
+/// @param[in] line_start An optional text to print at the start of a new line.
+/// @param[in] line_end An optional text to print at the end of a new line.
+/// @param[in] padding_style The optional padding style used to pad elements.
 template<typename Iter>
 inline void print_all(Iter first, Iter last, const std::string& delimiter = "", 
-					  size_t newline_count = 0, const std::string& line_start = "", 
+					  size_t newline_threshold = 0, const std::string& line_start = "", 
 					  const std::string& line_end = "",  
 					  mtl::console::print_pad padding_style = mtl::console::print_pad::none)
 {
 	if (first == last) { return; }
 
-	// convert all items to strings and keep them in a container to facilitate further processing
-	std::vector<std::string> items;
-
 	// find the number of elements
-	auto size_temp = std::distance(first, last);
-
-#ifndef MTL_DISABLE_SOME_ASSERTS 
-	// if the number of elements are less than 0 the iterators passed are incorrect
-	MTL_ASSERT_MSG(!(size_temp < 0), "Incorrect iterators passed.");
-#endif
-
-	// if iterators passed are 0 or negative do nothing
-	if (size_temp <= 0) { return; }
-
-	// convert the std::ptrdiff type to size_t this is safe as we checked it is not negative
-	const size_t size = static_cast<size_t>(size_temp);
+	auto iter_distance = std::distance(first, last);
+	// check that the iterator distance is not zero or lower
+	if (iter_distance <= 0) { return; }
+	// convert to size_t as we checked it is not a negative number
+	const size_t num_elements = static_cast<size_t>(iter_distance);
 
 	// GCOVR_EXCL_START
-	// reserve vector size to avoid unnecessary allocations
-	items.reserve(size);
-
-	// convert all elements to strings and place them in the vector
+	
+	std::vector<std::string> elements;
+	// reserve space to avoid unnecessary allocations
+	elements.reserve(num_elements);
+	// convert all elements to strings so we can manipulate them
 	for (auto it = first; it != last; ++it)
 	{
-		items.emplace_back(mtl::string::to_string(*it));
+		elements.emplace_back(mtl::string::to_string(*it));
 	}
 
-	
-	// find the size of the string with the largest length so we can add padding
-	size_t largest = (std::max_element(items.begin(), items.end(),
-									   [](const auto& lhs, const auto& rhs)
-									   { return lhs.size() < rhs.size(); }))->size();
 
-	// create a memory buffer
-	fmt::memory_buffer memory;
-	// reserve some memory to avoid allocations, memory reserved is how many characters we want,
-	// we are somewhat convervative to avoid allocating way more memory than we need
-	memory.reserve(items.size() * 5);
-
-	// print the items in the console with newline characters
-	if (newline_count > 0)
+	size_t longest = 0;
+	// if padding is requested find the longest string so we can add the correct amount of padding
+	if(padding_style != mtl::console::print_pad::none)
 	{
-		// counter to keep track when to change line
+		longest = 	(std::max_element(elements.begin(), elements.end(), 
+									  [](const auto& lhs, const auto& rhs)
+									  {
+										  return lhs.size() < rhs.size();
+									  }))->size();
+	}
+	
+
+	// create a buffer to store everything so we only have to print once
+	fmt::memory_buffer buffer;
+
+	// if printing a newline after a certain number of elements is requested
+	if (newline_threshold > 0)
+	{
+		// counter to keep track when we need to print the newline character
 		size_t newline_counter = 0;
 
-		// countdown counter to keep track if it is the last element
-		size_t last_counter = size;
+		// counter to keep track if it is the last element
+		size_t last_element_counter = 0;
 
-		for (auto& item : items)
-		{
-			
-			// if counter is 0 it means a new line is just starting
+		for (auto& element : elements)
+		{		
+			// if the counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
 			{
-				fmt::format_to(memory, "{}", line_start); 
+				fmt::format_to(buffer, "{}", line_start); 
 			}
 
-			// pad the item with the given padding style
-			mtl::console::detail::print_padding_impl(item, largest, padding_style); 
+			// pad the element with the given padding style
+			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 
-			// print the item, in our case just hold it in the memory buffer
-			fmt::format_to(memory, "{}", item); 
+			// store the element in the buffer
+			fmt::format_to(buffer, "{}", element); 
 
-			// adjust the counters
 			++newline_counter;
-			--last_counter;
+			++last_element_counter;
 			
-			
-			// check if we should print a delimiter or a line end character based on the counters
-			if ((newline_counter < newline_count) && (last_counter > 0)) 
+			// check if we should add a delimiter or if it the end of a line based on the counters
+			if ((newline_counter < newline_threshold) && (last_element_counter < num_elements)) 
 			{
-				fmt::format_to(memory, "{}", delimiter); 
+				fmt::format_to(buffer, "{}", delimiter); 
 			}
 			else
 			{
-				fmt::format_to(memory, "{}\n", line_end); 
+				fmt::format_to(buffer, "{}\n", line_end); 
 				newline_counter = 0;
 			}
-			
 		}
 	}
-	// print the items to the console without newline characters
+	// if printing a newline after a certain number of elements is not requested
 	else
 	{
-
-		fmt::format_to(memory, "{}", line_start); 
-		for (size_t i = 0; i < items.size(); ++i)
-		{
-			// pad the item with the given padding style
-			mtl::console::detail::print_padding_impl(items[i], largest, padding_style); 
-			
-
-			// print the item, in our case just hold it in the memory buffer
-			fmt::format_to(memory, "{}", items[i]); 
-
-			// print the delimiter if it is not the last item
-			if (i < items.size() - 1) 
-			{ 
-				fmt::format_to(memory, "{}", delimiter); 
-			}
-		}
-		fmt::format_to(memory, "{}", line_end); 
+		fmt::format_to(buffer, "{}", line_start); 
 		
+		// counter to keep track if it is the last element
+		size_t last_element_counter = 0;
+
+		for (auto& element : elements)
+		{
+			// pad the element with the given padding style
+			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
+			
+			// store the element in the buffer
+			fmt::format_to(buffer, "{}", element); 
+
+			++last_element_counter;
+			
+			// add the delimiter if it is not the last element
+			if (last_element_counter < num_elements)
+			{ 
+				fmt::format_to(buffer, "{}", delimiter); 
+			}		
+		}
+		fmt::format_to(buffer, "{}", line_end); 
 	}
-	// write the entire memory buffer to console, benchmarks show we gained 4x or more speed
-	// compared to the old code where we writing each individual item to console one at a time
-	fmt::print("{}", fmt::to_string(memory));
+
+	// write the entire buffer to the console, benchmarks show great performance gains 
+	// compared to printing each individual element to the console one at a time
+	fmt::print("{}", fmt::to_string(buffer));
+	
 	// GCOVR_EXCL_STOP
 }
 
@@ -718,7 +775,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
 
-		// keep the position for the last item
+		// keep the position for the last element
 		size_t last_pos = 0;
 
 		// print all parts except the last one
@@ -1018,7 +1075,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
 
-		// keep the position for the last item
+		// keep the position for the last element
 		size_t last_pos = 0;
 
 		// print all parts except the last one
@@ -1185,9 +1242,9 @@ inline void overtype(const std::string& argument)
 	}
 	// GCOVR_EXCL_STOP
 
-    // create a string consisting of \b that will move the cursor back, this allows us to avoid
-    // printing \b multiple times and we instead need to print only once, this is a significant
-    // performance gain in the range of 2x to 8x times faster
+	// create a string consisting of backspace characters that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times and we instead need to
+	// print only one string, this is a very significant performance gain
     std::string multiple_backspaces(argument.size(), '\b');
     fmt::print(multiple_backspaces);
 	

@@ -1,14 +1,18 @@
 #pragma once
-// definitions by Michael Trikergiotis
+// definitions header by Michael Trikergiotis
 // 02/12/2020
 // 
-// Header for various definitions.
+// 
+// This header contains various definitions.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+
 // ================================================================================================
+
 
 // This fixes an error on Windows when the Windows.h header is included because it defines
 // two MACROS that break standard compliant C++ code. For a much more detailed explanation :

@@ -1,9 +1,10 @@
 #pragma once
-// string manipulation by Michael Trikergiotis
+// string header by Michael Trikergiotis
 // 13/10/2017
 // 
-// Header for the mtl::string namespace that contains various algorithms used for manipulating
-// strings.
+// 
+// This header contains algorithms used for manipulating strings.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
@@ -157,24 +158,9 @@ inline void to_lower(std::string& value) noexcept
 
 
 // ================================================================================================
-// IS_ASCII - Returns if an integer is an ASCII character.
 // IS_ASCII - Returns if char is an ASCII character.
 // IS_ASCII - Returns if all characters in a std::string are ASCII characters.
 // ================================================================================================
-
-/// Returns if the character is an ASCII character.
-/// @param[in] character A integer to check.
-/// @return If the integer can be represented as an ASCII character.
-[[nodiscard]]
-inline bool is_ascii(const int character) noexcept
-{
-	// is the value within the ASCII range of characters
-	if ((character >= 0) && (character <= 127))
-	{
-		return true;
-	}
-	return false;
-}
 
 /// Returns if the character is an ASCII character.
 /// @param[in] character A character to check.
@@ -183,7 +169,12 @@ inline bool is_ascii(const int character) noexcept
 inline bool is_ascii(const char character) noexcept
 {
 	int value = static_cast<int>(static_cast<unsigned char>(character));
-	return is_ascii(value);
+	// is the value within the ASCII range of characters
+	if ((value >= 0) && (value <= 127))
+	{
+		return true;
+	}
+	return false;
 }
 
 /// Returns if all the characters in a std::string are ASCII characters.
@@ -402,7 +393,7 @@ inline void strip_front(std::string& value, const char match = ' ')
 		return;
 	}
 
-	// if the number of characters matching are less that the total length of the string
+	// if the number of characters matching are less that the length of the string
 	if (count < value.size())
 	{
 		// create an iterator from the copying should start from
@@ -412,8 +403,8 @@ inline void strip_front(std::string& value, const char match = ' ')
 		// remove unwated characters from the end
 		value.resize(value.size() - count);
 	}
-	// else if the number of characters matching are equal to the total length of the string
-	else if (count == value.size())
+	// else if the number of characters matching are equal to the length of the string
+	else
 	{
 		value.resize(0);
 	}
@@ -974,7 +965,7 @@ inline void count_size_impl(size_t& size, const char)
 	size += 1;
 }
 
-// Count size for std::pairt<T, U>.
+// Count size for std::pair.
 template<typename Type1, typename Type2>
 inline void count_size_impl(size_t& size, const std::pair<Type1, Type2>& type)
 {
@@ -990,7 +981,7 @@ template<typename Type>
 inline void count_size_impl(size_t&, const Type&)
 {
 	// For non-specialized type the count is 0. All modern compilers with high otpimization
-	// setting turn this function into a NOOP.
+	// settings will turn this function into a NOOP.
 }
 
 
@@ -1043,7 +1034,7 @@ template<typename Type, typename... Args>
 [[nodiscard]]
 inline std::string join(const Type& type, Args&&... args)
 {
-	return detail::join_select_impl(type, std::forward<Args>(args)...);
+	return mtl::string::detail::join_select_impl(type, std::forward<Args>(args)...);
 }
 
 // ===============================================================================================

@@ -9,8 +9,7 @@
 #include <thread> // std::this_thread::sleep_for
 #include <chrono> // std::chrono::milliseconds
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/stopwatch.hpp" 
 // [@class] mtl::chrono::stopwatch, mtl::chrono::stopwatch::start, mtl::chrono::stopwatch::stop,
 // mtl::chrono::stopwatch::reset, mtl::chrono::stopwatch::restart, 

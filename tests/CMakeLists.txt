@@ -1,5 +1,9 @@
-# CMake build script by Michael Trikergiotis
+# CMake script by Michael Trikergiotis
 # 07/09/2020
+
+# Copyright (c) Michael Trikergiotis. All Rights Reserved.
+# Licensed under the MIT license. See LICENSE in the project root for license information.
+# See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 # CMake 3.8 is the minimum requirement because that is when CMAKE_CXX_STANDARD and 
 # CMAKE_CXX_STANDARD_REQUIRED was introduced 
@@ -112,7 +116,7 @@ else()
             set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
         # if we found clang-tidy pass the correct flags and print a message that clang-tidy is enabled
         else()
-            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-cppcoreguidelines-pro-*,-modernize-use-auto,-modernize-use-equals-delete,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-modernize-use-trailing-return-type")
+            set(CLANG_TIDY_CHECKS "*,-fuchsia-*,-abseil-*,-hicpp-*,-llvm-*,-google-*,-cert-*,-misc-*,-readability-*,-altera-struct-pack-align,-modernize-use-auto,-modernize-use-equals-delete,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-cppcoreguidelines-pro-*,-cppcoreguidelines-avoid-non-const-global-variables,-llvmlibc-callee-namespace,-llvmlibc-implementation-in-namespace,-llvmlibc-restrict-system-libc-headers")
             set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};-checks=${CLANG_TIDY_CHECKS};-warnings-as-errors=${CLANG_TIDY_CHECKS};-header-filter=.hpp;-quiet")
             message("-- Enabled clang-tidy")
         endif()

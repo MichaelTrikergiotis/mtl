@@ -1,12 +1,15 @@
 #pragma once
-// containers by Michael Trikergiotis
+// container header by Michael Trikergiotis
 // 12/05/2020
 // 
-// Header for algorithms used to manipulate containers in a generic fashion.
+// 
+// This header contains generic algorithms used to manipulate C++ containers.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <type_traits>     // std::enable_if_t

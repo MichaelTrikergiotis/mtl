@@ -1,12 +1,15 @@
 #pragma once
-// numeric by Michael Trikergiotis
+// numeric header by Michael Trikergiotis
 // 18/06/2018
 // 
-// Header for arlgorithms related with numbers.
+// 
+// This header contains algorithms related with manipulating numbers.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <iterator>        // std::distance, std::iterator_traits, std::advance, std::next

@@ -1,12 +1,16 @@
 #pragma once
-// type traits by Michael Trikergiotis
+// type traits header by Michael Trikergiotis
 // 26/03/2018
 // 
-// Header for type traits used to make template metaprogramming easier and more expresive.
+// 
+// This header contains algorithms that can be used to make template metaprogramming easier and 
+// more expressive.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information. 
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <array>           // std::array
@@ -50,7 +54,7 @@ std::conditional<Type::value, are_same_impl<Args...>, std::false_type>::type {};
 
 /// Returns if a type is the same as all the types in a parameter pack.
 template <typename Type, typename... Args>
-struct are_same : detail::are_same_impl<std::is_same<Type, Args>...> {};
+struct are_same : mtl::detail::are_same_impl<std::is_same<Type, Args>...> {};
 
 /// Returns if a type is the same as all the types in a parameter pack. Helper type.
 template <typename Type, typename... Args>
@@ -143,7 +147,7 @@ struct has_emplace_back_adapter
 template<typename Type>
 struct has_emplace_back
 {
-	static constexpr bool value = detail::has_emplace_back_adapter<Type>::value;
+	static constexpr bool value = mtl::detail::has_emplace_back_adapter<Type>::value;
 };
 
 
@@ -238,7 +242,7 @@ std::pair<typename Type::value_type::first_type, typename Type::value_type::seco
 template<typename Type>
 struct has_find
 {
-	static constexpr bool value = detail::has_find_adapter<Type>::value;
+	static constexpr bool value = mtl::detail::has_find_adapter<Type>::value;
 };
 
 

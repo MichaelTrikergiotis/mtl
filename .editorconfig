@@ -1,6 +1,6 @@
 root = true
 
-# All files
+# All Files
 [*]
 charset = utf-8
 trim_trailing_whitespace = false
@@ -9,22 +9,23 @@ indent_style = space
 indent_size = 4
 insert_final_newline = true
 
-# YAML files
+# YAML Files
 [*.yml]
 end_of_line = lf
 indent_size = 2
 indent_style = space
 
-# Windows batch files
+# Windows Batch Files
 [*.bat]
 end_of_line = crlf
 indent_style = space
 
-# Windows command files
+# Windows Command files
 [*.cmd]
 end_of_line = crlf
 indent_style = space
 
-# Markdown files
+# Markdown Files
 [*.md]
+end_of_line = lf
 trim_trailing_whitespace = false

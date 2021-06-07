@@ -13,8 +13,7 @@
 #include <algorithm>  // std::sort
 #include <functional> // std::hash, std::equal_to
 
-// THE TESTED HEADER SHOULD BE THE LAST HEADER INCLUDED, EVERYTHING TO BE TESTED SHOULD BE LISTED
-// IN THE LINES BELOW THE HEADER
+
 #include "../mtl/numeric.hpp" 
 // mtl::iota, mtl::frequency, mtl::mean, mtl::median 
 

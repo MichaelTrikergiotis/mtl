@@ -1,12 +1,15 @@
 #pragma once
-// conversion by Michael Trikergiotis
+// conversion header by Michael Trikergiotis
 // 04/05/2019
 // 
-// Header for performing casts and converting between types.
+// 
+// This header contains algorithms for performing casts and converting between types.
+// 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
+
 
 #include "definitions.hpp" // various definitions
 #include <cmath>           // std::pow
@@ -78,7 +81,7 @@ inline FloatingPoint to_double_impl(const char* num)
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			throw std::invalid_argument("One or more characters are invalid. Can't be converted.");
 		}
 		++num;
@@ -104,7 +107,7 @@ inline FloatingPoint to_double_impl(const char* num)
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				throw std::invalid_argument(
 					"One or more characters are invalid. Can't be converted.");
 			}
@@ -114,7 +117,7 @@ inline FloatingPoint to_double_impl(const char* num)
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
@@ -188,7 +191,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			return std::pair<FloatingPoint, bool>(zero, false);
 		}
 		++num;
@@ -214,7 +217,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				return std::pair<FloatingPoint, bool>(zero, false);
 			}
 			++num;
@@ -223,7 +226,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
@@ -300,7 +303,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 		}
 		else
 		{
-			// if we reach this point then it means we encountered an error
+			// if we reached this point then it means we encountered an error
 			success = false;
 			return zero;
 		}
@@ -327,7 +330,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 			}
 			else
 			{
-				// if we reach this point then it means we encountered an error
+				// if we reached this point then it means we encountered an error
 				success = false;
 				return zero;
 			}
@@ -337,7 +340,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 
 	// parsing exponet part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
-	if ((*num != '\0') && (has_expo))
+	if ((has_expo) && (*num != '\0'))
 	{
 		int64_t exp_sign = 1;
 		if (*num == '-')
@@ -672,7 +675,7 @@ struct to_num_deductor_noex_pair
 [[nodiscard]]
 inline auto to_num(const std::string& value)
 {
-	return detail::to_num_deductor(value);
+	return mtl::detail::to_num_deductor(value);
 }
 
 /// Convert a string to a number. Number type is automatically decuced. On error it returns 0 if it
@@ -683,7 +686,7 @@ inline auto to_num(const std::string& value)
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value, bool& success) noexcept
 {
-	return detail::to_num_deductor_noex(value, success);
+	return mtl::detail::to_num_deductor_noex(value, success);
 }
 
 
@@ -696,7 +699,7 @@ inline auto to_num_noex(const std::string& value, bool& success) noexcept
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value) noexcept
 {
-	return detail::to_num_deductor_noex_pair(value);
+	return mtl::detail::to_num_deductor_noex_pair(value);
 }
 
 
@@ -962,7 +965,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast(FloatingPoint number)
 {
-	return detail::rounding_cast_deductor<FloatingPoint>(number);
+	return mtl::detail::rounding_cast_deductor<FloatingPoint>(number);
 }
 
 /// Rounds and casts a floating point number to int, long or long long. Doesn't throw exceptions.
@@ -975,7 +978,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast_noex(FloatingPoint number) noexcept
 {
-	return detail::rounding_cast_deductor_noex_pair<FloatingPoint>(number);
+	return mtl::detail::rounding_cast_deductor_noex_pair<FloatingPoint>(number);
 }
 
 /// Rounds and casts a floating point number to int, long or long long. Doesn't throw exceptions.
@@ -987,7 +990,7 @@ template<typename FloatingPoint>
 [[nodiscard]]
 inline auto rounding_cast_noex(FloatingPoint number, bool& success) noexcept
 {
-	return detail::rounding_cast_deductor_noex<FloatingPoint>(number, success);
+	return mtl::detail::rounding_cast_deductor_noex<FloatingPoint>(number, success);
 }
 
 
