@@ -13,7 +13,7 @@
 #include <utility>   // std::pair
 #include <stdexcept> // std::invalid_argument
 
-// Disable some of the asserts in mtl so we can test more thoroughly.
+// Disable some asserts so we can test more thoroughly.
 #define MTL_DISABLE_SOME_ASSERTS
 
 
