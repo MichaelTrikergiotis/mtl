@@ -23,6 +23,7 @@
 #pragma warning( disable : 26812 )
 #pragma warning( disable : 6385  )
 #pragma warning( disable : 6323 )
+#pragma warning( disable : 6285 )
 #endif // _MSC_VER end
 
 // supress GCC warnings

@@ -21,7 +21,7 @@
 #include <utility>         // std::forward
 #include <cstdio>          // std::fflush, stdout
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
-#include "fmt_include.hpp" // fmt::print, fmt::memory_buffer, fmt::format_to, fmt::to_string
+#include "fmt_include.hpp" // fmt::print
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
 						   // mtl::string::pad_back, mtl::string::join
 
@@ -403,7 +403,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	
 
 	// create a buffer to store everything so we only have to print once
-	fmt::memory_buffer buffer;
+	std::string buffer;
 
 	// if printing a newline after a certain number of elements is requested
 	if (newline_threshold > 0)
@@ -419,14 +419,14 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			// if the counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
 			{
-				fmt::format_to(buffer, "{}", line_start); 
+				buffer += line_start;
 			}
 
 			// pad the element with the given padding style
 			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 
 			// store the element in the buffer
-			fmt::format_to(buffer, "{}", element); 
+			buffer += element; 
 
 			++newline_counter;
 			++last_element_counter;
@@ -434,11 +434,11 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			// check if we should add a delimiter or if it the end of a line based on the counters
 			if ((newline_counter < newline_threshold) && (last_element_counter < num_elements)) 
 			{
-				fmt::format_to(buffer, "{}", delimiter); 
+				buffer += delimiter; 
 			}
 			else
 			{
-				fmt::format_to(buffer, "{}\n", line_end); 
+				buffer = mtl::string::join(buffer, line_end, "\n");
 				newline_counter = 0;
 			}
 		}
@@ -446,7 +446,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	// if printing a newline after a certain number of elements is not requested
 	else
 	{
-		fmt::format_to(buffer, "{}", line_start); 
+		buffer += line_start; 
 		
 		// counter to keep track if it is the last element
 		size_t last_element_counter = 0;
@@ -457,22 +457,22 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 			
 			// store the element in the buffer
-			fmt::format_to(buffer, "{}", element); 
+			buffer += element; 
 
 			++last_element_counter;
 			
 			// add the delimiter if it is not the last element
 			if (last_element_counter < num_elements)
 			{ 
-				fmt::format_to(buffer, "{}", delimiter); 
+				buffer += delimiter; 
 			}		
 		}
-		fmt::format_to(buffer, "{}", line_end); 
+		buffer += line_end; 
 	}
 
 	// write the entire buffer to the console, benchmarks show great performance gains 
 	// compared to printing each individual element to the console one at a time
-	fmt::print("{}", fmt::to_string(buffer));
+	fmt::print("{}", buffer);
 	
 	// GCOVR_EXCL_STOP
 }
