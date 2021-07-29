@@ -211,15 +211,13 @@ jobs:
           ./tests
       
       - name: Build Debug Linux clang and libcxx
-        # disabled for the time being
-        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
-        if: ${{ false }}
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
         run: |
           cd tests
           rm -rf build
           mkdir build
           cd build
-          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
           cmake --build .
           ./tests
 
@@ -235,15 +233,13 @@ jobs:
           ./tests
       
       - name: Build Release Linux clang and libcxx
-        # disabled for the time being
-        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
-        if: ${{ false }}
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
         run: |
           cd tests
           rm -rf build
           mkdir build
           cd build
-          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build .
           ./tests
      
