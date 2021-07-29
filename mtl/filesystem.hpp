@@ -111,7 +111,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& read_d
 
 
 // ================================================================================================
-// READ_ALL_LINES   - Reads all lines from to a container of strings.
+// READ_ALL_LINES   - Reads all lines from a file to a container of strings.
 // ================================================================================================
 
 
