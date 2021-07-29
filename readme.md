@@ -53,7 +53,7 @@ const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", 
 std::string joined_names = mtl::string::join_all(tokens.begin(), tokens.end(), ", ");
 ```
 
-Now if you compare `names` from example 1 and `joined_names` from example 2 they will be equal.
+Now if you compare `names` from example 1 and `joined_names` from example 2 they will be equal. For the above example `mtl::string::join_all` just needs to perform **a single heap allocation**.
 
 [**EXAMPLE 3**]
 
@@ -61,7 +61,7 @@ With `mtl::string::join` you can join different types of variables together with
 
 ```c++
 const std::string planet = " planet ";
-// the types of the arguments here are const char*, char, const std::string, float and const char*
+// the arguments types are const char*, char, const std::string, float and const char*
 std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " light-years away.");
 mtl::console::println(message);
 ```
@@ -71,6 +71,7 @@ mtl::console::println(message);
 The same output as the above could also be achieved with :
 
 ```c++
+// the arguments types are const char*, char, const std::string, float, const char* and char
 mtl::console::print("Hello from ", 'a', planet, 12.24f, " light-years away.", '\n');
 ```
 
