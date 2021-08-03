@@ -34,7 +34,8 @@ namespace mtl
 namespace detail
 {
 
-// Converts const char* to double. If there is an error or the conversion fails it throws
+
+// Converts const char* to a floating point number. If there is a conversion error it throws
 // std::invalid_argument.
 template<typename FloatingPoint>
 [[nodiscard]]
@@ -143,8 +144,8 @@ inline FloatingPoint to_double_impl(const char* num)
 }
 
 
-// Converts const char* to double. Doesn't throw. If it can't convert set the success to false
-// and returns 0.
+// Converts const char* to a floating point number. Doesn't throw. If there is a conversion error
+// it returns an  std::pair with the floating point number set to 0.0 and the boolean to false.
 template<typename FloatingPoint>
 [[nodiscard]]
 inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexcept
@@ -254,9 +255,8 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 }
 
 
-
-// Converts const char* to double. Doesn't throw. If it can't convert returns a pair with the 
-// double set to 0.0 and the boolean to false.
+// Converts const char* to a floating point number. Doesn't throw. If there is a conversion error
+// it sets the success boolean to false and returns a floating point number set to 0.0.
 template<typename FloatingPoint>
 [[nodiscard]]
 inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcept
