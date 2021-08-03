@@ -145,7 +145,7 @@ inline FloatingPoint to_double_impl(const char* num)
 
 
 // Converts const char* to a floating point number. Doesn't throw. If there is a conversion error
-// it returns an  std::pair with the floating point number set to 0.0 and the boolean to false.
+// it returns an std::pair with the floating point number set to 0.0 and the boolean to false.
 template<typename FloatingPoint>
 [[nodiscard]]
 inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexcept
