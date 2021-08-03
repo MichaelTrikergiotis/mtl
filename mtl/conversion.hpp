@@ -703,13 +703,15 @@ inline auto to_num_noex(const std::string& value) noexcept
 }
 
 
-// Because on a false positive we have to disable MSVC static analyzers warning about overflow in
-// constant arithmetic. It is certainely a false positive. It has some strange behavior too.
-// It only happens when the code is compiled in Release mode (/O2). It doesn't like casting
-// long double to other types even though we previously checked the number to fit the lower and 
-// upper bounds of that type. It happily allows us to cast long double to double and then to
-// any type we want but it has the peculiarity that it want each cast to be in each own line else
-// it doesn't understand it and complains for the same thing again.
+
+
+// Because of a false positive we have to disable MSVC static analyzers warning about overflow in
+// constant arithmetic. It is certainly a false positive. It has some strange behavior too.
+// It only happens when the code is compiled in release mode (/O2) and not in debug mode. It 
+// doesn't like casting long double to other types even though we previously checked the number to
+// fit the lower and upper bounds of that type. It will happily allow us to cast long double to 
+// double and then to any type we want, but it has the peculiarity that it wants each cast to be
+// in each own separate line else it doesn't work.
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 4756 )
