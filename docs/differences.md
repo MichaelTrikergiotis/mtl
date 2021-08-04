@@ -33,7 +33,7 @@ int main()
 
 ### Namespaces with the same name as the C++ standard library
 
-Namespaces that share the same name as C++ standard library have the same functionality. Two examples of this are the ```std::chrono``` and ```std::filesystem``` namespaces that are used for functionality that has to do with time and the filesystem respectively. The **mtl** has ```mtl::chrono``` and ```mtl::filesystem``` for the exact same reason. We try to keep the naming of namespaces as familiar as possible to ease the learning curve.
+Namespaces that share the same name as C++ standard library have the same functionality. Two examples of this are the ```std::chrono``` and ```std::filesystem``` namespaces that are used for functionality that has to do with time and the filesystem respectively. The **mtl** has ```mtl::chrono``` and ```mtl::filesystem``` for the exact same reason. We try to keep the names of namespaces as familiar as possible to ease the learning curve for new users.
 
 ### Functions ending with ```_n```
 
