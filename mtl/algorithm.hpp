@@ -1317,10 +1317,10 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		}
 
 		// Pre increment operator.
-		ValueType operator++() { return _value += _step; }
+		const ValueType operator++() { return _value += _step; }
 
 		// Post increment operator.
-		ValueType operator++(int) { return _value += _step; }
+		const ValueType operator++(int) { return _value += _step; }
 
 		// Return pointer to the value.
 		operator ValueType*()  { return &_value; }
