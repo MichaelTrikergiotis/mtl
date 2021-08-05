@@ -1322,7 +1322,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		// Post increment operator.
 		const ValueType operator++(int) { return _value += _step; }
 
-		// Return pointer to the value.
+		// Returns a pointer to the value.
 		operator ValueType*()  { return &_value; }
 	};
 
