@@ -108,7 +108,7 @@ private:
 		/// @param[in] other Another state_struct to compare.
 		/// @return If the two states are equal or not.
 		[[nodiscard]]
-		bool operator==(const state_struct& other) const
+		bool operator== (const state_struct& other) const
 		{
 			return seed_1 == other.seed_1 && seed_2 == other.seed_2 &&
 				   seed_3 == other.seed_3 && seed_4 == other.seed_4;
@@ -118,7 +118,7 @@ private:
 		/// @param[in] other Another state_struct to compare.
 		/// @return If the two states are inequal or not.
 		[[nodiscard]]
-		bool operator!=(const state_struct& other) const
+		bool operator!= (const state_struct& other) const
 		{
 			return seed_1 != other.seed_1 || seed_2 != other.seed_2 ||
 				   seed_3 != other.seed_3 || seed_4 != other.seed_4;
@@ -250,7 +250,7 @@ public:
 
 	/// Move assignment operator that moves the state of another random engine of the same type.
 	/// @param[in] other Another random generation engine of the same type.
-	xoshiro256plus_engine& operator=(xoshiro256plus_engine&& other) noexcept
+	xoshiro256plus_engine& operator= (xoshiro256plus_engine&& other) noexcept
 	{
 		// handle self-copy assignment
 		if(this == &other)
@@ -443,7 +443,7 @@ public:
 	/// @param[in] rhs A random number generation engine to compare for equality.
 	/// @param[in] lhs A random number generation engine to compare for equality.
 	[[nodiscard]]
-	friend bool operator==(const xoshiro256plus_engine& rhs, const xoshiro256plus_engine& lhs)
+	friend bool operator== (const xoshiro256plus_engine& rhs, const xoshiro256plus_engine& lhs)
 	{
 		return (rhs.state() == lhs.state());
 	}
@@ -456,7 +456,7 @@ public:
 	/// @param[in] rhs A random number generation engine to compare for inequality.
 	/// @param[in] lhs A random number generation engine to compare for inequality.
 	[[nodiscard]]
-	friend bool operator!=(const xoshiro256plus_engine& rhs, const xoshiro256plus_engine& lhs)
+	friend bool operator!= (const xoshiro256plus_engine& rhs, const xoshiro256plus_engine& lhs)
 	{
 		return !(rhs == lhs);
 	}
