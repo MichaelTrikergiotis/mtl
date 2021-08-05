@@ -234,7 +234,7 @@ public:
 	[[nodiscard]]
 	xoshiro256plus_engine& operator= (const xoshiro256plus_engine& other)
 	{
-		// handle with self-copy assignment
+		// handle self-copy assignment
 		if(this == &other)
 		{
 			return *this;
@@ -252,7 +252,7 @@ public:
 	/// @param[in] other Another random generation engine of the same type.
 	xoshiro256plus_engine& operator=(xoshiro256plus_engine&& other) noexcept
 	{
-		// handle with self-copy assignment
+		// handle self-copy assignment
 		if(this == &other)
 		{
 			return *this;

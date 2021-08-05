@@ -198,7 +198,7 @@ public:
 	[[nodiscard]]
 	xorshift128plus_engine& operator= (const xorshift128plus_engine& other)
 	{
-		// handle with self-copy assignment
+		// handle self-copy assignment
 		if(this == &other)
 		{
 			return *this;
@@ -216,7 +216,7 @@ public:
 	/// @param[in] other Another random generation engine of the same type.
 	xorshift128plus_engine& operator=(xorshift128plus_engine&& other) noexcept
 	{
-		// handle with self-copy assignment
+		// handle self-copy assignment
 		if(this == &other)
 		{
 			return *this;
