@@ -340,7 +340,7 @@ inline bool contains(const std::string& value, const char* match)
 inline bool contains(const char* value, const std::string& match)
 {
 	const auto pos = std::strstr(value, match.c_str());
-	if(pos)
+	if(pos != nullptr)
 	{
 		return true;
 	}
@@ -355,7 +355,7 @@ inline bool contains(const char* value, const std::string& match)
 inline bool contains(const char* value, const char* match)
 {
 	const auto pos = std::strstr(value, match);
-	if(pos)
+	if(pos != nullptr)
 	{
 		return true;
 	}
