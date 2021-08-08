@@ -394,7 +394,7 @@ public:
 	/// @param[in] rhs A random number generation engine to compare for inequality.
 	/// @param[in] lhs A random number generation engine to compare for inequality.
 	[[nodiscard]]
-	friend bool operator!= (const xoroshiro128plus_engine& rhs, const xoroshiro128plus_engine& lhs) 
+	friend bool operator!= (const xoroshiro128plus_engine& rhs, const xoroshiro128plus_engine& lhs)
 	{
 		return !(rhs == lhs);
 	}
