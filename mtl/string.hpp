@@ -324,6 +324,13 @@ inline bool contains(const std::string& value, const std::string& match)
 [[nodiscard]]
 inline bool contains(const std::string& value, const char* match)
 {
+	// handle the case when const char* is nullptr
+	if(match == nullptr)
+	{
+		return false;
+	}
+
+	// search for match
 	size_t pos = value.find(match);
 	if (pos != std::string::npos) 
 	{ 
@@ -339,6 +346,13 @@ inline bool contains(const std::string& value, const char* match)
 [[nodiscard]]
 inline bool contains(const char* value, const std::string& match)
 {
+	// handle the case when const char* is nullptr
+	if(value == nullptr)
+	{
+		return false;
+	}
+
+	// search for match
 	const auto pos = std::strstr(value, match.c_str());
 	if(pos != nullptr)
 	{
@@ -354,6 +368,13 @@ inline bool contains(const char* value, const std::string& match)
 [[nodiscard]]
 inline bool contains(const char* value, const char* match)
 {
+	// handle the case when const char* is nullptr
+	if((value == nullptr) || (match == nullptr))
+	{
+		return false;
+	}
+
+	// search for match
 	const auto pos = std::strstr(value, match);
 	if(pos != nullptr)
 	{

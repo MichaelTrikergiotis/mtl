@@ -1087,6 +1087,10 @@ TEST_CASE("mtl::string::contains, std::string / const char*")
     const char* s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    CHECK_EQ(mtl::string::contains(s1, n1), false);
 }
 
 TEST_CASE("mtl::string::contains, const char* / std::string")
@@ -1103,6 +1107,10 @@ TEST_CASE("mtl::string::contains, const char* / std::string")
     std::string s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    CHECK_EQ(mtl::string::contains(n1, s2), false);
 }
 
 TEST_CASE("mtl::string::contains, const char* / const char*")
@@ -1119,6 +1127,15 @@ TEST_CASE("mtl::string::contains, const char* / const char*")
     const char* s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    const char* n2 = nullptr;
+    CHECK_EQ(mtl::string::contains(n1, s2), false);
+    CHECK_EQ(mtl::string::contains(s1, n2), false);
+    CHECK_EQ(mtl::string::contains(n1, n2), false);
+    CHECK_EQ(mtl::string::contains(n1, n1), false);
+    CHECK_EQ(mtl::string::contains(n2, n2), false);
 }
 
 // ------------------------------------------------------------------------------------------------
