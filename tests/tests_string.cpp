@@ -1066,6 +1066,13 @@ TEST_CASE("mtl::string::contains, std::string / std::string")
     CHECK_EQ(mtl::string::contains(std::string("ABCDE"), s2), true);
     CHECK_EQ(mtl::string::contains(std::string("ABCDE"), s3), false);
 
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small, big), false);
+    CHECK_EQ(mtl::string::contains(big, small), true);
+    CHECK_EQ(mtl::string::contains(small, small), true);
+    CHECK_EQ(mtl::string::contains(big, big), true);
+
     // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::contains(one_nonascii, smiley), true);
     CHECK_EQ(mtl::string::contains(only_nonascii, smiley), false);
@@ -1088,6 +1095,15 @@ TEST_CASE("mtl::string::contains, std::string / const char*")
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
 
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small, big_cs), false);
+    CHECK_EQ(mtl::string::contains(big, small_cs), true);
+    CHECK_EQ(mtl::string::contains(small, small_cs), true);
+    CHECK_EQ(mtl::string::contains(big, big_cs), true);
+
     // check it works correctly with nullptr
     const char* n1 = nullptr;
     CHECK_EQ(mtl::string::contains(s1, n1), false);
@@ -1108,6 +1124,15 @@ TEST_CASE("mtl::string::contains, const char* / std::string")
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
 
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small_cs, big), false);
+    CHECK_EQ(mtl::string::contains(big_cs, small), true);
+    CHECK_EQ(mtl::string::contains(small_cs, small), true);
+    CHECK_EQ(mtl::string::contains(big_cs, big), true);
+
     // check it works correctly with nullptr
     const char* n1 = nullptr;
     CHECK_EQ(mtl::string::contains(n1, s2), false);
@@ -1127,6 +1152,15 @@ TEST_CASE("mtl::string::contains, const char* / const char*")
     const char* s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small_cs, big_cs), false);
+    CHECK_EQ(mtl::string::contains(big_cs, small_cs), true);
+    CHECK_EQ(mtl::string::contains(small_cs, small_cs), true);
+    CHECK_EQ(mtl::string::contains(big_cs, big_cs), true);
+
 
     // check it works correctly with nullptr
     const char* n1 = nullptr;
