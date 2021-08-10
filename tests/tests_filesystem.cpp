@@ -6,9 +6,9 @@
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "doctest_include.hpp" 
-#include <string>
-#include <vector>
-#include <list>
+#include <string>     // std::string, std::to_string
+#include <vector>     // std::vector
+#include <list>       // std::list
 #include <filesystem> // std::filesystem::is_regular_file, std::filesystem::remove
                       // std::filesystem::file_size
 
