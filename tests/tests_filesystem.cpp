@@ -77,13 +77,13 @@ std::string generate_filename()
 
 TEST_CASE("mtl::filesystem::write_file with empty file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
     // empty string
-    std::string empty;
+    const std::string empty;
 
     // create an empty file
     bool written_correctly = mtl::filesystem::write_file(filename, empty);
@@ -139,13 +139,13 @@ TEST_CASE("mtl::filesystem::read_file with non-existent file")
 
 TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
     // empty string
-    std::string empty;
+    const std::string empty;
 
     // create an empty file
     bool written_correctly = mtl::filesystem::write_file(filename, empty);
@@ -168,7 +168,7 @@ TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with empty
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -209,7 +209,7 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file with LF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -254,7 +254,7 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
 
 TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_file with CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -300,7 +300,7 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
 
 TEST_CASE("mtl::filesystem::write_file and mtl::filesystem::read_file with mixed LF and CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -379,12 +379,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-existent file")
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single line file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_line("abcd01234567890");
+    const std::string single_line("abcd01234567890");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_line);
@@ -409,12 +409,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single line file")
 
 TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single line file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_line("abcd01234567890");
+    const std::string single_line("abcd01234567890");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_line);
@@ -423,7 +423,7 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single li
     REQUIRE_EQ(written_correctly, true);
     REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
     
-     std::vector<std::string> desired_result { "abcd01234567890", "abcd01234567890" };
+    std::vector<std::string> desired_result { "abcd01234567890", "abcd01234567890" };
     // there should only be a single line
     std::vector<std::string> read_data { "abcd01234567890" };
     // for this specific test make sure the output container is not empty
@@ -445,12 +445,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single li
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_char("h");
+    const std::string single_char("h");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_char);
@@ -475,12 +475,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single character file")
 
 TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single character file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_char("h");
+    const std::string single_char("h");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_char);
@@ -509,12 +509,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with non-empty output and a single ch
 
 TEST_CASE("mtl::filesystem::read_all_lines with a single LF character file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_newline("\n");
+    const std::string single_newline("\n");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_newline);
@@ -540,12 +540,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with a single LF character file")
 
 TEST_CASE("mtl::filesystem::read_all_lines with two characters CRLF file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string single_newline("\r\n");
+    const std::string single_newline("\r\n");
 
     bool written_correctly = false;
     written_correctly = mtl::filesystem::write_file(filename, single_newline);
@@ -571,12 +571,12 @@ TEST_CASE("mtl::filesystem::read_all_lines with two characters CRLF file")
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only LF characters")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string newlines("\n\n\n\n");
+    const std::string newlines("\n\n\n\n");
 
     // create a file
     bool written_correctly = false;
@@ -604,12 +604,12 @@ TEST_CASE("mtl::filesystem::read_all_lines a file containing only LF characters"
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only CRLF characters")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string newlines("\r\n\r\n\r\n\r\n");
+    const std::string newlines("\r\n\r\n\r\n\r\n");
 
     // create a file
     bool written_correctly = false;
@@ -637,12 +637,12 @@ TEST_CASE("mtl::filesystem::read_all_lines a file containing only CRLF character
 
 TEST_CASE("mtl::filesystem::read_all_lines a file containing only mixed LF and CRLF characters")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string newlines("\r\n\n\r\n\n");
+    const std::string newlines("\r\n\n\r\n\n");
 
     // create a file
     bool written_correctly = false;
@@ -888,7 +888,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with LF")
 
     // read file and check contents are what we want, we have to account for the newlines that
     // mtl::write_all_lines outputs to the file between elements
-    std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
+    const std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
@@ -921,7 +921,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with CRLF")
 
     // read file and check contents are what we want, we have to account for the newlines that
     // mtl::write_all_lines outputs to the file between elements
-    std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
+    const std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
@@ -954,7 +954,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with mixed LF and CRLF")
 
     // read file and check contents are what we want, we have to account for the newlines that
     // mtl::write_all_lines outputs to the file between elements
-    std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
+    const std::string desired_result = crlf_text + "\n" + crlf_text + "\n" + crlf_text + "\n"; 
     std::string read_data;
     bool read_correctly = mtl::filesystem::read_file(filename, read_data);
     REQUIRE_EQ(read_correctly, true);
@@ -969,7 +969,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with mixed LF and CRLF")
 
 TEST_CASE("mtl::filesystem::write_all_lines with integers")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1004,7 +1004,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with integers")
 
 TEST_CASE("mtl::filesystem::write_all_lines with floats")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1048,7 +1048,8 @@ TEST_CASE("mtl::filesystem::write_all_lines with floats")
 
 TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines with empty file")
 {
-    std::string filename = generate_filename();
+
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1080,7 +1081,7 @@ TEST_CASE("mtl::filesystem::write_all_lines and mtl::filesystem::read_all_lines 
 
 TEST_CASE("mtl::filesystem::write_all_lines and read_all_lines non-empty output but empty file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1116,7 +1117,7 @@ TEST_CASE("mtl::filesystem::write_all_lines and read_all_lines non-empty output 
 
 TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::read_all_lines")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1167,12 +1168,12 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
 
 TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with LF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string text_with_newline = "R\nG\nB";
+    const std::string text_with_newline = "R\nG\nB";
     // create the file by writting all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
@@ -1219,12 +1220,12 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
 
 TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string text_with_newline = "R\r\nG\r\nB";
+    const std::string text_with_newline = "R\r\nG\r\nB";
     // create the file by writting all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
@@ -1270,12 +1271,12 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
 
 TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixed LF and CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    std::string text_with_newline = "R\nG\r\nB";
+    const std::string text_with_newline = "R\nG\r\nB";
     // create the file by writting all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
@@ -1327,7 +1328,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixe
 
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with LF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1360,7 +1361,7 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
 
 TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output and LF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1396,7 +1397,7 @@ TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output
 
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1429,7 +1430,7 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines with
 
 TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output and CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1466,7 +1467,7 @@ TEST_CASE("mtl::filesystem::write_file with read_all_lines with non-empty output
 
 TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines mixed LF and CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1499,7 +1500,7 @@ TEST_CASE("mtl::filesystem::write_file with mtl::filesystem::read_all_lines mixe
 
 TEST_CASE("mtl::filesystem::write_file with read_all_lines non-empty output and mixed LF and CRLF")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
@@ -1541,7 +1542,7 @@ TEST_CASE("mtl::filesystem::write_file with read_all_lines non-empty output and 
 
 TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 {
-    std::string filename = generate_filename();
+    const std::string filename = generate_filename();
 
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
