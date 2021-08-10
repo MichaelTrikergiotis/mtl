@@ -59,7 +59,7 @@ int filename_id = 0;
 // Keeps track of the filenames for each test case.
 std::vector<std::string> filenames;
 
-// Generate a different filename each test case. Keep track of the generated filename to check
+// Generate a different filename for each test case. Keep track of the generated filename to check
 // later if it is properly deleted.
 std::string generate_filename()
 {
