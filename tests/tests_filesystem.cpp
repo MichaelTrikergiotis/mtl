@@ -1,4 +1,4 @@
-// tests by Michael Trikergiotis
+﻿// tests by Michael Trikergiotis
 // 02/06/2020
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
