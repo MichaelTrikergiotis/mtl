@@ -8,8 +8,18 @@
 
 
 
+
+
+# check that we are in the utilities folder
+if ! [[ $PWD == *"utilities" ]]; then
+    echo "Error !!! The script is not executed from the utilities folder. Exiting."
+    exit 1
+fi
+
+
 # delete the generated executable if it existed
 rm -f tests
+
 echo "Running gcc sanitizers..."
 # build mtl using multiple gcc sanitizers
 g++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined ../tests/*.cpp

@@ -9,6 +9,11 @@
 
 
 
+# check that we are in the utilities folder
+if ! [[ $PWD == *"utilities" ]]; then
+    echo "Error !!! The script is not executed from the utilities folder. Exiting."
+    exit 1
+fi
 
 
 # delete the build directory if it exists
