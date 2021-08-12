@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 
-# Compiles mtl tests for all compilers in debug and release for Linux.
-# This script requires you have g++, clang, libc++, ninja and CMake installed.
-# If clang-tidy is installed it will be used to check the code for errors.
+# Compiles mtl tests using all compilers in debug and release for Linux.
+# This script requires you have g++, clang, clang-tidy libc++, ninja and CMake installed.
+# On Ubuntu Linux :
+# sudo apt install g++ clang clang-tools libc++-dev libc++abi-dev ninja-build cmake
+
+
+
+
+
+
+
+
 
 # check that we are in the utilities folder
 if ! [[ $PWD == *"utilities" ]]; then

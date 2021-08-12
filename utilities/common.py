@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-# mtl_common by Michael Trikergiotis
+# common by Michael Trikergiotis
 # 24/10/2020
 #
-# Common functionality shared between Python scripts in utilities folder.
+# Common functionality shared between Python scripts in the utilities folder.
 #
 # Copyright (c) Michael Trikergiotis. All Rights Reserved.
 # Licensed under the MIT license. See LICENSE in the project root for
@@ -13,7 +13,6 @@
 
 import os
 import sys
-import glob
 from pathlib import Path
 
 
@@ -31,7 +30,7 @@ def check_cwd():
     if len(cwd) <= (len_util) or cwd[-len_util:] != util:
         print('Error. The script is not run from the correct folder.')
         print('The script should be in the utilities folder for it to', end='')
-        print(' correctly find the mtl library folders it needs.')
+        print(' correctly find the mtl folders it needs.')
         sys.exit()
 
 

@@ -1,8 +1,10 @@
 @echo off
 
-rem Compiles mtl tests for all compilers in debug and release for Windows.
+rem Compiles mtl tests using all compilers in debug and release for Windows.
 rem This script requires you have MSVC, clang, ninja and CMake installed.
 rem clang should be in your PATH.
+
+
 
 rem check that we are in the utilities folder
 set cwd=%cd%

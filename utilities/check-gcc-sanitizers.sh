@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
-# Runs gcc sanitizers for the mtl library.
+# Runs gcc sanitizers to check mtl for bugs.
 #
-# You must have g++ and llvm installed for this script to work.
-# On Ubuntu Linux in a terminal type :
-# sudo apt install g++ llvm
-#
-# You have to give the script executable permission before running it :
-# chmod +x check-gcc-sanitizers.sh
-# ./check-gcc-sanitizers.sh
+# You must have g++ installed for this script to work.
+# On Ubuntu Linux :
+# sudo apt install g++
 
+
+
+# delete the generated executable if it existed
 rm -f tests
 echo "Running gcc sanitizers..."
-g++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak -fsanitize=undefined ../tests/*.cpp
+# build mtl using multiple gcc sanitizers
+g++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined ../tests/*.cpp
+# run the generated executable to find errors
 ./tests
+# delete the generated executable
 rm -rf tests
