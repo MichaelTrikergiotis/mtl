@@ -46,14 +46,16 @@
 
 
 
-// the user may want to supply their own version of fmt and not the one with the mtl library
+
+// increase the performance of fmt when formatting floating point numbers
+#define FMT_USE_FULL_CACHE_DRAGONBOX 1
+
+// the user may want to supply their own version of fmt and not the one provided with the mtl
 #ifndef MTL_EXTERNALLY_SUPPLIED_FMT
 
 // use fmt in header only mode
 #define FMT_HEADER_ONLY 
 
-// increase fmt performance when formatting floating point numbers
-#define FMT_USE_FULL_CACHE_DRAGONBOX 1
 
 // header that contains various definitions
 #include "definitions.hpp"
