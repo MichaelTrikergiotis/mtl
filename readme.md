@@ -82,11 +82,11 @@ Please note that we use `mtl::console::print` with the same variables as before 
 Generating a random number from 1 to 10 with the least amount of boilerplate code :
 
 ```c++
-mtl::rng<int> rng_1to10 (1, 10);
-int random_number = rng_1to10.next();
+mtl::rng<int> random_num_gen (1, 10);
+int random_number = random_num_gen.next();
 ```
 
-Now the variable `random_number` is a random integer number between 1 and 10.
+Now the variable `random_number` is a random integer between 1 and 10.
 
 [**EXAMPLE 5**]
 
