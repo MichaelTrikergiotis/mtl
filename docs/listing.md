@@ -156,12 +156,12 @@ There are 116 non-member functions.
 - `mtl::string::pad_front` [(Documentation)](../mtl/string.hpp#L469) [(Examples)](../tests/tests_string.cpp#L1410)
 - `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L472) [(Examples)](../tests/tests_string.cpp#L1410)
 - `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L475) [(Examples)](../tests/tests_string.cpp#L1410)
-- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L636) [(Examples)](../tests/tests_string.cpp#L1628)
-- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L752) [(Examples)](../tests/tests_string.cpp#L1721)
-- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L928) [(Examples)](../tests/tests_string.cpp#L1944)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1065) [(Examples)](../tests/tests_string.cpp#L1990)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1203) [(Examples)](../tests/tests_string.cpp#L3098)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1511) [(Examples)](../tests/tests_string.cpp#L3756)
+- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L638) [(Examples)](../tests/tests_string.cpp#L1628)
+- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L754) [(Examples)](../tests/tests_string.cpp#L1721)
+- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L930) [(Examples)](../tests/tests_string.cpp#L1944)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1067) [(Examples)](../tests/tests_string.cpp#L1990)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1205) [(Examples)](../tests/tests_string.cpp#L3098)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1513) [(Examples)](../tests/tests_string.cpp#L3756)
 
 ---------------------------------------------------
 
