@@ -1356,7 +1356,7 @@ inline void clear()
 		// set the cursor at the starting position
 		if (!SetConsoleCursorPosition(console_handle, screen_coordinates))
 		{
-			throw std::runtime_error("Error. Can't the cursor position.");
+			throw std::runtime_error("Error. Can't set the cursor position.");
 		}
 
 	}
