@@ -3649,7 +3649,7 @@ TEST_CASE("mtl::for_adj_pairs for std::vector<std::string>")
     mtl::for_adj_pairs(vs.begin(), vs.end(), [](auto rhs, auto lhs)
                        {
                           std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
+                          REQUIRE_EQ(combined.size(), static_cast<size_t>(3));
                        });
 
 }
@@ -3684,7 +3684,7 @@ TEST_CASE("mtl::for_adj_pairs for std::list<std::string>")
     mtl::for_adj_pairs(ls.begin(), ls.end(), [](auto rhs, auto lhs)
                        {
                           std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
+                          REQUIRE_EQ(combined.size(), static_cast<size_t>(3));
                        });
 
 }
