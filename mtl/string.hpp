@@ -64,9 +64,9 @@ inline bool is_upper(const char character) noexcept
 [[nodiscard]]
 inline bool is_upper(const std::string& value) noexcept
 {
-	for (auto c : value)
+	for (const char character : value)
 	{
-		if (is_upper(c) == false)
+		if (is_upper(character) == false)
 		{
 			return false;
 		}
@@ -95,9 +95,9 @@ inline bool is_lower(const char character) noexcept
 [[nodiscard]]
 inline bool is_lower(const std::string& value) noexcept
 {
-	for (auto c : value)
+	for (const char character : value)
 	{
-		if (is_lower(c) == false)
+		if (is_lower(character) == false)
 		{
 			return false;
 		}
@@ -131,7 +131,10 @@ inline void to_upper(char& character) noexcept
 /// @param[in, out] value An std::string to convert all it's characters to uppercase.
 inline void to_upper(std::string& value) noexcept
 {
-	for (auto& ch : value) { to_upper(ch); }
+	for (char& character : value) 
+	{ 
+		to_upper(character); 
+	}
 }
 
 /// Converts an uppercase ASCII character to lowercase.
@@ -152,7 +155,10 @@ inline void to_lower(char& character) noexcept
 /// @param[in, out] value An std::string to convert all it's characters to lowercase.
 inline void to_lower(std::string& value) noexcept
 {
-	for (auto& ch : value) { to_lower(ch); }
+	for (char& character : value) 
+	{ 
+		to_lower(character); 
+	}
 }
 
 
@@ -183,10 +189,10 @@ inline bool is_ascii(const char character) noexcept
 [[nodiscard]]
 inline bool is_ascii(const std::string& value) noexcept
 {
-	for (const auto ch : value)
+	for (const char character : value)
 	{
 		// check if there are any non-ASCII characters
-		if (is_ascii(ch) == false)
+		if (is_ascii(character) == false)
 		{
 			return false;
 		}
@@ -224,10 +230,10 @@ inline bool is_alphabetic(const char character) noexcept
 [[nodiscard]]
 inline bool is_alphabetic(const std::string& value) noexcept
 {
-	for (const auto ch : value)
+	for (const char character : value)
 	{
 		// if the character isn't alphanumeric
-		if (is_alphabetic(ch) == false)
+		if (is_alphabetic(character) == false)
 		{
 			return false;
 		}
@@ -255,10 +261,10 @@ inline bool is_numeric(const char character) noexcept
 [[nodiscard]]
 inline bool is_numeric(const std::string& value) noexcept
 {
-	for (const auto ch : value)
+	for (const char character : value)
 	{
 		// if the character isn't alphanumeric
-		if (is_numeric(ch) == false)
+		if (is_numeric(character) == false)
 		{
 			return false;
 		}
@@ -285,10 +291,10 @@ inline bool is_alphanum(const char character) noexcept
 [[nodiscard]]
 inline bool is_alphanum(const std::string& value) noexcept
 {
-	for (const auto ch : value)
+	for (const char character : value)
 	{
 		// if the character isn't alphanumeric
-		if (is_alphanum(ch) == false)
+		if (is_alphanum(character) == false)
 		{
 			return false;
 		}
@@ -402,9 +408,9 @@ inline void strip_front(std::string& value, const char match = ' ')
 {
 	// count how many characters match
 	size_t count = 0;
-	for (const auto& c : value)
+	for (const char character : value)
 	{
-		if (c != match) { break; }
+		if (character != match) { break; }
 		++count;
 	}
 
@@ -476,8 +482,8 @@ inline void strip(std::string& value, const char match = ' ')
 /// Pads a string's front side with a given character for a number of times.
 /// @param[in, out] value An std::string to pad to the front.
 /// @param[in] times The number of times to perform the pad.
-/// @param[in] ch An optional character to pad with.
-inline void pad_front(std::string& value, const size_t times, const char ch = ' ')
+/// @param[in] character An optional character to pad with.
+inline void pad_front(std::string& value, const size_t times, const char character = ' ')
 {
 	// keep the original size
 	const auto old_size = value.size();
@@ -495,7 +501,7 @@ inline void pad_front(std::string& value, const size_t times, const char ch = ' 
 		// copy the string to the correct position
 		std::copy(value.begin(), it_end, dest);
 		// fill the given character to the correct positions
-		std::fill(value.begin(), dest, ch);
+		std::fill(value.begin(), dest, character);
 		// GCOVR_EXCL_STOP
 	}
 
@@ -505,8 +511,8 @@ inline void pad_front(std::string& value, const size_t times, const char ch = ' 
 /// to match another string's size.
 /// @param[in, out] value An std::string to pad to the front.
 /// @param[in] match A std::string to match the size of.
-/// @param[in] ch An optional character to pad with.
-inline void pad_front(std::string& value, const std::string& match, const char ch = ' ')
+/// @param[in] character An optional character to pad with.
+inline void pad_front(std::string& value, const std::string& match, const char character = ' ')
 {
 	// we only want to resize if the target string's size is larger that the size of the string we
 	// want to match
@@ -514,7 +520,7 @@ inline void pad_front(std::string& value, const std::string& match, const char c
 	{
 		// calculate the difference between the two strings size
 		const auto difference = match.size() - value.size();
-		pad_front(value, difference, ch);
+		pad_front(value, difference, character);
 	}
 }
 
@@ -522,19 +528,20 @@ inline void pad_front(std::string& value, const std::string& match, const char c
 /// @param[in, out] value An std::string to pad to the back.
 /// @param[in] times The number of times to perform the pad.
 /// @param[in] match An optional character to pad with.
-inline void pad_back(std::string& value, const size_t times, const char ch = ' ')
+/// @param[in] character An optional character to pad with.
+inline void pad_back(std::string& value, const size_t times, const char character = ' ')
 {
 	// resizes a string and fills it with a given character, if the string's capacity is large
 	// enough it may even avoid copying memory
-	value.resize(value.size() + times, ch);
+	value.resize(value.size() + times, character);
 }
 
 /// Pads a string's back side with a given character as many number of times is
 /// needed to match another string's size.
 /// @param[in, out] value An std::string to pad to the back.
 /// @param[in] match A std::string to match the size of.
-/// @param[in] ch An optional character to pad with.
-inline void pad_back(std::string& value, const std::string& match, const char ch = ' ')
+/// @param[in] character An optional character to pad with.
+inline void pad_back(std::string& value, const std::string& match, const char character = ' ')
 {
 	// we only want to perform work if the size of the string we are matching is bigger than the 
 	// input string
@@ -542,7 +549,7 @@ inline void pad_back(std::string& value, const std::string& match, const char ch
 	{
 		// calculate the difference between the two strings size
 		const auto difference = match.size() - value.size();
-		pad_back(value, difference, ch);
+		pad_back(value, difference, character);
 	}
 }
 
@@ -552,15 +559,15 @@ inline void pad_back(std::string& value, const std::string& match, const char ch
 /// pad the back side more if the times that padding needs to be applied is an odd number.
 /// @param[in, out] value An std::string to pad to the front and back.
 /// @param[in] times The number of times to perform the pad.
-/// @param[in] ch An optional character to pad with.
+/// @param[in] character An optional character to pad with.
 /// @param[in] more_back If the should be more padding to the back side.
-inline void pad(std::string& value, const size_t times, const char ch = ' ', 
+inline void pad(std::string& value, const size_t times, const char character = ' ', 
 				bool more_back = false)
 {
 	// if we are padding an empty string for more than 0 times then just use mtl::string::pad_back
 	if((value.empty()) && (times > 0))
 	{
-		mtl::string::pad_back(value, times, ch);
+		mtl::string::pad_back(value, times, character);
 		return;
 	}
 	// perform work only if the string has any character and if the times to pad is larger than 0
@@ -568,7 +575,7 @@ inline void pad(std::string& value, const size_t times, const char ch = ' ',
 	{
 		// convert to floating point for better division, no need for double as the precision is
 		// not needed
-		float back_pad_d = float(times);
+		float back_pad_d = static_cast<float>(times);
 		// find the middle
 		back_pad_d = back_pad_d / 2.0f;
 		
@@ -579,14 +586,14 @@ inline void pad(std::string& value, const size_t times, const char ch = ' ',
 		if(more_back == false)
 		{
 			// round the result and convert it back to an integral number type
-			back_pad = size_t(std::floor(back_pad_d));
+			back_pad = static_cast<size_t>(std::floor(back_pad_d));
 		}
 		// if the more_back is true the padding will be centered but in the in case the padding
 		// isn't even it will have more padding to the back
 		else
 		{
 			// round the result and convert it back to an integral number type
-			back_pad = size_t(std::ceil(back_pad_d));
+			back_pad = static_cast<size_t>(std::ceil(back_pad_d));
 		}
 		
 
@@ -595,9 +602,9 @@ inline void pad(std::string& value, const size_t times, const char ch = ' ',
 		
 		// pad the front side first because it is slower as it is most likely to copy memory, and
 		// the string is a smaller size here than it will be in the end
-		pad_front(value, front_pad, ch);
+		pad_front(value, front_pad, character);
 		// pad the back
-		pad_back(value, back_pad, ch);
+		pad_back(value, back_pad, character);
 	}
 }
 
@@ -607,9 +614,9 @@ inline void pad(std::string& value, const size_t times, const char ch = ' ',
 /// is an odd number.
 /// @param[in, out] value An std::string to pad to the front and back.
 /// @param[in] match A std::string to match the size of.
-/// @param[in] ch An optional character to pad with.
+/// @param[in] character An optional character to pad with.
 /// @param[in] more_back If the should be more padding to the back side.
-inline void pad(std::string& value, const std::string& match, const char ch = ' ', 
+inline void pad(std::string& value, const std::string& match, const char character = ' ', 
 				bool more_back = false)
 {
 	// we only want to perform work if the size of the string we are matching is bigger than the 
@@ -619,7 +626,7 @@ inline void pad(std::string& value, const std::string& match, const char ch = ' 
 		// calculate the difference between the two strings size
 		const auto difference = match.size() - value.size();
 		// pad the string
-		pad(value, difference, ch, more_back);
+		pad(value, difference, character, more_back);
 	}
 }
 
