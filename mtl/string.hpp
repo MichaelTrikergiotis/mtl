@@ -417,12 +417,8 @@ inline void strip_front(std::string& value, const char match = ' ')
 	// if the number of characters matching are less that the length of the string
 	if (count < value.size())
 	{
-		// create an iterator from the copying should start from
-		auto iter = std::next(value.begin(), static_cast<std::string::difference_type>(count));
-		// copy the characters of the std::string to the front of the std::string
-		std::copy(iter, value.end(), value.begin());
-		// remove unwated characters from the end
-		value.resize(value.size() - count);
+		// remove unwated characters from the start
+		value.erase(0, count);
 	}
 	// else if the number of characters matching are equal to the length of the string
 	else
