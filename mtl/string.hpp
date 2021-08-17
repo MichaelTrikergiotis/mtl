@@ -573,12 +573,14 @@ inline void pad(std::string& value, const size_t times, const char character = '
 	// perform work only if the string has any character and if the times to pad is larger than 0
 	if ((value.empty() == false) && (times > 0))
 	{
-		// convert to floating point for better division, no need for double as the precision is
-		// not needed
+
+		// convert to floating point for improved division quality
 		float back_pad_d = static_cast<float>(times);
-		// find the middle
-		back_pad_d = back_pad_d / 2.0f;
+		// find the middle, we need to divide by 2 but because division is slower than
+		// multiplication we instead perform division by a constant number using multiplication
+		back_pad_d = back_pad_d * 0.5f;
 		
+		// keeps track how many times to pad the back side
 		size_t back_pad = 0;
 
 		// if the more_back is false the padding will be centered but in the in case the padding
