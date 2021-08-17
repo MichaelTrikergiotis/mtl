@@ -108,7 +108,7 @@ inline bool enable_win_ascii()
 	HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (console_handle == INVALID_HANDLE_VALUE)
 	{
-		throw std::runtime_error("Error. Can't get console window handle.");
+		throw std::runtime_error("Error. Can't get the console's window handle.");
 	}
 
 	DWORD console_mode = 0;
@@ -565,13 +565,13 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 	console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (console_handle == INVALID_HANDLE_VALUE)
 	{
-		throw std::runtime_error("Error. Can't get console window handle.");
+		throw std::runtime_error("Error. Can't get the console's window handle.");
 	}
 
 	// get the screen buffer information for the current console
 	if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 	{
-		throw std::runtime_error("Error. Could not get console's screen buffer information.");
+		throw std::runtime_error("Error. Can't get the console's screen buffer information.");
 	}
 
 
@@ -786,8 +786,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Error. Can't set the console's attributes.");
 			}
 
 			// get the part
@@ -799,8 +798,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Error. Can't set the console's attributes.");
 			}
 
 			// print the newline character with the default colors
@@ -820,8 +818,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Error. Can't set the console's attributes.");
 			}
 
 			fmt::print("{}", part);
@@ -829,8 +826,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Error. Can't set the console's attributes.");
 			}
 		}
 	}
@@ -841,7 +837,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// set foreground and background colors to the selected color
 		if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 		{
-			throw std::runtime_error("Error. Could not set console's attributes successfully.");
+			throw std::runtime_error("Error. Can't set the console's attributes.");
 		}
 
 		// print the argument passed to the function
@@ -850,7 +846,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// set foreground and background colors back to normal
 		if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 		{
-			throw std::runtime_error("Error. Could not set console's attributes successfully.");
+			throw std::runtime_error("Error. Can't set the console's attributes.");
 		}
 	}
 
@@ -1309,7 +1305,7 @@ inline void clear()
 		HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		if (console_handle == INVALID_HANDLE_VALUE)
 		{
-			throw std::runtime_error("Error. Can't get console window handle.");
+			throw std::runtime_error("Error. Can't get the console's window handle.");
 		}
 		// intiialize screen coordinates to 0, 0 for the cursor
 		COORD screen_coordinates = { 0, 0 }; 
@@ -1323,28 +1319,28 @@ inline void clear()
 		// get the console's screen buffer information
 		if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 		{       
-			throw std::runtime_error("Error. Can't get console screen buffer information.");
+			throw std::runtime_error("Error. Can't get the console's screen buffer information.");
 		}
 
 		// after getting console screen buffer information we can find the console size
 		console_size = static_cast<DWORD>(console_screen_buff_info.dwSize.X *
 										  console_screen_buff_info.dwSize.Y);
 
-		// fill the screen with blank characters
+		// fill the screen with the space character
 		if (!FillConsoleOutputCharacter(console_handle,          // handle for which console to use
-										static_cast<TCHAR>(' '), // use the blank character
+										static_cast<TCHAR>(' '), // use the space character
 										console_size,            // number of times to write 
 										screen_coordinates,      // the starting coordinates
 										&number_chars_written))  // number of characters written
 		{
-			throw std::runtime_error("Error. Can't fill console with given character.");
+			throw std::runtime_error("Error. Can't fill the console with the space character.");
 		}
 
 		// retrieve the screen attributes for the console and store them to the
 		// console screen buffer info
 		if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 		{
-			throw std::runtime_error("Error. Can't get console screen buffer information.");
+			throw std::runtime_error("Error. Can't get the console's screen buffer information.");
 		}
 
 		// set console attributes appropriately
@@ -1354,7 +1350,7 @@ inline void clear()
 										screen_coordinates,      // the starting coordinates
 										&number_chars_written))  // number of characters written
 		{
-			throw std::runtime_error("Error. Can't set console attributes.");
+			throw std::runtime_error("Error. Can't set the console's attributes.");
 		}
 
 		// set the cursor at the starting position
