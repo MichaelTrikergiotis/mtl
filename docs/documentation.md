@@ -84,9 +84,6 @@ Open `x64 Native Tools Command Prompt for VS 2019` (`vcvars64.bat`) and navigate
 
 ### WINDOWS with clang-cl
 
-[**NOTE**] Because of a bug in `doctest` 2.4 all colors for `doctest` are disabled for `clang` in Windows. For more info check :
-[https://github.com/onqtam/doctest/issues/356](https://github.com/onqtam/doctest/issues/356)
-
 You must add **clang** to your path. If you don't know how to do that check [adding clang to your PATH](./clang-windows.md).
 
 **You must have [Ninja](https://ninja-build.org/) installed.**
