@@ -48,7 +48,7 @@ if (WIN32)
     # check if the compiler is clang
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
-        # option to enable clang++
+        # variable to keep track if clang is enabled
         set(ENABLE_GNU_LIKE_CLANG OFF)
 
         # since CMake 3.15 we can correctly detect and work with both clang++ and clang-cl using 
@@ -105,8 +105,8 @@ if (WIN32)
 # if the we are not in Windows then we must be in Linux or Unix so we use gcc and clang flags
 else()
 
-    # option that enables clang-tidy
-    option(ENABLE_CLANG_TIDY "This option enables clang-tidy" OFF)
+    # this option will enable clang-tidy
+    option(ENABLE_CLANG_TIDY "Enable clang-tidy." OFF)
     if(ENABLE_CLANG_TIDY)
         # check if clang-tidy exists
         find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
@@ -132,8 +132,8 @@ else()
     # if we are using clang then we may want to use libc++
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         
-        # option to enable libc++
-        option(ENABLE_LIBCXX "This option enables the libc++" OFF)
+        # this option will enable libc++
+        option(ENABLE_LIBCXX "Enable libc++." OFF)
 
         #if ENABLE_LIBCXX option is turned on add the all flags needed to use libc++
         if(ENABLE_LIBCXX)
@@ -149,17 +149,18 @@ else()
     add_compile_options(-Werror -Wall -Wextra)
 endif()
 
+
+
+
+
 # add the mtl headers
 include_directories(../../mtl)
 
-# add all the source files, except console tests, individually instead of globbing because the 
-# makers of CMake recommend against it
-# https://cmake.org/cmake/help/latest/command/file.html#filesystem
+# add all tests except mtl::console tests
 add_executable(tests main.cpp tests_algorithm.cpp tests_conversion.cpp tests_container.cpp tests_filesystem.cpp tests_math.cpp tests_numeric.cpp tests_random.cpp tests_safety.cpp tests_stopwatch.cpp tests_string.cpp tests_type_traits.cpp tests_utility.cpp tests_xoroshiro128plus.cpp tests_xorshift128plus.cpp tests_xoshiro256plus.cpp)
 
-
-# option to enable mtl::console tests
-option(ENABLE_CONSOLE_TESTS "This option enables the mtl::console tests" OFF)
+# this option will enable mtl::console tests
+option(ENABLE_CONSOLE_TESTS "Enable mtl::console tests." OFF)
 
 # if the option is enabled add the file responsible for testing mtl::console
 if(ENABLE_CONSOLE_TESTS)
