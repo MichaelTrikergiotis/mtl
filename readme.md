@@ -13,7 +13,7 @@ Modern, fast, easy. Makes C++ a joy to use.
 
 ## Introduction
 
-The **mtl** or by its full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It provides a lot of functionality that other programming languages include by default in their standard libraries.
+The **mtl** or by its full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It augments the C++ standard library with functionality that other modern programming languages include by default in their standard libraries. However, it also replaces parts of the C++ standard library with much higher performance alternatives where needed. It is actively maintained and very extensively tested.
 
 For a quick overview of what **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
 
