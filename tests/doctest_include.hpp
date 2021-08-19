@@ -3,7 +3,7 @@
 // 05/08/2020
 // 
 //
-// This header includes the doctest library and suppresses multiple warnings related with it.
+// This header includes doctest and suppresses multiple warnings related with it.
 //
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -27,16 +27,6 @@
 
 // make the tests run faster but they are not as easy to debug when a debugger is attached
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
-
-// Remember to add the following code inside doctest.h file again if we repalce the current version
-// of doctest.h file with a newer version doctest.h file but the bug isn't fixed yet.
-/*
-// This is added to fix a bug that exists with doctest 2.4 with clang on Windows
-// github.com/onqtam/doctest/issues/356
-#if defined(__clang__) && defined(_WIN32)
-#define DOCTEST_CONFIG_COLORS_NONE
-#endif
-*/
 
 #include "doctest.h"
 
