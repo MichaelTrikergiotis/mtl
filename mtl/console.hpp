@@ -739,31 +739,28 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		bg_color = BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
 	}
 
+
+
+
+	// keep track if the arugment contains the newline character
 	bool contains_newline = false;
 
-	// if the argument is of type string check if it contains a newline character
+	// if the argument is of type std::string check if it contains a newline character
 	if constexpr (mtl::is_std_string_v<decltype(arg)>)
 	{
-		contains_newline = (arg.find('\n') != std::string::npos);
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
 	// if the argument is of type const char* check if it contains a newline character
 	if constexpr (mtl::is_c_string_v<decltype(arg)>)
 	{
-		auto size = std::strlen(arg);
-		if (size > 0)
-		{
-			auto found = std::find(arg, arg + size, '\n');
-			if (found != (arg + size))
-			{
-				contains_newline = true;
-			}
-		}
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
-	// if the string / const char* contains a new line inside it loop over and print each part
-	// seperately and print the newline with the old color attributes to prevent color spilling
-	// to the other lines
+
+	// if the argument contains a newline character, print the argument with the color attributes
+	// but without the newline character and then print the newline character with the old color
+	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
 		// convert to a std::string from either std::string or const char* to make it easier to
@@ -1035,31 +1032,27 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	bg_color += "22m";
 
 
-	bool contains_newline = false;
 
-	// if the argument is of type string check if it contains a newline character
+
+	// keep track if the arugment contains the newline character
+	bool contains_newline = false;
+	
+	// if the argument is of type std::string check if it contains a newline character
 	if constexpr (mtl::is_std_string_v<decltype(arg)>)
 	{
-		contains_newline = (arg.find('\n') != std::string::npos);
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
 	// if the argument is of type const char* check if it contains a newline character
 	if constexpr (mtl::is_c_string_v<decltype(arg)>)
 	{
-		auto size = std::strlen(arg);
-		if (size > 0)
-		{
-			auto found = std::find(arg, arg + size, '\n'); // GCOVR_EXCL_LINE
-			if (found != (arg + size))
-			{
-				contains_newline = true;
-			}
-		}
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
-	// if the string / const char* contains a new line inside it loop over and print each part
-	// seperately and print the newline with the old color attributes to prevent color spilling
-	// to the other lines
+
+	// if the argument contains a newline character, print the argument with the color attributes
+	// but without the newline character and then print the newline character with the old color
+	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
 		// convert to a std::string from either std::string or const char* to make it easier to
