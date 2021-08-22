@@ -315,8 +315,7 @@ inline bool is_alphanum(const std::string& value) noexcept
 [[nodiscard]]
 inline bool contains(const std::string& value, const std::string& match)
 {
-	size_t pos = value.find(match);
-	if (pos != std::string::npos) 
+	if (value.find(match) != std::string::npos) 
 	{ 
 		return true; 
 	}
@@ -344,6 +343,22 @@ inline bool contains(const std::string& value, const char* match)
 	}
 	return false;
 }
+
+/// Returns if a char is found inside the input string or not.
+/// @param[in] value An std::string to check for a match.
+/// @param[in] match A match to search in the input.
+/// @return If the match was found.
+[[nodiscard]]
+inline bool contains(const std::string& value, const char match)
+{
+	if (value.find(match) != std::string::npos) 
+	{ 
+		return true; 
+	}
+	return false;
+}
+
+
 
 /// Returns if a substring is found inside the input string or not.
 /// @param[in] value A const char* to check for a match.
@@ -389,23 +404,6 @@ inline bool contains(const char* value, const char* match)
 	return false;
 }
 
-
-/// Returns if a char is found inside the input string or not.
-/// @param[in] value An std::string to check for a match.
-/// @param[in] match A match to search in the input.
-/// @return If the match was found.
-[[nodiscard]]
-inline bool contains(const std::string& value, const char match)
-{
-	for(const char character : value)
-	{
-		if(character == match)
-		{
-			return true;
-		}
-	}
-	return false;
-}
 
 /// Returns if a char is found inside the input string or not.
 /// @param[in] value An std::string to check for a match.
