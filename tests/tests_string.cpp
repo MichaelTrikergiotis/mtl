@@ -1172,6 +1172,181 @@ TEST_CASE("mtl::string::contains, const char* / const char*")
     CHECK_EQ(mtl::string::contains(n2, n2), false);
 }
 
+
+TEST_CASE("mtl::string::contains, std::string / char")
+{
+    std::string empty1;
+    const char c1 = 'a';
+    const char c2 = ' ';
+    CHECK_EQ(mtl::string::contains(empty1, c1), false);
+    CHECK_EQ(mtl::string::contains(std::string(), 'a'), false);
+    CHECK_EQ(mtl::string::contains(empty1, c2), false);
+    CHECK_EQ(mtl::string::contains(std::string(), ' '), false);
+
+
+    std::string s1 = "ABCDE";
+    const char c3 = 'A';
+    const char c4 = 'C';
+    const char c5 = 'E';
+    const char c6 = 'Z';
+    const char c7 = 'a';
+    const char c8 = ' ';
+    CHECK_EQ(mtl::string::contains(s1, c3), true);
+    CHECK_EQ(mtl::string::contains(s1, c4), true);
+    CHECK_EQ(mtl::string::contains(s1, c5), true);
+    CHECK_EQ(mtl::string::contains(s1, c6), false);
+    CHECK_EQ(mtl::string::contains(s1, c7), false);
+    CHECK_EQ(mtl::string::contains(s1, c8), false);  
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c3), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c4), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c5), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c6), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c7), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c8), false);
+    CHECK_EQ(mtl::string::contains(s1, 'A'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'C'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'E'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'Z'), false);
+    CHECK_EQ(mtl::string::contains(s1, 'a'), false);
+    CHECK_EQ(mtl::string::contains(s1, ' '), false);  
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'A'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'C'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'E'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'Z'), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'a'), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), ' '), false);
+    
+
+    std::string small = "a";
+    const char c9 = 'a';
+    const char c10 = 'b';
+    const char c11 = 'A';
+    const char c12 = ' ';
+    CHECK_EQ(mtl::string::contains(small, c9), true);
+    CHECK_EQ(mtl::string::contains(small, c10), false);
+    CHECK_EQ(mtl::string::contains(small, c11), false);
+    CHECK_EQ(mtl::string::contains(small, c12), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c9), true);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c10), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c11), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c12), false);
+    CHECK_EQ(mtl::string::contains(small, 'a'), true);
+    CHECK_EQ(mtl::string::contains(small, 'b'), false);
+    CHECK_EQ(mtl::string::contains(small, 'A'), false);
+    CHECK_EQ(mtl::string::contains(small, ' '), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'a'), true);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'b'), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'A'), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), ' '), false);
+    
+
+
+    // check that is works correctly with UTF8 strings
+    const char c13 = 'a';
+    const char c14 = 'z';
+    const char c15 = 'A';
+    const char c16 = 'Z';
+    const char c17 = ' ';
+    const char c18 = '|';
+
+
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c13), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c14), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c15), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c16), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c17), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c18), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c13), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c14), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c15), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c16), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c17), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c18), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c13), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c14), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c15), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c16), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c17), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c18), false);
+    
+}
+
+
+TEST_CASE("mtl::string::contains, const char* / char")
+{
+    const char* null_cs = nullptr;
+    const char c1 = 'a';
+    const char c2 = ' ';
+    CHECK_EQ(mtl::string::contains(null_cs, c1), false);
+    CHECK_EQ(mtl::string::contains(null_cs, c2), false);
+
+    const char* empty1 = "";
+    CHECK_EQ(mtl::string::contains(empty1, c1), false);
+    CHECK_EQ(mtl::string::contains("", 'a'), false);
+    CHECK_EQ(mtl::string::contains(empty1, c2), false);
+    CHECK_EQ(mtl::string::contains("", ' '), false);
+
+
+    const char* s1 = "ABCDE";
+    const char c3 = 'A';
+    const char c4 = 'C';
+    const char c5 = 'E';
+    const char c6 = 'Z';
+    const char c7 = 'a';
+    const char c8 = ' ';
+    CHECK_EQ(mtl::string::contains(s1, c3), true);
+    CHECK_EQ(mtl::string::contains(s1, c4), true);
+    CHECK_EQ(mtl::string::contains(s1, c5), true);
+    CHECK_EQ(mtl::string::contains(s1, c6), false);
+    CHECK_EQ(mtl::string::contains(s1, c7), false);
+    CHECK_EQ(mtl::string::contains(s1, c8), false);  
+    CHECK_EQ(mtl::string::contains("ABCDE", c3), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c4), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c5), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c6), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", c7), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", c8), false);
+    CHECK_EQ(mtl::string::contains(s1, 'A'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'C'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'E'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'Z'), false);
+    CHECK_EQ(mtl::string::contains(s1, 'a'), false);
+    CHECK_EQ(mtl::string::contains(s1, ' '), false);  
+    CHECK_EQ(mtl::string::contains("ABCDE", 'A'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'C'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'E'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'Z'), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'a'), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", ' '), false);
+    
+
+    const char* small = "a";
+    const char c9 = 'a';
+    const char c10 = 'b';
+    const char c11 = 'A';
+    const char c12 = ' ';
+    CHECK_EQ(mtl::string::contains(small, c9), true);
+    CHECK_EQ(mtl::string::contains(small, c10), false);
+    CHECK_EQ(mtl::string::contains(small, c11), false);
+    CHECK_EQ(mtl::string::contains(small, c12), false);
+    CHECK_EQ(mtl::string::contains("a", c9), true);
+    CHECK_EQ(mtl::string::contains("a", c10), false);
+    CHECK_EQ(mtl::string::contains("a", c11), false);
+    CHECK_EQ(mtl::string::contains("a", c12), false);
+    CHECK_EQ(mtl::string::contains(small, 'a'), true);
+    CHECK_EQ(mtl::string::contains(small, 'b'), false);
+    CHECK_EQ(mtl::string::contains(small, 'A'), false);
+    CHECK_EQ(mtl::string::contains(small, ' '), false);
+    CHECK_EQ(mtl::string::contains("a", 'a'), true);
+    CHECK_EQ(mtl::string::contains("a", 'b'), false);
+    CHECK_EQ(mtl::string::contains("a", 'A'), false);
+    CHECK_EQ(mtl::string::contains("a", ' '), false);
+
+}
+
+
+
+
 // ------------------------------------------------------------------------------------------------
 // mtl::string::strip_front, mtl::string::strip_back, mtl::string::strip
 // ------------------------------------------------------------------------------------------------

@@ -15,7 +15,7 @@
 #include <algorithm>         // std::copy, std::fill
 #include <string>            // std::string, std::string::npos
 #include <string_view>       // std::string_view
-#include <cstring>           // std::strlen, std::strstr
+#include <cstring>           // std::strlen, std::strstr, std::strchr
 #include <iterator>          // std::iterator_traits, std::next, std::advance, std::distance
 #include <utility>           // std::pair, std::forward
 #include <cmath>             // std::floor, std::ceil
@@ -390,6 +390,42 @@ inline bool contains(const char* value, const char* match)
 }
 
 
+/// Returns if a char is found inside the input string or not.
+/// @param[in] value An std::string to check for a match.
+/// @param[in] match A match to search in the input.
+/// @return If the match was found.
+[[nodiscard]]
+inline bool contains(const std::string& value, const char match)
+{
+	for(const char character : value)
+	{
+		if(character == match)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/// Returns if a char is found inside the input string or not.
+/// @param[in] value An std::string to check for a match.
+/// @param[in] match A match to search in the input.
+/// @return If the match was found.
+[[nodiscard]]
+inline bool contains(const char* value, const char match)
+{
+	// handle the case when const char* is nullptr
+	if(value == nullptr)
+	{
+		return false;
+	}
+
+	if(std::strchr(value, static_cast<int>(match)) != nullptr)
+	{
+		return true;
+	} 	
+	return false;
+}
 
 
 
