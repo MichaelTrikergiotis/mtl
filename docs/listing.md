@@ -47,8 +47,8 @@ There are 116 non-member functions.
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L289) [(Examples)](../tests/tests_console.cpp#L337)
 - `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L538) [(Examples)](../tests/tests_console.cpp#L670)
 - `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L539) [(Examples)](../tests/tests_console.cpp#L825)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1223) [(Examples)](../tests/tests_console.cpp#L920)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1281) [(Examples)](../tests/tests_console.cpp#L1300)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1216) [(Examples)](../tests/tests_console.cpp#L920)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1276) [(Examples)](../tests/tests_console.cpp#L1300)
 
 ---------------------------------------------------
 
@@ -150,18 +150,18 @@ There are 116 non-member functions.
 - `mtl::string::is_numeric` [(Documentation)](../mtl/string.hpp#L208) [(Examples)](../tests/tests_string.cpp#L743)
 - `mtl::string::is_alphanum` [(Documentation)](../mtl/string.hpp#L209) [(Examples)](../tests/tests_string.cpp#L897)
 - `mtl::string::contains` [(Documentation)](../mtl/string.hpp#L307) [(Examples)](../tests/tests_string.cpp#L1049)
-- `mtl::string::strip_front` [(Documentation)](../mtl/string.hpp#L434) [(Examples)](../tests/tests_string.cpp#L1351)
-- `mtl::string::strip_back` [(Documentation)](../mtl/string.hpp#L435) [(Examples)](../tests/tests_string.cpp#L1351)
-- `mtl::string::strip` [(Documentation)](../mtl/string.hpp#L436) [(Examples)](../tests/tests_string.cpp#L1351)
-- `mtl::string::pad_front` [(Documentation)](../mtl/string.hpp#L505) [(Examples)](../tests/tests_string.cpp#L1585)
-- `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L508) [(Examples)](../tests/tests_string.cpp#L1585)
-- `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L511) [(Examples)](../tests/tests_string.cpp#L1585)
-- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L674) [(Examples)](../tests/tests_string.cpp#L1803)
-- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L790) [(Examples)](../tests/tests_string.cpp#L1896)
-- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L966) [(Examples)](../tests/tests_string.cpp#L2119)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1103) [(Examples)](../tests/tests_string.cpp#L2165)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1241) [(Examples)](../tests/tests_string.cpp#L3273)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1549) [(Examples)](../tests/tests_string.cpp#L3931)
+- `mtl::string::strip_front` [(Documentation)](../mtl/string.hpp#L432) [(Examples)](../tests/tests_string.cpp#L1351)
+- `mtl::string::strip_back` [(Documentation)](../mtl/string.hpp#L433) [(Examples)](../tests/tests_string.cpp#L1351)
+- `mtl::string::strip` [(Documentation)](../mtl/string.hpp#L434) [(Examples)](../tests/tests_string.cpp#L1351)
+- `mtl::string::pad_front` [(Documentation)](../mtl/string.hpp#L503) [(Examples)](../tests/tests_string.cpp#L1585)
+- `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L506) [(Examples)](../tests/tests_string.cpp#L1585)
+- `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L509) [(Examples)](../tests/tests_string.cpp#L1585)
+- `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L672) [(Examples)](../tests/tests_string.cpp#L1803)
+- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L788) [(Examples)](../tests/tests_string.cpp#L1896)
+- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L964) [(Examples)](../tests/tests_string.cpp#L2119)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1101) [(Examples)](../tests/tests_string.cpp#L2165)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1239) [(Examples)](../tests/tests_string.cpp#L3273)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1547) [(Examples)](../tests/tests_string.cpp#L3931)
 
 ---------------------------------------------------
 
