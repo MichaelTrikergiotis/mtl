@@ -25,10 +25,10 @@ def check_line_length(file_list, length):
     have lines beyond the desired length it will not be included in the list.
     '''
     longer_files = []
-    for file in file_list:
+    for filename in file_list:
         lines = []
-        with open(file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            lines = input_file.readlines()
 
         longer_lines = []
         for idx in range(0, len(lines)):
@@ -40,7 +40,7 @@ def check_line_length(file_list, length):
                 longer_lines.append(idx + 1)
 
         if len(longer_lines) > 0:
-            longer_files.append((str(file), longer_lines))
+            longer_files.append((str(filename), longer_lines))
 
     return longer_files
 
@@ -69,10 +69,10 @@ def check_comments_space(file_list):
     character it will not be included in the list.
     '''
     bad_comments_filelist = []
-    for file in file_list:
+    for filename in file_list:
         lines = []
-        with open(file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            lines = input_file.readlines()
 
         bad_comments_file = []
         for idx in range(0, len(lines)):
@@ -80,7 +80,7 @@ def check_comments_space(file_list):
                 bad_comments_file.append(idx + 1)
 
         if len(bad_comments_file) > 0:
-            bad_comments_filelist.append((str(file), bad_comments_file))
+            bad_comments_filelist.append((str(filename), bad_comments_file))
 
     return bad_comments_filelist
 
@@ -92,11 +92,11 @@ def check_newline_end(file_list):
     file contains a newline as the last line, it will not be included in the
     list. Supports both LF and CRLF.
     '''
-    no_nl_files = []
+    no_newline_files = []
     for filename in file_list:
         file_data = None
-        with open(filename, 'r', encoding='utf-8') as f:
-            file_data = f.read()
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            file_data = input_file.read()
         # Python's file read function discards the last newline character it
         # reads, so we are checking the first character after the last
         # discarded newline
@@ -104,8 +104,8 @@ def check_newline_end(file_list):
             # check the first non-discarded character to be a newline, so it
             # means the discarded newline character was in its own line
             if file_data[-1] != '\n':
-                no_nl_files.append(filename)
-    return no_nl_files
+                no_newline_files.append(filename)
+    return no_newline_files
 
 
 # =============================================================================
