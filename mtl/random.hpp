@@ -287,7 +287,7 @@ inline void shuffle(Container& container)
 {
 	// get iterators to the start and and of the container
 	auto first = container.begin();
-	auto last = container.end();
+	auto last  = container.end();
 
 	// keep the size of the container
 	size_t size = container.size();
