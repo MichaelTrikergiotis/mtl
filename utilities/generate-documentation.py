@@ -370,9 +370,9 @@ def main_function():
     crc32_before = crc32(output_filename)
 
     # write the generated documentation
-    with open(output_filename, 'w', encoding='utf-8') as input_file:
+    with open(output_filename, 'w', encoding='utf-8', newline='\n') as in_file:
         for line in documentation:
-            input_file.write((line + '\n'))
+            in_file.write((line + '\n'))
 
     # keep a crc32 hash from the file after modification
     crc32_after = crc32(output_filename)
