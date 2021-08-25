@@ -21,7 +21,7 @@
 #include <utility>         // std::forward
 #include <cstdio>          // std::fflush, stdout
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
-#include "fmt_include.hpp" // fmt::print
+#include "fmt_include.hpp" // fmt::print, fmt::runtime
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
 						   // mtl::string::pad_back, mtl::string::join
 
@@ -1226,19 +1226,20 @@ inline void overtype(const std::string& argument)
 	// if we are not inside a terminal just print the characters and return
 	if (mtl::console::detail::inside_terminal == false)
 	{
-		fmt::print(argument);
+		fmt::print(fmt::runtime(argument));
 		return;
 	}
 	// GCOVR_EXCL_STOP
 
-	// create a string consisting of backspace characters that will move the cursor back, this
-	// allows us to avoid printing the backspace character multiple times and we instead need to
-	// print only one string, this is a very significant performance gain
-    std::string multiple_backspaces(argument.size(), '\b');
-    fmt::print(multiple_backspaces);
+
+	// create a string consisting of the backspace character that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times, and we instead need to
+	// print only once, this is a very significant performance gain
+	const std::string multiple_backspaces(argument.size(), '\b');
+	fmt::print(fmt::runtime(multiple_backspaces));
 	
-	fmt::print(argument);
-	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
+	fmt::print(fmt::runtime(argument));
+	// flush the buffer, so the console is updated, it is threadsafe both in Windows and Linux
 	std::fflush(stdout);
 }
 
@@ -1252,20 +1253,21 @@ inline void overtype(const char* argument)
 	// if we are not inside a terminal just print the characters and return
 	if (mtl::console::detail::inside_terminal == false) 
 	{
-		fmt::print(argument); 
+		fmt::print(fmt::runtime(argument));
 		return;
 	}
 	// GCOVR_EXCL_STOP
+	
 
 	size_t size = std::strlen(argument);
-	// create a string consisting of \b that will move the cursor back, this allows us to avoid
-    // printing \b multiple times and we instead need to print only once, this is a significant
-    // performance gain in the range of 2x to 8x times faster
-	std::string multiple_backspaces(size, '\b');
-	fmt::print(multiple_backspaces);
+	// create a string consisting of the backspace character that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times, and we instead need to
+	// print only once, this is a very significant performance gain
+	const std::string multiple_backspaces(size, '\b');
+	fmt::print(fmt::runtime(multiple_backspaces));
 	
-	fmt::print(argument);
-	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
+	fmt::print(fmt::runtime(argument));
+	// flush the buffer, so the console is updated, it is threadsafe both in Windows and Linux
 	std::fflush(stdout);
 }
 
