@@ -302,7 +302,7 @@ inline void rem_duplicates_sorted_impl(Container& container, BinaryPredicate bp)
 template<typename Container>
 inline void rem_duplicates_sorted(Container& container)
 {
-	// use a shortened name for the item type that is containted in the container
+	// use a shortened name for the item type of the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function, default binary predicate
 	mtl::detail::rem_duplicates_sorted_impl(container, std::equal_to<ItemType>{});
@@ -346,14 +346,14 @@ inline void rem_duplicates_impl(Container& container, Compare comp, BinaryPredic
 template<typename Container>
 inline void rem_duplicates(Container& container)
 {
-	// use a shortened name for the item type that is containted in the container
+	// use a shortened name for the item type of the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function
 	mtl::detail::rem_duplicates_impl(container, std::less<ItemType>{}, std::equal_to<ItemType>{});
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
-/// that will be used to sort the containter and also A binary predicate used for equality
+/// that will be used to sort the container and also A binary predicate used for equality
 /// comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -397,7 +397,7 @@ inline void rem_duplicates(std::list<Type>& container)
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
-/// that will be used to sort the containter and also A binary predicate used for equality
+/// that will be used to sort the container and also A binary predicate used for equality
 /// comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -416,7 +416,7 @@ inline void rem_duplicates(std::list<Type>& container, Compare comp, BinaryPredi
 namespace detail
 {
 
-// The actual implmentation of rem_duplicates_preserve function to avoid code duplication.
+// The actual implementation of rem_duplicates_preserve function to avoid code duplication.
 template<typename Container, typename Hash, typename BinaryPredicate>
 inline void rem_duplicates_preserve_impl(Container& container, Hash hash, BinaryPredicate bp)
 {
@@ -461,7 +461,7 @@ inline void rem_duplicates_preserve(Container& container)
 
 /// Removes duplicates while preserving order. Slower and uses more memory compared to the 
 /// rem_duplicates function because it needs to preserve order. This specialization allows you to 
-/// pass custom hashing function and a binary predicate used for equality comparison.
+/// pass a custom hashing function and a binary predicate used for equality comparison.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -519,7 +519,7 @@ inline void keep_duplicates_inclusive(std::list<Type>& container)
 
 
 /// Keeps duplicates including the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -543,7 +543,7 @@ inline void keep_duplicates_inclusive(Container& container)
 
 
 /// Keeps duplicates including the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -608,7 +608,7 @@ inline void keep_duplicates_inclusive_preserve(Container& container, BinaryPredi
 		}
 		// mark that the was no duplicate found this round
 		found = false;
-		// increase coutner so the next loop will from the next item
+		// increase counter so the next loop will from the next item
 		++counter;
 	}
 	container = duplicates;
@@ -669,7 +669,7 @@ inline void keep_duplicates_exclusive(std::list<Type>& container)
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -694,7 +694,7 @@ inline void keep_duplicates_exclusive(Container& container)
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -711,8 +711,8 @@ inline void keep_duplicates_exclusive(Container& container, Compare comp, Binary
 
 
 /// Keeps duplicates including the original duplicate while preserving ordering. Slower and uses
-/// more memory than the non-preserving functions. Allows you to pass custom hashing function and
-/// and binary predicate.
+/// more memory than the non-preserving functions. Allows you to pass a custom hashing function
+/// and a binary predicate.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -731,7 +731,7 @@ inline void keep_duplicates_exclusive_preserve(Container& container, Hash hash, 
 		size_t prev_size = database.size();
 
 		database.insert(item);
-		// if after adding the item to the std::unordered_set<T> the size doesn't chance then it
+		// if after adding the item to the std::unordered_set<T> the size doesn't change then it
 		// means that the item is a duplicate
 		if (prev_size == database.size())
 		{
@@ -775,7 +775,7 @@ inline void keep_duplicates_sorted(Container& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving order. Requires the container to be
-/// sorted. Allows you to pass a comparator that will be used to sort the containter and also a
+/// sorted. Allows you to pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -801,7 +801,7 @@ inline void keep_duplicates(std::list<Type>& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a 
-/// comparison function object, that will be used to sort the containter and also a binary
+/// comparison function object, that will be used to sort the container and also a binary
 /// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -824,7 +824,7 @@ inline void keep_duplicates(Container& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a
-/// comparison function object, that will be used to sort the containter and also a binary
+/// comparison function object, that will be used to sort the container and also a binary
 /// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -852,7 +852,7 @@ inline void keep_duplicates_preserve(Container& container)
 }
 
 /// Keeps a single copy of each duplicate while preserving ordering. Slower and uses more memory
-/// compared to the non-preserving functions. Allows you to pass custom hashing function and
+/// compared to the non-preserving functions. Allows you to pass a custom hashing function and
 /// binary predicate.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
@@ -924,8 +924,8 @@ inline bool contains(const Container& container, const Type& match)
 }
 
 // ================================================================================================
-// CONTAINS_ALL        - Returns if all items of container exists within another container. 
-// CONTAINS_ALL_SORTED - Returns if all items of container exists within another container. 
+// CONTAINS_ALL        - Returns if all items of the container exist within another container. 
+// CONTAINS_ALL_SORTED - Returns if all items of the container exist within another container. 
 //                       Both containers are required to be sorted.
 // ================================================================================================
 
@@ -933,7 +933,7 @@ inline bool contains(const Container& container, const Type& match)
 /// don't have to be in a certain order to match. Neither container has to be sorted. 
 /// @param[in] container_contains A container.
 /// @param[in] elements_to_find A container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<mtl::has_find_v<ContainerContains>, bool>
@@ -953,7 +953,7 @@ contains_all(const ContainerContains& container_contains, const ContainerToFind&
 /// don't have to be in a certain order to match. Neither container has to be sorted. 
 /// @param[in] container_contains A container.
 /// @param[in] elements_to_find A container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<!mtl::has_find_v<ContainerContains>, bool>
@@ -976,7 +976,7 @@ contains_all(const ContainerContains& container_contains, const ContainerToFind&
 /// both containers are sorted.
 /// @param[in] container_contains A sorted container.
 /// @param[in] elements_to_find A sorted container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<mtl::has_find_v<ContainerContains>, bool>
@@ -992,7 +992,7 @@ contains_all_sorted(const ContainerContains& container_contains,
 /// both containers are sorted.
 /// @param[in] container_contains A sorted container.
 /// @param[in] elements_to_find A sorted container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<!mtl::has_find_v<ContainerContains>, bool>
@@ -1185,7 +1185,7 @@ inline void for_adj_pairs(FwdIter first, FwdIter last, Func&& func)
 // ================================================================================================
 
 
-/// Applies a function to a each pair of elements in a range first to last. Every element is paired
+/// Applies a function to each pair of elements in a range first to last. Every element is paired
 /// with all other elements of the range. The algorithm has quadratic time complexity.
 /// @param[in] first Iterator to the beginning of a range.
 /// @param[in] last Iterator to the end of a range.
@@ -1226,10 +1226,10 @@ inline void for_all_pairs(FwdIter first, FwdIter last, Func&& func)
 /// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
 /// functionality as std::fill but instead of accepting a single value it works with a range of 
 /// values.
-/// @param[in] in_first Iterator to the the start of the input range.
-/// @param[in] in_last Iterator to the the end of the input range.
-/// @param[out] out_first Iterator to the the start of the output range.
-/// @param[out] out_last Iterator to the the end of the output range.
+/// @param[in] in_first Iterator to the start of the input range.
+/// @param[in] in_last Iterator to the end of the input range.
+/// @param[out] out_first Iterator to the start of the output range.
+/// @param[out] out_last Iterator to the end of the output range.
 template<typename FwdIterIn, typename FwdIterOut>
 inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
 					   FwdIterOut out_last)
@@ -1304,7 +1304,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		using value_type = std::remove_cv_t<ValueType>;
 		// typedef for iterator difference.
 		using difference_type = std::ptrdiff_t;
-		// typedef for iterator catecory.
+		// typedef for iterator category.
 		using iterator_category = std::forward_iterator_tag;
 		// typedef for iterator pointer type.
 		using pointer = std::add_pointer_t<value_type>;
