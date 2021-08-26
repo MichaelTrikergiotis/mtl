@@ -286,7 +286,7 @@ template<typename Type>
 constexpr bool is_sint_v = is_sint<Type>::value;
 
 
-/// Returns a boolean whether the type is unsigned integer. Accepted types are uint8_t, 
+/// Returns a boolean whether the type is an unsigned integer. Accepted types are uint8_t, 
 /// unsigned short, unsigned int, unsigned long, unsigned long long.
 template<typename Type>
 struct is_uint : std::integral_constant<bool, 
@@ -297,7 +297,7 @@ std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, unsigned long>  
 std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, unsigned long long>> {};
 
 
-/// Returns a boolean whether the type is unsigned integer. Accepted types are uint8_t, 
+/// Returns a boolean whether the type is an unsigned integer. Accepted types are uint8_t, 
 /// unsigned short, unsigned int, unsigned long, unsigned long long. Helper type that helps you
 /// elide the ::value at the end.
 template<typename Type>
@@ -334,17 +334,17 @@ constexpr bool is_float_v = is_float<Type>::value;
 
 
 
-/// Returns a boolean whether the type is singed or unsigned integer or a floating point number.
-/// Accepted types are int8_t, short, int, long, long long, uint8_t, unsigned short, unsigned int, 
-/// unsigned long, unsigned long long, float, double, long double.
+/// Returns a boolean whether the type is a signed or an unsigned integer or a floating point
+/// number. Accepted types are int8_t, short, int, long, long long, uint8_t, unsigned short, 
+/// unsigned int, unsigned long, unsigned long long, float, double, long double.
 template<typename Type>
 struct is_number : std::integral_constant<bool, is_int_v<Type> || is_float_v<Type>> {};
 
 
-/// Returns a boolean whether the type is singed or unsigned integer or a floating point number.
-/// Accepted types are int8_t, short, int, long, long long, uint8_t, unsigned short, unsigned int, 
-/// unsigned long, unsigned long long, float, double, long double. Helper that allows you to elide
-/// the ::value at the end.
+/// Returns a boolean whether the type is a signed or an unsigned integer or a floating point 
+/// number. Accepted types are int8_t, short, int, long, long long, uint8_t, unsigned short, 
+/// unsigned int, unsigned long, unsigned long long, float, double, long double. Helper that
+/// allows you to elide the ::value at the end.
 template<typename Type>
 constexpr bool is_number_v = is_number<Type>::value;
 
@@ -681,7 +681,7 @@ constexpr bool is_std_priority_queue_v = is_std_priority_queue<Type>::value;
 
 
 // ================================================================================================
-// IS_STD_CONTAINER    - Detects if the container is an any of the standard containers.
+// IS_STD_CONTAINER    - Detects if the container is any of the standard containers.
 // IS_STD_CONTAINER_V  - Helper type that allows you to elide the ::value at the end.
 // ================================================================================================
 
@@ -774,7 +774,7 @@ constexpr bool is_c_string_v = is_c_string<Type>::value;
 // ================================================================================================
 // IS_INPUT_ITERATOR    - Checks if a type is an input iterator.
 // IS_INPUT_ITERATOR_V  - Helper that allows you to elide the ::value at the end.
-// IS_OUTPUT_ITERATOR   - Checks if a type is an ouput iterator.
+// IS_OUTPUT_ITERATOR   - Checks if a type is an output iterator.
 // IS_OUTPUT_ITERATOR_V - Helper that allows you to elide the ::value at the end.
 // IS_ITERATOR          - Checks if a type is an iterator.
 // IS_ITERATOR_V        - Helper that allows you to elide the ::value at the end.
@@ -798,10 +798,10 @@ constexpr bool is_input_iterator_v = is_input_iterator<Type>::value;
 
 
 
-/// Checks if a type is an ouput iterator.
+/// Checks if a type is an output iterator.
 template <typename, typename Enable = void> struct is_output_iterator : std::false_type {};
 
-/// Checks if a type is an ouput iterator.
+/// Checks if a type is an output iterator.
 template <typename Type>
 struct is_output_iterator
 <Type, typename std::enable_if_t<
@@ -809,7 +809,7 @@ std::is_base_of_v<
 std::output_iterator_tag, typename std::iterator_traits<Type>::iterator_category>>> :
 std::true_type {};
 
-/// Checks if a type is an ouput iterator. Helper that allows you to elide the ::value at the end.
+/// Checks if a type is an output iterator. Helper that allows you to elide the ::value at the end.
 template<typename Type>
 constexpr bool is_output_iterator_v = is_output_iterator<Type>::value;
 
