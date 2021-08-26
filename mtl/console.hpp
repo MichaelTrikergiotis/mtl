@@ -72,7 +72,7 @@ namespace detail
 {
 
 // ------------------------------------------------------------------------------------------------
-// Some general functions and constants that are used throughout mtl::console.
+// Some helper functions and constants.
 // ------------------------------------------------------------------------------------------------
 
 #if defined(_WIN32)
@@ -86,9 +86,9 @@ inline bool is_terminal()
 }
 
 
-// Set the Windows console to accept ASCII escape sequences. If we succeed return true. If we can't
-// set it then it means we are in a version of Windows before Windows 10 v.1607. Retrun false
-// indicating we couldn't set Windows console to use ASCII escape sequences.
+// Set the Windows console to accept ASCII escape sequences. If we succeed, return true. If we
+// can't set it then it means we are in a version of Windows before Windows 10 v.1607. Return
+// false indicating we couldn't set Windows console to use ASCII escape sequences.
 [[nodiscard]]
 inline bool enable_win_ascii()
 {
@@ -99,7 +99,7 @@ inline bool enable_win_ascii()
 	}
 
 
-// there seems to be some Windows enviroments where ENABLE_VIRTUAL_TERMINAL_PROCESSING is not
+// there seems to be some Windows environments where ENABLE_VIRTUAL_TERMINAL_PROCESSING is not
 // defined so we have to define it
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING  0x0004
@@ -138,7 +138,7 @@ static const bool legacy_windows = !(enable_win_ascii());
 
 
 // Mutex used to lock legacy Windows console functions that use WIN32 API to interact with the
-// console and allows them to be thread safe.
+// console and allows them to be thread-safe.
 static std::mutex console_mutex_legacy_win;
 
 
@@ -171,7 +171,7 @@ static const bool inside_terminal = is_terminal();
 /// Print nothing to the console.
 inline void print() {}
 
-/// Print a single parameter the console.
+/// Print a single parameter to the console.
 /// @param[in] arg An argument of any type that can be printed.
 template <typename Arg>
 inline void print(const Arg& arg)
@@ -286,13 +286,13 @@ inline void println(const Arg& arg, Args&&... args)
 // ================================================================================================
 // PRINT_PAD  - Enumeration that allows print_all to select which side you want the printed 
 //              element to be padded to.
-// PRINT_ALL  - Print all elements in a range with multitude of fromatting options.
+// PRINT_ALL  - Print all elements in a range with a multitude of formatting options.
 // ================================================================================================
 
 
 
 
-/// Enumeraction that allows to set the padding for mtl::console::print_all.
+/// Enumeration that allows you to set the padding for mtl::console::print_all.
 enum class print_pad
 {
 	/// No padding.
@@ -493,11 +493,11 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 
 // ================================================================================================
-// COLOR - Enumeration for all the colors that can be used with console.
+// COLOR - Enumeration for all the colors that can be used with the console.
 // ================================================================================================
 
 
-/// Enumartion of the standard terminal colors that can be used to output color to the
+/// Enumeration of the standard terminal colors that can be used to output color to the
 /// console plus one extra for the default color.
 enum class color : uint8_t
 {
@@ -558,7 +558,7 @@ template<typename Type>
 inline void print_color_win_legacy(const Type& arg, mtl::console::color foreground_color,
 								   mtl::console::color background_color, bool newline = false)
 {
-	// we use an std::lock_guard because we want this function to be thread safe
+	// we use an std::lock_guard because we want this function to be thread-safe
 	std::lock_guard<std::mutex> lockg(mtl::console::detail::console_mutex_legacy_win);
 
 	// handle to the current console
@@ -750,7 +750,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 
 
 
-	// keep track if the arugment contains the newline character
+	// keep track if the argument contains the newline character
 	bool contains_newline = false;
 
 	// if the argument is of type std::string check if it contains a newline character
@@ -1042,7 +1042,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 
 
 
-	// keep track if the arugment contains the newline character
+	// keep track if the argument contains the newline character
 	bool contains_newline = false;
 	
 	// if the argument is of type std::string check if it contains a newline character
@@ -1140,7 +1140,8 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 
 
 
-// The actual implementaion of print_color that select if it will print color usinng ASCII.
+// The actual implementation of print_color that selects if it will print color using ASCII or
+// the legacy method.
 template<typename Type>
 inline void 
 print_color_impl(const Type& arg,
@@ -1247,7 +1248,7 @@ inline void overtype(const std::string& argument)
 	fmt::print(fmt::runtime(multiple_backspaces));
 	
 	fmt::print(fmt::runtime(argument));
-	// flush the buffer, so the console is updated, it is threadsafe both in Windows and Linux
+	// flush the buffer, so the console is updated, it is thread-safe both in Windows and Linux
 	std::fflush(stdout);
 }
 
@@ -1275,7 +1276,7 @@ inline void overtype(const char* argument)
 	fmt::print(fmt::runtime(multiple_backspaces));
 	
 	fmt::print(fmt::runtime(argument));
-	// flush the buffer, so the console is updated, it is threadsafe both in Windows and Linux
+	// flush the buffer, so the console is updated, it is thread-safe both in Windows and Linux
 	std::fflush(stdout);
 }
 
@@ -1301,7 +1302,7 @@ inline void clear()
 	if (mtl::console::detail::legacy_windows)
 	{
 
-		// we use an std::lock_guard because we want this function to be thread safe
+		// we use an std::lock_guard because we want this function to be thread-safe
 		std::lock_guard<std::mutex> lockg(mtl::console::detail::console_mutex_legacy_win);
 
 		// get the handle for the current console
@@ -1310,7 +1311,7 @@ inline void clear()
 		{
 			throw std::runtime_error("Error. Can't get the console's window handle.");
 		}
-		// intiialize screen coordinates to 0, 0 for the cursor
+		// initialize screen coordinates to 0, 0 for the cursor
 		COORD screen_coordinates = { 0, 0 }; 
 		// keep track the number of characters written to the console
 		DWORD number_chars_written = 0;
