@@ -26,21 +26,14 @@ namespace mtl
 
 
 /// Assert MACRO that checks a condition during runtime and displays the provided error message 
-/// along with file and line where the error happened before terminating the current program.
-/// Like assert but also includes a message. Also like static_assert but at runtime.
-/// 
-/// EXAMPLES :
-/// std::string name;
-/// MTL_ASSERT_MSG(name.size() > 0, "Error. Variable was empty.");
-/// 
-/// int length = -1;
-/// MTL_ASSERT_MSG(!(length < 0), "Error. Variable had negative value.");
+/// along with the file and the line where the error happened before terminating the current
+/// program. Like assert but also includes a message.
 #define MTL_ASSERT_MSG(CONDITION, MESSAGE) assert((CONDITION) && (MESSAGE));
 
 
 
 // ================================================================================================
-// NO_COPY      - Dissallow a class to be copied.
+// NO_COPY      - Disallow a class to be copied.
 // ================================================================================================
 
 /// Inheriting from this class will make your class unable to be copied.
@@ -57,7 +50,7 @@ protected:
 
 
 // ================================================================================================
-// NO_MOVE      - Dissallow a class to be copied or moved.
+// NO_MOVE      - Disallow a class to be copied or moved.
 // ================================================================================================
 
 /// Inheriting from this class will make your class unable to be copied or moved.
