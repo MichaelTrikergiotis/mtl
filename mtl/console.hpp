@@ -321,30 +321,38 @@ namespace detail
 
 // Adds padding to a string to match the target length with the given padding style.
 inline void print_padding_impl(std::string& value, const size_t length, 
-							   const print_pad padding_style)
+							   const mtl::console::print_pad padding_style)
 {
+	
 	const size_t size = value.size();
 	// check if the string needs padding based on requested length
 	if (size < length)
 	{
 		// pad the given string with the selected padding style
-		if (padding_style == print_pad::front)
+
+		// when padding to the front
+		if (padding_style == mtl::console::print_pad::front)
 		{
 			mtl::string::pad_front(value, length - size, ' ');
 		}
-		else if (padding_style == print_pad::both_front)
-		{
-			mtl::string::pad(value, length - size, ' ', false);
-		}
-		else if (padding_style == print_pad::both_back)
-		{
-			mtl::string::pad(value, length - size, ' ', true);
-		}
-		else if (padding_style == print_pad::back)
+		// when padding to the back side
+		else if (padding_style == mtl::console::print_pad::back)
 		{
 			mtl::string::pad_back(value, length - size, ' ');
 		}
+		// when padding to the front and back side but mostly to the front
+		else if (padding_style == mtl::console::print_pad::both_front)
+		{
+			mtl::string::pad(value, length - size, ' ', false);
+		}
+		// when padding to the front and back side but mostly to the back
+		else
+		{
+			mtl::string::pad(value, length - size, ' ', true);
+		}
+	
 	}
+
 }
 
 } // namespace detail end
