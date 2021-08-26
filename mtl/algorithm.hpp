@@ -50,13 +50,24 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_inclusive_impl(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	// if there are no elements return an iterator at the starting position
-	if (first == last) { return first; }
+	// if there are no elements
+	if (first == last)
+	{
+		return last;
+	}
+
+	// if there is only a single element
+	if(std::next(first) == last)
+	{
+		return last;
+	}
+
 
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
 	auto new_end = first;
+
 	for (;;)
 	{
 		// find the position of the first element we want to move from
@@ -133,13 +144,24 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	// if there are no elements return an iterator at the starting position
-	if (first == last) { return first; }
+	// if there are no elements
+	if (first == last)
+	{
+		return last;
+	}
+
+	// if there is only a single element
+	if(std::next(first) == last)
+	{
+		return last;
+	}
+
 
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
 	auto new_end = first;
+
 	for (;;)
 	{
 		// find the position of the first element we want to move from

@@ -59,6 +59,21 @@ TEST_CASE("mtl::not_unique_inclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 1 element")
+{
+    std::vector<int> numbers{ 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Peter" };
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::not_unique_inclusive for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -245,6 +260,21 @@ TEST_CASE("mtl::not_unique_exclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 1 element")
+{
+    std::vector<int> numbers { 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::not_unique_exclusive for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -419,6 +449,21 @@ TEST_CASE("mtl::not_unique for empty std::vector")
 	std::sort(names.begin(), names.end());
     names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 1 element")
+{
+    std::vector<int> numbers { 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
     CHECK_EQ((names == results_names), true);
 }
 
