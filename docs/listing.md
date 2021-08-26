@@ -66,10 +66,10 @@ There are 116 non-member functions.
 
 - `mtl::to_num` [(Documentation)](../mtl/conversion.hpp#L29) [(Examples)](../tests/tests_conversion.cpp#L64)
 - `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L30) [(Examples)](../tests/tests_conversion.cpp#L614)
-- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L722) [(Examples)](../tests/tests_conversion.cpp#L1929)
-- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L724) [(Examples)](../tests/tests_conversion.cpp#L2547)
-- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L804) [(Examples)](../tests/tests_conversion.cpp#L5206)
-- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L805) [(Examples)](../tests/tests_conversion.cpp#L5299)
+- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L794) [(Examples)](../tests/tests_conversion.cpp#L3683)
+- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L796) [(Examples)](../tests/tests_conversion.cpp#L4301)
+- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L876) [(Examples)](../tests/tests_conversion.cpp#L6960)
+- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L877) [(Examples)](../tests/tests_conversion.cpp#L7053)
 
 ---------------------------------------------------
 
