@@ -48,7 +48,7 @@ inline bool read_file(const std::filesystem::path& filename, std::string& read_d
 {
 
 #ifndef MTL_DISABLE_SOME_ASSERTS
-	// when in debug mode check the file we want to open exists and assert if it doens't
+	// when in debug mode check the file we want to open exists and assert if it doesn't
 	MTL_ASSERT_MSG(std::filesystem::is_regular_file(filename),
 				   "File doesn't exist or incorrect path given.");
 #endif // MTL_DISABLE_SOME_ASSERTS end
@@ -212,7 +212,7 @@ namespace detail
 /// The container element type has to be std::string. Returns if the file was read successfully. 
 /// @param[in] filename The relative or absolute path to a file.
 /// @param[out] read_lines A container with element type std::string to store the read lines.
-/// @return Returns if all the lines where read successfully.
+/// @return Returns if all the lines were read successfully.
 template<typename Container>
 inline bool read_all_lines(const std::filesystem::path& filename, Container& read_lines)
 {
@@ -276,7 +276,7 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 	// write the data to file
 	out_file.write(write_data.data(), static_cast<std::streamsize>(write_data.size()));
 
-	// if we reached this point it means we succeded
+	// if we reached this point it means we succeeded
 	return true;
 }
 
@@ -296,7 +296,7 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 ///                  to std::string by mtl::string::to_string.
 /// @param[in] last An iterator to the end of a range.
 /// @param[in] append An optional boolean to and append to the end of the file or overwrite it.
-/// @return Returns if the all lines where written successfully.
+/// @return Returns if all the lines were written successfully.
 template<typename Iter>
 inline bool write_all_lines(const std::filesystem::path& filename, Iter first, Iter last,
 					 		const bool append = false)
