@@ -3,8 +3,8 @@
 // 04/06/2020
 // 
 // 
-// Header that includes and configures the fmt library. It also supresses multiple warnings 
-// related with it.
+// Header that includes and configures the fmt library. It also suppresses multiple warnings 
+// related to it.
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -14,7 +14,7 @@
 
 
 
-// supress MSVC warnings
+// suppress MSVC warnings
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 6285  )
@@ -29,7 +29,7 @@
 #endif // _MSC_VER end
 
 
-// supress GCC warnings
+// suppress GCC warnings
 #if defined(__GNUC__) 
 #if !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wshadow"
@@ -41,7 +41,7 @@
 #endif // __GNUC__ end
 
 
-// supress clang warnings
+// suppress clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshadow"
@@ -78,7 +78,7 @@
 
 
 
-// stop supressing clang warnings
+// stop suppressing clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #endif // __clang__ end
