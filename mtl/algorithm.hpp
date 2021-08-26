@@ -3,7 +3,7 @@
 // 09/09/2018
 // 
 // 
-// This header contains generic algorithms for various purposes.
+// This header contains general purpose algorithms.
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
