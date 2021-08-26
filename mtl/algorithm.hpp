@@ -276,8 +276,11 @@ namespace detail
 template<typename Container, typename BinaryPredicate>
 inline void rem_duplicates_sorted_impl(Container& container, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// erase elements that match a specific value that is passed by std::unique
 	container.erase(std::unique(container.begin(), container.end(), bp), container.end());
@@ -318,8 +321,11 @@ namespace detail
 template<typename Container, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates_impl(Container& container, Compare comp, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// sort the container with the given comparator
 	std::sort(container.begin(), container.end(), comp);
@@ -363,8 +369,11 @@ namespace detail
 template<typename Type, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates_impl(std::list<Type>& container, Compare comp, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// sort the std::list
 	container.sort(comp);
@@ -554,8 +563,12 @@ inline void keep_duplicates_inclusive(Container& container, Compare comp, Binary
 template<typename Container, typename BinaryPredicate>
 inline void keep_duplicates_inclusive_preserve(Container& container, BinaryPredicate bp)
 {
-	// if the container is less than 2 leave without doing anything
-	if (container.size() < 2) { return; }
+	// if the container is empty
+	if (container.empty())
+	{
+		return;
+	}
+
 	// keep all inclusive duplicate here
 	Container duplicates;
 	// counter where the next loop will start looking from
