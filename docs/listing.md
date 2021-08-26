@@ -45,10 +45,10 @@ There are 116 non-member functions.
 - `mtl::console::print` [(Documentation)](../mtl/console.hpp#L167) [(Examples)](../tests/tests_console.cpp#L70)
 - `mtl::console::println` [(Documentation)](../mtl/console.hpp#L207) [(Examples)](../tests/tests_console.cpp#L70)
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L289) [(Examples)](../tests/tests_console.cpp#L337)
-- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L538) [(Examples)](../tests/tests_console.cpp#L670)
-- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L539) [(Examples)](../tests/tests_console.cpp#L825)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1216) [(Examples)](../tests/tests_console.cpp#L920)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1276) [(Examples)](../tests/tests_console.cpp#L1300)
+- `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L546) [(Examples)](../tests/tests_console.cpp#L670)
+- `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L547) [(Examples)](../tests/tests_console.cpp#L825)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1224) [(Examples)](../tests/tests_console.cpp#L920)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1284) [(Examples)](../tests/tests_console.cpp#L1300)
 
 ---------------------------------------------------
 
@@ -64,12 +64,12 @@ There are 116 non-member functions.
 
 ## conversion.hpp
 
-- `mtl::to_num` [(Documentation)](../mtl/conversion.hpp#L29) [(Examples)](../tests/tests_conversion.cpp#L64)
-- `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L30) [(Examples)](../tests/tests_conversion.cpp#L614)
-- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L794) [(Examples)](../tests/tests_conversion.cpp#L3683)
-- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L796) [(Examples)](../tests/tests_conversion.cpp#L4301)
-- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L876) [(Examples)](../tests/tests_conversion.cpp#L6960)
-- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L877) [(Examples)](../tests/tests_conversion.cpp#L7053)
+- `mtl::to_num` [(Documentation)](../mtl/conversion.hpp#L29) [(Examples)](../tests/tests_conversion.cpp#L65)
+- `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L30) [(Examples)](../tests/tests_conversion.cpp#L615)
+- `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L794) [(Examples)](../tests/tests_conversion.cpp#L3684)
+- `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L796) [(Examples)](../tests/tests_conversion.cpp#L4302)
+- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L876) [(Examples)](../tests/tests_conversion.cpp#L6961)
+- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L877) [(Examples)](../tests/tests_conversion.cpp#L7054)
 
 ---------------------------------------------------
 
