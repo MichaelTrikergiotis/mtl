@@ -379,8 +379,11 @@ struct to_num_deductor
 	// View of the string that will be converted.
 	const std::string_view value_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor(const std::string& value) : value_v(value) { }
+
+	// Constructor with const char*.
+	to_num_deductor(const char* value) : value_v(value) { }
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
@@ -479,9 +482,13 @@ struct to_num_deductor_noex
 	// Pointer to the success state.
 	bool* success_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor_noex(const std::string& value, bool& success) : value_v(value), 
 																	success_v(&success) { }
+
+	// Constructor with const char*.
+	to_num_deductor_noex(const char* value, bool& success) : value_v(value), 
+															 success_v(&success) { }
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
@@ -577,8 +584,11 @@ struct to_num_deductor_noex_pair
 	// View of the string that will be converted.
 	const std::string_view value_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor_noex_pair(const std::string& value) : value_v(value) {}
+
+	// Constructor with const char*.
+	to_num_deductor_noex_pair(const char* value) : value_v(value) {}
 
 	// Converts the given std::string to given integral type.
 	template<typename IntegralType>
@@ -668,8 +678,9 @@ struct to_num_deductor_noex_pair
 } // namsepace detail end
 
 
-/// Convert a string to a number. Number type is automatically decuced. On error it throws 
-/// std::invalid_argument if no conversion could be performed. 
+
+/// Converts an std::string to a number. You can't use auto and have to specify the numeric type
+/// you want. On error it throws std::invalid_argument if no conversion could be performed. 
 /// @param[in] value An std::string representing a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
@@ -678,8 +689,27 @@ inline auto to_num(const std::string& value)
 	return mtl::detail::to_num_deductor(value);
 }
 
-/// Convert a string to a number. Number type is automatically decuced. On error it returns 0 if it
-/// can not convert the value and the boolean is set to false.
+/// Converts a const char* to a number. You can't use auto and have to specify the numeric type
+/// you want. On error it throws std::invalid_argument if no conversion could be performed.
+/// @param[in] value A const char* representing a number.
+/// @return A number of any type. You have to specify the resulting type and not use auto.
+[[nodiscard]]
+inline auto to_num(const char* value)
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor("");
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor(value);
+	}
+}
+
+
+
+/// Converts an std::string to a number. You can't use auto and have to specify the numeric type
+/// you want. If it can't convert the value it returns 0 and sets the boolean to false.
 /// @param[in] value An std::string representing a number.
 /// @param[out] success A boolean used to denote success or failure to covert to a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
@@ -689,10 +719,30 @@ inline auto to_num_noex(const std::string& value, bool& success) noexcept
 	return mtl::detail::to_num_deductor_noex(value, success);
 }
 
+/// Converts a const char* to a number. You can't use auto and have to specify the numeric type
+/// you want. If it can't convert the value it returns 0 and sets the boolean to false.
+/// @param[in] value A const char* representing a number.
+/// @param[out] success A boolean used to denote success or failure to covert to a number.
+/// @return A number of any type. You have to specify the resulting type and not use auto.
+[[nodiscard]]
+inline auto to_num_noex(const char* value, bool& success) noexcept
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor_noex("", success);
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor_noex(value, success);
+	}
+}
 
-/// Convert a string to a number. Returns a std::pair containing the number and if it succeeded.
-/// Number type is automatically decuced. On error it returns a pair containing 0 for the 
-/// requested numeric type and a boolean set to false to indicate failure.
+
+
+/// Converts an std::string to a number. Returns a std::pair containing the number and if it
+/// succeeded. For the return type you can't use auto and have to specify the type. On error it
+/// returns an std::pair containing 0 for the requested numeric type and a boolean set to false to
+/// indicate failure.
 /// @param[in] value An std::string representing a number.
 /// @return An std::pair of any type of number and a boolean. You have to specify the resulting 
 ///         type and not use auto.
@@ -701,6 +751,28 @@ inline auto to_num_noex(const std::string& value) noexcept
 {
 	return mtl::detail::to_num_deductor_noex_pair(value);
 }
+
+/// Converts a const char* to a number. Returns a std::pair containing the number and if it
+/// succeeded. For the return type you can't use auto and have to specify the type. On error it
+/// returns an std::pair containing 0 for the requested numeric type and a boolean set to false to
+/// indicate failure.
+/// @param[in] value A const char* representing a number.
+/// @return An std::pair of any type of number and a boolean. You have to specify the resulting 
+///         type and not use auto.
+[[nodiscard]]
+inline auto to_num_noex(const char* value) noexcept
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor_noex_pair("");
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor_noex_pair(value);
+	}
+}
+
+
 
 
 
