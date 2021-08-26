@@ -47,8 +47,8 @@ There are 116 non-member functions.
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L289) [(Examples)](../tests/tests_console.cpp#L337)
 - `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L546) [(Examples)](../tests/tests_console.cpp#L670)
 - `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L547) [(Examples)](../tests/tests_console.cpp#L825)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1224) [(Examples)](../tests/tests_console.cpp#L920)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1284) [(Examples)](../tests/tests_console.cpp#L1300)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1225) [(Examples)](../tests/tests_console.cpp#L920)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1285) [(Examples)](../tests/tests_console.cpp#L1300)
 
 ---------------------------------------------------
 
@@ -68,8 +68,8 @@ There are 116 non-member functions.
 - `mtl::to_num_noex` [(Documentation)](../mtl/conversion.hpp#L30) [(Examples)](../tests/tests_conversion.cpp#L615)
 - `mtl::numeric_cast` [(Documentation)](../mtl/conversion.hpp#L794) [(Examples)](../tests/tests_conversion.cpp#L3684)
 - `mtl::numeric_cast_noex` [(Documentation)](../mtl/conversion.hpp#L796) [(Examples)](../tests/tests_conversion.cpp#L4302)
-- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L876) [(Examples)](../tests/tests_conversion.cpp#L6961)
-- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L877) [(Examples)](../tests/tests_conversion.cpp#L7054)
+- `mtl::rounding_cast` [(Documentation)](../mtl/conversion.hpp#L877) [(Examples)](../tests/tests_conversion.cpp#L6961)
+- `mtl::rounding_cast_noex` [(Documentation)](../mtl/conversion.hpp#L878) [(Examples)](../tests/tests_conversion.cpp#L7054)
 
 ---------------------------------------------------
 
@@ -131,11 +131,11 @@ There are 116 non-member functions.
   - `mtl::chrono::stopwatch::stop` [(Documentation)](../mtl/stopwatch.hpp#L51) [(Examples)](../tests/tests_stopwatch.cpp#L29)
   - `mtl::chrono::stopwatch::reset` [(Documentation)](../mtl/stopwatch.hpp#L61) [(Examples)](../tests/tests_stopwatch.cpp#L31)
   - `mtl::chrono::stopwatch::restart` [(Documentation)](../mtl/stopwatch.hpp#L72) [(Examples)](../tests/tests_stopwatch.cpp#L33)
-  - `mtl::chrono::stopwatch::elapsed_minutes` [(Documentation)](../mtl/stopwatch.hpp#L82) [(Examples)](../tests/tests_stopwatch.cpp#L35)
-  - `mtl::chrono::stopwatch::elapsed_seconds` [(Documentation)](../mtl/stopwatch.hpp#L98) [(Examples)](../tests/tests_stopwatch.cpp#L37)
-  - `mtl::chrono::stopwatch::elapsed_milli` [(Documentation)](../mtl/stopwatch.hpp#L111) [(Examples)](../tests/tests_stopwatch.cpp#L39)
-  - `mtl::chrono::stopwatch::elapsed_micro` [(Documentation)](../mtl/stopwatch.hpp#L124) [(Examples)](../tests/tests_stopwatch.cpp#L41)
-  - `mtl::chrono::stopwatch::elapsed_nano` [(Documentation)](../mtl/stopwatch.hpp#L137) [(Examples)](../tests/tests_stopwatch.cpp#L43)
+  - `mtl::chrono::stopwatch::elapsed_minutes` [(Documentation)](../mtl/stopwatch.hpp#L83) [(Examples)](../tests/tests_stopwatch.cpp#L35)
+  - `mtl::chrono::stopwatch::elapsed_seconds` [(Documentation)](../mtl/stopwatch.hpp#L99) [(Examples)](../tests/tests_stopwatch.cpp#L37)
+  - `mtl::chrono::stopwatch::elapsed_milli` [(Documentation)](../mtl/stopwatch.hpp#L112) [(Examples)](../tests/tests_stopwatch.cpp#L39)
+  - `mtl::chrono::stopwatch::elapsed_micro` [(Documentation)](../mtl/stopwatch.hpp#L125) [(Examples)](../tests/tests_stopwatch.cpp#L41)
+  - `mtl::chrono::stopwatch::elapsed_nano` [(Documentation)](../mtl/stopwatch.hpp#L138) [(Examples)](../tests/tests_stopwatch.cpp#L43)
 
 ---------------------------------------------------
 
@@ -208,8 +208,8 @@ There are 116 non-member functions.
 ## utility.hpp
 
 - `MTL_ASSERT_MSG` [(Documentation)](../mtl/utility.hpp#L23) [(Examples)](../tests/tests_utility.cpp#L19)
-- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L43) [(Examples)](../tests/tests_utility.cpp#L74)
-- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L60) [(Examples)](../tests/tests_utility.cpp#L98)
+- [**CLASS**] `mtl::no_copy` [(Documentation)](../mtl/utility.hpp#L36) [(Examples)](../tests/tests_utility.cpp#L74)
+- [**CLASS**] `mtl::no_move` [(Documentation)](../mtl/utility.hpp#L53) [(Examples)](../tests/tests_utility.cpp#L98)
 
 ---------------------------------------------------
 
