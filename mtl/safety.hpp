@@ -31,11 +31,11 @@ namespace mtl
 
 /// mtl::safe_copy is a safer bound checking version of std::copy that protects from all 
 /// out of bounds errors. Works with any container that supports the size function. Copies all 
-/// elements from one container to the other. If everything is correct copying is performed and
-/// returns true. In the case that the output container is smaller than the source no copying is
-/// performed and false is returned. Doesn't throw exceptions.
+/// elements from one container to the other. If everything is correct, copying is performed and
+/// it returns true. In the case that the output container is smaller than the source no copying
+/// is performed and it returns false. Doesn't throw exceptions.
 /// @param[in] source An input container.
-/// @param[out] destination An ouput container.
+/// @param[out] destination An output container.
 /// @return If the copying was performed successfully.
 template<typename InContainer, typename OutContainer>
 [[nodiscard]]
@@ -65,9 +65,9 @@ safe_copy(const InContainer& source, OutContainer& destination) noexcept
 
 /// mtl::safe_copy is a safer bound checking version of std::copy that protects from all 
 /// out of bounds errors. Requires you to pass iterators from an input range from in_first to 
-/// in_last and an ouput range from out_first to out_last. If everything is correct copying is 
-/// performed and returns true. In case that any of the iterators is out of bounds for either
-/// range no copying is performed and false is returned. Doesn't throw exceptions.
+/// in_last and an output range from out_first to out_last. If everything is correct, copying is 
+/// performed and it returns true. In case that any of the iterators is out of bounds for either
+/// range no copying is performed and it returns false. Doesn't throw exceptions.
 /// @param[in] in_first Iterator to the start of the input range.
 /// @param[in] in_last Iterator to the end of the input range.
 /// @param[in] out_first Iterator to the start of the output range.
@@ -110,11 +110,11 @@ inline bool safe_copy(InIter in_first, InIter in_last, OutIter out_first,
 /// mtl::safe_copy_n is a safer bound checking version of std::copy_n that protects from all out of
 /// bounds errors. Works with any container that supports the size function. The start_pos
 /// points to the starting index of the source container to be copied and count is the number of
-/// elements to be copied. If everything is correct copying is performed and returns true. In case
-/// that any of the parameters is out of bounds for either container no copying is performed and
-/// false is returned. Doesn't throw exceptions.
+/// elements to be copied. If everything is correct, copying is performed and it returns true. In 
+/// case that any of the parameters is out of bounds for either container no copying is performed
+/// and it returns false. Doesn't throw exceptions.
 /// @param[in] source An input container.
-/// @param[out] destination An ouput container.
+/// @param[out] destination An output container.
 /// @param[in] start_pos The starting position from where to start copying.
 /// @param[in] count The number of items to copy.
 /// @return If the copying was performed successfully.
@@ -124,7 +124,7 @@ inline std::enable_if_t<mtl::has_size_v<InContainer> && mtl::has_size_v<OutConta
 safe_copy_n(const InContainer& source, OutContainer& destination, const size_t start_pos,
 		    const size_t count) noexcept
 {
-	// if count is 0 then report we copied succefully and do nothing
+	// if count is 0 then report we copied successfully and do nothing
 	if(count == 0) { return true; }
 
 	// sizes of both containers
