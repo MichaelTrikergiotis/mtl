@@ -32,12 +32,12 @@ namespace mtl
 // ================================================================================================
 
 /// This is the engine for the xoroshiro128plus random number generator. For most cases, prefer to
-/// use the xoroshiro128plus typedef instead of this. This template allows to define the
-/// result type and pass the default seed values.
+/// use the xoroshiro128plus typedef instead of this. This template allows you to define the
+/// resulting type and pass the default seed values.
 template<typename ResultType, uint64_t DefaultSeed1, uint64_t DefaultSeed2>
 class xoroshiro128plus_engine
 {
-	// check some very fundamental thing for the engine to work
+	// check some very fundamental things for the engine to work
 	static_assert(std::is_unsigned_v<ResultType>,
 				  "The type for the result of xoroshiro128plus_engine has to be unsigned.");
 

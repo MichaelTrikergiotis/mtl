@@ -32,13 +32,13 @@ namespace mtl
 // ================================================================================================
 
 /// This is the engine for the xoshiro256plus random number generator. For most cases, prefer to
-/// use the xoshiro256plus typedef instead of this. This template allows to define the result type
-/// and pass the default seed values.
+/// use the xoshiro256plus typedef instead of this. This template allows you to define the
+/// resulting type and pass the default seed values.
 template<typename ResultType, uint64_t DefaultSeed1, uint64_t DefaultSeed2, 
 		 uint64_t DefaultSeed3, uint64_t DefaultSeed4>
 class xoshiro256plus_engine
 {
-	// check some very fundamental thing for the engine to work
+	// check some very fundamental things for the engine to work
 	static_assert(std::is_unsigned_v<ResultType>,
 				  "The type for the result of xoshiro256plus_engine has to be unsigned.");
 
