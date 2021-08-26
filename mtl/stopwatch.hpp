@@ -69,10 +69,11 @@ public:
 	}
 
 	// ============================================================================================
-	// RESTART - Stops previous measurment and start measuring time from the current time point.
+	// RESTART - Stops the previous measurement and start measuring time from the current time
+	//           point.
 	// ============================================================================================
 
-	/// Stops previous measurment and start measuring time from the current time point.
+	/// Stops the previous measurement and start measuring time from the current time point.
 	void restart()
 	{
 		start();
@@ -89,7 +90,7 @@ public:
 		std::chrono::duration<double> elapsed = end_time - start_time;
 		double result = elapsed.count();
 		// we have to divide seconds by 60.0 to find minutes, but instead we perform division by
-		// an invaritant number using multication as it is much faster than a costly division
+		// an invariant number using multiplication as it is much faster than a costly division
 		result = result * 0.016666666666666667406815349750104360282421112060546875;
 		return result;
 	}
