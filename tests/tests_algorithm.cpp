@@ -916,6 +916,21 @@ TEST_CASE("mtl::keep_duplicates_inclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_inclusive(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_inclusive(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_inclusive for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -1079,6 +1094,21 @@ TEST_CASE("mtl::keep_duplicates_exclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_exclusive for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_exclusive(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_exclusive(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_exclusive for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -1235,6 +1265,21 @@ TEST_CASE("mtl::keep_duplicates for empty std::vector")
     std::vector<std::string> names;
 	mtl::keep_duplicates(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1395,7 +1440,7 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::vector")
     // algorithms ending with _sorted require the container to be sorted
     std::sort(numbers.begin(), numbers.end());
     mtl::keep_duplicates_inclusive_sorted(numbers);
-    std::vector<int> results ;
+    std::vector<int> results;
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names;
@@ -1403,6 +1448,25 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::vector")
     std::sort(names.begin(), names.end());
 	mtl::keep_duplicates_inclusive_sorted(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_inclusive_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_inclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1596,6 +1660,25 @@ TEST_CASE("mtl::keep_duplicates_exclusive_sorted for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_exclusive_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_exclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_exclusive_sorted for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -1778,6 +1861,25 @@ TEST_CASE("mtl::keep_duplicates_sorted for empty std::vector")
     std::sort(names.begin(), names.end());
 	mtl::keep_duplicates_sorted(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1974,6 +2076,24 @@ TEST_CASE("mtl::keep_duplicates_inclusive_preserve for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_inclusive_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_inclusive_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_inclusive_preserve for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -2126,13 +2246,38 @@ TEST_CASE("mtl::keep_duplicates_exclusive_preserve for empty std::vector")
     std::vector<int> numbers;
     mtl::keep_duplicates_exclusive_preserve(numbers);
     std::vector<int> results;
+
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    std::vector<std::string> names;
 	mtl::keep_duplicates_exclusive_preserve(names);
-    std::vector<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_exclusive_preserve(numbers);
+    std::vector<int> results;
+
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_exclusive_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
+
 
 TEST_CASE("mtl::keep_duplicates_exclusive_preserve for std::vector")
 {
@@ -2293,11 +2438,32 @@ TEST_CASE("mtl::keep_duplicates_preserve for empty std::vector")
     std::vector<int> numbers;
     mtl::keep_duplicates_preserve(numbers);
     std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names;
 	mtl::keep_duplicates_preserve(names);
     std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
