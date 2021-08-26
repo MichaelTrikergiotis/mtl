@@ -31,13 +31,13 @@ namespace mtl
 // XOROSHIRO128PLUS_ENGINE - The xoroshiro128plus_engine random number generator engine.
 // ================================================================================================
 
-/// This is the engine for the xoroshiro128plus random number generator. For general purpose
-/// everyday use you should use the xoroshiro128plus typedef instead of this. This template allows
-/// to define the result type and pass the default seed values.
+/// This is the engine for the xoroshiro128plus random number generator. For most cases, prefer to
+/// use the xoroshiro128plus typedef instead of this. This template allows to define the
+/// result type and pass the default seed values.
 template<typename ResultType, uint64_t DefaultSeed1, uint64_t DefaultSeed2>
 class xoroshiro128plus_engine
 {
-	// check some very fundumental thing for the engine to work
+	// check some very fundamental thing for the engine to work
 	static_assert(std::is_unsigned_v<ResultType>,
 				  "The type for the result of xoroshiro128plus_engine has to be unsigned.");
 
@@ -150,7 +150,7 @@ public:
 	}
 private:
 
-	/// Get engine internal state.
+	/// Get the engine's internal state.
 	/// @return The engine internal state.
 	[[nodiscard]]
 	state_struct state() const { return _state; }
@@ -328,7 +328,7 @@ public:
 	// ============================================================================================
 
 	/// Advances the state of the random number generator by a number of times.
-	/// @param[in] count Number of time to advance the random number generator.
+	/// @param[in] count Number of times to advance the random number generator.
 	void discard(size_t count)
 	{
 		for (size_t i = count; i > 0; i--)
@@ -342,7 +342,7 @@ public:
 	// ============================================================================================
 
 	/// Writes the textual representation of the seed values to an std::ostream.
-	/// @param[out] os An std::basic_ostream to use as ouput.
+	/// @param[out] os An std::basic_ostream to use as output.
 	/// @param[in] rngen The random number generator engine to get the state.
 	/// @return An std::basic_ostream.
 	template<typename CharType, typename Traits>
