@@ -39,9 +39,9 @@ namespace string
 
 // ================================================================================================
 // IS_UPPER - Returns if a character is an uppercase ASCII character.
-// IS_UPPER - Returns if all characters in a std::string are uppercase ASCII characters.
+// IS_UPPER - Returns if all characters in an std::string are uppercase ASCII characters.
 // IS_LOWER - Returns if a character is a lowercase ASCII character.
-// IS_LOWER - Returns if all characters in a std::string are lowercase ASCII characters.
+// IS_LOWER - Returns if all characters in an std::string are lowercase ASCII characters.
 // ================================================================================================
 
 /// Returns if a character is an uppercase ASCII character.
@@ -58,7 +58,7 @@ inline bool is_upper(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are uppercase ASCII characters.
+/// Returns if all characters in an std::string are uppercase ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters are uppercase ASCII characters.
 [[nodiscard]]
@@ -75,9 +75,9 @@ inline bool is_upper(const std::string& value) noexcept
 }
 
 
-/// Returns if a character is an lowercase ASCII character.
+/// Returns if a character is a lowercase ASCII character.
 /// @param[in] character A character to check.
-/// @return If the character is an lowercase ASCII character.
+/// @return If the character is a lowercase ASCII character.
 [[nodiscard]]
 inline bool is_lower(const char character) noexcept
 {
@@ -89,7 +89,7 @@ inline bool is_lower(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are lowercase ASCII characters.
+/// Returns if all characters in an std::string are lowercase ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters are lowercase ASCII characters.
 [[nodiscard]]
@@ -108,9 +108,9 @@ inline bool is_lower(const std::string& value) noexcept
 
 // ================================================================================================
 // TO_UPPER - Converts a lowercase ASCII character to uppercase.
-// TO_UPPER - Converts all lowercase ASCII characters of a std::string to uppercase.
-// TO_LOWER - Converts a uppercase ASCII character to lowercase.
-// TO_LOWER - Converts all uppercase ASCII characters of a std::string to lowercase.
+// TO_UPPER - Converts all lowercase ASCII characters of an std::string to uppercase.
+// TO_LOWER - Converts an uppercase ASCII character to lowercase.
+// TO_LOWER - Converts all uppercase ASCII characters of an std::string to lowercase.
 // ================================================================================================
 
 /// Converts a lowercase ASCII character to uppercase.
@@ -127,7 +127,7 @@ inline void to_upper(char& character) noexcept
 	}
 }
 
-/// Converts all lowercase ASCII characters in a std::string to uppercase.
+/// Converts all lowercase ASCII characters in an std::string to uppercase.
 /// @param[in, out] value An std::string to convert all it's characters to uppercase.
 inline void to_upper(std::string& value) noexcept
 {
@@ -151,7 +151,7 @@ inline void to_lower(char& character) noexcept
 	}
 }
 
-/// Converts all uppercase ASCII characters of a std::string to lowercase characters.
+/// Converts all uppercase ASCII characters of an std::string to lowercase characters.
 /// @param[in, out] value An std::string to convert all it's characters to lowercase.
 inline void to_lower(std::string& value) noexcept
 {
@@ -165,7 +165,7 @@ inline void to_lower(std::string& value) noexcept
 
 // ================================================================================================
 // IS_ASCII - Returns if char is an ASCII character.
-// IS_ASCII - Returns if all characters in a std::string are ASCII characters.
+// IS_ASCII - Returns if all characters in an std::string are ASCII characters.
 // ================================================================================================
 
 /// Returns if the character is an ASCII character.
@@ -183,7 +183,7 @@ inline bool is_ascii(const char character) noexcept
 	return false;
 }
 
-/// Returns if all the characters in a std::string are ASCII characters.
+/// Returns if all the characters in an std::string are ASCII characters.
 /// @param[in] value An std::string to check.
 /// @return If all characters of the std::string are ASCII characters.
 [[nodiscard]]
@@ -224,7 +224,7 @@ inline bool is_alphabetic(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII alphabetic characters.
+/// Returns if all characters in an std::string are ASCII alphabetic characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII alphabetic characters.
 [[nodiscard]]
@@ -255,7 +255,7 @@ inline bool is_numeric(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII numbers.
+/// Returns if all characters in an std::string are ASCII numbers.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII numeric characters.
 [[nodiscard]]
@@ -285,7 +285,7 @@ inline bool is_alphanum(const char character) noexcept
 	return false;
 }
 
-/// Returns if all characters in a std::string are ASCII alphabetic or numeric characters.
+/// Returns if all characters in an std::string are ASCII alphabetic or numeric characters.
 /// @param[in] value An std::string to check.
 /// @return If all the characters of an std::string are ASCII alphanumeric characters.
 [[nodiscard]]
@@ -457,7 +457,7 @@ inline void strip_front(std::string& value, const char match = ' ')
 	// if the number of characters matching are less that the length of the string
 	if (count < value.size())
 	{
-		// remove unwated characters from the start
+		// remove unwanted characters from the start
 		value.erase(0, count);
 	}
 	// else if the number of characters matching are equal to the length of the string
@@ -544,7 +544,7 @@ inline void pad_front(std::string& value, const size_t times, const char charact
 /// Pads a string's front side with a given character as many number of times is needed
 /// to match another string's size.
 /// @param[in, out] value An std::string to pad to the front.
-/// @param[in] match A std::string to match the size of.
+/// @param[in] match an std::string to match the size of.
 /// @param[in] character An optional character to pad with.
 inline void pad_front(std::string& value, const std::string& match, const char character = ' ')
 {
@@ -573,7 +573,7 @@ inline void pad_back(std::string& value, const size_t times, const char characte
 /// Pads a string's back side with a given character as many number of times is
 /// needed to match another string's size.
 /// @param[in, out] value An std::string to pad to the back.
-/// @param[in] match A std::string to match the size of.
+/// @param[in] match an std::string to match the size of.
 /// @param[in] character An optional character to pad with.
 inline void pad_back(std::string& value, const std::string& match, const char character = ' ')
 {
@@ -594,7 +594,7 @@ inline void pad_back(std::string& value, const std::string& match, const char ch
 /// @param[in, out] value An std::string to pad to the front and back.
 /// @param[in] times The number of times to perform the pad.
 /// @param[in] character An optional character to pad with.
-/// @param[in] more_back If the should be more padding to the back side.
+/// @param[in] more_back If there should be more padding to the back side.
 inline void pad(std::string& value, const size_t times, const char character = ' ', 
 				bool more_back = false)
 {
@@ -649,9 +649,9 @@ inline void pad(std::string& value, const size_t times, const char character = '
 /// to true it will prefer to pad the back side more if the times that padding needs to be applied
 /// is an odd number.
 /// @param[in, out] value An std::string to pad to the front and back.
-/// @param[in] match A std::string to match the size of.
+/// @param[in] match an std::string to match the size of.
 /// @param[in] character An optional character to pad with.
-/// @param[in] more_back If the should be more padding to the back side.
+/// @param[in] more_back If there should be more padding to the back side.
 inline void pad(std::string& value, const std::string& match, const char character = ' ', 
 				bool more_back = false)
 {
@@ -776,7 +776,7 @@ inline std::string to_string(const std::pair<T1, T2>& value, const std::string& 
 
 	result.reserve(first_part.size() + second_part.size() + delimiter.size());
 
-	// add all the parts together with a delimiter inbetween them
+	// add all the parts together with a delimiter in between them
 	result += first_part;
 	result += delimiter;
 	result += second_part;
@@ -785,7 +785,7 @@ inline std::string to_string(const std::pair<T1, T2>& value, const std::string& 
 
 
 // ===============================================================================================
-// JOIN_ALL - Joins all items from a range (first, last) and returns a std::string.
+// JOIN_ALL - Join all items from a range (first, last) and return an std::string.
 // ===============================================================================================
 
 /// Join all items of a range from first to last with a delimiter. Allows you to specify the 
@@ -826,7 +826,7 @@ join_all(Iter first, Iter last, std::string& result, const std::string& delimite
 			// GCOVR_EXCL_STOP
 		}
 
-		// remove as many characters as the delimiter's size because we added one unwated
+		// remove as many characters as the delimiter's size because we added one unwanted
 		// delimiter at the end
 		result.resize(result.size() - delimiter.size());
 	}
@@ -872,7 +872,7 @@ join_all(Iter first, Iter last, std::string& result, const std::string& delimite
 			
 		}
 
-		// remove as many characters as the delimiter's size because we added one unwated
+		// remove as many characters as the delimiter's size because we added one unwanted
 		// delimiter at the end
 		result.resize(result.size() - delimiter.size()); 
 	}
@@ -917,7 +917,7 @@ inline void join_all(Iter first, Iter last, std::string& result, const char* del
 }
 
 
-/// Join all items of a range from first to last with optional delimiter and returns a std::string.
+/// Join all items of a range from first to last with optional delimiter and return an std::string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
 /// @param[in] delimiter Delimiter to use when joining the elements.
@@ -932,7 +932,7 @@ inline std::string join_all(Iter first, Iter last, const std::string& delimiter 
 	return result;
 }
 
-/// Join all items of a range from first to last with a delimiter and returns a std::string.
+/// Join all items of a range from first to last with a delimiter and return an std::string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
 /// @param[in] delimiter Delimiter to use when joining the elements.
@@ -944,7 +944,7 @@ inline std::string join_all(Iter first, Iter last, const char delimiter)
 	return mtl::string::join_all(first, last, mtl::string::to_string(delimiter));
 }
 
-/// Join all items of a range from first to last with a delimiter and returns a std::string.
+/// Join all items of a range from first to last with a delimiter and return an std::string.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
 /// @param[in] delimiter Delimiter to use when joining the elements.
@@ -961,7 +961,7 @@ inline std::string join_all(Iter first, Iter last, const char* delimiter)
 
 
 // ===============================================================================================
-// JOIN - Joins one or more items of various types and returns a std::string
+// JOIN - Joins one or more items of various types and return an std::string
 // ===============================================================================================
 
 
@@ -1031,7 +1031,7 @@ inline void count_size_impl(size_t& size, const std::pair<Type1, Type2>& type)
 {
 	count_size_impl(size, type.first);
 	count_size_impl(size, type.second);
-	// add 2 characers because when std::pair is converted to string with mtl::string::to_string 
+	// add 2 characters because when std::pair is converted to string with mtl::string::to_string 
 	// there is a two character delimiter added between the items by default
 	size += 2;
 }
@@ -1040,7 +1040,7 @@ inline void count_size_impl(size_t& size, const std::pair<Type1, Type2>& type)
 template<typename Type>
 inline void count_size_impl(size_t&, const Type&)
 {
-	// For non-specialized type the count is 0. All modern compilers with high otpimization
+	// For non-specialized types the count is 0. All modern compilers with high optimization
 	// settings will turn this function into a NOOP.
 }
 
@@ -1076,7 +1076,7 @@ inline std::string join_select_impl(const Type& type, Args&&... args)
 } // namespace detail end
 
 
-/// Join one or more elements of any type to a std::string.
+/// Join one or more elements of any type to an std::string.
 /// @param[in] type An item to join.
 /// @return An std::string with all the items joined together.
 template<typename Type>
@@ -1086,7 +1086,7 @@ inline std::string join(const Type& type)
 	return mtl::string::to_string(type);
 }
 
-/// Join one or more elements of any type to a std::string.
+/// Join one or more elements of any type to an std::string.
 /// @param[in] type An item to join.
 /// @param[in] args Any number of items to join.
 /// @return An std::string with all the items joined together.
@@ -1102,11 +1102,11 @@ inline std::string join(const Type& type, Args&&... args)
 // ===============================================================================================
 
 /// Splits a string into tokens with a delimiter. Gives the ability to select the type of container
-/// to used as output and even allows you to reserve memory for it, if it supports reserve. The
-/// containers element type has to be string.
+/// to be used as output and even allows you to reserve memory for it, if it supports reserve.
+/// The element type of the container has to be std::string.
 /// @param[in] value The std::string to split.
-/// @param[out] result The container where all the parts will placed. The element for the container
-///                    has to be std::string. You can use reserve.
+/// @param[out] result The container where all the parts will be placed. The element for the
+///                    container has to be std::string. You can use reserve.
 /// @param[in] delimiter A delimiter that will be used to identify where to split.
 template<typename Container>
 inline void split(const std::string& value, Container& result, const std::string& delimiter)
@@ -1170,11 +1170,11 @@ inline void split(const std::string& value, Container& result, const std::string
 
 
 /// Splits a string into tokens with a delimiter. Gives the ability to select the type of container
-/// to used as output and even allows you to reserve memory for it, if it supports reserve. The
-/// containers element type has to be string.
+/// to be used as output and even allows you to reserve memory for it, if it supports reserve.
+/// The element type of the container has to be std::string.
 /// @param[in] value The std::string to split.
-/// @param[out] result The container where all the parts will placed. The element for the container
-///                    has to be std::string. You can use reserve.
+/// @param[out] result The container where all the parts will be placed. The element of the
+///                    container has to be std::string. You can use reserve.
 /// @param[in] delimiter A delimiter that will be used to identify where to split.
 template<typename Container>
 inline void split(const std::string& value, Container& result, const char delimiter)
@@ -1183,11 +1183,11 @@ inline void split(const std::string& value, Container& result, const char delimi
 }
 
 /// Splits a string into tokens with a delimiter. Gives the ability to select the type of container
-/// to used as output and even allows you to reserve memory for it, if it supports reserve. The
-/// containers element type has to be string.
+/// to be used as output and even allows you to reserve memory for it, if it supports reserve.
+/// The element type of the container has to be std::string.
 /// @param[in] value The std::string to split.
-/// @param[out] result The container where all the parts will placed. The element for the container
-///                    has to be std::string. You can use reserve.
+/// @param[out] result The container where all the parts will be placed. The element of the
+///                    container has to be std::string. You can use reserve.
 /// @param[in] delimiter A delimiter that will be used to identify where to split.
 template<typename Container>
 inline void split(const std::string& value, Container& result, const char* delimiter)
@@ -1261,7 +1261,7 @@ inline void replace_short(std::string& value, const std::string& match,
 // Replaces all places in the input std::string where a match is found with the replacement 
 // std::string. Version specialized for handling long strings faster but is even more specialized
 // than mtl::string::replace_long to be called only after the stack array is full and we have to
-// start using heap allocations for keeping track of the positions where matches where found.
+// start using heap allocations for keeping track of the positions where matches were found.
 inline void replace_long_heap(std::string& value, const std::string& match,
 							  const std::string& replacement,
 							  const std::array<size_t, 20>& found_positions,
@@ -1287,7 +1287,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 		difference = value.size() + (positions.size() * (replacement.size() - match.size()));
 	}
 	// if what we replace is smaller than the match then we have to convert numbers to a
-	// singed integer type so we can accept negative numbers
+	// signed integer type so we can accept negative numbers
 	else
 	{
 		// turn size_t to int64_t
@@ -1333,7 +1333,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 	// copy from the last match to the end
 	std::copy(it_begin, value.end(), it_output);
 
-	// set the input string to the resulting string that we have perfomed all the replacements on
+	// set the input string to the resulting string that we have performed all the replacements on
 	value = result;
 }
 
@@ -1392,7 +1392,7 @@ inline void replace_long(std::string& value, const std::string& match,
 		difference = value.size() + (actual_size * (replacement.size() - match.size()));
 	}
 	// if what we replace is smaller than the match then we have to convert numbers to a
-	// singed integer type so we can accept negative numbers
+	// signed integer type so we can accept negative numbers
 	else 
 	{
 		// turn size_t to int64_t
@@ -1439,7 +1439,7 @@ inline void replace_long(std::string& value, const std::string& match,
 	// copy from the last match to the end
 	std::copy(it_begin, value.end(), it_output);
 
-	// set the input string to the resulting string that we have perfomed all the replacements on
+	// set the input string to the resulting string that we have performed all the replacements on
 	value = result;
 }
 
