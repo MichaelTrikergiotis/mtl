@@ -64,13 +64,13 @@ TEST_CASE("mtl::not_unique_inclusive for std::vector, 1 element")
     std::vector<int> numbers{ 3 };
     std::sort(numbers.begin(), numbers.end());
     numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
-    std::vector<int> results { 3 };
+    std::vector<int> results;
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names { "Peter" };
     std::sort(names.begin(), names.end());
     names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
-    std::vector<std::string> results_names { "Peter" };
+    std::vector<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
 
@@ -265,13 +265,13 @@ TEST_CASE("mtl::not_unique_exclusive for std::vector, 1 element")
     std::vector<int> numbers { 3 };
     std::sort(numbers.begin(), numbers.end());
     numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
-    std::vector<int> results { 3 };
+    std::vector<int> results;
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names { "Bob" };
     std::sort(names.begin(), names.end());
     names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
-    std::vector<std::string> results_names { "Bob" };
+    std::vector<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
 
@@ -457,13 +457,13 @@ TEST_CASE("mtl::not_unique for std::vector, 1 element")
     std::vector<int> numbers { 3 };
     std::sort(numbers.begin(), numbers.end());
     numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
-    std::vector<int> results { 3 };
+    std::vector<int> results;
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names { "Bob" };
     std::sort(names.begin(), names.end());
     names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
-    std::vector<std::string> results_names { "Bob" };
+    std::vector<std::string> results_names;
     CHECK_EQ((names == results_names), true);
 }
 

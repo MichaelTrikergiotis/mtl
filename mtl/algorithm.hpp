@@ -56,13 +56,6 @@ inline Iter not_unique_inclusive_impl(Iter first, Iter last, BinaryPredicate bin
 		return last;
 	}
 
-	// if there is only a single element
-	if(std::next(first) == last)
-	{
-		return last;
-	}
-
-
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
@@ -150,13 +143,7 @@ inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate bin
 		return last;
 	}
 
-	// if there is only a single element
-	if(std::next(first) == last)
-	{
-		return last;
-	}
-
-
+	
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
