@@ -42,6 +42,7 @@ namespace mtl
 // NOT_UNIQUE           - Keeps only a single copy of each duplicate item.
 // ================================================================================================
 
+
 namespace detail
 {
 
@@ -95,8 +96,8 @@ inline Iter not_unique_inclusive_impl(Iter first, Iter last, BinaryPredicate bin
 } // namespace detail end
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items including the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items including the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. 
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
@@ -109,8 +110,8 @@ inline Iter not_unique_inclusive(Iter first, Iter last)
 											      std::equal_to<typename Iter::value_type>{});
 }
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items including the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items including the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. This specialization allows you to pass a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in] first The iterator to the beginning of the range.
@@ -186,8 +187,8 @@ inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate bin
 } // namespace detail end
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items excluding the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items excluding the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted.
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
@@ -203,8 +204,8 @@ inline Iter not_unique_exclusive(Iter first, Iter last)
 }
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items excluding the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items excluding the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. This specialization allows you to pass a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in] first The iterator to the beginning of the range.
@@ -222,8 +223,8 @@ inline Iter not_unique_exclusive(Iter first, Iter last, BinaryPredicate binary_p
 
 // --
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps only a single
-/// copy of each duplicate item. Requires that the items in the range are sorted. 
+/// Keeps only a single copy of each duplicate item. Moves all duplicates to the front and returns
+/// an iterator to the new end. Requires that the items in the range are sorted. 
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
 /// @return Iterator to the new end where all the non unique items are moved.
@@ -241,8 +242,8 @@ inline Iter not_unique(Iter first, Iter last)
 }
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps only a single
-/// copy of each duplicate item. Requires that the items in the range are sorted. This 
+/// Keeps only a single copy of each duplicate item. Moves all duplicates to the front and returns
+/// an iterator to the new end. Requires that the items in the range are sorted. This 
 /// specialization allows you to pass A binary predicate used for equality comparison of duplicate
 /// items.
 /// @param[in] first The iterator to the beginning of the range.
