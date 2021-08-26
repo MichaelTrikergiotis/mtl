@@ -3,7 +3,7 @@
 // 22/09/2018
 // 
 // 
-// This header contains algorithms related with mathematics.
+// This header contains algorithms related to mathematics.
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -53,7 +53,7 @@ approx_equal_abs(Type v1, Type v2, Type absolute_tolerance = static_cast<Type>(0
 /// relative tolerance value. The size of the values v1 and v2 affect the relative tolerance.
 /// @param[in] v1 A floating point number. Types can be float, double and long double.
 /// @param[in] v2 A floating point number. Types can be float, double and long double.
-/// @param[in] relative_tolerance A optional floating point number used as an relative tolerance.
+/// @param[in] relative_tolerance A optional floating point number used as a relative tolerance.
 /// @return If the numbers are approximately equal.
 template<typename Type>
 [[nodiscard]]
@@ -73,7 +73,7 @@ approx_equal_rel(Type v1, Type v2, Type relative_tolerance = static_cast<Type>(0
 /// @param[in] v1 A floating point number. Types can be float, double and long double.
 /// @param[in] v2 A floating point number. Types can be float, double and long double.
 /// @param[in] absolute_tolerance A optional floating point number used as an absolute tolerance.
-/// @param[in] relative_tolerance A optional floating point number used as an relative tolerance.
+/// @param[in] relative_tolerance A optional floating point number used as a relative tolerance.
 /// @return If the numbers are approximately equal.
 template<typename Type>
 [[nodiscard]]
