@@ -116,7 +116,7 @@ inline FloatingPoint to_double_impl(const char* num)
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -225,7 +225,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -338,7 +338,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -385,7 +385,7 @@ struct to_num_deductor
 	// Constructor with const char*.
 	to_num_deductor(const char* value) : value_v(value) { }
 
-	// Converts the given std::string to given integral type.
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
@@ -490,7 +490,7 @@ struct to_num_deductor_noex
 	to_num_deductor_noex(const char* value, bool& success) : value_v(value), 
 															 success_v(&success) { }
 
-	// Converts the given std::string to given integral type.
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
@@ -590,7 +590,7 @@ struct to_num_deductor_noex_pair
 	// Constructor with const char*.
 	to_num_deductor_noex_pair(const char* value) : value_v(value) {}
 
-	// Converts the given std::string to given integral type.
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	std::pair<IntegralType, bool> to_integral_impl()
 	{
@@ -675,7 +675,7 @@ struct to_num_deductor_noex_pair
 	}
 };
 
-} // namsepace detail end
+} // namespace detail end
 
 
 
@@ -711,7 +711,7 @@ inline auto to_num(const char* value)
 /// Converts an std::string to a number. You can't use auto and have to specify the numeric type
 /// you want. If it can't convert the value it returns 0 and sets the boolean to false.
 /// @param[in] value An std::string representing a number.
-/// @param[out] success A boolean used to denote success or failure to covert to a number.
+/// @param[out] success A boolean used to denote success or failure to convert to a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value, bool& success) noexcept
@@ -722,7 +722,7 @@ inline auto to_num_noex(const std::string& value, bool& success) noexcept
 /// Converts a const char* to a number. You can't use auto and have to specify the numeric type
 /// you want. If it can't convert the value it returns 0 and sets the boolean to false.
 /// @param[in] value A const char* representing a number.
-/// @param[out] success A boolean used to denote success or failure to covert to a number.
+/// @param[out] success A boolean used to denote success or failure to convert to a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
 inline auto to_num_noex(const char* value, bool& success) noexcept
@@ -793,7 +793,8 @@ inline auto to_num_noex(const char* value) noexcept
 // ================================================================================================
 // NUMERIC_CAST       - Casts from one numeric type to another. Throws an exception if the value
 // 					    doesn't fit the requested type.
-// NUMERIC_CAST_NOEX  - Casts from one numeric type to another. Doesn't throw if value doesn't fit.
+// NUMERIC_CAST_NOEX  - Casts from one numeric type to another. Doesn't throw if the value 
+//                      doesn't fit.
 // ================================================================================================
 
 
@@ -882,7 +883,7 @@ inline Result numeric_cast_noex(const Type number, bool& success) noexcept
 namespace detail
 {
 
-// Actual rounding_cast deductor implmentation.
+// Actual rounding_cast deductor implementation.
 template<typename FloatingPoint>
 struct rounding_cast_deductor
 {
@@ -930,7 +931,7 @@ struct rounding_cast_deductor
 	}
 };
 
-// Actual rounding_cast deductor with no exceptions implmentation that can deduce std::pair.
+// Actual rounding_cast deductor with no exceptions implementation that can deduce std::pair.
 template<typename FloatingPoint>
 struct rounding_cast_deductor_noex_pair
 {
@@ -975,7 +976,7 @@ struct rounding_cast_deductor_noex_pair
 	}
 };
 
-// Actual rounding_cast deductor with no exceptions implmentation.
+// Actual rounding_cast deductor with no exceptions implementation.
 template<typename FloatingPoint>
 struct rounding_cast_deductor_noex
 {
