@@ -1263,6 +1263,12 @@ inline void overtype(const std::string& argument)
 /// @param[in] argument An argument to overtype.
 inline void overtype(const char* argument)
 {
+	// if the const char* is nullptr do nothing
+	if(argument == nullptr)
+	{
+		return;
+	}
+
 	// GCOVR_EXCL_START
 	// if we are not inside a terminal just print the characters and return
 	if (mtl::console::detail::inside_terminal == false) 

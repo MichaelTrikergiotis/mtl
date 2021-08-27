@@ -1084,7 +1084,18 @@ TEST_CASE("mtl::console::overtype showcase how updating a counter would look lik
 }
 
 
-
+TEST_CASE("mtl::console::overtype with nullptr, const char*")
+{
+    // this test shouldn't overtype anything because nullptr is passed as a parameter
+    std::string original = "Nothing should be changed from this message.";
+    const char* cs_nullptr = nullptr;
+    REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
+    REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[]\n"));
+    REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
+    REQUIRE_NOTHROW(mtl::console::print(original));
+    REQUIRE_NOTHROW(mtl::console::overtype(cs_nullptr));
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
 
 
 TEST_CASE("mtl::console::overtype with empty original and empty replacement, const char*")

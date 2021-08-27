@@ -11,7 +11,7 @@
 #include <list>
 #include <set>
 #include <utility>   // std::pair
-#include <stdexcept> // std::invalid_argument
+#include <stdexcept> // std::invalid_argument, std::logic_error
 
 // Disable some asserts so we can test more thoroughly.
 #define MTL_DISABLE_SOME_ASSERTS
@@ -1842,7 +1842,6 @@ TEST_CASE("mtl::string::to_string with temp")
     CHECK_EQ(str_s, std::string("std::string -> std::string"));
     std::string customc_s = mtl::string::to_string(my_custom_class());
     CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));    
-
 }
 
 
@@ -1879,10 +1878,19 @@ TEST_CASE("mtl::string::to_string")
     CHECK_EQ(str_s, std::string("std::string -> std::string"));
     my_custom_class my_class;
     std::string customc_s = mtl::string::to_string(my_class);
-    CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));    
+    CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));
+
+
+
+    // check that is works correctly with const char* that is nullptr
+    const char* cs_nullptr = nullptr;
+    std::string empty;
+    REQUIRE_THROWS_AS(empty = mtl::string::to_string(cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty.empty(), true);
+
+
 
     // check that is works correctly with UTF8 strings
-
     std::string _one_nonascii = mtl::string::to_string(one_nonascii);
     std::string _only_nonascii = mtl::string::to_string(only_nonascii);
     std::string _mixed_nonascii = mtl::string::to_string(mixed_nonascii);
@@ -2149,6 +2157,53 @@ TEST_CASE("mtl::string::join")
     std::string multi_var = mtl::string::join(cs, mary, d, b, false, b, ", ", p);
     CHECK_EQ(multi_var, std::string("Hello Mary 2.2truefalsetrue, 33, d"));
 
+
+
+    // check that is works correctly with const char* that is nullptr
+    const char* cs_nullptr = nullptr;
+    std::string empty_result1;
+    REQUIRE_THROWS_AS(empty_result1 = mtl::string::join(cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result1.empty(), true);
+
+    std::string empty_result2;
+    REQUIRE_THROWS_AS(empty_result2 = mtl::string::join(cs_nullptr, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result2.empty(), true);
+
+    std::string empty_result3;
+    REQUIRE_THROWS_AS(empty_result3 = mtl::string::join(cs_nullptr, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result3.empty(), true);
+
+    std::string empty_result4;
+    REQUIRE_THROWS_AS(empty_result4 = mtl::string::join(11, 22.22f, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result4.empty(), true);
+
+    std::string empty_result5;
+    REQUIRE_THROWS_AS(empty_result5 = mtl::string::join(cs_nullptr, 11, 22.22f), std::logic_error);
+    REQUIRE_EQ(empty_result5.empty(), true);
+    
+    std::string empty_result6;
+    REQUIRE_THROWS_AS(empty_result6 = mtl::string::join(11, 22.22f, cs_nullptr, 11, 22.22f),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result6.empty(), true);
+
+    std::string empty_result7;
+    const std::string some_text = "some text";
+    REQUIRE_THROWS_AS(empty_result7 = mtl::string::join(some_text, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result7.empty(), true);
+
+    std::string empty_result8;
+    REQUIRE_THROWS_AS(empty_result8 = mtl::string::join(cs_nullptr, some_text), std::logic_error);
+    REQUIRE_EQ(empty_result8.empty(), true);
+
+    std::string empty_result9;
+    REQUIRE_THROWS_AS(empty_result9 = mtl::string::join(some_text, cs_nullptr, some_text),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result9.empty(), true);
+
+    std::string empty_result10;
+    REQUIRE_THROWS_AS(empty_result10 = mtl::string::join(some_text, 22, cs_nullptr, 33, some_text),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result10.empty(), true);
 
 
     // check that is works correctly with UTF8 strings

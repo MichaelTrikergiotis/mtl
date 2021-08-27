@@ -21,7 +21,7 @@
 #include <cmath>             // std::floor, std::ceil
 #include <vector>            // std::vector
 #include <array>             // std::array
-#include <stdexcept>         // std::invalid_argument
+#include <stdexcept>         // std::invalid_argument, std::logic_error
 #include <cstddef>           // std::ptrdiff_t
 #include <type_traits>       // std::enable_if_t, std::is_same_v, std::remove_cv_t
 #include "type_traits.hpp"   // mtl::is_std_string_v
@@ -741,6 +741,11 @@ inline std::string to_string(const std::string& value)
 [[nodiscard]]
 inline std::string to_string(const char* value) 
 { 
+	// if the const char* is nullptr throw because the conversion can't continue
+	if(value == nullptr)
+	{
+		throw std::logic_error("Error. The const char* is nullptr."); // GCOVR_EXCL_LINE
+	}
 	return std::string(value); // GCOVR_EXCL_LINE
 }
 
@@ -993,9 +998,13 @@ inline void count_size_impl(size_t& size, const std::string& type)
 // Count size for const char*.
 inline void count_size_impl(size_t& size, const char* type)
 {
-	// std::strlen doesn't count the null terminator \0 which is what we want since it will
-	// not be included in the resulting string when const char* is concatenated 
-	size += std::strlen(type);
+	// make sure the const char* is not nullptr before trying to find the length
+	if(type != nullptr)
+	{
+		// std::strlen doesn't count the null terminator \0 which is what we want since it will
+		// not be included in the resulting string when const char* is concatenated
+		size += std::strlen(type);
+	}
 }
 
 // Count size for bool.
