@@ -47,7 +47,7 @@ const std::string text2
 (reinterpret_cast<const char*>
 (u8"Russian : Привет, French : Bonjour, Bulgarian : Здравеите  |"));
 
-// Strings that will be used as a filename conaining UTF8 text from various languages.
+// Strings that will be used as a filename containing UTF8 text from various languages.
 const std::string filename_base (reinterpret_cast<const char*>
 (u8"_test_file_αρχείο_ファイル_文件_файл"));
 
@@ -1025,7 +1025,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with integers")
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    // create the file by writting all number from the container, mtl::filesystem::write_all_lines
+    // create the file by writing all number from the container, mtl::filesystem::write_all_lines
     // can accept any type of element that can be converted to std::string by mtl::to_string
     std::vector<int> text_data1{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
@@ -1061,7 +1061,7 @@ TEST_CASE("mtl::filesystem::write_all_lines with floats")
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    // create the file by writting all numbers from the container, 
+    // create the file by writing all numbers from the container, 
     // mtl::filesystem::write_all_lines can accept any type of element that can be converted to 
     // std::string by mtl::to_string 
     std::vector<float> text_data1 { 1.1f, 2.2f, 3.3f, 4.4f, 5.5f, 6.6f, 7.7f, 8.8f, 9.9f };
@@ -1177,7 +1177,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write / append and mtl::filesystem::
     // delete the file used for this test case if it exists from a previous failed run
     std::filesystem::remove(filename);
 
-    // create the file by writting all lines from the container
+    // create the file by writing all lines from the container
     std::vector<std::string> text_data1 { text1, text1, text1, text1, text1 };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
                                                              text_data1.end());
@@ -1230,7 +1230,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     std::filesystem::remove(filename);
 
     const std::string text_with_newline = "R\nG\nB";
-    // create the file by writting all lines from the container
+    // create the file by writing all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
                                                               text_data1.end());
@@ -1283,7 +1283,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines with
     std::filesystem::remove(filename);
 
     const std::string text_with_newline = "R\r\nG\r\nB";
-    // create the file by writting all lines from the container
+    // create the file by writing all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
                                                               text_data1.end());
@@ -1335,7 +1335,7 @@ TEST_CASE("mtl::filesystem::write_all_lines write/append and read_all_lines mixe
     std::filesystem::remove(filename);
 
     const std::string text_with_newline = "R\nG\r\nB";
-    // create the file by writting all lines from the container
+    // create the file by writing all lines from the container
     std::vector<std::string> text_data1{ text_with_newline, text_with_newline };
     bool written_correctly = mtl::filesystem::write_all_lines(filename, text_data1.begin(), 
                                                               text_data1.end());

@@ -984,7 +984,7 @@ TEST_CASE("mtl::percent long double")
     REQUIRE_EQ(excepted.size(), results.size());
     for (size_t i = 0; i < portions.size(); i++)
     {
-        // approximate equality lor long doubleing point numbers
+        // approximate equality lor long double numbers
         auto value = results[i];
         CHECK_LT(excepted[i] - 0.01l, value);
         CHECK_GT(excepted[i] + 0.01l, value);

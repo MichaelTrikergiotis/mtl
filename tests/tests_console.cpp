@@ -23,7 +23,7 @@
 // mtl::console::overtype, mtl::console::clear
 
 
-// Create our own class with overloaded operator<< so we can print it successfully.
+// Create our own class with an overloaded operator<< so we can print it successfully.
 class custom_class
 {
     std::string s = "Numbers : " ;
@@ -36,8 +36,8 @@ class custom_class
     }
 };
 
-// Create our own class with overloaded operator<< that is not a friend function, so we can print
-// it successfully.
+// Create our own class with an overloaded operator<< that is not a friend function, so we can
+// print it successfully.
 class unfriendly_class
 {
 public:
@@ -395,7 +395,7 @@ TEST_CASE("mtl::console::print_all with incorrect iterators")
 TEST_CASE("mtl::console::print_all")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end()));
     mtl::console::println("\n------------\n");
@@ -405,7 +405,7 @@ TEST_CASE("mtl::console::print_all")
 TEST_CASE("mtl::console::print_all, integers with delimiter")
 { 
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", "));
     mtl::console::println("\n------------\n");
@@ -465,7 +465,7 @@ TEST_CASE("mtl::console::print_all with delimiter using std::map")
 TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10));
     mtl::console::println("\n------------\n");
@@ -474,7 +474,7 @@ TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10));
     mtl::console::println("\n------------\n");
@@ -483,7 +483,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with newline threshold"
 TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line start and finish")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10, "[", "]"));
     mtl::console::println("\n------------\n");
@@ -492,7 +492,7 @@ TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line st
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold and start/finish")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10, "[", "]"));
     mtl::console::println("\n------------\n");

@@ -23,12 +23,12 @@ TEST_CASE("MTL_ASSERT_MSG")
 {
     bool successfull_execution = false;
 
-    // check that MTL_ASSERT_MSG and assert have matching funcitonality, because MTL_ASSERT_MSG
+    // check that MTL_ASSERT_MSG and assert have matching functionality, because MTL_ASSERT_MSG
     // is just assert with a message
     assert(1 > 0);
     MTL_ASSERT_MSG(1 > 0, "1 should be larger than 0.");
     
-    // chekc a const variable
+    // check a const variable
     [[maybe_unused]]const int x = 150;
     assert(x == 150);
     MTL_ASSERT_MSG(x == 150, "The variable should be equal to 150.");
@@ -65,7 +65,7 @@ TEST_CASE("MTL_ASSERT_MSG")
     
     
 
-    // if we reached this point means all the previous code executed succesfully
+    // if we reached this point means all the previous code executed successfully
     successfull_execution = true;
     REQUIRE_EQ(successfull_execution, true);
 }

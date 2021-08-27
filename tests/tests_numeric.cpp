@@ -81,7 +81,7 @@ TEST_CASE("mtl::iota with std::vector<int>")
 TEST_CASE("mtl::iota with std::vector<unsigned int>")
 {
     // no tests for negative values for unsigned int because it unsigned integers do not support
-    // negatie values
+    // negative values
 
     // mtl::iota with no parameters
     std::vector<unsigned int> zero_four{ 0, 1, 2, 3, 4 };
@@ -334,7 +334,7 @@ TEST_CASE("mtl::iota with std::list<int>")
 TEST_CASE("mtl::iota with std::list<unsigned int>")
 {
     // no tests for negative values for unsigned int because it unsigned integers do not support
-    // negatie values
+    // negative values
 
     // mtl::iota with no parameters
     std::list<unsigned int> zero_four{ 0, 1, 2, 3, 4 };

@@ -3,7 +3,7 @@
 // 05/08/2020
 // 
 //
-// This header includes doctest and suppresses multiple warnings related with it.
+// This header includes doctest and suppresses multiple warnings related to it.
 //
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -11,7 +11,7 @@
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 
-// supress MSVC warnings about doctest.h
+// suppress MSVC warnings about doctest.h
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 4804 )
@@ -19,7 +19,7 @@
 #pragma warning( disable : 4996 )
 #endif 
 
-// supress clang warning about doctest.h
+// suppress clang warning about doctest.h
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdouble-promotion"
@@ -36,7 +36,7 @@
 #include <iostream>
 #endif
 
-// stop supressing clang warnings
+// stop suppressing clang warnings
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #endif

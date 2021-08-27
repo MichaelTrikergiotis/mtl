@@ -82,7 +82,7 @@ TEST_CASE("mtl::rng with int check various functions")
 
     REQUIRE_EQ(values.empty(), false);
     REQUIRE_EQ(values2.empty(), false);
-    // check the two resulting containers with different min and max are differrent
+    // check the two resulting containers with different min and max are different
     REQUIRE_NE(values, values2);
 }
 
@@ -189,7 +189,7 @@ TEST_CASE("mtl::rng with float check various functions")
 
     REQUIRE_EQ(values.empty(), false);
     REQUIRE_EQ(values2.empty(), false);
-    // check the two resulting containers with different min and max are differrent
+    // check the two resulting containers with different min and max are different
     REQUIRE_NE(values, values2);
 }
 
@@ -307,7 +307,7 @@ TEST_CASE("mtl::rng with double check various functions")
 
     REQUIRE_EQ(values.empty(), false);
     REQUIRE_EQ(values2.empty(), false);
-    // check the two resulting containers with different min and max are differrent
+    // check the two resulting containers with different min and max are different
     REQUIRE_NE(values, values2);
 }
 
@@ -428,7 +428,7 @@ TEST_CASE("mtl::rng with long double check various functions")
 
     REQUIRE_EQ(values.empty(), false);
     REQUIRE_EQ(values2.empty(), false);
-    // check the two resulting containers with different min and max are differrent
+    // check the two resulting containers with different min and max are different
     REQUIRE_NE(values, values2);
 }
 
