@@ -32,7 +32,7 @@
 
 #if defined(__APPLE__)
 // including iostream header fixes a linking error with doctest on macOS, 
-// check the issue at github.com/onqtam/doctest/issues/126
+// check the issue at https://github.com/onqtam/doctest/issues/126
 #include <iostream>
 #endif
 

@@ -37,9 +37,9 @@
 // MSVC /Zc:char8_t- flag was not used. This is because C++ 20 introduced a breaking change,
 // u8 string literals are now char8_t type instead of char_t type. 
 // For more information check :
-// www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
-// stackoverflow.com/a/57453713
-// docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
+// https://stackoverflow.com/a/57453713
+// https://docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
 const std::string only_ascii ("abcdefghijklmnopqrstABCDEFGHIJKLMNOPQRST");
 
 const std::string one_nonascii 

@@ -16,7 +16,7 @@
 
 // This fixes an error on Windows when the Windows.h header is included because it defines
 // two MACROS that break standard compliant C++ code. For a much more detailed explanation :
-// gist.github.com/MichaelTrikergiotis/8ab0994ac000e74203a60657f5b1da45
+// https://gist.github.com/MichaelTrikergiotis/8ab0994ac000e74203a60657f5b1da45
 
 #ifdef _WIN32
 
