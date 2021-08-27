@@ -132,7 +132,7 @@ namespace detail
 		}
 
 		// handle the case where there is only one character and it is not a newline
-		if((read_data.size() == 1) && (read_data[0] != '\n'))
+		if((read_data.size() == 1) && (read_data[0] != '\n')) // GCOVR_EXCL_LINE
 		{
 			mtl::emplace_back(split_lines, read_data); 
 			return;
@@ -268,7 +268,7 @@ inline bool write_file(const std::filesystem::path& filename, const std::string&
 	// std::ofstream is RAII wrapper and will close correctly if an exception is thrown
 	std::ofstream out_file(filename, open_mode);
 	// if we can't open the file it is an error
-	if (out_file.is_open() == false) { return false; }
+	if (out_file.is_open() == false) { return false; } // GCOVR_EXCL_LINE
 
 	// enable exceptions for std::ofstream
 	out_file.exceptions(std::ofstream::badbit | std::ofstream::failbit);

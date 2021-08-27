@@ -377,7 +377,12 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 					  const std::string& line_end = "",  
 					  mtl::console::print_pad padding_style = mtl::console::print_pad::none)
 {
-	if (first == last) { return; }
+	
+	
+	if (first == last) // GCOVR_EXCL_LINE
+	{ 
+		return; 
+	}
 
 	// find the number of elements
 	auto iter_distance = std::distance(first, last);

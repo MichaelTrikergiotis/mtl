@@ -176,7 +176,7 @@ inline bool is_ascii(const char character) noexcept
 {
 	int value = static_cast<int>(static_cast<unsigned char>(character));
 	// is the value within the ASCII range of characters
-	if ((value >= 0) && (value <= 127))
+	if ((value >= 0) && (value <= 127)) // GCOVR_EXCL_LINE
 	{
 		return true;
 	}
@@ -719,9 +719,9 @@ inline std::string to_string(const bool value)
 { 
 	if(value)
 	{
-		return std::string("true");
+		return std::string("true"); // GCOVR_EXCL_LINE
 	}
-	return std::string("false");
+	return std::string("false"); // GCOVR_EXCL_LINE
 }
 
 /// Converts bool, char, char*, std::string, std::pair and all numeric types to std::string. Also
@@ -973,7 +973,7 @@ namespace detail
 template<typename Type>
 inline void join_impl(std::string& value, const Type& type)
 {
-	value += mtl::string::to_string(type);
+	value += mtl::string::to_string(type); // GCOVR_EXCL_LINE
 }
 
 // Actual implementation for variadic template join.
