@@ -48,7 +48,7 @@ There are 116 non-member functions.
 - `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L551) [(Examples)](../tests/tests_console.cpp#L670)
 - `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L552) [(Examples)](../tests/tests_console.cpp#L825)
 - `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1230) [(Examples)](../tests/tests_console.cpp#L920)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1290) [(Examples)](../tests/tests_console.cpp#L1300)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1296) [(Examples)](../tests/tests_console.cpp#L1311)
 
 ---------------------------------------------------
 
@@ -157,11 +157,11 @@ There are 116 non-member functions.
 - `mtl::string::pad_back` [(Documentation)](../mtl/string.hpp#L506) [(Examples)](../tests/tests_string.cpp#L1585)
 - `mtl::string::pad` [(Documentation)](../mtl/string.hpp#L509) [(Examples)](../tests/tests_string.cpp#L1585)
 - `mtl::string::to_string` [(Documentation)](../mtl/string.hpp#L672) [(Examples)](../tests/tests_string.cpp#L1803)
-- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L788) [(Examples)](../tests/tests_string.cpp#L1896)
-- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L964) [(Examples)](../tests/tests_string.cpp#L2119)
-- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1101) [(Examples)](../tests/tests_string.cpp#L2165)
-- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1239) [(Examples)](../tests/tests_string.cpp#L3273)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1547) [(Examples)](../tests/tests_string.cpp#L3931)
+- `mtl::string::join_all` [(Documentation)](../mtl/string.hpp#L793) [(Examples)](../tests/tests_string.cpp#L1904)
+- `mtl::string::join` [(Documentation)](../mtl/string.hpp#L969) [(Examples)](../tests/tests_string.cpp#L2127)
+- `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1110) [(Examples)](../tests/tests_string.cpp#L2220)
+- `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1248) [(Examples)](../tests/tests_string.cpp#L3328)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1556) [(Examples)](../tests/tests_string.cpp#L3986)
 
 ---------------------------------------------------
 
