@@ -4,8 +4,7 @@
 //  
 // 
 // This header contains the implementation of the xorshift128plus random number generator in the
-// way that the C++ standard library requires for random number generation engines. No inheritance
-// is used because vptrs destroy performance.
+// way that the C++ standard library requires for random number generation engines.
 // 
 // Satisfies the requirements for RandomNumberEngine :
 // https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine
