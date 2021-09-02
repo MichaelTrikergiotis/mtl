@@ -37,7 +37,9 @@ namespace mtl
 {
 
 // ================================================================================================
-// ARE_SAME - Returns if a type is the same as all the types in a parameter pack.
+// ARE_SAME   - Returns if a type is the same as all the types in a parameter pack.
+// ARE_SAME_V - Returns if a type is the same as all the types in a parameter pack. Helper that
+//              allows you to elide the ::value at the end.
 // ================================================================================================
 
 namespace detail
@@ -63,6 +65,8 @@ constexpr bool are_same_v = are_same<Type, Args...>::value;
 
 // ================================================================================================
 // HAS_RESERVE      - Detects if the given type has the reserve function.
+// HAS_RESERVE_V    - Detects if the given type has the reserve function. Helper that allows you
+//                    to elide the ::value at the end.
 // ================================================================================================
 
 /// Returns a boolean whether the type has the reserve function or not.
@@ -85,7 +89,9 @@ constexpr bool has_reserve_v = has_reserve<Type>::value;
 
 
 // ================================================================================================
-// HAS_PUSH_BACK  - Detects if the type has the push_back function.
+// HAS_PUSH_BACK    - Detects if the type has the push_back function.
+// HAS_PUSH_BACK_V  - Detects if the type has the push_back function. Helper that allows you to
+//                    elide the ::value at the end.
 // ================================================================================================
 
 /// Returns a boolean whether the type has the push_back function or not.
@@ -106,7 +112,9 @@ constexpr bool has_push_back_v = has_push_back<Type>::value;
 
 
 // ================================================================================================
-// HAS_EMPLACE_BACK - Detects if the type has the emplace_back function.
+// HAS_EMPLACE_BACK   - Detects if the type has the emplace_back function.
+// HAS_EMPLACE_BACK_V - Detects if the type has the emplace_back function. Helper that allows you
+//                      to elide the ::value at the end.
 // ================================================================================================
 
 namespace detail
@@ -160,7 +168,8 @@ constexpr bool has_emplace_back_v = has_emplace_back<Type>::value;
 
 // ================================================================================================
 // HAS_SIZE   - Detects if a type has a size function.
-// HAS_SIZE_V - Helper that allows you to elide the ::value at the end.
+// HAS_SIZE_V - Detects if a type has a size function. Helper that allows you to elide 
+//              the ::value at the end.
 // ================================================================================================
 
 /// Returns a boolean whether the type has the size function or not.
@@ -182,7 +191,8 @@ constexpr bool has_size_v = has_size<Type>::value;
 
 // ================================================================================================
 // HAS_FIND    - Detects if the type has the find function.
-// HAS_FIND_V  - Helper that allows you to elide the ::value at the end.
+// HAS_FIND_V  - Detects if the type has the find function. Helper that allows you to elide 
+//               the ::value at the end.
 // ================================================================================================
 
 namespace detail
@@ -256,17 +266,28 @@ constexpr bool has_find_v = has_find<Type>::value;
 
 // ================================================================================================
 // IS_SINT      - Detects if a type is a signed integer.
-// IS_SINT_V    - Helper that allows you to elide the ::value at the end.
-// IS_UINT      - Detects if a type is an unsigned integer
-// IS_UINT_V    - Helper that allows you to elide the ::value at the end.
+// IS_SINT_V    - Detects if a type is a signed integer. Helper that allows you to elide
+//                the ::value at the end.
+// 
+// IS_UINT      - Detects if a type is an unsigned integer.
+// IS_UINT_V    - Detects if a type is an unsigned integer. Helper that allows you to elide
+//                the ::value at the end.
+// 
 // IS_INT       - Detects if a type is signed or unsigned integer.
-// IS_INT_V     - Helper that allows you to elide the ::value at the end.
+// IS_INT_V     - Detects if a type is signed or unsigned integer. Helper that allows you to elide
+//                the ::value at the end.
+// 
 // IS_FLOAT     - Detects if a type is float, double or long double.
-// IS_FLOAT_V   - Helper that allows you to elide the ::value at the end.
+// IS_FLOAT_V   - Detects if a type is float, double or long double. Helper that allows you to
+//                elide the ::value at the end.
+// 
 // IS_NUMBER    - Detects if a type is a number.
-// IS_NUMBER_V  - Helper that allows you to elide the ::value at the end.
+// IS_NUMBER_V  - Detects if a type is a number. Helper that allows you to elide the ::value at
+//                the end.
+// 
 // IS_CHAR      - Detects if a type is char or unsigned char.
-// IS_CHAR_V    - Helper that allows you to elide the ::value at the end.
+// IS_CHAR_V    - Detects if a type is char or unsigned char. Helper that allows you to elide
+//                the ::value at the end.
 // ================================================================================================
 
 /// Returns a boolean whether the type is signed integer. Accepted types are int8_t, short, int, 
@@ -362,7 +383,8 @@ constexpr bool is_char_v = is_char<Type>::value;
 
 // ================================================================================================
 // IS_STD_ARRAY    - Detects if the container is an std::array.
-// IS_STD_ARRAY_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_ARRAY_V  - Detects if the container is an std::array. Helper type that allows you to
+//                   elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::vector.
@@ -382,7 +404,8 @@ constexpr bool is_std_array_v = is_std_array<Type>::value;
 
 // ================================================================================================
 // IS_STD_VECTOR    - Detects if the container is an std::vector.
-// IS_STD_VECTOR_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_VECTOR_V  - Detects if the container is an std::vector. Helper type that allows you to
+//                    elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::vector.
@@ -402,7 +425,8 @@ constexpr bool is_std_vector_v = is_std_vector<Type>::value;
 
 // ================================================================================================
 // IS_STD_DEQUE    - Detects if the container is an std::deque.
-// IS_STD_DEQUE_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_DEQUE_V  - Detects if the container is an std::deque. Helper type that allows you to
+//                   elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::vector.
@@ -422,7 +446,8 @@ constexpr bool is_std_deque_v = is_std_deque<Type>::value;
 
 // ================================================================================================
 // IS_STD_FORWARD_LIST    - Detects if the container is an std::forward_list.
-// IS_STD_FORWARD_LIST_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_FORWARD_LIST_V  - Detects if the container is an std::forward_list. Helper type that
+//                          allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::forward_list.
@@ -442,7 +467,8 @@ constexpr bool is_std_forward_list_v = is_std_forward_list<Type>::value;
 
 // ================================================================================================
 // IS_STD_LIST    - Detects if the container is an std::list.
-// IS_STD_LIST_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_LIST_V  - Detects if the container is an std::list. Helper type that allows you to
+//                  elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::list.
@@ -462,7 +488,8 @@ constexpr bool is_std_list_v = is_std_list<Type>::value;
 
 // ================================================================================================
 // IS_STD_SET    - Detects if the container is an std::set.
-// IS_STD_SET_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_SET_V  - Detects if the container is an std::set. Helper type that allows you to elide
+//                 the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::set.
@@ -482,7 +509,8 @@ constexpr bool is_std_set_v = is_std_set<Type>::value;
 
 // ================================================================================================
 // IS_STD_MULTISET    - Detects if the container is an std::multiset.
-// IS_STD_MULTISET_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_MULTISET_V  - Detects if the container is an std::multiset. Helper type that allows you
+//                      to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::multiset.
@@ -502,7 +530,8 @@ constexpr bool is_std_multiset_v = is_std_multiset<Type>::value;
 
 // ================================================================================================
 // IS_STD_MAP    - Detects if the container is an std::map.
-// IS_STD_MAP_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_MAP_V  - Detects if the container is an std::map. Helper type that allows you to elide
+//                 the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::map.
@@ -522,7 +551,8 @@ constexpr bool is_std_map_v = is_std_map<Type>::value;
 
 // ================================================================================================
 // IS_STD_MULTIMAP    - Detects if the container is an std::multimap.
-// IS_STD_MULTIMAP_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_MULTIMAP_V  - Detects if the container is an std::multimap. Helper type that allows you
+//                      to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::multimap.
@@ -542,7 +572,8 @@ constexpr bool is_std_multimap_v = is_std_multimap<Type>::value;
 
 // ================================================================================================
 // IS_STD_UNORDERED_SET    - Detects if the container is an std::unordered_set.
-// IS_STD_UNORDERED_SET_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_UNORDERED_SET_V  - Detects if the container is an std::unordered_set. Helper type that 
+//                           allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::unordered_set.
@@ -562,7 +593,8 @@ constexpr bool is_std_unordered_set_v = is_std_unordered_set<Type>::value;
 
 // ================================================================================================
 // IS_STD_UNORDERED_MAP    - Detects if the container is an std::unordered_map.
-// IS_STD_UNORDERED_MAP_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_UNORDERED_MAP_V  - Detects if the container is an std::unordered_map. Helper type that
+//                           allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::unordered_map.
@@ -582,7 +614,8 @@ constexpr bool is_std_unordered_map_v = is_std_unordered_map<Type>::value;
 
 // ================================================================================================
 // IS_STD_UNORDERED_MULTISET    - Detects if the container is an std::unordered_mutliset.
-// IS_STD_UNORDERED_MULTISET_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_UNORDERED_MULTISET_V  - Detects if the container is an std::unordered_mutliset. Helper
+//                                type that allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::unordered_multiset.
@@ -602,7 +635,8 @@ constexpr bool is_std_unordered_multiset_v = is_std_unordered_multiset<Type>::va
 
 // ================================================================================================
 // IS_STD_UNORDERED_MULTIMAP    - Detects if the container is an std::unordered_multimap.
-// IS_STD_UNORDERED_MULTIMAP_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_UNORDERED_MULTIMAP_V  - Detects if the container is an std::unordered_multimap. Helper
+//                                type that allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::unordered_multimap.
@@ -622,7 +656,8 @@ constexpr bool is_std_unordered_multimap_v = is_std_unordered_multimap<Type>::va
 
 // ================================================================================================
 // IS_STD_STACK    - Detects if the container is an std::stack.
-// IS_STD_STACK_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_STACK_V  - Detects if the container is an std::stack. Helper type that allows you to
+//                   elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::stack.
@@ -642,7 +677,8 @@ constexpr bool is_std_stack_v = is_std_stack<Type>::value;
 
 // ================================================================================================
 // IS_STD_QUEUE    - Detects if the container is an std::queue.
-// IS_STD_QUEUE_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_QUEUE_V  - Detects if the container is an std::queue. Helper type that allows you to
+//                   elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::queue.
@@ -662,7 +698,8 @@ constexpr bool is_std_queue_v = is_std_queue<Type>::value;
 
 // ================================================================================================
 // IS_STD_PRIORITY_QUEUE    - Detects if the container is an std::priority_queue.
-// IS_STD_PRIORITY_QUEUE_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_PRIORITY_QUEUE_V  - Detects if the container is an std::priority_queue. Helper type that
+//                            allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is an std::priority_queue.
@@ -682,7 +719,8 @@ constexpr bool is_std_priority_queue_v = is_std_priority_queue<Type>::value;
 
 // ================================================================================================
 // IS_STD_CONTAINER    - Detects if the container is any of the standard containers.
-// IS_STD_CONTAINER_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_CONTAINER_V  - Detects if the container is any of the standard containers. Helper type
+//                       that allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the container is any of the standard library containers.
@@ -711,7 +749,8 @@ constexpr bool is_std_container_v = is_std_container<Type>::value;
 
 // ================================================================================================
 // IS_STD_PAIR    - Detects if the given type is an std::pair.
-// IS_STD_PAIR_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_PAIR_V  - Detects if the given type is an std::pair. Helper type that allows you to
+//                  elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the type is an std::pair.
@@ -734,7 +773,8 @@ constexpr bool is_std_pair_v = is_std_pair<Type>::value;
 
 // ================================================================================================
 // IS_STD_STRING    - Detects if the type is an std::string.
-// IS_STD_STRING_V  - Helper type that allows you to elide the ::value at the end.
+// IS_STD_STRING_V  - Detects if the type is an std::string. Helper type that allows you to elide
+//                    the ::value at the end.
 // ================================================================================================
 
 /// Detects if the type is an std::string.
@@ -754,7 +794,8 @@ constexpr bool is_std_string_v = is_std_string<Type>::value;
 
 // ================================================================================================
 // IS_C_STRING    - Detects if the type is an c style string, either char* or const char*.
-// IS_C_STRING_V  - Helper type that allows you to elide the ::value at the end.
+// IS_C_STRING_V  - Detects if the type is an c style string, either char* or const char*. Helper
+//                  type that allows you to elide the ::value at the end.
 // ================================================================================================
 
 /// Detects if the type is an c style string, either char* or const char*.
@@ -773,11 +814,16 @@ constexpr bool is_c_string_v = is_c_string<Type>::value;
 
 // ================================================================================================
 // IS_INPUT_ITERATOR    - Checks if a type is an input iterator.
-// IS_INPUT_ITERATOR_V  - Helper that allows you to elide the ::value at the end.
+// IS_INPUT_ITERATOR_V  - Checks if a type is an input iterator. Helper that allows you to elide
+//                        the ::value at the end.
+// 
 // IS_OUTPUT_ITERATOR   - Checks if a type is an output iterator.
-// IS_OUTPUT_ITERATOR_V - Helper that allows you to elide the ::value at the end.
+// IS_OUTPUT_ITERATOR_V - Checks if a type is an output iterator. Helper that allows you to elide
+//                        the ::value at the end.
+// 
 // IS_ITERATOR          - Checks if a type is an iterator.
-// IS_ITERATOR_V        - Helper that allows you to elide the ::value at the end.
+// IS_ITERATOR_V        - Checks if a type is an iterator. Helper that allows you to elide
+//                        the ::value at the end.
 // ================================================================================================
 
 /// Checks if a type is an input iterator.
