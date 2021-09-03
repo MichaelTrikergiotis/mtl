@@ -24,6 +24,7 @@
 #include "fmt_include.hpp" // fmt::print, fmt::runtime
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
 						   // mtl::string::pad_back, mtl::string::join, mtl::string::contains
+						   // mtl::string::replace
 
 
 // Windows only headers
@@ -776,7 +777,12 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
+		// convert the argument to an std::string so we can modify it
 		std::string argument_newline = mtl::string::to_string(arg);
+
+		// replace CRLF with LF
+		mtl::string::replace(argument_newline, "\r\n", '\n');
+
 
 		// keep the starting position
 		size_t start = 0;
@@ -1066,7 +1072,11 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
+		// convert the argument to an std::string so we can modify it
 		std::string argument_newline = mtl::string::to_string(arg); // GCOVR_EXCL_LINE
+
+		// replace CRLF with LF
+		mtl::string::replace(argument_newline, "\r\n", '\n'); // GCOVR_EXCL_LINE
 
 		// keep the starting position
 		size_t start = 0;
