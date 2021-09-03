@@ -47,8 +47,8 @@ There are 151 non-member functions.
 - `mtl::console::print_all` [(Documentation)](../mtl/console.hpp#L289) [(Examples)](../tests/tests_console.cpp#L337)
 - `mtl::console::print_color` [(Documentation)](../mtl/console.hpp#L551) [(Examples)](../tests/tests_console.cpp#L670)
 - `mtl::console::println_color` [(Documentation)](../mtl/console.hpp#L552) [(Examples)](../tests/tests_console.cpp#L825)
-- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1230) [(Examples)](../tests/tests_console.cpp#L920)
-- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1296) [(Examples)](../tests/tests_console.cpp#L1311)
+- `mtl::console::overtype` [(Documentation)](../mtl/console.hpp#L1226) [(Examples)](../tests/tests_console.cpp#L920)
+- `mtl::console::clear` [(Documentation)](../mtl/console.hpp#L1292) [(Examples)](../tests/tests_console.cpp#L1311)
 
 ---------------------------------------------------
 
