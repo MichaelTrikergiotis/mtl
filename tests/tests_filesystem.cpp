@@ -6,11 +6,11 @@
 // See ThirdPartyNotices.txt in the project root for third party licenses information.
 
 #include "doctest_include.hpp" 
-#include <string>     // std::string, std::to_string
 #include <vector>     // std::vector
 #include <list>       // std::list
+#include <string>     // std::string, std::to_string
 #include <filesystem> // std::filesystem::is_regular_file, std::filesystem::remove
-                      // std::filesystem::file_size
+                      // std::filesystem::file_size, std::filesystem::path
 
 
 // Disable some asserts so we can test more thoroughly.
@@ -29,9 +29,9 @@
 
 
 // We have to use reinterpret_cast<const char*>(u8"utf8_str") so the tests can be compiled for
-// both C++ 17 and C++ 20 or later where the gcc and clang flag -fno-char8_t or the
-// MSVC /Zc:char8_t- flag was not used. This is because C++ 20 introduced a breaking change,
-// u8 string literals are now char8_t type instead of char_t type. 
+// both C++ 17 and C++ 20 or later when the gcc and clang flag -fno-char8_t or the
+// MSVC /Zc:char8_t- flag is not used. This is because C++ 20 introduced a breaking change,
+// u8 string literals are now char8_t type instead of char_t type.
 // For more information check :
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
 // https://docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
@@ -229,7 +229,7 @@ TEST_CASE("mtl::filesystem::write_file write / append and mtl::filesystem::read_
     read_correctly = mtl::filesystem::read_file(filename, read_data);
     correct_data = text1 + text2;
     REQUIRE_EQ(read_correctly, true);
-    REQUIRE_EQ((read_data == correct_data ), true);
+    REQUIRE_EQ((read_data == correct_data), true);
 
     // delete the file used for this test case
     std::filesystem::remove(filename);
@@ -1622,13 +1622,11 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
     REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
 
     std::string read_line;
-
     bool read_correctly = mtl::filesystem::read_file(filename, read_line);
 
     REQUIRE_EQ(read_correctly, true);
 
     const std::string correct_data = "\nR\nG\nB\nCMYK\n\nR\nG\nB\n\n";
-
     REQUIRE_EQ(read_line.empty(), false);
     REQUIRE_EQ((read_line.size() == correct_data.size()), true);
     REQUIRE_EQ((read_line == correct_data), true);
@@ -1642,7 +1640,136 @@ TEST_CASE("mtl::filesystem::write_all_lines with mtl::filesystem::read_file")
 
 
 
-TEST_CASE("Check again to make sure that all files created do not exist")
+
+TEST_CASE("Tests with different encoding depending on OS, write_file and read_file")
+{
+
+#if defined(_WIN32)
+    // The filename for Windows should be UTF-16 encoded.
+    const std::filesystem::path filename (L"_UTF16_test_file_αρχείο_ファイル_文件_файл_1.txt");
+#else
+    // The filename for all operating systems excluding Windows should be UTF-8 encoded. Do not
+    // use UTF-16 encoding for any operating system except Windows.
+    // 
+    // We need to use reinterpret_cast to make u8 work for both C++ 17 and C++ 20. For a more
+    // detailed explanation on why that is, read the comments at the start of this file.
+    const std::filesystem::path filename
+    (reinterpret_cast<const char*>(u8"_UTF8_test_file_αρχείο_ファイル_文件_файл_1.txt"));
+#endif
+
+
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::string data = "aaaaaaa bbbbbbbb 1111122222 ####### $$$$$$$$$$$$$";
+
+    bool written_correctly = mtl::filesystem::write_file(filename, data);
+
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+
+    std::string read_data;
+    bool read_correctly = mtl::filesystem::read_file(filename, read_data);
+
+    REQUIRE_EQ(read_correctly, true);
+
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ((read_data.size() == data.size()), true);
+    REQUIRE_EQ((read_data == data), true);
+
+    // append to the existing file
+    bool appended_correctly = mtl::filesystem::write_file(filename, data, true);
+    REQUIRE_EQ(appended_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+
+
+    std::string new_read_data;
+    bool new_read_correctly = mtl::filesystem::read_file(filename, new_read_data);
+
+    REQUIRE_EQ(new_read_correctly, true);
+
+    const std::string correct_data = data + data;
+    REQUIRE_EQ(new_read_data.empty(), false);
+    REQUIRE_EQ((new_read_data.size() == correct_data.size()), true);
+    REQUIRE_EQ((new_read_data == correct_data), true);
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+
+TEST_CASE("Tests with different encoding depending on OS, write_all_lines and read_all_lines")
+{
+
+#if defined(_WIN32)
+    // The filename for Windows should be UTF-16 encoded.
+    const std::filesystem::path filename (L"_UTF16_test_file_αρχείο_ファイル_文件_файл_2.txt");
+#else
+    // The filename for all operating systems excluding Windows should be UTF-8 encoded. Do not
+    // use UTF-16 encoding for any operating system except Windows.
+    // 
+    // We need to use reinterpret_cast to make u8 work for both C++ 17 and C++ 20. For a more
+    // detailed explanation on why that is, read the comments at the start of this file.
+    const std::filesystem::path filename
+    (reinterpret_cast<const char*>(u8"_UTF8_test_file_αρχείο_ファイル_文件_файл_2.txt"));
+#endif
+
+
+
+    // delete the file used for this test case if it exists from a previous failed run
+    std::filesystem::remove(filename);
+
+    const std::vector<std::string> data =
+    { "aaaaaaa", "bbbbbbbb", "1111122222", "#######", "$$$$$$$$$$$$$" };
+
+    bool written_correctly = mtl::filesystem::write_all_lines(filename, data.begin(), data.end());
+
+    REQUIRE_EQ(written_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+
+    std::vector<std::string> read_data;
+    bool read_correctly = mtl::filesystem::read_all_lines(filename, read_data);
+
+    REQUIRE_EQ(read_correctly, true);
+
+    REQUIRE_EQ(read_data.empty(), false);
+    REQUIRE_EQ((read_data.size() == data.size()), true);
+    REQUIRE_EQ((read_data == data), true);
+
+    // append to the existing file
+    bool appended_correctly = mtl::filesystem::write_all_lines(filename, data.begin(), data.end(),
+                                                               true);
+    REQUIRE_EQ(appended_correctly, true);
+    REQUIRE_EQ((std::filesystem::is_regular_file(filename)), true);
+    REQUIRE_EQ((std::filesystem::file_size(filename) > 0), true);
+
+
+    std::vector<std::string> new_read_data;
+    bool new_read_correctly = mtl::filesystem::read_all_lines(filename, new_read_data);
+
+    REQUIRE_EQ(new_read_correctly, true);
+
+    const std::vector<std::string> correct_data =
+    { "aaaaaaa", "bbbbbbbb", "1111122222", "#######", "$$$$$$$$$$$$$",
+      "aaaaaaa", "bbbbbbbb", "1111122222", "#######", "$$$$$$$$$$$$$" };
+    REQUIRE_EQ(new_read_data.empty(), false);
+    REQUIRE_EQ((new_read_data.size() == correct_data.size()), true);
+    REQUIRE_EQ((new_read_data == correct_data), true);
+
+    // delete the file used for this test case
+    std::filesystem::remove(filename);
+}
+
+
+
+
+
+
+TEST_CASE("Delete remaining files due to failed test cases")
 {
     // we check again for existing files because if a test fails it will not delete it's 
     // associated temporary file
@@ -1655,4 +1782,33 @@ TEST_CASE("Check again to make sure that all files created do not exist")
         // check that the file was deleted properly, incase it existed
         CHECK_EQ(std::filesystem::is_regular_file(filename), false);
     }
+
+
+
+    // delete temporary files from tests with different encoding depending on OS
+
+#if defined(_WIN32)
+    // The filename for Windows should be UTF-16 encoded.
+    const std::filesystem::path filename1 (L"_UTF16_test_file_αρχείο_ファイル_文件_файл_1.txt");
+    const std::filesystem::path filename2 (L"_UTF16_test_file_αρχείο_ファイル_文件_файл_2.txt");
+#else
+    // The filename for all operating systems excluding Windows should be UTF-8 encoded. Do not
+    // use UTF-16 encoding for any operating system except Windows.
+    // 
+    // We need to use reinterpret_cast to make u8 work for both C++ 17 and C++ 20. For a more
+    // detailed explanation on why that is, read the comments at the start of this file.
+    const std::filesystem::path filename1
+    (reinterpret_cast<const char*>(u8"_UTF8_test_file_αρχείο_ファイル_文件_файл_1.txt"));
+    const std::filesystem::path filename2
+    (reinterpret_cast<const char*>(u8"_UTF8_test_file_αρχείο_ファイル_文件_файл_2.txt"));
+#endif
+
+    // delete the files
+    std::filesystem::remove(filename1);
+    std::filesystem::remove(filename2);
+
+    // check that the files were deleted properly, incase they existed
+    CHECK_EQ(std::filesystem::is_regular_file(filename1), false);
+    CHECK_EQ(std::filesystem::is_regular_file(filename2), false);
 }
+
