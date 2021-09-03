@@ -23,7 +23,7 @@
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
 #include "fmt_include.hpp" // fmt::print, fmt::runtime
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
-						   // mtl::string::pad_back, mtl::string::join
+						   // mtl::string::pad_back, mtl::string::join, mtl::string::contains
 
 
 // Windows only headers
@@ -776,11 +776,9 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
-		// convert to a std::string from either std::string or const char* to make it easier to
-		// work with
 		std::string argument_newline = mtl::string::to_string(arg);
 
-		// remember the start position
+		// keep the starting position
 		size_t start = 0;
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
@@ -1068,11 +1066,9 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
-		// convert to a std::string from either std::string or const char* to make it easier to
-		// work with
 		std::string argument_newline = mtl::string::to_string(arg); // GCOVR_EXCL_LINE
 
-		// remember the start position
+		// keep the starting position
 		size_t start = 0;
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
