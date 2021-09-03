@@ -265,12 +265,7 @@ def main_function():
     no_newlines = len(no_newline_headers) == 0
     no_newlines = no_newlines and len(no_newline_sources) == 0
     if longer_files and bad_comments and no_newlines:
-        print('Everything seems fine. No problems detected.\n')
-        print('No files contain lines ', end='')
-        print('with more than {} characters.'.format(line_length))
-        print('No files contain lines with ', end='')
-        print('improperly formatted comments.')
-        print('No files are missing a newline as their last line.')
+        print('All files checked. No errors detected.')
 
 
 if __name__ == "__main__":
