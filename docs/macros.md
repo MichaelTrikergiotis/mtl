@@ -48,4 +48,4 @@ There are some requirements for using this macro :
 
 1. The macro should be defined BEFORE any **mtl** headers are included and in all files that include **mtl** headers.
 2. You have to supply your own version of **fmt** and include all the **fmt** headers BEFORE including any of the **mtl** headers. Preferably the same version used in **mtl**.
-3. Your externally supplied version of **fmt** can be used either as a header only or not, doesn't make a difference.
+3. Your externally supplied version of **fmt** can be used as a header only or not, it doesn't make a difference.
