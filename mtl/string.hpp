@@ -1276,13 +1276,15 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 							  const std::array<size_t, 20>& found_positions,
 							  const size_t starting_position)
 {
+	// GCOVR_EXCL_START
 	std::vector<size_t> positions(found_positions.begin(), found_positions.end());
+	// GCOVR_EXCL_STOP
 
 	size_t pos = starting_position;
 	// find all matches and keep their index
 	while ((pos = value.find(match, pos)) != std::string::npos)
 	{
-		positions.emplace_back(pos);
+		positions.emplace_back(pos); // GCOVR_EXCL_LINE
 		// move the position forward enough so we don't match the same thing again
 		pos += match.size();
 	}
@@ -1319,7 +1321,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 	}
 
 	// resize to avoid unnecessary allocations
-	result.resize(difference);
+	result.resize(difference); // GCOVR_EXCL_LINE
 
 	// create various iterators
 	const auto beginning = value.begin();
@@ -1340,10 +1342,10 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 		// GCOVR_EXCL_STOP
 	}
 	// copy from the last match to the end
-	std::copy(it_begin, value.end(), it_output);
+	std::copy(it_begin, value.end(), it_output); // GCOVR_EXCL_LINE
 
 	// set the input string to the resulting string that we have performed all the replacements on
-	value = result;
+	value = result; // GCOVR_EXCL_LINE
 }
 
 
@@ -1377,7 +1379,7 @@ inline void replace_long(std::string& value, const std::string& match,
 		// if the array can't hold more items start using the heap instead of the stack
 		if (actual_size == max_size)
 		{
-			replace_long_heap(value, match, replacement, positions, pos);
+			replace_long_heap(value, match, replacement, positions, pos); // GCOVR_EXCL_LINE
 			return;
 		}
 
@@ -1424,7 +1426,7 @@ inline void replace_long(std::string& value, const std::string& match,
 	}
 
 	// resize to avoid unnecessary allocations
-	result.resize(difference);
+	result.resize(difference); // GCOVR_EXCL_LINE
 
 	// create various iterators
 	const auto beginning = value.begin();
@@ -1446,10 +1448,10 @@ inline void replace_long(std::string& value, const std::string& match,
 		// GCOVR_EXCL_STOP
 	}
 	// copy from the last match to the end
-	std::copy(it_begin, value.end(), it_output);
+	std::copy(it_begin, value.end(), it_output); // GCOVR_EXCL_LINE
 
 	// set the input string to the resulting string that we have performed all the replacements on
-	value = result;
+	value = result; // GCOVR_EXCL_LINE
 }
 
 
@@ -1539,7 +1541,9 @@ inline void replace(std::string& value, const char* match, const std::string& re
 /// @param[in] replacement A replacement to replace the matches with.
 inline void replace(std::string& value, const char* match, const char replacement)
 {
+	// GCOVR_EXCL_START
 	replace(value, mtl::string::to_string(match), mtl::string::to_string(replacement));
+	// GCOVR_EXCL_STOP
 }
 
 /// Replaces all places in the input where a match is found with the replacement.

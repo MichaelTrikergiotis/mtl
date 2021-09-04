@@ -1381,8 +1381,10 @@ public:
 		// else throw an error because values given make no sense
 		else
 		{
+			// GCOVR_EXCL_START
 			throw std::invalid_argument(
-			"Error. One or more parameters for mtl::range are incorrect."); // GCOVR_EXCL_LINE
+			"Error. One or more parameters for mtl::range are incorrect.");
+			// GCOVR_EXCL_STOP
 		}
 	}
 
