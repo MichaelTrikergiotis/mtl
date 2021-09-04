@@ -1286,7 +1286,7 @@ public:
 template<typename Type>
 class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 {
-	// Iterator for _range_generator.
+	// Iterator for mtl::detail::_range_generator.
 	template<typename ValueType = Type>
 	class range_iterator
 	{
@@ -1299,17 +1299,17 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 
 	public:
 
-		// typedefs needed for proper iterator declaration
+		// some typedefs needed for proper iterator declaration
 
-		// typedef for iterator type.
+		// The typedef for iterator type.
 		using value_type = std::remove_cv_t<ValueType>;
-		// typedef for iterator difference.
+		// The typedef for iterator difference.
 		using difference_type = std::ptrdiff_t;
-		// typedef for iterator category.
+		// The typedef for iterator category.
 		using iterator_category = std::forward_iterator_tag;
-		// typedef for iterator pointer type.
+		// The typedef for iterator pointer type.
 		using pointer = std::add_pointer_t<value_type>;
-		// typedef for iterator reference type.
+		// The typedef for iterator reference type.
 		using reference = std::add_lvalue_reference_t<value_type>;
 
 		// Iterator constructor.
@@ -1317,7 +1317,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		: _value(value), _step(step), incremental(increment) {}
 
 		// Equality operator for the iterator that actually changes the comparison operation based
-		// if it is an incremental or decremental range.
+		// on if it is an incremental or a decremental range.
 		[[nodiscard]]
 		bool operator==(const range_iterator& other) const
 		{
@@ -1332,7 +1332,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 				return _value < other._value;
 			}
 		}
-		// Difference operator for iterator.
+		// Difference operator for the iterator.
 		[[nodiscard]]
 		bool operator!=(const range_iterator& other) const
 		{
@@ -1361,7 +1361,9 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 	// Value that says if a range is incremental or decremental.
 	bool incremental;
 
+
 public:
+
 	// Constructor for _range_generator with proper initializations.
 	_range_generator(Type start, Type end, Type step) : _start(start), _end(end), _step(step)	
 	{
@@ -1388,7 +1390,7 @@ public:
 		}
 	}
 
-	// Equality operator for _range_generator<Type>.
+	// Equality operator.
 	[[nodiscard]]
 	bool operator==(const _range_generator<Type>& other) const
 	{
@@ -1396,7 +1398,7 @@ public:
 				(_step == other._step));
 	}
 	
-	// Difference operator for _range_generator<Type>.
+	// Difference operator.
 	[[nodiscard]]
 	bool operator!=(const _range_generator<Type>& other) const
 	{

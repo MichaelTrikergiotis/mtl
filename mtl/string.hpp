@@ -1344,7 +1344,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 	// copy from the last match to the end
 	std::copy(it_begin, value.end(), it_output); // GCOVR_EXCL_LINE
 
-	// set the input string to the resulting string that we have performed all the replacements on
+	// copy the result to the input string
 	value = result; // GCOVR_EXCL_LINE
 }
 
@@ -1450,7 +1450,7 @@ inline void replace_long(std::string& value, const std::string& match,
 	// copy from the last match to the end
 	std::copy(it_begin, value.end(), it_output); // GCOVR_EXCL_LINE
 
-	// set the input string to the resulting string that we have performed all the replacements on
+	// copy the result to the input string
 	value = result; // GCOVR_EXCL_LINE
 }
 
