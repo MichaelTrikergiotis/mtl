@@ -1048,6 +1048,7 @@ TEST_CASE("mtl::is_char")
     REQUIRE_EQ(mtl::is_char<int>::value, false);
     REQUIRE_EQ(mtl::is_char<unsigned int>::value, false);
     REQUIRE_EQ(mtl::is_char<char>::value, true);
+    REQUIRE_EQ(mtl::is_char<signed char>::value, true);
     REQUIRE_EQ(mtl::is_char<unsigned char>::value, true);
     REQUIRE_EQ(mtl::is_char<float>::value, false);
     REQUIRE_EQ(mtl::is_char<double>::value, false);
@@ -1063,6 +1064,7 @@ TEST_CASE("mtl::is_char_v")
     REQUIRE_EQ(mtl::is_char_v<int>, false);
     REQUIRE_EQ(mtl::is_char_v<unsigned int>, false);
     REQUIRE_EQ(mtl::is_char_v<char>, true);
+    REQUIRE_EQ(mtl::is_char_v<signed char>, true);
     REQUIRE_EQ(mtl::is_char_v<unsigned char>, true);
     REQUIRE_EQ(mtl::is_char_v<float>, false);
     REQUIRE_EQ(mtl::is_char_v<double>, false);
