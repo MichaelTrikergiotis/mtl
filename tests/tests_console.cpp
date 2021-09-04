@@ -17,6 +17,10 @@
 #include <numeric> // std::iota
 
 
+// Disable some asserts so we can test more thoroughly.
+#define MTL_DISABLE_SOME_ASSERTS
+
+
 #include "../mtl/console.hpp" 
 // mtl::console::print, mtl::console::println, 
 // mtl::console::print_all, mtl::console::print_color, mtl::console::println_color,

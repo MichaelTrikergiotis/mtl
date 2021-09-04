@@ -8,6 +8,9 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest_include.hpp"
 
+// Disable some asserts so we can test more thoroughly.
+#define MTL_DISABLE_SOME_ASSERTS
+
 
 // all headers are included twice to detect redefinition errors
 
