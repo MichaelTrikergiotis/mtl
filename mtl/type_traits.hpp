@@ -285,9 +285,9 @@ constexpr bool has_find_v = has_find<Type>::value;
 // IS_NUMBER_V  - Detects if a type is a number. Helper that allows you to elide the ::value at
 //                the end.
 // 
-// IS_CHAR      - Detects if a type is char or unsigned char.
-// IS_CHAR_V    - Detects if a type is char or unsigned char. Helper that allows you to elide
-//                the ::value at the end.
+// IS_CHAR      - Detects if a type is char, signed char or unsigned char.
+// IS_CHAR_V    - Detects if a type is char, signed char or unsigned char. Helper that allows you
+//                to elide the ::value at the end.
 // ================================================================================================
 
 /// Returns a boolean whether the type is signed integer. Accepted types are int8_t, short, int, 
@@ -370,16 +370,20 @@ template<typename Type>
 constexpr bool is_number_v = is_number<Type>::value;
 
 
-/// Returns a boolean whether the type is char or unsigned char.
+/// Returns a boolean whether the type is char, signed char or unsigned char.
 template<typename Type>
 struct is_char : std::integral_constant<bool,
 std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, char> ||
+std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, signed char> ||
 std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, unsigned char>> {};
 
-/// Returns a boolean whether the type is char or unsigned char. Helper that allows you to elide 
-/// the ::value at the end.
+/// Returns a boolean whether the type is char, signed char or unsigned char. Helper that allows
+/// you to elide the ::value at the end.
 template<typename Type>
 constexpr bool is_char_v = is_char<Type>::value;
+
+
+
 
 // ================================================================================================
 // IS_STD_ARRAY    - Detects if the container is an std::array.
