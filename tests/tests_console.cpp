@@ -969,6 +969,55 @@ TEST_CASE("mtl::console::print_color with an argument that contains mixed LF and
 }
 
 
+
+TEST_CASE("mtl::console::print_color with char")
+{
+    char c = 'a';
+    const char cc = 'b';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(c, mtl::console::color::green,
+                                                 mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cc, mtl::console::color::green,
+                                                  mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color('c', mtl::console::color::green,
+                                                   mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n"));
+}
+
+
+TEST_CASE("mtl::console::print_color with char that is a newline")
+{
+    char c_newline = '\n';
+    const char cc_newline = '\n';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(c_newline, mtl::console::color::green,
+                                                         mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cc_newline, mtl::console::color::green,
+                                                          mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color('\n', mtl::console::color::green,
+                                                    mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+
+    REQUIRE_NOTHROW(mtl::console::println("-------------------------\n\n"));
+}
+
+
 // ------------------------------------------------------------------------------------------------
 // mtl::console::println_color
 // ------------------------------------------------------------------------------------------------
@@ -1207,7 +1256,52 @@ TEST_CASE("mtl::console::println_color with an argument that contains mixed LF a
 }
 
 
+TEST_CASE("mtl::console::println_color with char")
+{
+    char c = 'a';
+    const char cc = 'b';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(c, mtl::console::color::green,
+                                                   mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cc, mtl::console::color::green,
+                                                    mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color('c', mtl::console::color::green,
+                                                     mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n"));
+}
+
+
+TEST_CASE("mtl::console::println_color with char that is a newline")
+{
+    char c_newline = '\n';
+    const char cc_newline = '\n';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(c_newline, mtl::console::color::green,
+                                                           mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cc_newline, mtl::console::color::green,
+                                                            mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color('\n', mtl::console::color::green,
+                                                      mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+
+    REQUIRE_NOTHROW(mtl::console::println("-------------------------\n\n"));
+}
 
 
 

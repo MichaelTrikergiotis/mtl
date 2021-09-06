@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 // console header by Michael Trikergiotis
 // 09/09/2018
 // 
@@ -558,8 +558,8 @@ namespace detail
 {
 
 #if defined(_WIN32)
-// Implementation for both print_color and println_color for using the WIN32 API to be used on 
-// Windows for the console (cmd.exe).
+// Implementation for both print_color and println_color that uses the WIN32 API needed for
+// Windows 10 v.1607 or older.
 template<typename Type>
 inline void print_color_win_legacy(const Type& arg, mtl::console::color foreground_color,
 								   mtl::console::color background_color, bool newline = false)
@@ -874,6 +874,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 #endif // WIN32
 
 
+
 // Implementation for both print_color and println_color with ASCII escape sequences. 
 template<typename Type>
 inline void print_color_ascii(const Type& arg, mtl::console::color foreground_color,
@@ -1149,8 +1150,6 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	}
 }
 
-
-
 // The actual implementation of print_color that selects if it will print color using ASCII or
 // the legacy method.
 template<typename Type>
@@ -1186,14 +1185,54 @@ print_color_impl(const Type& arg,
 	// if we are not in a terminal print without colors
 	else
 	{
-		if (newline) // GCOVR_EXCL_LINE
+		// if the call is from mtl::console::println_color
+		if (newline)
 		{
 			fmt::print("{}\n", arg); // GCOVR_EXCL_LINE
 		}
+		// else the call is from mtl::console::print_color
 		else
 		{
 			fmt::print("{}", arg); // GCOVR_EXCL_LINE
 		}
+	}
+}
+
+// Type selector for print_color. For all types except char.
+template<typename Type>
+inline void print_color_impl_type_selector(const Type& arg,
+				 mtl::console::color foreground_color = mtl::console::color::default_color,
+				 mtl::console::color background_color = mtl::console::color::default_color,
+				 bool newline = false)
+{
+	print_color_impl(arg, foreground_color, background_color, newline);
+}
+
+// Type selector for print_color. For char type.
+inline void print_color_impl_type_selector(const char arg,
+				 mtl::console::color foreground_color = mtl::console::color::default_color,
+				 mtl::console::color background_color = mtl::console::color::default_color,
+				 bool newline = false)
+{
+	// for type char check if it is a newline, if it is a newline character print it without any
+	// color to avoid color spilling to the next line
+	if (arg == '\n')
+	{
+		// if the call is from mtl::console::println_color
+		if (newline)
+		{
+			fmt::print("\n\n");
+		}
+		// else the call is from mtl::console::print_color
+		else
+		{
+			fmt::print("\n");
+		}
+	}
+	// if the char is not a newline character, print it with color
+	else
+	{
+		print_color_impl(arg, foreground_color, background_color, newline);
 	}
 }
 
@@ -1210,7 +1249,7 @@ inline void print_color(const Type& arg,
 						mtl::console::color foreground_color = mtl::console::color::default_color,
 						mtl::console::color background_color = mtl::console::color::default_color)
 {
-	mtl::console::detail::print_color_impl(arg, foreground_color, background_color, false);
+	detail::print_color_impl_type_selector(arg, foreground_color, background_color, false);
 }
 
 /// Prints an argument with a newline at the end with foreground and background colors. Colors can
@@ -1224,7 +1263,7 @@ inline void println_color(const Type& arg,
 						 mtl::console::color foreground_color = mtl::console::color::default_color,
 						 mtl::console::color background_color = mtl::console::color::default_color)
 {
-	mtl::console::detail::print_color_impl(arg, foreground_color, background_color, true);
+	detail::print_color_impl_type_selector(arg, foreground_color, background_color, true);
 }
 
 
