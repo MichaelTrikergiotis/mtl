@@ -25,8 +25,8 @@ namespace mtl
 
 
 // ================================================================================================
-// SAFE_COPY   - Is a safe version of std::copy that works with containers.
-// SAFE_COPY_N - Is a safe version of std::copy_n that works with containers.
+// SAFE_COPY   - Is a safe version of std::copy.
+// SAFE_COPY_N - Is a safe version of std::copy_n.
 // ================================================================================================
 
 /// mtl::safe_copy is a safer bound checking version of std::copy that protects from all 
