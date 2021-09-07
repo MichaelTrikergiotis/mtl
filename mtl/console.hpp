@@ -285,15 +285,11 @@ inline void println(const Arg& arg, Args&&... args)
 
 
 // ================================================================================================
-// PRINT_PAD  - Enumeration that allows print_all to select which side you want the printed 
-//              element to be padded to.
-// PRINT_ALL  - Print all elements in a range with a multitude of formatting options.
+// PRINT_PAD  - Enumeration that allows to select the padding side for mtl::console::print_all.
 // ================================================================================================
 
 
-
-
-/// Enumeration that allows you to set the padding for mtl::console::print_all.
+/// Enumeration that allows to select the padding side for mtl::console::print_all.
 enum class print_pad
 {
 	/// No padding.
@@ -359,6 +355,10 @@ inline void print_padding_impl(std::string& value, const size_t length,
 } // namespace detail end
 
 
+
+// ================================================================================================
+// PRINT_ALL  - Print all elements in a range with a multitude of formatting options.
+// ================================================================================================
 
 /// Prints to console all elements in a range. The newline_threshold affects after how many
 /// elements the newline character will be used. Delimiter is a string used between all elements.
@@ -549,8 +549,9 @@ enum class color : uint8_t
 
 
 // ================================================================================================
-// PRINT_COLOR   - Prints to console with foreground and background color.
-// PRINTLN_COLOR - Prints to console with a newline with foreground and background color.
+// PRINT_COLOR   - Prints an argument to console with optional foreground and background colors.
+// PRINTLN_COLOR - Prints an argument and a newline to console with optional foreground and
+//                 background colors.
 // ================================================================================================
 
 
