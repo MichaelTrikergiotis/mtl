@@ -5,28 +5,46 @@
 # Licensed under the MIT license. See LICENSE in the project root for license information.
 # See ThirdPartyNotices.txt in the project root for third party licenses information.
 
+
+
+
 # CMake 3.8 is the minimum requirement because that is when CMAKE_CXX_STANDARD and 
-# CMAKE_CXX_STANDARD_REQUIRED was introduced 
+# CMAKE_CXX_STANDARD_REQUIRED was introduced
 cmake_minimum_required(VERSION 3.8)
 
-
+# set the name of the project
 project(mtl)
 
-
+# print CMake version and CMake generator
 message("-- CMake version is ${CMAKE_VERSION}")
 message("-- CMake generator is ${CMAKE_GENERATOR}")
 
 
-# set the standard to C++ 17
-set(CMAKE_CXX_STANDARD 17)
+# if the C++ standard version isn't defined, set it to C++ 17, if it is defined use that version
+if(NOT DEFINED CMAKE_CXX_STANDARD)
+    # set standard version to C++ 17
+    set(CMAKE_CXX_STANDARD 17)
+endif()
+
+# require the C++ standard version to be provided
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# print the current C++ standard version used
+message("-- C++ standard version is C++ ${CMAKE_CXX_STANDARD}")
+
+# if the C++ standard version is not set to C++ 17 or later, print a message and invoke a
+# fatal error
+if(NOT (${CMAKE_CXX_STANDARD} GREATER_EQUAL 17))
+    message(FATAL_ERROR "The mtl requires the C++ standard version to be C++ 17 or later.")
+endif()
+
 
 
 # if we are on Windows use flags appropriate for MSVC, clang-cl, clang or gcc
-if (WIN32)
+if(WIN32)
     
     # check if the compiler is Microsoft Visual C++
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         
         message("-- Compiler used MSVC")
 
@@ -55,7 +73,7 @@ if (WIN32)
         # CMAKE_CXX_COMPILER_FRONTEND_VARIANT for more info check
         # https://gitlab.kitware.com/cmake/cmake/-/issues/19724
         if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.15.0")
-            if (${CMAKE_CXX_COMPILER_FRONTEND_VARIANT} STREQUAL "GNU")
+            if(${CMAKE_CXX_COMPILER_FRONTEND_VARIANT} STREQUAL "GNU")
                 message("-- Detected clang++")
                 set(ENABLE_GNU_LIKE_CLANG ON)
             endif()
@@ -87,7 +105,7 @@ if (WIN32)
             add_compile_options(/EHsc /WX)
         endif()
     # check if the compiler is g++
-    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+    elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
         message("-- Compiler used g++")
         # enable a lot of warnings and turn them to errors for gcc
         add_compile_options(-Werror -Wall -Wextra)
@@ -148,7 +166,6 @@ else()
     # enable a lot of warnings and turn them to errors for gcc and clang
     add_compile_options(-Werror -Wall -Wextra)
 endif()
-
 
 
 
