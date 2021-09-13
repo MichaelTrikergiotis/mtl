@@ -1938,7 +1938,7 @@ TEST_CASE("mtl::to_num with nullptr const char*")
     REQUIRE_EQ(i, 100);
 }
 
-TEST_CASE("mtl::to_num with nullptr parameter")
+TEST_CASE("mtl::to_num with nullptr argument")
 {
     int i = 100;
     REQUIRE_THROWS_AS(i = mtl::to_num(nullptr), std::invalid_argument);
@@ -2451,7 +2451,7 @@ TEST_CASE("mtl::to_num_noex with nullptr const char*")
     REQUIRE_EQ(success, false);
 }
 
-TEST_CASE("mtl::to_num_noex with nullptr parameter")
+TEST_CASE("mtl::to_num_noex with nullptr argument")
 {
     int i = 100;
     bool success = true;
@@ -3022,7 +3022,7 @@ TEST_CASE("mtl::to_num_noex with std::pair, nullptr const char*")
     REQUIRE_EQ(result.second, false);
 }
 
-TEST_CASE("mtl::to_num_noex with std::pair, nullptr parameter")
+TEST_CASE("mtl::to_num_noex with std::pair, nullptr argument")
 {
     auto result = std::make_pair(100, true);
     REQUIRE_NOTHROW(result = mtl::to_num_noex(nullptr));
