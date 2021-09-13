@@ -1270,7 +1270,7 @@ namespace detail
 // Range generator that generates an object with begin and end iterators for a range of values 
 // without actually holding all the values in memory at once. Supports both incrementing and 
 // decrementing ranges. Throws std::invalid_argument if incorrect values are passed for any
-// of the parameters.
+// of the arguments.
 template<typename Type, typename Enable = void>
 class _range_generator 
 {
@@ -1282,7 +1282,7 @@ public:
 // Range generator that generates an object with begin and end iterators for a range of values 
 // without actually holding all the values in memory at once. Supports both incrementing and 
 // decrementing ranges. Throws std::invalid_argument if incorrect values are passed for any
-// of the parameters.
+// of the arguments.
 template<typename Type>
 class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 {
@@ -1384,7 +1384,7 @@ public:
 		else
 		{
 			// GCOVR_EXCL_START
-			throw std::invalid_argument("One or more parameters for mtl::range are incorrect.");
+			throw std::invalid_argument("One or more arguments for mtl::range are incorrect.");
 			// GCOVR_EXCL_STOP
 		}
 	}
@@ -1426,7 +1426,7 @@ public:
 /// Generates a range of numbers from start to end with a given step. Support both incrementing 
 /// and decrementing ranges of numbers. The values for the range are generated on the fly and they 
 /// are not kept in memory. Throws std::invalid_argument if incorrect values are passed for any
-/// of the parameters.
+/// of the arguments.
 /// @param[in] start The starting number of the range.
 /// @param[in] end The ending number of the range.
 /// @param[in] step A number to use as a step between each number.

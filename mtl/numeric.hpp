@@ -57,10 +57,10 @@ iota(FwdIter first, FwdIter last, typename FwdIter::value_type start = 0,
 // FREQUENCY         - Creates a frequency table for each element in the range.
 // ================================================================================================
 
-// Creates a frequency table for each element in the range. The first parameter of each pair is the
-// element while the second parameter is the frequency of appearance for that element. The 
+// Creates a frequency table for each element in the range. The first argument of each pair is the
+// element while the second argument is the frequency of appearance for that element. The
 // frequency can never be 0 or lower. The hash is used to define the hashing function used.
-// The parameter key_equal is the functor used for key equality.
+// The argument key_equal is the functor used for key equality.
 /// @param[in] begin The beginning of the range.
 /// @param[in] end The end of the range.
 /// @param[in] hash A hashing function, like std::hash<T>.
@@ -108,10 +108,10 @@ frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 }
 
 
-/// Creates a frequency table for each element in the range. The first parameter of each pair is
-/// the element while the second parameter is the frequency of appearance for that element. The 
+/// Creates a frequency table for each element in the range. The first argument of each pair is
+/// the element while the second argument is the frequency of appearance for that element. The 
 /// frequency can never be 0 or lower. The hash is used to define the hashing function used.
-/// The parameter key_equal is the functor used for key equality.
+/// The argument key_equal is the functor used for key equality.
 /// @param[in] begin The beginning of the range.
 /// @param[in] end The end of the range.
 /// @return An std::unordered_map with the frequency of appearance of each item.

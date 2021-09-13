@@ -111,10 +111,10 @@ private:
 public:
 
 	// ============================================================================================
-	// XOROSHIRO128PLUS_ENGINE - Constructor with no parameters. It will use default seed values.
+	// XOROSHIRO128PLUS_ENGINE - Constructor with no arguments. It will use default seed values.
 	// ============================================================================================
 
-	/// Constructor with no parameters. It will use default seed values.
+	/// Constructor with no arguments. It will use default seed values.
 	xoroshiro128plus_engine()
 	{
 		_state = state_struct();

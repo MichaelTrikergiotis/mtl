@@ -130,10 +130,10 @@ private:
 public:
 
 	// ============================================================================================
-	// XOSHIRO256PLUS_ENGINE - Constructor with no parameters. It will use default seed values.
+	// XOSHIRO256PLUS_ENGINE - Constructor with no arguments. It will use default seed values.
 	// ============================================================================================
 
-	/// Constructor with no parameters. It will use default seed values.
+	/// Constructor with no arguments. It will use default seed values.
 	xoshiro256plus_engine()
 	{
 		_state = state_struct();

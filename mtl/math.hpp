@@ -98,7 +98,7 @@ approx_equal_comb(Type v1, Type v2, Type absolute_tolerance = static_cast<Type>(
 // ================================================================================================
 
 /// Given a number that is a percentage of the whole and a number that is a portion of the whole it
-/// returns a number that represents the whole. If the percent parameter is 0 then it is a
+/// returns a number that represents the whole. If the percent argument is 0 then it is a
 /// division by zero, but if the macro MTL_DIV_ZERO_THROW is defined then it throws an 
 /// std::invalid_argument exception instead.
 /// @param[in] percent A number representing the percentage.
@@ -118,7 +118,7 @@ percent_whole(Number percent, Number portion)
 	if(!(percent < zero) && !(percent > zero))
 	{ 
 		throw std::invalid_argument(
-		"The percent parameter is zero. This results in division by zero.");
+		"The percent argument is zero. This results in division by zero.");
 	}
 #endif // MTL_DIV_ZERO_THROW end
 
@@ -130,7 +130,7 @@ percent_whole(Number percent, Number portion)
 
 
 /// Given a number that is a percentage of the whole and a number that is a portion of the whole it
-/// returns a number that represents the whole. If the percent parameter is 0 then it is a
+/// returns a number that represents the whole. If the percent argument is 0 then it is a
 /// division by zero, but if the macro MTL_DIV_ZERO_THROW is defined then it throws an 
 /// std::invalid_argument exception instead.
 /// @param[in] percent A number representing the percentage.
@@ -194,7 +194,7 @@ percent_portion(Number whole, Number percent)
 
 
 /// Given a number that the whole and a number that represents a portion of that whole 
-/// returns what percentage of the whole that portion represents. If the whole parameter is 0 then
+/// returns what percentage of the whole that portion represents. If the whole argument is 0 then
 /// it is a division by zero, but if the macro MTL_DIV_ZERO_THROW is defined then it throws an 
 /// std::invalid_argument exception instead.
 /// @param[in] whole A number representing the whole.
@@ -214,7 +214,7 @@ percent(Number whole, Number portion)
 	if(!(whole < zero) && !(whole > zero))
 	{ 
 		throw std::invalid_argument(
-		"The whole parameter is zero. This results in division by zero.");
+		"The whole argument is zero. This results in division by zero.");
 	}
 #endif // MTL_DIV_ZERO_THROW end
 
@@ -226,7 +226,7 @@ percent(Number whole, Number portion)
 
 
 /// Given a number that the whole and a number that represents a portion of that whole 
-/// returns what percentage of the whole that portion represents. If the whole parameter is 0 then
+/// returns what percentage of the whole that portion represents. If the whole argument is 0 then
 /// it is a division by zero, but if the macro MTL_DIV_ZERO_THROW is defined then it throws an 
 /// std::invalid_argument exception instead.
 /// @param[in] whole A number representing the whole.

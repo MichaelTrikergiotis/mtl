@@ -111,7 +111,7 @@ inline bool safe_copy(InIter in_first, InIter in_last, OutIter out_first,
 /// bounds errors. Works with any container that supports the size function. The start_pos
 /// points to the starting index of the source container to be copied and count is the number of
 /// elements to be copied. If everything is correct, copying is performed and it returns true. In 
-/// case that any of the parameters is out of bounds for either container no copying is performed
+/// case that any of the arguments is out of bounds for either container no copying is performed
 /// and it returns false. Doesn't throw exceptions.
 /// @param[in] source An input container.
 /// @param[out] destination An output container.

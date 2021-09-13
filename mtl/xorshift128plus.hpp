@@ -112,10 +112,10 @@ private:
 public:
 
 	// ============================================================================================
-	// XORSHIFT128PLUS_ENGINE - Constructor with no parameters. It will use default seed values.
+	// XORSHIFT128PLUS_ENGINE - Constructor with no arguments. It will use default seed values.
 	// ============================================================================================
 
-	/// Constructor with no parameters. It will use default seed values.
+	/// Constructor with no arguments. It will use default seed values.
 	xorshift128plus_engine()
 	{
 		_state = state_struct();

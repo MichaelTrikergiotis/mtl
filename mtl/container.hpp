@@ -105,7 +105,7 @@ inline void emplace_back(Container& container, Args&&... args)
 // ================================================================================================
 
 /// Returns a slice of a container from starting position to ending position. Performs 
-/// bound checking that all the parameters are within bounds and if one or more parameters are not
+/// bound checking that all the arguments are within bounds and if one or more arguments are not
 /// throws an std::out_of_range exception.
 /// @param[in] container A container.
 /// @param[in] start_pos The starting position where to create the slice from.
@@ -151,7 +151,7 @@ inline Container slice(const Container& container, const size_t start_pos, const
 
 
 /// Returns a slice of a container from the starting position for the number of elements requested.
-/// Performs bound checking that all the parameters are within bounds and if one or more parameters
+/// Performs bound checking that all the arguments are within bounds and if one or more arguments
 /// are not it throws an std::out_of_range exception.
 /// @param[in] container A container.
 /// @param[in] start_pos The starting position where to create the slice from.

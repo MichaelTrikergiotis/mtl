@@ -165,14 +165,14 @@ static const bool inside_terminal = is_terminal();
 
 
 // ================================================================================================
-// PRINT - Prints all parameters to the console.
+// PRINT - Prints all arguments to the console.
 // ================================================================================================
 
 
 /// Print nothing to the console.
 inline void print() {}
 
-/// Print a single parameter to the console.
+/// Print a single argument to the console.
 /// @param[in] arg An argument of any type that can be printed.
 template <typename Arg>
 inline void print(const Arg& arg)
@@ -180,7 +180,7 @@ inline void print(const Arg& arg)
 	fmt::print("{}", arg);
 }
 
-/// Print all parameters to the console.
+/// Print all arguments to the console.
 /// @param[in] arg An argument of any type that can be printed.
 /// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
@@ -205,7 +205,7 @@ inline void print(const Arg& arg, Args&&... args)
 
 
 // ================================================================================================
-// PRINTLN - Prints each parameter to the console in a new line.
+// PRINTLN - Prints each argument to the console in a new line.
 // ================================================================================================
 
 namespace detail
@@ -251,7 +251,7 @@ inline void println()
 	fmt::print("\n");
 }
 
-/// Print a parameter to the console followed by a new line.
+/// Print an argument to the console followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
 template <typename Arg>
 inline void println(const Arg& arg)
@@ -259,7 +259,7 @@ inline void println(const Arg& arg)
 	fmt::print("{}\n", arg);
 }
 
-/// Print each parameter followed by a new line.
+/// Print each argument followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
 /// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
@@ -865,7 +865,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		}
 	}
 
-	// if newline parameter is true we have to print a newline character at the end
+	// if the newline variable is true we have to print a newline character at the end
 	if (newline)
 	{
 		fmt::print("{}", "\n");
@@ -1124,7 +1124,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		
 		// GCOVR_EXCL_STOP
 		
-		// if the parameter newline is true print with newline at the end, this is not the same
+		// if the variable newline is true print with newline at the end, this is not the same
 		// as the argument containing newline characters
 		if (newline)
 		{
@@ -1134,7 +1134,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	// if the argument doesn't contain newline characters
 	else
 	{
-		// if the parameter newline is true print with newline at the end, this is not the same
+		// if the variable newline is true print with newline at the end, this is not the same
 		// as the argument containing newline characters
 		if (newline)
 		{
