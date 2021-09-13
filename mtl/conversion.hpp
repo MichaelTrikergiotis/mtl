@@ -397,7 +397,7 @@ struct to_num_deductor
 			return result;
 		}
 		// GCOVR_EXCL_START
-		throw std::invalid_argument("Conversion error. Can't be converted successfully.");
+		throw std::invalid_argument("The value can't be converted successfully with mtl::to_num.");
 		// GCOVR_EXCL_STOP
 	}
 

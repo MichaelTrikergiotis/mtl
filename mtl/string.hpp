@@ -744,7 +744,7 @@ inline std::string to_string(const char* value)
 	// if the const char* is nullptr throw because the conversion can't continue
 	if(value == nullptr)
 	{
-		throw std::logic_error("Error. The const char* is nullptr."); // GCOVR_EXCL_LINE
+		throw std::logic_error("The const char* is nullptr."); // GCOVR_EXCL_LINE
 	}
 	return std::string(value); // GCOVR_EXCL_LINE
 }
@@ -1313,7 +1313,7 @@ inline void replace_long_heap(std::string& value, const std::string& match,
 
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(diff >= 0, 
-		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
+		"The number can't be negative. mtl::string::detail::replace_long contains errors.");
 #endif  // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert to size_t with no problems as this can't be negative
@@ -1418,7 +1418,7 @@ inline void replace_long(std::string& value, const std::string& match,
 
 #ifndef MTL_DISABLE_SOME_ASSERTS
 		MTL_ASSERT_MSG(diff >= 0,
-		"Error. Number can't be negative. mtl::string::detail::replace_long contains errors.");
+		"The number can't be negative. mtl::string::detail::replace_long contains errors.");
 #endif  // MTL_DISABLE_SOME_ASSERTS end
 
 		// convert to size_t with no problems as this can't be negative
@@ -1584,7 +1584,7 @@ replace_all(std::string& value, const ContainerMatches& container_matches,
 	if(matches_size != replacements_size)
 	{
 		throw std::invalid_argument(
-		"Error mtl::string::replace_all requires the containers to be the same size.");
+		"mtl::string::replace_all requires the containers to be the same size.");
 	}
 
 	// just run mtl::string::replace for each item in each container

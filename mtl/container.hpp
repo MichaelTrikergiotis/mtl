@@ -128,15 +128,14 @@ inline Container slice(const Container& container, const size_t start_pos, const
 	if(start_pos > end_pos)
 	{
 		throw std::out_of_range
-		("Error. For mtl::slice the starting position can't be larger than the ending position.");
+		("The starting position can't be larger than the ending position.");
 	}
 
 	// check if we are within bounds
 	if ((start_pos >= cont_size) || (end_pos > cont_size))
 	{
-		// some parameter is out of range and we have to throw
-		throw std::out_of_range
-		("Error. Invalid attempt to access out of the range of the container with mtl::slice.");
+		// one or both arguments are out of range, and we have to throw
+		throw std::out_of_range	("One or more arguments are out of range.");
 	}
 	
 	// get an iterator to position where the slice will start
@@ -174,9 +173,8 @@ inline Container slice_n(const Container& container, const size_t start_pos, con
 	// check if we are within bounds
 	if ((start_pos >= cont_size) || (start_pos + count > cont_size) || (count > cont_size))
 	{
-		// some parameter is out of range and we have to throw
-		throw std::out_of_range
-		("Error. Invalid attempt to access out of the range of the container with mtl::slice_n.");
+		// one or both arguments are out of range, and we have to throw
+		throw std::out_of_range	("One or more arguments are out of range.");
 	}
 	
 	// get an iterator to position where the slice will start
