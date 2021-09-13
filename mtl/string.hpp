@@ -1512,7 +1512,13 @@ inline void replace(std::string& value, const char match, const std::string& rep
 /// @param[in] replacement A replacement to replace the matches with.
 inline void replace(std::string& value, const char match, const char replacement)
 {
-	replace(value, mtl::string::to_string(match), mtl::string::to_string(replacement));
+	for(char& character : value)
+	{
+		if(character == match)
+		{
+			character = replacement;
+		}
+	}
 }
 
 /// Replaces all places in the input where a match is found with the replacement.
