@@ -1368,30 +1368,29 @@ inline void replace_long(std::string& value, const std::string& match,
 	// than the amount of positions found, if the positions fill the array we call an algorithm 
 	// where we use the heap and can track more positions
 	std::array<size_t, max_size> positions {};
-	// this is the number that keeps track of number of positions found to match, they stack array 
-	// size can be larger that this number so we can't use std::array::size
-	size_t actual_size = 0;
+	// this number keeps track of the number of positions found to match
+	size_t num_matches = 0;
 
 	size_t pos = 0;
 	// find all matches and keep their index
 	while ((pos = value.find(match, pos)) != std::string::npos)
 	{
 		// if the array can't hold more items start using the heap instead of the stack
-		if (actual_size == max_size)
+		if (num_matches == max_size)
 		{
 			replace_long_heap(value, match, replacement, positions, pos); // GCOVR_EXCL_LINE
 			return;
 		}
 
 		// store the position where a match was found
-		positions[actual_size] = pos;
-		++actual_size;
+		positions[num_matches] = pos;
+		++num_matches;
 		// move the position forward enough so we don't match the same thing again
 		pos += match.size();
 	}
 
 	// if nothing is found leave
-	if (actual_size == 0) { return; }
+	if (num_matches == 0) { return; }
 
 
 	std::string result;
@@ -1400,14 +1399,14 @@ inline void replace_long(std::string& value, const std::string& match,
 	// if what we replace is larger than the match then it is easy
 	if (replacement.size() >= match.size())
 	{
-		difference = value.size() + (actual_size * (replacement.size() - match.size()));
+		difference = value.size() + (num_matches * (replacement.size() - match.size()));
 	}
 	// if what we replace is smaller than the match then we have to convert numbers to a
 	// signed integer type so we can accept negative numbers
 	else 
 	{
 		// turn size_t to int64_t
-		int64_t positions_size = static_cast<int64_t>(actual_size);
+		int64_t positions_size = static_cast<int64_t>(num_matches);
 		int64_t replacement_size = static_cast<int64_t>(replacement.size());
 		int64_t match_size = static_cast<int64_t>(match.size());
 		// this value will never be negative
@@ -1435,7 +1434,7 @@ inline void replace_long(std::string& value, const std::string& match,
 	auto it_output = result.begin();
 
 	// loop over the actual number of positions found and not the size of the array
-	for (size_t i = 0; i < actual_size; ++i)
+	for (size_t i = 0; i < num_matches; ++i)
 	{
 		// GCOVR_EXCL_START
 		// copies parts to output string and moves the iterators along
