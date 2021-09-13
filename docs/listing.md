@@ -161,7 +161,7 @@ There are 151 non-member functions.
 - `mtl::string::join` [(Documentation)](../mtl/string.hpp#L969) [(Examples)](../tests/tests_string.cpp#L2127)
 - `mtl::string::split` [(Documentation)](../mtl/string.hpp#L1110) [(Examples)](../tests/tests_string.cpp#L2220)
 - `mtl::string::replace` [(Documentation)](../mtl/string.hpp#L1248) [(Examples)](../tests/tests_string.cpp#L3328)
-- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1560) [(Examples)](../tests/tests_string.cpp#L3986)
+- `mtl::string::replace_all` [(Documentation)](../mtl/string.hpp#L1559) [(Examples)](../tests/tests_string.cpp#L3986)
 
 ---------------------------------------------------
 
