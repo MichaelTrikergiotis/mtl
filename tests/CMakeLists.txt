@@ -134,7 +134,7 @@ else()
             set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
         # if we found clang-tidy pass the correct flags and print a message that clang-tidy is enabled
         else()
-            set(CLANG_TIDY_CHECKS "boost*,bugprone*,cert*,clang-analyzer*,concurrency*,cppcoreguidelines*,hicpp*,misc*,modernize*,performance*,portability*,readability-implicit-bool-conversion,-cert-dcl03-c,-cert-dcl16-c,-cert-err58-cpp,-cppcoreguidelines-avoid-m*,-cppcoreguidelines-m*,-cppcoreguidelines-pro-b*,-cppcoreguidelines-pro-type-r*,-hicpp-e*,-hicpp-n*,-hicpp-s*,-hicpp-uppercase-literal-suffix,-hicpp-use-auto,-hicpp-use-equals-delete,-misc-d*,-misc-non-p*,-misc-static-assert,-modernize-use-auto,-modernize-use-equals-delete,-modernize-use-trailing-return-type")
+            set(CLANG_TIDY_CHECKS "boost*,bugprone*,cert*,clang-analyzer*,concurrency*,cppcoreguidelines*,hicpp*,misc*,modernize*,performance*,portability*,readability-implicit-bool-conversion,-cert-dcl03-c,-cert-dcl16-c,-cert-err58-cpp,-cppcoreguidelines-avoid-m*,-cppcoreguidelines-m*,-cppcoreguidelines-pro-b*,-cppcoreguidelines-pro-type-r*,-hicpp-e*,-hicpp-n*,-hicpp-s*,-hicpp-uppercase-literal-suffix,-hicpp-use-auto,-hicpp-use-equals-delete,-misc-d*,-misc-non-p*,-misc-static-assert,-modernize-l*,-modernize-use-auto,-modernize-use-equals-delete,-modernize-use-trailing-return-type")
             set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};-checks=${CLANG_TIDY_CHECKS};-warnings-as-errors=${CLANG_TIDY_CHECKS};-header-filter=.hpp;-quiet")
             message("-- Enabled clang-tidy")
         endif()
