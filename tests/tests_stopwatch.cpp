@@ -43,6 +43,27 @@
 // mtl::chrono::stopwatch::elapsed_nano
 // ------------------------------------------------------------------------------------------------
 
+
+// Put the current thread to sleep for the specified amount of milliseconds.
+void sleep_for_ms([[maybe_unused]]size_t value_ms)
+{
+    // we need to use [[maybe_unused]] on the argument because clang-tidy will see nothing inside
+    // this function and will otherwise complain about an unused variable
+
+    // workaround for a known bug with clang-tidy (LLVM-11) and clang-tidy (LLVM-12)
+    // https://bugs.llvm.org/show_bug.cgi?id=47511
+    // the bug is reported as fixed with clang-tidy (LLVM 13.0.0-rc1)
+    // https://reviews.llvm.org/D99181
+#ifndef __clang_analyzer__
+
+    // sleep for the given amount of milliseconds
+    std::this_thread::sleep_for(std::chrono::milliseconds(value_ms));
+
+#endif // __clang_analyzer__ end
+
+}
+
+
 TEST_CASE("mtl::chrono::stopwatch : All elapsed functions")
 {
     mtl::chrono::stopwatch sw;
@@ -64,7 +85,7 @@ TEST_CASE("mtl::chrono::stopwatch : Start and Stop function")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    sleep_for_ms(30);
     sw.stop();
     // approximately equal
     CHECK_GT(sw.elapsed_nano(),    0.0);
@@ -102,7 +123,7 @@ TEST_CASE("mtl::chrono::stopwatch : Reset function after Start and Stop")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    sleep_for_ms(5);
     sw.stop();
     sw.reset();
     // approximately equal
@@ -127,7 +148,7 @@ TEST_CASE("mtl::chrono::stopwatch : Restart function after Start and Stop")
     sw.stop();
     sw.restart();
     // add at least 5ms delay after restart
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    sleep_for_ms(5);
     sw.stop();
 
 
@@ -150,7 +171,7 @@ TEST_CASE("mtl::chrono::stopwatch : Basic timing test 10ms")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    sleep_for_ms(10);
     sw.stop();
     
     REQUIRE_GT(sw.elapsed_nano(), 0.0);
@@ -170,7 +191,7 @@ TEST_CASE("mtl::chrono::stopwatch : Basic timing test 20ms")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    sleep_for_ms(20);
     sw.stop();
     
     REQUIRE_GT(sw.elapsed_nano(), 0.0);
