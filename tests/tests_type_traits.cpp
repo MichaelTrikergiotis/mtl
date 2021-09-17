@@ -1725,6 +1725,10 @@ TEST_CASE("mtl::is_std_tuple")
     CHECK_EQ((mtl::is_std_tuple<std::tuple<int>&&>::value), true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_tuple_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_std_tuple_v")
 {
     REQUIRE_EQ((mtl::is_std_tuple_v<int>), false);
