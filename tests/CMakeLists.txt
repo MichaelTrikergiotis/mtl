@@ -46,7 +46,7 @@ if(WIN32)
     # check if the compiler is Microsoft Visual C++
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         
-        message("-- Compiler used MSVC")
+        message("-- Compiler used is MSVC")
 
         # because CMake adds the flag /W3 and we want the flag /W4 instead
         # we have to replace it in the C++ flags variable using REGEX REPLACE
@@ -81,14 +81,14 @@ if(WIN32)
        
         # enable gnu like flags for clang++ on Windows
         if(ENABLE_GNU_LIKE_CLANG)
-            message("-- Compiler used clang++") 
+            message("-- Compiler used is clang++")
             
             # enable a lot of warnings and turn them to errors for clang
             add_compile_options(-Werror -Wall -Wextra)
         # enable cl like flags for clang-cl on Windows
         else()
             
-            message("-- Compiler used clang-cl")
+            message("-- Compiler used is clang-cl")
 
             # because CMake adds the flag /W3 and we want the flag /W4 instead
             # we have to replace it in the C++ flags variable using REGEX REPLACE
@@ -106,7 +106,7 @@ if(WIN32)
         endif()
     # check if the compiler is g++
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-        message("-- Compiler used g++")
+        message("-- Compiler used is g++")
         # enable a lot of warnings and turn them to errors for gcc
         add_compile_options(-Werror -Wall -Wextra)
     endif()
@@ -142,9 +142,9 @@ else()
 
 
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-        message("-- Compiler used clang++")
+        message("-- Compiler used is clang++")
     elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-        message("-- Compiler used g++")
+        message("-- Compiler used is g++")
     endif()
 
     # if we are using clang then we may want to use libc++
