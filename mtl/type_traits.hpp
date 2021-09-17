@@ -392,15 +392,15 @@ constexpr bool is_char_v = is_char<Type>::value;
 //                   elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::vector.
+/// Detects if the container is an std::array.
 template<typename Type>
 struct is_std_array : std::false_type {};
 
-/// Detects if the container is an std::vector.
+/// Detects if the container is an std::array.
 template<typename Type, const size_t Size>
 struct is_std_array<typename std::array<Type, Size> > : std::true_type {};
 
-/// Detects if the container is an std::vector. Helper type that allows you to elide the ::value 
+/// Detects if the container is an std::array. Helper type that allows you to elide the ::value
 /// at the end.
 template<typename Type>
 constexpr bool is_std_array_v = is_std_array<Type>::value;
