@@ -90,7 +90,7 @@ TEST_CASE("mtl::chrono::stopwatch, start and stop functions")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    sleep_for_ms(5);
+    sleep_for_ms(30);
     sw.stop();
     // approximately equal
     CHECK_GT(sw.elapsed_nano(),    0.0);
@@ -117,7 +117,7 @@ TEST_CASE("mtl::chrono::stopwatch, start and stop functions, start multiple time
     sw.start();
     sleep_for_ms(1);
     sw.start();
-    sleep_for_ms(5);
+    sleep_for_ms(30);
     sw.stop();
 
     // approximately equal
@@ -145,7 +145,7 @@ TEST_CASE("mtl::chrono::stopwatch, start and stop functions, stop multiple times
     sw.stop();
     sleep_for_ms(1);
     sw.stop();
-    sleep_for_ms(5);
+    sleep_for_ms(30);
     sw.stop();
     
     // approximately equal
@@ -176,7 +176,7 @@ TEST_CASE("mtl::chrono::stopwatch, start and stop functions, start and stop mult
     sleep_for_ms(1);
     sw.stop();
     sw.start();
-    sleep_for_ms(5);
+    sleep_for_ms(30);
     sw.stop();
 
     // approximately equal
@@ -291,15 +291,12 @@ TEST_CASE("mtl::chrono::stopwatch, restart function after start and stop")
 {
     mtl::chrono::stopwatch sw;
     sw.start();
-    // allow almost no delay between start and stop
     sw.stop();
     sw.restart();
-    // add at least 5ms delay after restart
-    sleep_for_ms(5);
+    sleep_for_ms(30);
     sw.stop();
 
 
-    // time measures should be at more than 5ms passed
     REQUIRE_GT(sw.elapsed_nano(), 0.0);
     REQUIRE_GT(sw.elapsed_micro(), 0.0);
     REQUIRE_GT(sw.elapsed_milli(), 0.0);
