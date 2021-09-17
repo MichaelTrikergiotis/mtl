@@ -25,6 +25,7 @@
 #include <stack>           // std::stack
 #include <queue>           // std::queue, std::priority_queue
 #include <utility>         // std::pair
+#include <tuple>           // std::tuple
 #include <iterator>        // std::input_iterator_tag, std::output_iterator_tag, 
 						   // std::iterator_traits
 #include <type_traits>     // std::false_type, std::true_type, std::enable_if_t, std::conditional,
@@ -772,6 +773,35 @@ typename Type::second_type>>>>>> : std::true_type {};
 template<typename Type>
 constexpr bool is_std_pair_v = is_std_pair<Type>::value;
 
+
+
+// ================================================================================================
+// IS_STD_TUPLE    - Detects if the given type is an std::tuple.
+// IS_STD_TUPLE_V  - Detects if the given type is an std::tuple. Helper type that allows you to
+//                   elide the ::value at the end.
+// ================================================================================================
+
+namespace detail
+{
+
+// Detects if the type is an std::tuple.
+template<typename Type>
+struct is_std_tuple_impl : std::false_type {};
+
+// Detects if the type is an std::tuple.
+template<typename... Args>
+struct is_std_tuple_impl<std::tuple<Args...>> : std::true_type {};
+
+} // namsepace detail
+
+/// Detects if the type is an std::tuple.
+template<typename Type>
+struct is_std_tuple : mtl::detail::is_std_tuple_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::tuple. Helper type that allows you to elide the ::value.
+template<typename Type>
+constexpr bool is_std_tuple_v = is_std_tuple<Type>::value;
 
 
 
