@@ -22,25 +22,25 @@
 #include <type_traits> // std::add_lvalue_reference_t, std::add_rvalue_reference_t
 
 
-#include "../mtl/type_traits.hpp" 
+#include "../mtl/type_traits.hpp"
 // mtl::are_same, mtl::are_same_v, mtl::has_reserve, mtl::has_reserve_v,
 // mtl::has_push_back, mtl::has_push_back_v, mtl::has_emplace_back, mtl::has_emplace_back_v,
 // mtl::has_size, mtl::has_size_v, mtl::has_find, mtl::has_find_v, mtl::is_sint, mtl::is_sint_v,
-// mtl::is_uint, mtl::is_uint_v, mtl::is_int, mtl::is_int_v, mtl::is_float, mtl::is_float_v, 
-// mtl::is_number, mtl::is_number_v, mtl::is_char, mtl::is_char_v, mtl::is_std_array, 
+// mtl::is_uint, mtl::is_uint_v, mtl::is_int, mtl::is_int_v, mtl::is_float, mtl::is_float_v,
+// mtl::is_number, mtl::is_number_v, mtl::is_char, mtl::is_char_v, mtl::is_std_array,
 // mtl::is_std_array_v, mtl::is_std_vector, mtl::is_std_vector_v, mtl::is_std_deque,
 // mtl::is_std_deque_v, mtl::is_std_forward_list, mtl::is_std_forward_list_v, mtl::is_std_list,
-// mtl::is_std_list_v, mtl::is_std_set, mtl::is_std_set_v, mtl::is_std_multiset, 
+// mtl::is_std_list_v, mtl::is_std_set, mtl::is_std_set_v, mtl::is_std_multiset,
 // mtl::is_std_multiset_v, mtl::is_std_map, mtl::is_std_map_v, mtl::is_std_multimap,
-// mtl::is_std_multimap_v, mtl::is_std_unordered_set, mtl::is_std_unordered_set_v, 
+// mtl::is_std_multimap_v, mtl::is_std_unordered_set, mtl::is_std_unordered_set_v,
 // mtl::is_std_unordered_map, mtl::is_std_unordered_map_v, mtl::is_std_unordered_multiset,
-// mtl::is_std_unordered_multiset_v,  mtl::is_std_unordered_multimap, 
+// mtl::is_std_unordered_multiset_v, mtl::is_std_unordered_multimap,
 // mtl::is_std_unordered_multimap_v, mtl::is_std_stack, mtl::is_std_stack_v, mtl::is_std_queue,
-// mtl::is_std_queue_v, mtl::is_std_priority_queue, mtl::is_std_priority_queue_v, 
-// mtl::is_std_container, mtl::is_std_container_v, mtl::is_std_pair, mtl::is_std_pair_v, 
-// mtl::is_std_string, mtl::is_std_string_v, mtl::is_c_string, mtl::is_c_string_v, 
-// mtl::is_input_iterator, mtl::is_input_iterator_v, mtl::is_output_iterator, 
-// mtl::is_output_iterator_v, mtl::is_iterator, mtl::is_iterator_v
+// mtl::is_std_queue_v, mtl::is_std_priority_queue, mtl::is_std_priority_queue_v,
+// mtl::is_std_container, mtl::is_std_container_v, mtl::is_std_pair, mtl::is_std_pair_v,
+// mtl::is_std_tuple, mtl::is_std_tuple_v, mtl::is_std_string, mtl::is_std_string_v,
+// mtl::is_c_string, mtl::is_c_string_v, mtl::is_input_iterator, mtl::is_input_iterator_v,
+// mtl::is_output_iterator, mtl::is_output_iterator_v, mtl::is_iterator, mtl::is_iterator_v
 
 
 
@@ -1659,6 +1659,129 @@ TEST_CASE("mtl::is_std_pair_v")
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<std::vector<float>, char>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<bool, std::list<float>>>), true);
 }
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_tuple
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_std_tuple")
+{
+    REQUIRE_EQ((mtl::is_std_tuple<int>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::array<int, 4>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::vector<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::deque<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::list<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::string>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<char*>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<const char*>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::vector<char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<int, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<float, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<float, float>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::string, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::string, std::string>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<bool, char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::pair<int, char>, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<int, std::pair<char, bool>>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::vector<float>, char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<bool, std::list<float>>>::value), false);
+
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, int, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::string>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, std::string>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<char, std::string, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::vector<std::string>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, std::vector<std::string>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<char, std::vector<std::string>, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<float, std::array<int,3>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::array<int,3>, float>>::value), true);
+
+    // with const
+    CHECK_EQ((mtl::is_std_tuple<const std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<const int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const std::tuple<const int>>::value), true);
+
+    // with volatile
+    CHECK_EQ((mtl::is_std_tuple<volatile std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<volatile int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<volatile std::tuple<volatile int>>::value), true);
+
+    // with const and volatile
+    CHECK_EQ((mtl::is_std_tuple<const volatile std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<const volatile int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const volatile std::tuple<const volatile int>>::value), true);
+
+    // with lvalue reference
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>&>::value), true);
+
+    // with rvalue reference
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>&&>::value), true);
+}
+
+TEST_CASE("mtl::is_std_tuple_v")
+{
+    REQUIRE_EQ((mtl::is_std_tuple_v<int>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::array<int, 4>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::vector<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::deque<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::list<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::string>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<char*>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<const char*>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::vector<char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<int, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<float, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<float, float>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::string, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::string, std::string>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<bool, char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::pair<int, char>, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<int, std::pair<char, bool>>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::vector<float>, char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<bool, std::list<float>>>), false);
+
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, int, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::string>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, std::string>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<char, std::string, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::vector<std::string>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, std::vector<std::string>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<char, std::vector<std::string>, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<float, std::array<int,3>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::array<int,3>, float>>), true);
+
+    // with const
+    CHECK_EQ((mtl::is_std_tuple_v<const std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<const int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const std::tuple<const int>>), true);
+
+    // with volatile
+    CHECK_EQ((mtl::is_std_tuple_v<volatile std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<volatile int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<volatile std::tuple<volatile int>>), true);
+
+    // with const and volatile
+    CHECK_EQ((mtl::is_std_tuple_v<const volatile std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<const volatile int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const volatile std::tuple<const volatile int>>), true);
+
+    // with lvalue reference
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>&>), true);
+
+    // with rvalue reference
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>&&>), true);
+}
+
 
 
 
