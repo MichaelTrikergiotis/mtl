@@ -149,7 +149,7 @@ struct has_emplace_back_adapter
 	<Type, void(typename Type::value_type)>::value>::value;
 };
 
-}  //  namespace detail end
+}  // namespace detail end
 
 
 /// Detects if the type has the emplace_back function.
@@ -246,7 +246,7 @@ std::pair<typename Type::value_type::first_type, typename Type::value_type::seco
 };
 
 
-}  //  namespace detail end
+}  // namespace detail end
 
 
 /// Detects if the type has the find function.
@@ -792,7 +792,7 @@ struct is_std_tuple_impl : std::false_type {};
 template<typename... Args>
 struct is_std_tuple_impl<std::tuple<Args...>> : std::true_type {};
 
-} // namsepace detail
+} // namespace detail end
 
 /// Detects if the type is an std::tuple.
 template<typename Type>
