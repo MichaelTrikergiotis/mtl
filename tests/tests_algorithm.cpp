@@ -3674,7 +3674,15 @@ TEST_CASE("mtl::for_each with const std::tuple of integers")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of integers, ref")
+TEST_CASE("mtl::for_each with std::tuple of integers, temp")
+{
+    int total = 0;
+    mtl::for_each(std::make_tuple(10, 20, 30, 40), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+
+TEST_CASE("mtl::for_each with std::tuple of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3696,7 +3704,7 @@ TEST_CASE("mtl::for_each with std::tuple of integers, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of integers, const ref")
+TEST_CASE("mtl::for_each with std::tuple of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3767,7 +3775,7 @@ TEST_CASE("mtl::for_each with const std::tuple of different types")
 }
 
 
-TEST_CASE("mtl::for_each with std::tuple of different types, ref")
+TEST_CASE("mtl::for_each with std::tuple of different types")
 {
     const int items = 10;
     
@@ -3799,7 +3807,7 @@ TEST_CASE("mtl::for_each with std::tuple of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of different types, const ref")
+TEST_CASE("mtl::for_each with std::tuple of different types")
 {
     const int items = 10;
     
@@ -3872,6 +3880,8 @@ TEST_CASE("mtl::for_each with std::tuple of different types, modify")
 
 
 
+
+
 TEST_CASE("mtl::for_each with std::pair of integers")
 {
     auto p = std::pair<int, int>(70 , 30);
@@ -3888,7 +3898,41 @@ TEST_CASE("mtl::for_each with const std::pair of integers")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each with std::pair of integers, ref")
+TEST_CASE("mtl::for_each with volatile std::pair of integers")
+{
+    volatile std::pair<int, int> p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with const volatile std::pair of integers")
+{
+    const volatile std::pair<int, int> p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with std::pair of integers, temp")
+{  
+    int total = 0;
+    mtl::for_each(std::pair<int, int>(70 , 30), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with std::pair of integers, temp")
+{   
+    int total = 0;
+    mtl::for_each(std::make_pair(70 , 30), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+
+
+
+
+TEST_CASE("mtl::for_each with std::pair of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3910,7 +3954,7 @@ TEST_CASE("mtl::for_each with std::pair of integers, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::pair of integers, const ref")
+TEST_CASE("mtl::for_each with std::pair of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3981,7 +4025,7 @@ TEST_CASE("mtl::for_each with const std::pair of different types")
 }
 
 
-TEST_CASE("mtl::for_each with std::pair of different types, ref")
+TEST_CASE("mtl::for_each with std::pair of different types")
 {
     const int items = 10;
     
@@ -4013,7 +4057,7 @@ TEST_CASE("mtl::for_each with std::pair of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::pair of different types, const ref")
+TEST_CASE("mtl::for_each with std::pair of different types")
 {
     const int items = 10;
     
