@@ -231,7 +231,6 @@ struct has_find_adapter
 //  adapter specifically adapts to the desired function signature so we don't have to type it from
 // the caller.
 template<typename Type>
-// struct has_find_adapter<Type, std::enable_if_t<is_std_pair_v<typename Type::value_type>>>
 struct has_find_adapter<Type, std::enable_if_t<
 std::is_same_v<typename Type::value_type, 
 std::pair<typename Type::value_type::first_type, typename Type::value_type::second_type>>>>
