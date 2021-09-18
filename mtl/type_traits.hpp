@@ -398,7 +398,39 @@ struct is_std_array : std::false_type {};
 
 /// Detects if the container is an std::array.
 template<typename Type, const size_t Size>
-struct is_std_array<typename std::array<Type, Size> > : std::true_type {};
+struct is_std_array<std::array<Type, Size>> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<std::array<Type, Size>&> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<std::array<Type, Size>&&> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const std::array<Type, Size>> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const volatile std::array<Type, Size>> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const std::array<Type, Size>&> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const volatile std::array<Type, Size>&> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const std::array<Type, Size>&&> : std::true_type {};
+
+/// Detects if the container is an std::array.
+template<typename Type, const size_t Size>
+struct is_std_array<const volatile std::array<Type, Size>&&> : std::true_type {};
 
 /// Detects if the container is an std::array. Helper type that allows you to elide the ::value
 /// at the end.
@@ -413,16 +445,25 @@ constexpr bool is_std_array_v = is_std_array<Type>::value;
 //                    elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::vector.
-template<typename Type>
-struct is_std_vector : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::vector.
+// Detects if the type is an std::vector.
 template<typename Type>
-struct is_std_vector<std::vector<Type>> : std::true_type {};
+struct is_std_vector_impl : std::false_type {};
 
-/// Detects if the container is an std::vector. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::vector.
+template<typename Type>
+struct is_std_vector_impl<std::vector<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::vector.
+template<typename Type>
+struct is_std_vector : mtl::detail::is_std_vector_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::vector. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_vector_v = is_std_vector<Type>::value;
 
@@ -434,16 +475,25 @@ constexpr bool is_std_vector_v = is_std_vector<Type>::value;
 //                   elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::vector.
-template<typename Type>
-struct is_std_deque : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::vector.
+// Detects if the type is an std::deque.
 template<typename Type>
-struct is_std_deque<std::deque<Type>> : std::true_type {};
+struct is_std_deque_impl : std::false_type {};
 
-/// Detects if the container is an std::vector. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::deque.
+template<typename Type>
+struct is_std_deque_impl<std::deque<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::deque.
+template<typename Type>
+struct is_std_deque : mtl::detail::is_std_deque_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::deque. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_deque_v = is_std_deque<Type>::value;
 
@@ -455,16 +505,25 @@ constexpr bool is_std_deque_v = is_std_deque<Type>::value;
 //                          allows you to elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::forward_list.
-template<typename Type>
-struct is_std_forward_list : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::forward_list.
+// Detects if the type is an std::forward_list.
 template<typename Type>
-struct is_std_forward_list<std::forward_list<Type>> : std::true_type {};
+struct is_std_forward_list_impl : std::false_type {};
 
-/// Detects if the container is an std::forward_list. Helper type that allows you to elide the
-/// ::value at the end.
+// Detects if the type is an std::forward_list.
+template<typename Type>
+struct is_std_forward_list_impl<std::forward_list<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::forward_list.
+template<typename Type>
+struct is_std_forward_list : mtl::detail::is_std_forward_list_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::forward_list. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_forward_list_v = is_std_forward_list<Type>::value;
 
@@ -476,16 +535,25 @@ constexpr bool is_std_forward_list_v = is_std_forward_list<Type>::value;
 //                  elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::list.
-template<typename Type>
-struct is_std_list : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::list.
+// Detects if the type is an std::list.
 template<typename Type>
-struct is_std_list<std::list<Type>> : std::true_type {};
+struct is_std_list_impl : std::false_type {};
 
-/// Detects if the container is an std::list. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::list.
+template<typename Type>
+struct is_std_list_impl<std::list<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::list.
+template<typename Type>
+struct is_std_list : mtl::detail::is_std_list_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::list. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_list_v = is_std_list<Type>::value;
 
@@ -497,16 +565,25 @@ constexpr bool is_std_list_v = is_std_list<Type>::value;
 //                 the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::set.
-template<typename Type>
-struct is_std_set : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::set.
+// Detects if the type is an std::set.
 template<typename Type>
-struct is_std_set<std::set<Type>> : std::true_type {};
+struct is_std_set_impl : std::false_type {};
 
-/// Detects if the container is an std::set. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::set.
+template<typename Type>
+struct is_std_set_impl<std::set<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::set.
+template<typename Type>
+struct is_std_set : mtl::detail::is_std_set_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::set. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_set_v = is_std_set<Type>::value;
 
@@ -518,16 +595,25 @@ constexpr bool is_std_set_v = is_std_set<Type>::value;
 //                      to elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::multiset.
-template<typename Type>
-struct is_std_multiset : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::multiset.
+// Detects if the type is an std::multiset.
 template<typename Type>
-struct is_std_multiset<std::multiset<Type>> : std::true_type {};
+struct is_std_multiset_impl : std::false_type {};
 
-/// Detects if the container is an std::multiset. Helper type that allows you to elide the 
-/// ::value at the end.
+// Detects if the type is an std::multiset.
+template<typename Type>
+struct is_std_multiset_impl<std::multiset<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::multiset.
+template<typename Type>
+struct is_std_multiset : mtl::detail::is_std_multiset_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::multiset. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_multiset_v = is_std_multiset<Type>::value;
 
@@ -545,7 +631,40 @@ struct is_std_map : std::false_type {};
 
 /// Detects if the container is an std::map.
 template<typename Type1, typename Type2>
-struct is_std_map<std::map<Type1, Type2> > : std::true_type {};
+struct is_std_map<std::map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<std::map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<std::map<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const std::map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const volatile std::map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const std::map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const volatile std::map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const std::map<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::map.
+template<typename Type1, typename Type2>
+struct is_std_map<const volatile std::map<Type1, Type2>&&> : std::true_type {};
+
 
 /// Detects if the container is an std::map. Helper type that allows you to elide the ::value 
 /// at the end.
@@ -566,7 +685,40 @@ struct is_std_multimap : std::false_type {};
 
 /// Detects if the container is an std::multimap.
 template<typename Type1, typename Type2>
-struct is_std_multimap<std::multimap<Type1, Type2> > : std::true_type {};
+struct is_std_multimap<std::multimap<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<std::multimap<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<std::multimap<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const std::multimap<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const volatile std::multimap<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const std::multimap<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const volatile std::multimap<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const std::multimap<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::multimap.
+template<typename Type1, typename Type2>
+struct is_std_multimap<const volatile std::multimap<Type1, Type2>&&> : std::true_type {};
+
 
 /// Detects if the container is an std::multimap. Helper type that allows you to elide the 
 /// ::value at the end.
@@ -581,16 +733,25 @@ constexpr bool is_std_multimap_v = is_std_multimap<Type>::value;
 //                           allows you to elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::unordered_set.
-template<typename Type>
-struct is_std_unordered_set : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::unordered_set.
+// Detects if the type is an std::unordered_set.
 template<typename Type>
-struct is_std_unordered_set<std::unordered_set<Type>> : std::true_type {};
+struct is_std_unordered_set_impl : std::false_type {};
 
-/// Detects if the container is an std::unordered_set. Helper type that allows you to elide the
-/// ::value at the end.
+// Detects if the type is an std::unordered_set.
+template<typename Type>
+struct is_std_unordered_set_impl<std::unordered_set<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::unordered_set.
+template<typename Type>
+struct is_std_unordered_set : mtl::detail::is_std_unordered_set_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::unordered_set. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_unordered_set_v = is_std_unordered_set<Type>::value;
 
@@ -608,7 +769,40 @@ struct is_std_unordered_map : std::false_type {};
 
 /// Detects if the container is an std::unordered_map.
 template<typename Type1, typename Type2>
-struct is_std_unordered_map<std::unordered_map<Type1, Type2> > : std::true_type {};
+struct is_std_unordered_map<std::unordered_map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<std::unordered_map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<std::unordered_map<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const std::unordered_map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const volatile std::unordered_map<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const std::unordered_map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const volatile std::unordered_map<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const std::unordered_map<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_map.
+template<typename Type1, typename Type2>
+struct is_std_unordered_map<const volatile std::unordered_map<Type1, Type2>&&> : std::true_type {};
+
 
 /// Detects if the container is an std::unordered_map. Helper type that allows you to elide the
 /// ::value at the end.
@@ -623,16 +817,26 @@ constexpr bool is_std_unordered_map_v = is_std_unordered_map<Type>::value;
 //                                type that allows you to elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::unordered_multiset.
-template<typename Type>
-struct is_std_unordered_multiset : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::unordered_multiset.
+// Detects if the type is an std::unordered_multiset.
 template<typename Type>
-struct is_std_unordered_multiset<std::unordered_multiset<Type>> : std::true_type {};
+struct is_std_unordered_multiset_impl : std::false_type {};
 
-/// Detects if the container is an std::unordered_multiset. Helper type that allows you to elide
-/// the ::value at the end.
+// Detects if the type is an std::unordered_multiset.
+template<typename Type>
+struct is_std_unordered_multiset_impl<std::unordered_multiset<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::unordered_multiset.
+template<typename Type>
+struct is_std_unordered_multiset : mtl::detail::is_std_unordered_multiset_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::unordered_multiset. Helper type that allows you to elide 
+/// the ::value.
 template<typename Type>
 constexpr bool is_std_unordered_multiset_v = is_std_unordered_multiset<Type>::value;
 
@@ -650,7 +854,44 @@ struct is_std_unordered_multimap : std::false_type {};
 
 /// Detects if the container is an std::unordered_multimap.
 template<typename Type1, typename Type2>
-struct is_std_unordered_multimap<std::unordered_multimap<Type1, Type2> > : std::true_type {};
+struct is_std_unordered_multimap<std::unordered_multimap<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<std::unordered_multimap<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<std::unordered_multimap<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const std::unordered_multimap<Type1, Type2>> : std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const volatile std::unordered_multimap<Type1, Type2>> :
+std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const std::unordered_multimap<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const volatile std::unordered_multimap<Type1, Type2>&> :
+std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const std::unordered_multimap<Type1, Type2>&&> :
+std::true_type {};
+
+/// Detects if the container is an std::unordered_multimap.
+template<typename Type1, typename Type2>
+struct is_std_unordered_multimap<const volatile std::unordered_multimap<Type1, Type2>&&> :
+std::true_type {};
+
 
 /// Detects if the container is an std::unordered_multimap. Helper type that allows you to elide
 /// the ::value at the end.
@@ -665,16 +906,25 @@ constexpr bool is_std_unordered_multimap_v = is_std_unordered_multimap<Type>::va
 //                   elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::stack.
-template<typename Type>
-struct is_std_stack : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::stack.
+// Detects if the type is an std::stack.
 template<typename Type>
-struct is_std_stack<std::stack<Type>> : std::true_type {};
+struct is_std_stack_impl : std::false_type {};
 
-/// Detects if the container is an std::stack. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::stack.
+template<typename Type>
+struct is_std_stack_impl<std::stack<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::stack.
+template<typename Type>
+struct is_std_stack : mtl::detail::is_std_stack_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::stack. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_stack_v = is_std_stack<Type>::value;
 
@@ -686,16 +936,25 @@ constexpr bool is_std_stack_v = is_std_stack<Type>::value;
 //                   elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::queue.
-template<typename Type>
-struct is_std_queue : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::queue.
+// Detects if the type is an std::queue.
 template<typename Type>
-struct is_std_queue<std::queue<Type>> : std::true_type {};
+struct is_std_queue_impl : std::false_type {};
 
-/// Detects if the container is an std::queue. Helper type that allows you to elide the ::value 
-/// at the end.
+// Detects if the type is an std::queue.
+template<typename Type>
+struct is_std_queue_impl<std::queue<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::queue.
+template<typename Type>
+struct is_std_queue : mtl::detail::is_std_queue_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::queue. Helper type that allows you to elide the ::value.
 template<typename Type>
 constexpr bool is_std_queue_v = is_std_queue<Type>::value;
 
@@ -707,16 +966,26 @@ constexpr bool is_std_queue_v = is_std_queue<Type>::value;
 //                            allows you to elide the ::value at the end.
 // ================================================================================================
 
-/// Detects if the container is an std::priority_queue.
-template<typename Type>
-struct is_std_priority_queue : std::false_type {};
+namespace detail
+{
 
-/// Detects if the container is an std::priority_queue.
+// Detects if the type is an std::priority_queue.
 template<typename Type>
-struct is_std_priority_queue<std::priority_queue<Type>> : std::true_type {};
+struct is_std_priority_queue_impl : std::false_type {};
 
-/// Detects if the container is an std::priority_queue. Helper type that allows you to elide the
-/// ::value at the end.
+// Detects if the type is an std::priority_queue.
+template<typename Type>
+struct is_std_priority_queue_impl<std::priority_queue<Type>> : std::true_type {};
+
+} // namespace detail end
+
+/// Detects if the type is an std::priority_queue.
+template<typename Type>
+struct is_std_priority_queue : mtl::detail::is_std_priority_queue_impl
+<std::remove_cv_t<std::remove_reference_t<Type>>> {};
+
+/// Detects if the type is an std::priority_queue. Helper type that allows you to elide 
+/// the ::value.
 template<typename Type>
 constexpr bool is_std_priority_queue_v = is_std_priority_queue<Type>::value;
 
@@ -763,11 +1032,41 @@ template<typename Type, typename = void>
 struct is_std_pair : std::false_type {};
 
 /// Detects if the type is an std::pair.
-template<typename Type>
-struct is_std_pair<Type, 
-std::enable_if_t<std::is_same_v<Type,
-std::remove_cv_t<std::remove_reference_t<std::pair<typename Type::first_type,
-typename Type::second_type>>>>>> : std::true_type {};
+template<typename Type1, typename Type2>
+struct is_std_pair<std::pair<Type1, Type2>> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<std::pair<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<std::pair<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const std::pair<Type1, Type2>> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const volatile std::pair<Type1, Type2>> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const std::pair<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const volatile std::pair<Type1, Type2>&> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const std::pair<Type1, Type2>&&> : std::true_type {};
+
+/// Detects if the type is an std::pair.
+template<typename Type1, typename Type2>
+struct is_std_pair<const volatile std::pair<Type1, Type2>&&> : std::true_type {};
+
 
 /// Detects if the type is an std::pair. Helper type that allows you to elide the ::value.
 template<typename Type>
@@ -834,10 +1133,19 @@ constexpr bool is_std_string_v = is_std_string<Type>::value;
 
 /// Detects if the type is an c style string, either char* or const char*.
 template<typename Type>
-struct is_c_string :
-std::integral_constant<bool,
-std::is_same<const char*, typename std::decay<Type>::type>::value ||
-std::is_same<char*, typename std::decay<Type>::type>::value> {};
+struct is_c_string
+{
+	static constexpr bool value = 
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, char*> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, char*&> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, char*&&> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const char*> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const volatile char*> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const char*&> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const volatile char*&> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const char*&> ||
+	std::is_same_v<std::remove_cv_t<std::remove_reference_t<Type>>, const volatile char*&>;
+};
 
 
 /// Detects if the type is an c style string, either char* or const char*. Helper type that allows
