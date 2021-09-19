@@ -10,7 +10,7 @@
 #include <stdexcept> // std::invalid_argument
 
 
-// Some functions perform division and if a specific parameter is zero it can cause division
+// Some functions perform division and if a specific argument is zero it can cause division
 // by zero. By defining the following macro all functions that support this macro will throw an
 // exception instead of trying to divide by zero.
 #define MTL_DIV_ZERO_THROW
@@ -984,7 +984,7 @@ TEST_CASE("mtl::percent long double")
     REQUIRE_EQ(excepted.size(), results.size());
     for (size_t i = 0; i < portions.size(); i++)
     {
-        // approximate equality lor long doubleing point numbers
+        // approximate equality lor long double numbers
         auto value = results[i];
         CHECK_LT(excepted[i] - 0.01l, value);
         CHECK_GT(excepted[i] + 0.01l, value);

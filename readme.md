@@ -13,7 +13,7 @@ Modern, fast, easy. Makes C++ a joy to use.
 
 ## Introduction
 
-The **mtl** or by its full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It provides a lot of functionality that other programming languages include by default in their standard libraries.
+The **mtl** or by its full name the **Modern Template Library** is a C++ 17 header-only library that provides everything you ever wanted but the C++ standard library is missing. It augments the C++ standard library with functionality that other modern programming languages include by default in their standard libraries. However, it also replaces parts of the C++ standard library with much higher performance alternatives where needed. It is actively maintained and very extensively tested.
 
 For a quick overview of what **mtl** provides you can check the [list of classes and functions](./docs/listing.md).
 
@@ -53,7 +53,7 @@ const std::vector<std::string> tokens { "Joe", "Jill", "Bill", "Nick", "Maria", 
 std::string joined_names = mtl::string::join_all(tokens.begin(), tokens.end(), ", ");
 ```
 
-Now if you compare `names` from example 1 and `joined_names` from example 2 they will be equal.
+Now if you compare `names` from example 1 and `joined_names` from example 2 they will be equal. For the above example `mtl::string::join_all` just needs to perform **a single heap allocation**.
 
 [**EXAMPLE 3**]
 
@@ -61,7 +61,7 @@ With `mtl::string::join` you can join different types of variables together with
 
 ```c++
 const std::string planet = " planet ";
-// the types of the arguments here are const char*, char, const std::string, float and const char*
+// the arguments types are const char*, char, const std::string, float and const char*
 std::string message = mtl::string::join("Hello from ", 'a', planet, 12.24f, " light-years away.");
 mtl::console::println(message);
 ```
@@ -71,6 +71,7 @@ mtl::console::println(message);
 The same output as the above could also be achieved with :
 
 ```c++
+// the arguments types are const char*, char, const std::string, float, const char* and char
 mtl::console::print("Hello from ", 'a', planet, 12.24f, " light-years away.", '\n');
 ```
 
@@ -81,11 +82,11 @@ Please note that we use `mtl::console::print` with the same variables as before 
 Generating a random number from 1 to 10 with the least amount of boilerplate code :
 
 ```c++
-mtl::rng<int> rng_1to10 (1, 10);
-int random_number = rng_1to10.next();
+mtl::rng<int> random_num_gen (1, 10);
+int random_number = random_num_gen.next();
 ```
 
-Now the variable `random_number` is a random integer number between 1 and 10.
+Now the variable `random_number` is a random integer between 1 and 10.
 
 [**EXAMPLE 5**]
 

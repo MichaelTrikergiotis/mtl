@@ -3,7 +3,7 @@
 // 18/06/2018
 // 
 // 
-// This header contains algorithms related with manipulating numbers.
+// This header contains algorithms related to manipulating numbers.
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -37,7 +37,7 @@ namespace mtl
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
 /// @param[in] start An optional starting numeric value. 
-/// @param[in] step An optional value that will be used as step from one item to the next. 
+/// @param[in] step An optional value that will be used as a step from one item to the next. 
 template<typename FwdIter>
 inline std::enable_if_t<mtl::is_number_v<typename FwdIter::value_type>, void>
 iota(FwdIter first, FwdIter last, typename FwdIter::value_type start = 0, 
@@ -57,15 +57,15 @@ iota(FwdIter first, FwdIter last, typename FwdIter::value_type start = 0,
 // FREQUENCY         - Creates a frequency table for each element in the range.
 // ================================================================================================
 
-// Creates a frequency table for each element in the range. The first parameter of each pair is the
-// element while the second parameter is the frequency of appearance for that element. The 
+// Creates a frequency table for each element in the range. The first argument of each pair is the
+// element while the second argument is the frequency of appearance for that element. The
 // frequency can never be 0 or lower. The hash is used to define the hashing function used.
-// The parameter key_equal is the functor used for key equality.
+// The argument key_equal is the functor used for key equality.
 /// @param[in] begin The beginning of the range.
 /// @param[in] end The end of the range.
 /// @param[in] hash A hashing function, like std::hash<T>.
 /// @param[in] KeyEqual A binary predicate used for equality comparison, like std::equal_to<T>.
-/// @return An std::unordered_map with the frequency of apperance of each item.
+/// @return An std::unordered_map with the frequency of appearance of each item.
 template<typename Iter, typename Number = size_t, 
 		 typename Key = typename std::iterator_traits<Iter>::value_type, 
 		 typename Hash = std::hash<Key>,
@@ -77,7 +77,7 @@ frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 	// typedef to shorten the type
 	using unordered_map_t = std::unordered_map<Key, Number, Hash, KeyEqual>;
 
-	// be carefull as the size can be negative
+	// be careful as the size can be negative
 	auto size = std::distance(begin, end);
 
 	// if the size is negative or 0 return empty container with given hasher and key equality
@@ -108,13 +108,13 @@ frequency(Iter begin, Iter end, Hash hash, KeyEqual key_equal)
 }
 
 
-/// Creates a frequency table for each element in the range. The first parameter of each pair is
-/// the element while the second parameter is the frequency of appearance for that element. The 
+/// Creates a frequency table for each element in the range. The first argument of each pair is
+/// the element while the second argument is the frequency of appearance for that element. The 
 /// frequency can never be 0 or lower. The hash is used to define the hashing function used.
-/// The parameter key_equal is the functor used for key equality.
+/// The argument key_equal is the functor used for key equality.
 /// @param[in] begin The beginning of the range.
 /// @param[in] end The end of the range.
-/// @return An std::unordered_map with the frequency of apperance of each item.
+/// @return An std::unordered_map with the frequency of appearance of each item.
 template<typename Iter, typename Number = size_t>
 [[nodiscard]]
 inline std::enable_if_t<mtl::is_number_v<Number>,

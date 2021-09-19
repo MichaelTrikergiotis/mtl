@@ -100,12 +100,12 @@ inline void emplace_back(Container& container, Args&&... args)
 
 
 // ================================================================================================
-// SLICE        - Returns a slice of a container from starting position to ending position.
-// SLICE_N      - Returns a slice of a container from starting position for a number of elements.
+// SLICE     - Returns a slice of a container from the starting position to the ending position.
+// SLICE_N   - Returns a slice of a container from the starting position for a number of elements.
 // ================================================================================================
 
 /// Returns a slice of a container from starting position to ending position. Performs 
-/// bound checking that all the parameters are within bounds and if one or more parameters are not
+/// bound checking that all the arguments are within bounds and if one or more arguments are not
 /// throws an std::out_of_range exception.
 /// @param[in] container A container.
 /// @param[in] start_pos The starting position where to create the slice from.
@@ -128,15 +128,14 @@ inline Container slice(const Container& container, const size_t start_pos, const
 	if(start_pos > end_pos)
 	{
 		throw std::out_of_range
-		("Error. For mtl::slice the starting position can't be larger than the ending position.");
+		("The starting position can't be larger than the ending position.");
 	}
 
 	// check if we are within bounds
 	if ((start_pos >= cont_size) || (end_pos > cont_size))
 	{
-		// some parameter is out of range and we have to throw
-		throw std::out_of_range
-		("Error. Invalid attempt to access out of the range of the container with mtl::slice.");
+		// one or both arguments are out of range, and we have to throw
+		throw std::out_of_range	("One or more arguments are out of range.");
 	}
 	
 	// get an iterator to position where the slice will start
@@ -151,9 +150,9 @@ inline Container slice(const Container& container, const size_t start_pos, const
 }
 
 
-/// Returns a slice of a container from starting position for the number of elements requested. 
-/// Performs bound checking that all the parameters are within bounds and if one or more parameters
-/// are not throws an std::out_of_range exception.
+/// Returns a slice of a container from the starting position for the number of elements requested.
+/// Performs bound checking that all the arguments are within bounds and if one or more arguments
+/// are not it throws an std::out_of_range exception.
 /// @param[in] container A container.
 /// @param[in] start_pos The starting position where to create the slice from.
 /// @param[in] count The number of items used to create the slice.
@@ -174,9 +173,8 @@ inline Container slice_n(const Container& container, const size_t start_pos, con
 	// check if we are within bounds
 	if ((start_pos >= cont_size) || (start_pos + count > cont_size) || (count > cont_size))
 	{
-		// some parameter is out of range and we have to throw
-		throw std::out_of_range
-		("Error. Invalid attempt to access out of the range of the container with mtl::slice_n.");
+		// one or both arguments are out of range, and we have to throw
+		throw std::out_of_range	("One or more arguments are out of range.");
 	}
 	
 	// get an iterator to position where the slice will start

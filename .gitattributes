@@ -16,6 +16,9 @@
 # set .svg line endings to LF
 *.svg text eol=lf
 
+# set .md line endings to LF
+*.md text eol=lf
+
 
 # source files
 *.c     text diff=c

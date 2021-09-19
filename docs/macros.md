@@ -19,7 +19,7 @@ It is found in the *utility.hpp*. This macro is recommended to use as it adds mo
 MTL_DIV_ZERO_THROW
 ```
 
-If the macro is defined doesn't allow some of the mathematical functions from math.hpp to perform division by zero and instead throws an exception of type ```std::invalid_argument```. It is recommended to define this flag to catch division by zero errors. The reason it is not defined by default is to follow the C++ way of not paying for what you don't use and also follow C++ standard library convention of not catching division by zero errors. This has some implications for performance. When defined and the code doesn't perform division by zero, so we don't have to throw, the performance hit should be very minimal. In the case we throw an exception the performance hit is very big, as is to be expected for the current implementation of exceptions in C++. This macro is used in **mtl** tests found in the tests folder so we can test the **mtl** more thoroughly.
+If the macro is defined doesn't allow some of the mathematical functions from math.hpp to perform division by zero and instead throws an exception of type ```std::invalid_argument```. It is recommended to define this flag to catch division by zero errors. The reason it is not defined by default is to follow the C++ way of not paying for what you don't use and also follow C++ standard library convention of not catching division by zero errors. This has some implications for performance. When defined and the code doesn't perform division by zero, so we don't have to throw, the performance hit should be very minimal. In the case we throw an exception the performance hit is very big, as is to be expected for the current implementation of exceptions in C++.
 
 ----------------------
 
@@ -30,8 +30,7 @@ MTL_DISABLE_SOME_ASSERTS
 ```
 
 If the macro is defined, disables somes of the asserts defined in the mtl. Please note that not all of the asserts in **mtl** are disabled with this macro. It is not recommended to define this macro because asserts help you detect bugs in your code more easily and pinpoint the exact
-problem as all **mtl** asserts have an informational message associated with them. This macro is used in **mtl** tests found in the tests folder
-so we can test the **mtl** more thoroughly.
+problem as all **mtl** asserts have an informational message associated with them.
 
 ----------------------
 
@@ -49,4 +48,4 @@ There are some requirements for using this macro :
 
 1. The macro should be defined BEFORE any **mtl** headers are included and in all files that include **mtl** headers.
 2. You have to supply your own version of **fmt** and include all the **fmt** headers BEFORE including any of the **mtl** headers. Preferably the same version used in **mtl**.
-3. Your externally supplied version of **fmt** can be used either as a header only or not, doesn't make a difference.
+3. Your externally supplied version of **fmt** can be used as a header only or not, it doesn't make a difference.

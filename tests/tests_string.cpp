@@ -1,4 +1,4 @@
-// tests by Michael Trikergiotis
+﻿// tests by Michael Trikergiotis
 // 05/06/2020
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -11,9 +11,9 @@
 #include <list>
 #include <set>
 #include <utility>   // std::pair
-#include <stdexcept> // std::invalid_argument
+#include <stdexcept> // std::invalid_argument, std::logic_error
 
-// Disable some of the asserts in mtl so we can test more thoroughly.
+// Disable some asserts so we can test more thoroughly.
 #define MTL_DISABLE_SOME_ASSERTS
 
 
@@ -37,9 +37,9 @@
 // MSVC /Zc:char8_t- flag was not used. This is because C++ 20 introduced a breaking change,
 // u8 string literals are now char8_t type instead of char_t type. 
 // For more information check :
-// www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
-// stackoverflow.com/a/57453713
-// docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1423r3.html#reinterpret_cast
+// https://stackoverflow.com/a/57453713
+// https://docs.microsoft.com/en-us/cpp/overview/cpp-conformance-improvements?view=vs-2019#char8_t
 const std::string only_ascii ("abcdefghijklmnopqrstABCDEFGHIJKLMNOPQRST");
 
 const std::string one_nonascii 
@@ -1066,6 +1066,13 @@ TEST_CASE("mtl::string::contains, std::string / std::string")
     CHECK_EQ(mtl::string::contains(std::string("ABCDE"), s2), true);
     CHECK_EQ(mtl::string::contains(std::string("ABCDE"), s3), false);
 
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small, big), false);
+    CHECK_EQ(mtl::string::contains(big, small), true);
+    CHECK_EQ(mtl::string::contains(small, small), true);
+    CHECK_EQ(mtl::string::contains(big, big), true);
+
     // check that is works correctly with UTF8 strings
     CHECK_EQ(mtl::string::contains(one_nonascii, smiley), true);
     CHECK_EQ(mtl::string::contains(only_nonascii, smiley), false);
@@ -1087,6 +1094,19 @@ TEST_CASE("mtl::string::contains, std::string / const char*")
     const char* s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small, big_cs), false);
+    CHECK_EQ(mtl::string::contains(big, small_cs), true);
+    CHECK_EQ(mtl::string::contains(small, small_cs), true);
+    CHECK_EQ(mtl::string::contains(big, big_cs), true);
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    CHECK_EQ(mtl::string::contains(s1, n1), false);
 }
 
 TEST_CASE("mtl::string::contains, const char* / std::string")
@@ -1103,6 +1123,19 @@ TEST_CASE("mtl::string::contains, const char* / std::string")
     std::string s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    std::string small = "a";
+    std::string big = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small_cs, big), false);
+    CHECK_EQ(mtl::string::contains(big_cs, small), true);
+    CHECK_EQ(mtl::string::contains(small_cs, small), true);
+    CHECK_EQ(mtl::string::contains(big_cs, big), true);
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    CHECK_EQ(mtl::string::contains(n1, s2), false);
 }
 
 TEST_CASE("mtl::string::contains, const char* / const char*")
@@ -1119,7 +1152,200 @@ TEST_CASE("mtl::string::contains, const char* / const char*")
     const char* s3 = "DCB";
     CHECK_EQ(mtl::string::contains(s1, s2), true);
     CHECK_EQ(mtl::string::contains(s1, s3), false);
+
+    
+    const char* small_cs = "a";
+    const char* big_cs = "asf8f#dkfd9dfjhasfmnbsafkkvo777dhndjkdplkacklhjvvvbownaklzpssss";
+    CHECK_EQ(mtl::string::contains(small_cs, big_cs), false);
+    CHECK_EQ(mtl::string::contains(big_cs, small_cs), true);
+    CHECK_EQ(mtl::string::contains(small_cs, small_cs), true);
+    CHECK_EQ(mtl::string::contains(big_cs, big_cs), true);
+
+
+    // check it works correctly with nullptr
+    const char* n1 = nullptr;
+    const char* n2 = nullptr;
+    CHECK_EQ(mtl::string::contains(n1, s2), false);
+    CHECK_EQ(mtl::string::contains(s1, n2), false);
+    CHECK_EQ(mtl::string::contains(n1, n2), false);
+    CHECK_EQ(mtl::string::contains(n1, n1), false);
+    CHECK_EQ(mtl::string::contains(n2, n2), false);
 }
+
+
+TEST_CASE("mtl::string::contains, std::string / char")
+{
+    std::string empty1;
+    const char c1 = 'a';
+    const char c2 = ' ';
+    CHECK_EQ(mtl::string::contains(empty1, c1), false);
+    CHECK_EQ(mtl::string::contains(std::string(), 'a'), false);
+    CHECK_EQ(mtl::string::contains(empty1, c2), false);
+    CHECK_EQ(mtl::string::contains(std::string(), ' '), false);
+
+
+    std::string s1 = "ABCDE";
+    const char c3 = 'A';
+    const char c4 = 'C';
+    const char c5 = 'E';
+    const char c6 = 'Z';
+    const char c7 = 'a';
+    const char c8 = ' ';
+    CHECK_EQ(mtl::string::contains(s1, c3), true);
+    CHECK_EQ(mtl::string::contains(s1, c4), true);
+    CHECK_EQ(mtl::string::contains(s1, c5), true);
+    CHECK_EQ(mtl::string::contains(s1, c6), false);
+    CHECK_EQ(mtl::string::contains(s1, c7), false);
+    CHECK_EQ(mtl::string::contains(s1, c8), false);  
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c3), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c4), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c5), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c6), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c7), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), c8), false);
+    CHECK_EQ(mtl::string::contains(s1, 'A'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'C'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'E'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'Z'), false);
+    CHECK_EQ(mtl::string::contains(s1, 'a'), false);
+    CHECK_EQ(mtl::string::contains(s1, ' '), false);  
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'A'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'C'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'E'), true);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'Z'), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), 'a'), false);
+    CHECK_EQ(mtl::string::contains(std::string("ABCDE"), ' '), false);
+    
+
+    std::string small = "a";
+    const char c9 = 'a';
+    const char c10 = 'b';
+    const char c11 = 'A';
+    const char c12 = ' ';
+    CHECK_EQ(mtl::string::contains(small, c9), true);
+    CHECK_EQ(mtl::string::contains(small, c10), false);
+    CHECK_EQ(mtl::string::contains(small, c11), false);
+    CHECK_EQ(mtl::string::contains(small, c12), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c9), true);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c10), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c11), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), c12), false);
+    CHECK_EQ(mtl::string::contains(small, 'a'), true);
+    CHECK_EQ(mtl::string::contains(small, 'b'), false);
+    CHECK_EQ(mtl::string::contains(small, 'A'), false);
+    CHECK_EQ(mtl::string::contains(small, ' '), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'a'), true);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'b'), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), 'A'), false);
+    CHECK_EQ(mtl::string::contains(std::string("a"), ' '), false);
+    
+
+
+    // check that is works correctly with UTF8 strings
+    const char c13 = 'a';
+    const char c14 = 'z';
+    const char c15 = 'A';
+    const char c16 = 'Z';
+    const char c17 = ' ';
+    const char c18 = '|';
+
+
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c13), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c14), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c15), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c16), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c17), false);
+    CHECK_EQ(mtl::string::contains(two_smileys_delimiter, c18), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c13), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c14), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c15), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c16), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c17), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii, c18), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c13), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c14), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c15), true);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c16), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c17), false);
+    CHECK_EQ(mtl::string::contains(one_nonascii_upper, c18), false);
+    
+}
+
+
+TEST_CASE("mtl::string::contains, const char* / char")
+{
+    const char* null_cs = nullptr;
+    const char c1 = 'a';
+    const char c2 = ' ';
+    CHECK_EQ(mtl::string::contains(null_cs, c1), false);
+    CHECK_EQ(mtl::string::contains(null_cs, c2), false);
+
+    const char* empty1 = "";
+    CHECK_EQ(mtl::string::contains(empty1, c1), false);
+    CHECK_EQ(mtl::string::contains("", 'a'), false);
+    CHECK_EQ(mtl::string::contains(empty1, c2), false);
+    CHECK_EQ(mtl::string::contains("", ' '), false);
+
+
+    const char* s1 = "ABCDE";
+    const char c3 = 'A';
+    const char c4 = 'C';
+    const char c5 = 'E';
+    const char c6 = 'Z';
+    const char c7 = 'a';
+    const char c8 = ' ';
+    CHECK_EQ(mtl::string::contains(s1, c3), true);
+    CHECK_EQ(mtl::string::contains(s1, c4), true);
+    CHECK_EQ(mtl::string::contains(s1, c5), true);
+    CHECK_EQ(mtl::string::contains(s1, c6), false);
+    CHECK_EQ(mtl::string::contains(s1, c7), false);
+    CHECK_EQ(mtl::string::contains(s1, c8), false);  
+    CHECK_EQ(mtl::string::contains("ABCDE", c3), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c4), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c5), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", c6), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", c7), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", c8), false);
+    CHECK_EQ(mtl::string::contains(s1, 'A'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'C'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'E'), true);
+    CHECK_EQ(mtl::string::contains(s1, 'Z'), false);
+    CHECK_EQ(mtl::string::contains(s1, 'a'), false);
+    CHECK_EQ(mtl::string::contains(s1, ' '), false);  
+    CHECK_EQ(mtl::string::contains("ABCDE", 'A'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'C'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'E'), true);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'Z'), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", 'a'), false);
+    CHECK_EQ(mtl::string::contains("ABCDE", ' '), false);
+    
+
+    const char* small = "a";
+    const char c9 = 'a';
+    const char c10 = 'b';
+    const char c11 = 'A';
+    const char c12 = ' ';
+    CHECK_EQ(mtl::string::contains(small, c9), true);
+    CHECK_EQ(mtl::string::contains(small, c10), false);
+    CHECK_EQ(mtl::string::contains(small, c11), false);
+    CHECK_EQ(mtl::string::contains(small, c12), false);
+    CHECK_EQ(mtl::string::contains("a", c9), true);
+    CHECK_EQ(mtl::string::contains("a", c10), false);
+    CHECK_EQ(mtl::string::contains("a", c11), false);
+    CHECK_EQ(mtl::string::contains("a", c12), false);
+    CHECK_EQ(mtl::string::contains(small, 'a'), true);
+    CHECK_EQ(mtl::string::contains(small, 'b'), false);
+    CHECK_EQ(mtl::string::contains(small, 'A'), false);
+    CHECK_EQ(mtl::string::contains(small, ' '), false);
+    CHECK_EQ(mtl::string::contains("a", 'a'), true);
+    CHECK_EQ(mtl::string::contains("a", 'b'), false);
+    CHECK_EQ(mtl::string::contains("a", 'A'), false);
+    CHECK_EQ(mtl::string::contains("a", ' '), false);
+
+}
+
+
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::string::strip_front, mtl::string::strip_back, mtl::string::strip
@@ -1616,7 +1842,6 @@ TEST_CASE("mtl::string::to_string with temp")
     CHECK_EQ(str_s, std::string("std::string -> std::string"));
     std::string customc_s = mtl::string::to_string(my_custom_class());
     CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));    
-
 }
 
 
@@ -1653,10 +1878,19 @@ TEST_CASE("mtl::string::to_string")
     CHECK_EQ(str_s, std::string("std::string -> std::string"));
     my_custom_class my_class;
     std::string customc_s = mtl::string::to_string(my_class);
-    CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));    
+    CHECK_EQ(customc_s, std::string("Numbers : 10 20 30"));
+
+
+
+    // check that is works correctly with const char* that is nullptr
+    const char* cs_nullptr = nullptr;
+    std::string empty;
+    REQUIRE_THROWS_AS(empty = mtl::string::to_string(cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty.empty(), true);
+
+
 
     // check that is works correctly with UTF8 strings
-
     std::string _one_nonascii = mtl::string::to_string(one_nonascii);
     std::string _only_nonascii = mtl::string::to_string(only_nonascii);
     std::string _mixed_nonascii = mtl::string::to_string(mixed_nonascii);
@@ -1923,6 +2157,53 @@ TEST_CASE("mtl::string::join")
     std::string multi_var = mtl::string::join(cs, mary, d, b, false, b, ", ", p);
     CHECK_EQ(multi_var, std::string("Hello Mary 2.2truefalsetrue, 33, d"));
 
+
+
+    // check that is works correctly with const char* that is nullptr
+    const char* cs_nullptr = nullptr;
+    std::string empty_result1;
+    REQUIRE_THROWS_AS(empty_result1 = mtl::string::join(cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result1.empty(), true);
+
+    std::string empty_result2;
+    REQUIRE_THROWS_AS(empty_result2 = mtl::string::join(cs_nullptr, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result2.empty(), true);
+
+    std::string empty_result3;
+    REQUIRE_THROWS_AS(empty_result3 = mtl::string::join(cs_nullptr, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result3.empty(), true);
+
+    std::string empty_result4;
+    REQUIRE_THROWS_AS(empty_result4 = mtl::string::join(11, 22.22f, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result4.empty(), true);
+
+    std::string empty_result5;
+    REQUIRE_THROWS_AS(empty_result5 = mtl::string::join(cs_nullptr, 11, 22.22f), std::logic_error);
+    REQUIRE_EQ(empty_result5.empty(), true);
+    
+    std::string empty_result6;
+    REQUIRE_THROWS_AS(empty_result6 = mtl::string::join(11, 22.22f, cs_nullptr, 11, 22.22f),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result6.empty(), true);
+
+    std::string empty_result7;
+    const std::string some_text = "some text";
+    REQUIRE_THROWS_AS(empty_result7 = mtl::string::join(some_text, cs_nullptr), std::logic_error);
+    REQUIRE_EQ(empty_result7.empty(), true);
+
+    std::string empty_result8;
+    REQUIRE_THROWS_AS(empty_result8 = mtl::string::join(cs_nullptr, some_text), std::logic_error);
+    REQUIRE_EQ(empty_result8.empty(), true);
+
+    std::string empty_result9;
+    REQUIRE_THROWS_AS(empty_result9 = mtl::string::join(some_text, cs_nullptr, some_text),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result9.empty(), true);
+
+    std::string empty_result10;
+    REQUIRE_THROWS_AS(empty_result10 = mtl::string::join(some_text, 22, cs_nullptr, 33, some_text),
+                      std::logic_error);
+    REQUIRE_EQ(empty_result10.empty(), true);
 
 
     // check that is works correctly with UTF8 strings

@@ -34,7 +34,8 @@ namespace mtl
 namespace detail
 {
 
-// Converts const char* to double. If there is an error or the conversion fails it throws
+
+// Converts const char* to a floating point number. If there is a conversion error it throws
 // std::invalid_argument.
 template<typename FloatingPoint>
 [[nodiscard]]
@@ -115,7 +116,7 @@ inline FloatingPoint to_double_impl(const char* num)
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -143,8 +144,8 @@ inline FloatingPoint to_double_impl(const char* num)
 }
 
 
-// Converts const char* to double. Doesn't throw. If it can't convert set the success to false
-// and returns 0.
+// Converts const char* to a floating point number. Doesn't throw. If there is a conversion error
+// it returns an std::pair with the floating point number set to 0.0 and the boolean to false.
 template<typename FloatingPoint>
 [[nodiscard]]
 inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexcept
@@ -224,7 +225,7 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -254,9 +255,8 @@ inline std::pair<FloatingPoint, bool> to_double_impl_noex(const char* num) noexc
 }
 
 
-
-// Converts const char* to double. Doesn't throw. If it can't convert returns a pair with the 
-// double set to 0.0 and the boolean to false.
+// Converts const char* to a floating point number. Doesn't throw. If there is a conversion error
+// it sets the success boolean to false and returns a floating point number set to 0.0.
 template<typename FloatingPoint>
 [[nodiscard]]
 inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcept
@@ -338,7 +338,7 @@ inline FloatingPoint to_double_impl_noex(const char* num, bool& success) noexcep
 		}
 	}
 
-	// parsing exponet part
+	// parsing exponent part
 	FloatingPoint exp_part = static_cast<FloatingPoint>(1.0);
 	if ((has_expo) && (*num != '\0'))
 	{
@@ -379,10 +379,13 @@ struct to_num_deductor
 	// View of the string that will be converted.
 	const std::string_view value_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor(const std::string& value) : value_v(value) { }
 
-	// Converts the given std::string to given integral type.
+	// Constructor with const char*.
+	to_num_deductor(const char* value) : value_v(value) { }
+
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
@@ -394,7 +397,7 @@ struct to_num_deductor
 			return result;
 		}
 		// GCOVR_EXCL_START
-		throw std::invalid_argument("Conversion error. Can't be converted successfully.");
+		throw std::invalid_argument("The value can't be converted successfully with mtl::to_num.");
 		// GCOVR_EXCL_STOP
 	}
 
@@ -479,11 +482,15 @@ struct to_num_deductor_noex
 	// Pointer to the success state.
 	bool* success_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor_noex(const std::string& value, bool& success) : value_v(value), 
 																	success_v(&success) { }
 
-	// Converts the given std::string to given integral type.
+	// Constructor with const char*.
+	to_num_deductor_noex(const char* value, bool& success) : value_v(value), 
+															 success_v(&success) { }
+
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	IntegralType to_integral_impl()
 	{
@@ -577,10 +584,13 @@ struct to_num_deductor_noex_pair
 	// View of the string that will be converted.
 	const std::string_view value_v;
 
-	// Constructor.
+	// Constructor with const std::string.
 	to_num_deductor_noex_pair(const std::string& value) : value_v(value) {}
 
-	// Converts the given std::string to given integral type.
+	// Constructor with const char*.
+	to_num_deductor_noex_pair(const char* value) : value_v(value) {}
+
+	// Converts the given std::string to the given integral type.
 	template<typename IntegralType>
 	std::pair<IntegralType, bool> to_integral_impl()
 	{
@@ -665,11 +675,12 @@ struct to_num_deductor_noex_pair
 	}
 };
 
-} // namsepace detail end
+} // namespace detail end
 
 
-/// Convert a string to a number. Number type is automatically decuced. On error it throws 
-/// std::invalid_argument if no conversion could be performed. 
+
+/// Converts an std::string to a number. You can't use auto and have to specify the numeric type
+/// you want. On error it throws std::invalid_argument if no conversion could be performed. 
 /// @param[in] value An std::string representing a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
@@ -678,10 +689,29 @@ inline auto to_num(const std::string& value)
 	return mtl::detail::to_num_deductor(value);
 }
 
-/// Convert a string to a number. Number type is automatically decuced. On error it returns 0 if it
-/// can not convert the value and the boolean is set to false.
+/// Converts a const char* to a number. You can't use auto and have to specify the numeric type
+/// you want. On error it throws std::invalid_argument if no conversion could be performed.
+/// @param[in] value A const char* representing a number.
+/// @return A number of any type. You have to specify the resulting type and not use auto.
+[[nodiscard]]
+inline auto to_num(const char* value)
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor("");
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor(value);
+	}
+}
+
+
+
+/// Converts an std::string to a number. You can't use auto and have to specify the numeric type
+/// you want. If it can't convert the value it returns 0 and sets the boolean to false.
 /// @param[in] value An std::string representing a number.
-/// @param[out] success A boolean used to denote success or failure to covert to a number.
+/// @param[out] success A boolean used to denote success or failure to convert to a number.
 /// @return A number of any type. You have to specify the resulting type and not use auto.
 [[nodiscard]]
 inline auto to_num_noex(const std::string& value, bool& success) noexcept
@@ -689,10 +719,30 @@ inline auto to_num_noex(const std::string& value, bool& success) noexcept
 	return mtl::detail::to_num_deductor_noex(value, success);
 }
 
+/// Converts a const char* to a number. You can't use auto and have to specify the numeric type
+/// you want. If it can't convert the value it returns 0 and sets the boolean to false.
+/// @param[in] value A const char* representing a number.
+/// @param[out] success A boolean used to denote success or failure to convert to a number.
+/// @return A number of any type. You have to specify the resulting type and not use auto.
+[[nodiscard]]
+inline auto to_num_noex(const char* value, bool& success) noexcept
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor_noex("", success);
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor_noex(value, success);
+	}
+}
 
-/// Convert a string to a number. Returns a std::pair containing the number and if it succeeded.
-/// Number type is automatically decuced. On error it returns a pair containing 0 for the 
-/// requested numeric type and a boolean set to false to indicate failure.
+
+
+/// Converts an std::string to a number. Returns a std::pair containing the number and if it
+/// succeeded. For the return type you can't use auto and have to specify the type. On error it
+/// returns an std::pair containing 0 for the requested numeric type and a boolean set to false to
+/// indicate failure.
 /// @param[in] value An std::string representing a number.
 /// @return An std::pair of any type of number and a boolean. You have to specify the resulting 
 ///         type and not use auto.
@@ -702,14 +752,38 @@ inline auto to_num_noex(const std::string& value) noexcept
 	return mtl::detail::to_num_deductor_noex_pair(value);
 }
 
+/// Converts a const char* to a number. Returns a std::pair containing the number and if it
+/// succeeded. For the return type you can't use auto and have to specify the type. On error it
+/// returns an std::pair containing 0 for the requested numeric type and a boolean set to false to
+/// indicate failure.
+/// @param[in] value A const char* representing a number.
+/// @return An std::pair of any type of number and a boolean. You have to specify the resulting 
+///         type and not use auto.
+[[nodiscard]]
+inline auto to_num_noex(const char* value) noexcept
+{
+	if(value == nullptr)
+	{
+		return mtl::detail::to_num_deductor_noex_pair("");
+	}
+	else
+	{
+		return mtl::detail::to_num_deductor_noex_pair(value);
+	}
+}
 
-// Because on a false positive we have to disable MSVC static analyzers warning about overflow in
-// constant arithmetic. It is certainely a false positive. It has some strange behavior too.
-// It only happens when the code is compiled in Release mode (/O2). It doesn't like casting
-// long double to other types even though we previously checked the number to fit the lower and 
-// upper bounds of that type. It happily allows us to cast long double to double and then to
-// any type we want but it has the peculiarity that it want each cast to be in each own line else
-// it doesn't understand it and complains for the same thing again.
+
+
+
+
+
+// Because of a false positive we have to disable MSVC static analyzers warning about overflow in
+// constant arithmetic. It is certainly a false positive. It has some strange behavior too.
+// It only happens when the code is compiled in release mode (/O2) and not in debug mode. It 
+// doesn't like casting long double to other types even though we previously checked the number to
+// fit the lower and upper bounds of that type. It will happily allow us to cast long double to 
+// double and then to any type we want, but it has the peculiarity that it wants each cast to be
+// in each own separate line else it doesn't work.
 #if defined(_MSC_VER)
 #pragma warning( push )
 #pragma warning( disable : 4756 )
@@ -719,7 +793,8 @@ inline auto to_num_noex(const std::string& value) noexcept
 // ================================================================================================
 // NUMERIC_CAST       - Casts from one numeric type to another. Throws an exception if the value
 // 					    doesn't fit the requested type.
-// NUMERIC_CAST_NOEX  - Casts from one numeric type to another. Doesn't throw if value doesn't fit.
+// NUMERIC_CAST_NOEX  - Casts from one numeric type to another. Doesn't throw if the value 
+//                      doesn't fit.
 // ================================================================================================
 
 
@@ -808,7 +883,7 @@ inline Result numeric_cast_noex(const Type number, bool& success) noexcept
 namespace detail
 {
 
-// Actual rounding_cast deductor implmentation.
+// Actual rounding_cast deductor implementation.
 template<typename FloatingPoint>
 struct rounding_cast_deductor
 {
@@ -856,7 +931,7 @@ struct rounding_cast_deductor
 	}
 };
 
-// Actual rounding_cast deductor with no exceptions implmentation that can deduce std::pair.
+// Actual rounding_cast deductor with no exceptions implementation that can deduce std::pair.
 template<typename FloatingPoint>
 struct rounding_cast_deductor_noex_pair
 {
@@ -901,7 +976,7 @@ struct rounding_cast_deductor_noex_pair
 	}
 };
 
-// Actual rounding_cast deductor with no exceptions implmentation.
+// Actual rounding_cast deductor with no exceptions implementation.
 template<typename FloatingPoint>
 struct rounding_cast_deductor_noex
 {

@@ -1,23 +1,39 @@
 #!/usr/bin/env bash
 
-# Generates test coverate report using gcovr for the mtl library.
+# Generates test coverate report using gcovr for mtl.
 #
 # You must have gcc and gcovr installed for this script to work.
-# On Ubuntu Linux in a terminal type :
+# On Ubuntu Linux :
 # sudo apt install g++ gcovr
 #
 # For a guide on gcovr go to :
 # https://gcovr.com/en/stable/guide.html
 
 
+
+
+
+# check that we are in the utilities folder
+if ! [[ $PWD == *"utilities" ]]; then
+    echo "Error !!! The script is not executed from the utilities folder. Exiting."
+    exit 1
+fi
+
+
+# delete the generated executable if it existed
 rm -f tests
 echo "Compiling tests..."
+# run g++ using specific parameters to make test coverage reporting more accurate
 g++ -std=c++17 -o tests -Wfatal-errors -fprofile-arcs -ftest-coverage -fPIC -O0 ../tests/*.cpp
 echo "Running tests..."
+# run the executable
 ./tests
 echo "Running tests with output to file..."
+# run the executable again, but this time write the output to a file, this increases test coverage
 ./tests > temp.output
+# delete the temporary output file
 rm -rf temp.output
+
 
 echo "Generating coverage report..."
 # create the directory to store the html coverage report if it doesn't already exist
@@ -30,4 +46,4 @@ gcovr -r ../ -f '.*[_-|A-Z|a-z|0-9]*\.hpp' --exclude-unreachable-branches --excl
 # remove files left behind from gcvor
 rm -f *.gcno
 rm -f tests
-echo "Generating coverage report done."
+echo "Done generating coverage report."

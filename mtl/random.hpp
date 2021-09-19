@@ -27,7 +27,7 @@ namespace mtl
 
 
 // ================================================================================================
-// RNG - An extremly fast and easy to use random number generator.
+// RNG - An extremely fast and easy to use random number generator.
 // ================================================================================================
 
 namespace detail
@@ -38,7 +38,7 @@ namespace detail
 template<typename Type, typename = void>
 struct uniform_distribution_type_selector
 {
-	// this specialization just deletes it's constructor so it can't be used
+	// this specialization just deletes its constructor so it can't be used
 	uniform_distribution_type_selector() = delete;
 };
 
@@ -83,7 +83,7 @@ struct uniform_distribution_type_selector<Type, std::enable_if_t<mtl::is_float_v
 
 } // namespace detail end
 
-/// An extremly fast and easy to use random number generator.
+/// An extremely fast and easy to use random number generator.
 template<typename Type = int>
 class rng
 {
@@ -91,16 +91,16 @@ private:
 	// the actual random engine that will be used to produce the random numbers
 	mtl::xoroshiro128plus engine;
 
-	// a selector that based on type selects the correct the uniform distrubition type
+	// a selector that based on type selects the correct the uniform distribution type
 	mtl::detail::uniform_distribution_type_selector<Type> ud_selector;
 
 public:
 
 	// ============================================================================================
-	// RNG - Constructor, takes the range from min to max for the generated numbers.
+	// RNG - Constructor that takes the range from min to max for the generated numbers.
 	// ============================================================================================
 
-	/// Constructor, takes the range from min to max for the generated numbers.
+	/// Constructor that takes the range from min to max for the generated numbers.
 	/// @param[in] min A number for the minimum value that can be generated.
 	/// @param[in] max A number for the maximum value that can be generated.
 	rng(Type min, Type max)
@@ -162,11 +162,11 @@ public:
 	}
 
 	// ============================================================================================
-	// SEED - Seed the engine with a single value and leave the other seed to it's default value.
+	// SEED - Seed the engine with a single value and leave the other seed to its default value.
 	// ============================================================================================
 
-	/// Seed the engine with a single value and leave the other seed to it's default value.
-	/// @param[in] seed1 A seed for the randomg engine.
+	/// Seed the engine with a single value and leave the other seed to its default value.
+	/// @param[in] seed1 A seed for the random engine.
 	void seed(uint64_t seed1)
 	{
 		engine.seed(seed1);
@@ -177,8 +177,8 @@ public:
 	// ============================================================================================
 
 	/// Seed the engine with two seed values.
-	/// @param[in] seed1 A seed for the randomg engine.
-	/// @param[in] seed2 A seed for the randomg engine.
+	/// @param[in] seed1 A seed for the random engine.
+	/// @param[in] seed2 A seed for the random engine.
 	void seed(uint64_t seed1, uint64_t seed2)
 	{
 		engine.seed(seed1, seed2);
@@ -210,7 +210,7 @@ template<typename Container>
 inline auto random_choice(const Container& container)
 {
 	auto size = container.size();
-	// keep an iterator to the begining of the containter, if the container is empty the it is the
+	// keep an iterator to the beginning of the container, if the container is empty the it is the
 	// same thing as an iterator to the end of the container
 	auto iterator = container.begin();
 	// make sure the container has at least one element
@@ -225,7 +225,7 @@ inline auto random_choice(const Container& container)
 }
 
 /// Given a range first to last returns an iterator to a random element in the range. If the 
-/// range is empty returns an iterator to the start of the range.
+/// range is empty, it returns an iterator to the start of the range.
 /// @param[in] first Iterator to the start of the range.
 /// @param[in] last Iterator to the end of the range.
 /// @return An iterator to a random element in the range.
@@ -235,7 +235,7 @@ inline auto random_choice(Iter first, Iter last)
 {
 	// find how many elements exist in the range (first, last)
 	auto size = std::distance(first, last);
-	// keep an iterator to the begining of the containter, if the container is empty the it is the
+	// keep an iterator to the beginning of the container, if the container is empty the it is the
 	// same thing as an iterator to the end of the container
 	auto iterator = first;
 	// make sure the container has at least one element
@@ -285,9 +285,9 @@ inline void shuffle(Iter first, Iter last)
 template<typename Container>
 inline void shuffle(Container& container)
 {
-	// get iterators to the start and and of the container
+	// get iterators to the start and the end of the container
 	auto first = container.begin();
-	auto last = container.end();
+	auto last  = container.end();
 
 	// keep the size of the container
 	size_t size = container.size();

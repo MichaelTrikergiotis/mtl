@@ -1,18 +1,39 @@
 #!/usr/bin/env bash
 
-# Runs clang analyzer for the mtl library.
+# Runs clang-analyzer to check mtl for bugs.
 #
-# You must have clang, clang tools and llvm installed for this script to work.
-# On Ubuntu Linux in a terminal type :
-# sudo apt install clang clang-tools llvm
-#
-# You have to give the script executable permission before running it :
-# chmod +x check-clang-analyzer.sh
-# ./check-clang-analyzer.sh
+# You must have clang, clang-tools, CMake and make installed for this script to work.
+# On Ubuntu Linux :
+# sudo apt install clang clang-tools cmake make
 
 
-rm -f tests
+
+
+# check that we are in the utilities folder
+if ! [[ $PWD == *"utilities" ]]; then
+    echo "Error !!! The script is not executed from the utilities folder. Exiting."
+    exit 1
+fi
+
+
+# delete the build directory if it exists
+rm -rf build-clang-analyzer
+# create the build directory
+mkdir build-clang-analyzer
+cd build-clang-analyzer
+
+
+# the scan-build command line utility allows us to setup and run the clang analyzer
+
+echo "Configuring clang analyzer..."
+# use scan-build to run CMake, set clang as the compiler
+scan-build --use-cc=clang --use-c++=clang++ cmake ../../tests/ -DENABLE_CONSOLE_TESTS=ON
+
+echo ""
 echo "Running clang analyzer..."
-# run the clang analysis while excluding the fmt library
-scan-build --exclude ../mtl/fmt/ clang++ -o tests -std=c++17 ../tests/*.cpp
-rm -rf tests
+# use scan-build to build with make, make will use all cores, set clang as the compiler
+scan-build --use-cc=clang --use-c++=clang++ make -j$(nproc)
+
+# delete the build directory
+cd ..
+rm -rf build-clang-analyzer

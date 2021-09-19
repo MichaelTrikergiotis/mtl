@@ -17,13 +17,17 @@
 #include <numeric> // std::iota
 
 
+// Disable some asserts so we can test more thoroughly.
+#define MTL_DISABLE_SOME_ASSERTS
+
+
 #include "../mtl/console.hpp" 
 // mtl::console::print, mtl::console::println, 
 // mtl::console::print_all, mtl::console::print_color, mtl::console::println_color,
 // mtl::console::overtype, mtl::console::clear
 
 
-// Create our own class with overloaded operator<< so we can print it successfully.
+// Create our own class with an overloaded operator<< so we can print it successfully.
 class custom_class
 {
     std::string s = "Numbers : " ;
@@ -36,8 +40,8 @@ class custom_class
     }
 };
 
-// Create our own class with overloaded operator<< that is not a friend function, so we can print
-// it successfully.
+// Create our own class with an overloaded operator<< that is not a friend function, so we can
+// print it successfully.
 class unfriendly_class
 {
 public:
@@ -346,7 +350,7 @@ std::vector<size_t> generate_numbers()
     // 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
     std::vector<size_t> vi(size);
     size_t counter = 0;
-    for(size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         if ((i > 0) && (i % 5 == 0))
         {
@@ -357,7 +361,7 @@ std::vector<size_t> generate_numbers()
     }
 
     size_t multiplier = 1;
-    for(size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         if ((i > 0) && (i % 5 == 0))
         {
@@ -395,7 +399,7 @@ TEST_CASE("mtl::console::print_all with incorrect iterators")
 TEST_CASE("mtl::console::print_all")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end()));
     mtl::console::println("\n------------\n");
@@ -405,7 +409,7 @@ TEST_CASE("mtl::console::print_all")
 TEST_CASE("mtl::console::print_all, integers with delimiter")
 { 
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", "));
     mtl::console::println("\n------------\n");
@@ -465,7 +469,7 @@ TEST_CASE("mtl::console::print_all with delimiter using std::map")
 TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10));
     mtl::console::println("\n------------\n");
@@ -474,7 +478,7 @@ TEST_CASE("mtl::console::print_all with delimiter and newline threshold")
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10));
     mtl::console::println("\n------------\n");
@@ -483,7 +487,7 @@ TEST_CASE("mtl::console::print_all without delimiter but with newline threshold"
 TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line start and finish")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), ", ", 10, "[", "]"));
     mtl::console::println("\n------------\n");
@@ -492,7 +496,7 @@ TEST_CASE("mtl::console::print_all with delimiter, newline threshold and line st
 TEST_CASE("mtl::console::print_all without delimiter but with newline threshold and start/finish")
 {
     auto vi = generate_numbers();
-    // number in incresing order 10, 11, 12, 13, etc...
+    // number in increasing order 10, 11, 12, 13, etc...
     std::iota(vi.begin(), vi.end(), 10);
     REQUIRE_NOTHROW(mtl::console::print_all(vi.begin(), vi.end(), "", 10, "[", "]"));
     mtl::console::println("\n------------\n");
@@ -716,9 +720,9 @@ const std::vector<std::string> all_colors_names =
 };
 
 
-TEST_CASE("mtl::console::print_color with no parameters passed")
+TEST_CASE("mtl::console::print_color with no arguments passed")
 {
-    REQUIRE_NOTHROW(mtl::console::println("No parameters :"));
+    REQUIRE_NOTHROW(mtl::console::println("No arguments :"));
 
     int i = 111;
     REQUIRE_NOTHROW(mtl::console::print_color(i));
@@ -748,11 +752,11 @@ TEST_CASE("mtl::console::print_color with no parameters passed")
 }
 
 
-TEST_CASE("mtl::console::print_color with one parameter, all colors")
+TEST_CASE("mtl::console::print_color with one argument, all colors")
 {
-    for(size_t x = 0; x < all_colors.size(); x++)
+    for (size_t x = 0; x < all_colors.size(); x++)
     {
-        REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground :"));
+        REQUIRE_NOTHROW(mtl::console::print("One argument, foreground :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
         REQUIRE_NOTHROW(mtl::console::println(" : "));
         auto current_color = all_colors.at(x);
@@ -781,13 +785,13 @@ TEST_CASE("mtl::console::print_color with one parameter, all colors")
     }
 }
 
-TEST_CASE("mtl::console::print_color with two parameters, all colors with all colors")
+TEST_CASE("mtl::console::print_color with two arguments, all colors with all colors")
 {
-    for(size_t x = 0; x < all_colors.size(); x++)
+    for (size_t x = 0; x < all_colors.size(); x++)
     {
-    for(size_t y = 0; y < all_colors.size(); y++)
+    for (size_t y = 0; y < all_colors.size(); y++)
     {    
-    REQUIRE_NOTHROW(mtl::console::print("Two parameters, foreground "));
+    REQUIRE_NOTHROW(mtl::console::print("Two arguments, foreground :"));
     REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
     REQUIRE_NOTHROW(mtl::console::print(", background :"));
     REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(y)));
@@ -821,14 +825,207 @@ TEST_CASE("mtl::console::print_color with two parameters, all colors with all co
     }
 }
 
+
+
+TEST_CASE("mtl::console::print_color with an argument that contains LF")
+{
+    const char* cs_newline = "\n";
+    const std::string string_newline (cs_newline);
+    
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cs_newline, mtl::console::color::blue, 
+                                                          mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_newline, mtl::console::color::blue, 
+                                                              mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("text\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_1, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\ntext");   
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_2, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_3 ("text\ntext");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_3, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_4 ("\ntext\ntext\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_4, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\n1\n2\n3\n4\n5\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(multiple, mtl::console::color::green, 
+                                                        mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+TEST_CASE("mtl::console::print_color with an argument that contains CRLF")
+{
+    const char* cs_newline = "\r\n";
+    const std::string string_newline (cs_newline);
+    
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cs_newline, mtl::console::color::blue, 
+                                                          mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_newline, mtl::console::color::blue, 
+                                                              mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("text\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_1, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\r\ntext");   
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_2, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_3 ("text\r\ntext");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_3, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_4 ("\r\ntext\r\ntext\r\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_4, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\r\n1\r\n2\r\n3\r\n4\r\n5\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(multiple, mtl::console::color::green, 
+                                                        mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+TEST_CASE("mtl::console::print_color with an argument that contains mixed LF and CRLF")
+{
+    const char* cs_newline = "\n\r\n\n";
+    const std::string string_newline (cs_newline);
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cs_newline, mtl::console::color::blue, 
+                                                          mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_newline, mtl::console::color::blue, 
+                                                              mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("\ntext\r\ntext\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_1, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\r\ntext\ntext\r\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(string_text_2, mtl::console::color::blue, 
+                                                             mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\n1\r\n2\n3\n4\n5\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(multiple, mtl::console::color::green, 
+                                                        mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+
+
+TEST_CASE("mtl::console::print_color with char")
+{
+    char c = 'a';
+    const char cc = 'b';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(c, mtl::console::color::green,
+                                                 mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cc, mtl::console::color::green,
+                                                  mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color('c', mtl::console::color::green,
+                                                   mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n"));
+}
+
+
+TEST_CASE("mtl::console::print_color with char that is a newline")
+{
+    char c_newline = '\n';
+    const char cc_newline = '\n';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(c_newline, mtl::console::color::green,
+                                                         mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color(cc_newline, mtl::console::color::green,
+                                                          mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::print_color('\n', mtl::console::color::green,
+                                                    mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+
+    REQUIRE_NOTHROW(mtl::console::println("-------------------------\n\n"));
+}
+
+
 // ------------------------------------------------------------------------------------------------
 // mtl::console::println_color
 // ------------------------------------------------------------------------------------------------
 
 
-TEST_CASE("mtl::console::println_color with no parameters passed")
+TEST_CASE("mtl::console::println_color with no arguments passed")
 {
-    REQUIRE_NOTHROW(mtl::console::println("No parameters :"));
+    REQUIRE_NOTHROW(mtl::console::println("No arguments :"));
 
     int i = 111;
     REQUIRE_NOTHROW(mtl::console::println_color(i));
@@ -850,11 +1047,11 @@ TEST_CASE("mtl::console::println_color with no parameters passed")
 }
 
 
-TEST_CASE("mtl::console::println_color with one parameter, all colors")
+TEST_CASE("mtl::console::println_color with one argument, all colors")
 {
     for (size_t x = 0; x < all_colors.size(); x++)
     {
-        REQUIRE_NOTHROW(mtl::console::print("One parameter, foreground :"));
+        REQUIRE_NOTHROW(mtl::console::print("One argument, foreground :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
         REQUIRE_NOTHROW(mtl::console::println(" : "));
         auto current_color = all_colors.at(x);
@@ -880,13 +1077,13 @@ TEST_CASE("mtl::console::println_color with one parameter, all colors")
     }
 }
 
-TEST_CASE("mtl::console::println_color with two parameters, all colors with all colors")
+TEST_CASE("mtl::console::println_color with two arguments, all colors with all colors")
 {
     for (size_t x = 0; x < all_colors.size(); x++)
     {
         for (size_t y = 0; y < all_colors.size(); y++)
         {
-        REQUIRE_NOTHROW(mtl::console::print("Two parameters, foreground "));
+        REQUIRE_NOTHROW(mtl::console::print("Two arguments, foreground :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(x)));
         REQUIRE_NOTHROW(mtl::console::print(", background :"));
         REQUIRE_NOTHROW(mtl::console::print(all_colors_names.at(y)));
@@ -916,6 +1113,199 @@ TEST_CASE("mtl::console::println_color with two parameters, all colors with all 
 }
 
 
+
+TEST_CASE("mtl::console::println_color with an argument that contains LF")
+{
+    const char* cs_newline = "\n";
+    const std::string string_newline (cs_newline);
+    
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cs_newline, mtl::console::color::blue, 
+                                                            mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_newline, mtl::console::color::blue, 
+                                                                mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("text\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_1, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\ntext");   
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_2, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_3 ("text\ntext");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_3, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_4 ("\ntext\ntext\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_4, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\n1\n2\n3\n4\n5\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(multiple, mtl::console::color::green, 
+                                                          mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+TEST_CASE("mtl::console::println_color with an argument that contains CRLF")
+{
+    const char* cs_newline = "\r\n";
+    const std::string string_newline (cs_newline);
+    
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cs_newline, mtl::console::color::blue, 
+                                                            mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_newline, mtl::console::color::blue, 
+                                                                mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("text\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_1, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\r\ntext");   
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_2, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_3 ("text\r\ntext");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_3, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_4 ("\r\ntext\r\ntext\r\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_4, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\r\n1\r\n2\r\n3\r\n4\r\n5\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(multiple, mtl::console::color::green, 
+                                                          mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+TEST_CASE("mtl::console::println_color with an argument that contains mixed LF and CRLF")
+{
+    const char* cs_newline = "\n\r\n\n";
+    const std::string string_newline (cs_newline);
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cs_newline, mtl::console::color::blue, 
+                                                            mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_newline, mtl::console::color::blue, 
+                                                                mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    const std::string string_text_1 ("\ntext\r\ntext\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_1, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    const std::string string_text_2 ("\r\ntext\ntext\r\n"); 
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(string_text_2, mtl::console::color::blue, 
+                                                               mtl::console::color::yellow));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+    REQUIRE_NOTHROW(mtl::console::println());
+
+    const std::string multiple("\n1\r\n2\n3\n4\n5\r\n");
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(multiple, mtl::console::color::green, 
+                                                          mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
+
+TEST_CASE("mtl::console::println_color with char")
+{
+    char c = 'a';
+    const char cc = 'b';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(c, mtl::console::color::green,
+                                                   mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cc, mtl::console::color::green,
+                                                    mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color('c', mtl::console::color::green,
+                                                     mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::print("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n"));
+}
+
+
+TEST_CASE("mtl::console::println_color with char that is a newline")
+{
+    char c_newline = '\n';
+    const char cc_newline = '\n';
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(c_newline, mtl::console::color::green,
+                                                           mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color(cc_newline, mtl::console::color::green,
+                                                            mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::print("["));
+    REQUIRE_NOTHROW(mtl::console::println_color('\n', mtl::console::color::green,
+                                                      mtl::console::color::red));
+    REQUIRE_NOTHROW(mtl::console::println("]"));
+
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+
+    REQUIRE_NOTHROW(mtl::console::println("-------------------------\n\n"));
+}
+
+
+
+
 // ------------------------------------------------------------------------------------------------
 // mtl::console::overtype
 // ------------------------------------------------------------------------------------------------
@@ -923,8 +1313,8 @@ TEST_CASE("mtl::console::println_color with two parameters, all colors with all 
 
 TEST_CASE("mtl::console::overtype with empty original and empty replacement, std::string")
 {
-    std::string original = "";
-    std::string replacement = "";
+    const std::string original = "";
+    const std::string replacement = "";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
@@ -935,8 +1325,8 @@ TEST_CASE("mtl::console::overtype with empty original and empty replacement, std
 
 TEST_CASE("mtl::console::overtype with empty original, std::string")
 {
-    std::string original = "";
-    std::string replacement = "DDEE";
+    const std::string original = "";
+    const std::string replacement = "DDEE";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -947,8 +1337,8 @@ TEST_CASE("mtl::console::overtype with empty original, std::string")
 
 TEST_CASE("mtl::console::overtype with empty replacment, std::string")
 {
-    std::string original = "AABBCC";
-    std::string replacement = "";
+    const std::string original = "AABBCC";
+    const std::string replacement = "";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -959,8 +1349,8 @@ TEST_CASE("mtl::console::overtype with empty replacment, std::string")
 
 TEST_CASE("mtl::console::overtype with original and replacement being one char long, std::string")
 {
-    std::string original = "z";
-    std::string replacement = "x";
+    const std::string original = "z";
+    const std::string replacement = "x";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -971,8 +1361,8 @@ TEST_CASE("mtl::console::overtype with original and replacement being one char l
 
 TEST_CASE("mtl::console::overtype with original being one char long, std::string")
 {
-    std::string original = "z";
-    std::string replacement = "xxx";
+    const std::string original = "z";
+    const std::string replacement = "xxx";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -983,8 +1373,8 @@ TEST_CASE("mtl::console::overtype with original being one char long, std::string
 
 TEST_CASE("mtl::console::overtype with replacement being one char long, std::string")
 {
-    std::string original = "zzz";
-    std::string replacement = "x";
+    const std::string original = "zzz";
+    const std::string replacement = "x";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -995,8 +1385,8 @@ TEST_CASE("mtl::console::overtype with replacement being one char long, std::str
 
 TEST_CASE("mtl::console::overtype with equal length original and replacement, std::string")
 {
-    std::string original = "AABBCC";
-    std::string replacement = "DDEEFF";
+    const std::string original = "AABBCC";
+    const std::string replacement = "DDEEFF";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
@@ -1007,8 +1397,8 @@ TEST_CASE("mtl::console::overtype with equal length original and replacement, st
 
 TEST_CASE("mtl::console::overtype with smaller original than replacement, std::string")
 {
-    std::string original = "ABC";
-    std::string replacement = "DDEEFF";
+    const std::string original = "ABC";
+    const std::string replacement = "DDEEFF";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
@@ -1019,8 +1409,8 @@ TEST_CASE("mtl::console::overtype with smaller original than replacement, std::s
 
 TEST_CASE("mtl::console::overtype with bigger original than replacement, std::string")
 {
-    std::string original = "AABBCC";
-    std::string replacement = "EE"; 
+    const std::string original = "AABBCC";
+    const std::string replacement = "EE";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
@@ -1031,13 +1421,13 @@ TEST_CASE("mtl::console::overtype with bigger original than replacement, std::st
 
 TEST_CASE("mtl::console::overtype multiple times, std::string")
 {
-    std::string original = "ABC";
-    std::string replacement = "Multiple numbers from 0 to 9, one at a time"; 
+    const std::string original = "ABC";
+    const std::string replacement = "Multiple numbers from 0 to 9, one at a time";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
     REQUIRE_NOTHROW(mtl::console::print(original));
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         std::string counter = std::to_string(i);
         REQUIRE_NOTHROW(mtl::console::overtype(counter));
@@ -1045,23 +1435,23 @@ TEST_CASE("mtl::console::overtype multiple times, std::string")
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 }
 
-TEST_CASE("mtl::console::overtype showcase how updating a counter would look like, std::string")
+TEST_CASE("mtl::console::overtype, how updating a progress bar would look like, std::string")
 {
-    std::string original    = "[            0%]";
-    std::string replacement = "[==========100%]"; 
+    const std::string original    = "[            0%]";
+    const std::string replacement = "[==========100%]";
     REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The string to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
     REQUIRE_NOTHROW(mtl::console::print(original));
-    for(int x = 0; x <= 10; x++)
+    for (int x = 0; x <= 10; x++)
     {       
         std::string counter = "[";              
-        for(int y = 0; y < x; y++)
+        for (int y = 0; y < x; y++)
         {
             counter += "=";
         }
 
-        for(int y = 0; y < (10 - x); y++)
+        for (int y = 0; y < (10 - x); y++)
         {
             counter += " ";
         }
@@ -1070,13 +1460,15 @@ TEST_CASE("mtl::console::overtype showcase how updating a counter would look lik
         counter += "   ";
 
         std::string number = std::to_string((x * 10));
-        for(int z = 0; z < static_cast<int>(number.size()); z++)
+        for (int z = 0; z < static_cast<int>(number.size()); z++)
         {
             counter.pop_back();
         }
         counter += number + "%]";
-        // here you add some long running operation or simulate something taking a long time like:
-        // std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        // at this point, there would be some long-running operation and overtype would
+        // simulate the effect of a progress bar filling by overtyping spaces
+
         mtl::console::overtype(counter);
         
     }
@@ -1086,10 +1478,23 @@ TEST_CASE("mtl::console::overtype showcase how updating a counter would look lik
 
 
 
+TEST_CASE("mtl::console::overtype with nullptr, const char*")
+{
+    // this test shouldn't overtype anything because the argument passed is a nullptr
+    const std::string original = "Nothing should be changed from this message.";
+    const char* cs_nullptr = nullptr;
+    REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
+    REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[]\n"));
+    REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
+    REQUIRE_NOTHROW(mtl::console::print(original));
+    REQUIRE_NOTHROW(mtl::console::overtype(cs_nullptr));
+    REQUIRE_NOTHROW(mtl::console::println("\n\n"));
+}
+
 
 TEST_CASE("mtl::console::overtype with empty original and empty replacement, const char*")
 {
-    std::string original = "";
+    const std::string original = "";
     const char* replacement = "";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1101,7 +1506,7 @@ TEST_CASE("mtl::console::overtype with empty original and empty replacement, con
 
 TEST_CASE("mtl::console::overtype with empty original, const char*")
 {
-    std::string original = "";
+    const std::string original = "";
     const char* replacement = "DDEE";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1113,7 +1518,7 @@ TEST_CASE("mtl::console::overtype with empty original, const char*")
 
 TEST_CASE("mtl::console::overtype with empty replacment, const char*")
 {
-    std::string original = "AABBCC";
+    const std::string original = "AABBCC";
     const char* replacement = "";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1125,7 +1530,7 @@ TEST_CASE("mtl::console::overtype with empty replacment, const char*")
 
 TEST_CASE("mtl::console::overtype with original and replacement being one char long, const char*")
 {
-    std::string original = "z";
+    const std::string original = "z";
     const char* replacement = "x";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1137,7 +1542,7 @@ TEST_CASE("mtl::console::overtype with original and replacement being one char l
 
 TEST_CASE("mtl::console::overtype with original being one char long, const char*")
 {
-    std::string original = "z";
+    const std::string original = "z";
     const char* replacement = "xxx";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1149,7 +1554,7 @@ TEST_CASE("mtl::console::overtype with original being one char long, const char*
 
 TEST_CASE("mtl::console::overtype with replacement being one char long, const char*")
 {
-    std::string original = "zzz";
+    const std::string original = "zzz";
     const char* replacement = "x";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1161,7 +1566,7 @@ TEST_CASE("mtl::console::overtype with replacement being one char long, const ch
 
 TEST_CASE("mtl::console::overtype with equal length original and replacement, const char*")
 {
-    std::string original = "AABBCC";
+    const std::string original = "AABBCC";
     const char* replacement = "DDEEFF";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1173,7 +1578,7 @@ TEST_CASE("mtl::console::overtype with equal length original and replacement, co
 
 TEST_CASE("mtl::console::overtype with smaller original than replacement, const char*")
 {
-    std::string original = "ABC";
+    const std::string original = "ABC";
     const char* replacement = "DDEEFF";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1185,7 +1590,7 @@ TEST_CASE("mtl::console::overtype with smaller original than replacement, const 
 
 TEST_CASE("mtl::console::overtype with bigger original than replacement, const char*")
 {
-    std::string original = "AABBCC";
+    const std::string original = "AABBCC";
     const char* replacement = "EE";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
@@ -1197,8 +1602,8 @@ TEST_CASE("mtl::console::overtype with bigger original than replacement, const c
 
 TEST_CASE("mtl::console::overtype multiple times, const char*")
 {
-    std::string original = "ABC";
-    std::string replacement = "Multiple numbers from 0 to 9, one at a time";
+    const std::string original = "ABC";
+    const std::string replacement = "Multiple numbers from 0 to 9, one at a time";
     REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
     REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
@@ -1212,13 +1617,13 @@ TEST_CASE("mtl::console::overtype multiple times, const char*")
     REQUIRE_NOTHROW(mtl::console::println("\n\n"));
 }
 
-TEST_CASE("mtl::console::overtype showcase how updating a counter would look like, const char*")
+TEST_CASE("mtl::console::overtype, how updating a progress bar would look like, const char*")
 {
-    std::string original = "[            0%]";
-    std::string replacement = "[==========100%]";
-    REQUIRE_NOTHROW(mtl::console::print("The original string    : \n[", original, "]\n"));
-    REQUIRE_NOTHROW(mtl::console::print("The const char* to overtype : \n[", replacement, "]\n"));
-    REQUIRE_NOTHROW(mtl::console::print("The result             : \n"));
+    const std::string original    = "[            0%]";
+    const std::string replacement = "[==========100%]";
+    REQUIRE_NOTHROW(mtl::console::print ("The original string    : \n[", original, "]\n"));
+    REQUIRE_NOTHROW(mtl::console::print ("The const char* to overtype : \n[", replacement, "]\n"));
+    REQUIRE_NOTHROW(mtl::console::print ("The result             : \n"));
     REQUIRE_NOTHROW(mtl::console::print(original));
     for (int x = 0; x <= 10; x++)
     {
@@ -1242,12 +1647,14 @@ TEST_CASE("mtl::console::overtype showcase how updating a counter would look lik
             counter.pop_back();
         }
         counter += number + "%]";
-        const char* counter_cs = counter.c_str();
-        // here you add some long running operation or simulate something taking a long time like:
-        // std::this_thread::sleep_for(std::chrono::seconds(1));
-        mtl::console::overtype(counter_cs);
 
+        // at this point, there would be some long-running operation and overtype would
+        // simulate the effect of a progress bar filling by overtyping spaces
+
+        mtl::console::overtype(counter.c_str());
     }
+
+
     REQUIRE_NOTHROW(mtl::console::println("\n\n\n\n"));
 }
 
@@ -1256,7 +1663,7 @@ TEST_CASE("mtl::console::overtype showcase how updating a counter would look lik
 
 
 // ------------------------------------------------------------------------------------------------
-// Print some info
+// print some info
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("Print that we finished the mtl::console tests.")
@@ -1272,7 +1679,7 @@ TEST_CASE("Print that we finished the mtl::console tests.")
 
 }
 
-TEST_CASE("print the newline character with various ways")
+TEST_CASE("print the newline character in various ways")
 {
     REQUIRE_NOTHROW(mtl::console::println());
     REQUIRE_NOTHROW(mtl::console::println('\n'));
@@ -1308,7 +1715,7 @@ TEST_CASE("mtl::console::clear")
 
 
 // ------------------------------------------------------------------------------------------------
-// Print some doctest info
+// print the doctest info
 // ------------------------------------------------------------------------------------------------
 
 TEST_CASE("print doctest text")

@@ -1,13 +1,15 @@
 @echo off
 
-rem Compiles mtl tests for all compilers in debug and release for Windows.
+rem Compiles mtl tests using all compilers in debug and release for Windows.
 rem This script requires you have MSVC, clang, ninja and CMake installed.
 rem clang should be in your PATH.
+
+
 
 rem check that we are in the utilities folder
 set cwd=%cd%
 if not "%cwd:~-9%"=="utilities" (
-	echo Script not executed from utilities folder. Exiting.
+	echo Error !!! The script is not executed from the utilities folder. Exiting.
 	exit /b 1
 	)
 
@@ -18,7 +20,7 @@ cd tests
 rem check we are in the tests folder
 set test_folder=%cd%
 IF NOT "%test_folder:~-5%"=="tests" (
-	echo Script couldn't find the tests folder. Exiting.
+	echo Error !!! Couldn't find the tests folder. Exiting.
 	exit /b 1
 	)
 

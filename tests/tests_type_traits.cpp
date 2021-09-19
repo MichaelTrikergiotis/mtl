@@ -22,16 +22,25 @@
 #include <type_traits> // std::add_lvalue_reference_t, std::add_rvalue_reference_t
 
 
-#include "../mtl/type_traits.hpp" 
-// mtl::are_same, mtl::has_reserve, 
-// mtl::has_push_back, mtl::has_emplace_back, mtl::has_size, mtl::has_find, mtl::is_sint, 
-// mtl::is_uint, mtl::is_int, mtl::is_float, mtl::is_number, mtl::is_char, mtl::is_std_array, 
-// mtl::is_std_vector, mtl::is_std_deque, mtl::is_std_forward_list, mtl::is_std_list, 
-// mtl::is_std_set, mtl::is_std_multiset, mtl::is_std_map, mtl::is_std_multimap, 
-// mtl::is_std_unordered_set, mtl::is_std_unordered_map, mtl::is_std_unordered_multiset, 
-// mtl::is_std_unordered_multimap, mtl::is_std_stack, mtl::is_std_queue, 
-// mtl::is_std_priority_queue, mtl::is_std_container, mtl::is_std_pair, mtl::is_std_string, 
-// mtl::is_c_string, mtl::is_input_iterator, mtl::is_output_iterator, mtl::is_iterator
+#include "../mtl/type_traits.hpp"
+// mtl::are_same, mtl::are_same_v, mtl::has_reserve, mtl::has_reserve_v,
+// mtl::has_push_back, mtl::has_push_back_v, mtl::has_emplace_back, mtl::has_emplace_back_v,
+// mtl::has_size, mtl::has_size_v, mtl::has_find, mtl::has_find_v, mtl::is_sint, mtl::is_sint_v,
+// mtl::is_uint, mtl::is_uint_v, mtl::is_int, mtl::is_int_v, mtl::is_float, mtl::is_float_v,
+// mtl::is_number, mtl::is_number_v, mtl::is_char, mtl::is_char_v, mtl::is_std_array,
+// mtl::is_std_array_v, mtl::is_std_vector, mtl::is_std_vector_v, mtl::is_std_deque,
+// mtl::is_std_deque_v, mtl::is_std_forward_list, mtl::is_std_forward_list_v, mtl::is_std_list,
+// mtl::is_std_list_v, mtl::is_std_set, mtl::is_std_set_v, mtl::is_std_multiset,
+// mtl::is_std_multiset_v, mtl::is_std_map, mtl::is_std_map_v, mtl::is_std_multimap,
+// mtl::is_std_multimap_v, mtl::is_std_unordered_set, mtl::is_std_unordered_set_v,
+// mtl::is_std_unordered_map, mtl::is_std_unordered_map_v, mtl::is_std_unordered_multiset,
+// mtl::is_std_unordered_multiset_v, mtl::is_std_unordered_multimap,
+// mtl::is_std_unordered_multimap_v, mtl::is_std_stack, mtl::is_std_stack_v, mtl::is_std_queue,
+// mtl::is_std_queue_v, mtl::is_std_priority_queue, mtl::is_std_priority_queue_v,
+// mtl::is_std_container, mtl::is_std_container_v, mtl::is_std_pair, mtl::is_std_pair_v,
+// mtl::is_std_tuple, mtl::is_std_tuple_v, mtl::is_std_string, mtl::is_std_string_v,
+// mtl::is_c_string, mtl::is_c_string_v, mtl::is_input_iterator, mtl::is_input_iterator_v,
+// mtl::is_output_iterator, mtl::is_output_iterator_v, mtl::is_iterator, mtl::is_iterator_v
 
 
 
@@ -65,6 +74,10 @@ TEST_CASE("mtl::are_same")
                 false);
     REQUIRE_EQ((mtl::are_same<bool, std::vector<int>, std::vector<int>>::value), false);   
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::are_same_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::are_same_v")
 {
@@ -119,6 +132,10 @@ TEST_CASE("mtl::has_reserve")
     REQUIRE_EQ((mtl::has_reserve<std::map<int, int>>::value), false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::has_reserve_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::has_reserve_v")
 {
     REQUIRE_EQ((mtl::has_reserve_v<std::vector<int>>), true);
@@ -160,6 +177,9 @@ TEST_CASE("mtl::has_push_back")
     REQUIRE_EQ((mtl::has_push_back<std::map<std::string, std::string>>::value), false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::has_push_back_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::has_push_back_v")
 {
@@ -200,6 +220,9 @@ TEST_CASE("mtl::has_emplace_back")
     REQUIRE_EQ((mtl::has_emplace_back<std::map<std::string, std::string>>::value), false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::has_emplace_back_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::has_emplace_back_v")
 {
@@ -244,6 +267,9 @@ TEST_CASE("mtl::has_size")
     REQUIRE_EQ((mtl::has_size<std::forward_list<std::string>>::value), false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::has_size_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::has_size_v")
 {
@@ -292,6 +318,9 @@ TEST_CASE("mtl::has_find")
     CHECK_EQ(mtl::has_find<std::unordered_multimap<int, std::string>>::value, true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::has_find_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::has_find_v")
 {
@@ -325,12 +354,28 @@ TEST_CASE("mtl::has_find_v")
 
 TEST_CASE("mtl::is_sint")
 {
-    REQUIRE_EQ(mtl::is_sint<int>::value, true);
+    REQUIRE_EQ(mtl::is_sint<int>::value, true);  
+    REQUIRE_EQ(mtl::is_sint<int&>::value, true);  
+    REQUIRE_EQ(mtl::is_sint<int&&>::value, true);  
+    REQUIRE_EQ(mtl::is_sint<const int>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const int&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const int&&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int&&>::value, true);
+
     REQUIRE_EQ(mtl::is_sint<unsigned int>::value, false);
     REQUIRE_EQ(mtl::is_sint<char>::value, false);
     REQUIRE_EQ(mtl::is_sint<std::vector<int>>::value, false);
 
     REQUIRE_EQ(mtl::is_sint<int8_t>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const int8_t>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int8_t>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const int8_t&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int8_t&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const int8_t&&>::value, true);
+    REQUIRE_EQ(mtl::is_sint<const volatile int8_t&&>::value, true);
+
     REQUIRE_EQ(mtl::is_sint<int16_t>::value, true);
     REQUIRE_EQ(mtl::is_sint<int32_t>::value, true);
     REQUIRE_EQ(mtl::is_sint<int64_t>::value, true);
@@ -347,9 +392,22 @@ TEST_CASE("mtl::is_sint")
     REQUIRE_EQ(mtl::is_sint<unsigned long long int>::value, false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_sint_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_sint_v")
 {
     REQUIRE_EQ(mtl::is_sint_v<int>, true);
+    REQUIRE_EQ(mtl::is_sint_v<int&>, true);
+    REQUIRE_EQ(mtl::is_sint_v<int&&>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const int>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const volatile int>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const int&>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const volatile int&>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const int&&>, true);
+    REQUIRE_EQ(mtl::is_sint_v<const volatile int&&>, true);
+
     REQUIRE_EQ(mtl::is_sint_v<unsigned int>, false);
     REQUIRE_EQ(mtl::is_sint_v<char>, false);
     REQUIRE_EQ(mtl::is_sint_v<std::vector<int>>, false);
@@ -476,6 +534,15 @@ TEST_CASE("mtl::is_uint")
 {
     REQUIRE_EQ(mtl::is_uint<int>::value, false);
     REQUIRE_EQ(mtl::is_uint<unsigned int>::value, true);
+    REQUIRE_EQ(mtl::is_uint<unsigned int&>::value, true);
+    REQUIRE_EQ(mtl::is_uint<unsigned int&&>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const unsigned int>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const volatile unsigned int>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const unsigned int&>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const volatile unsigned int&>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const unsigned int&&>::value, true);
+    REQUIRE_EQ(mtl::is_uint<const volatile unsigned int&&>::value, true);
+
     REQUIRE_EQ(mtl::is_uint<char>::value, false);
     REQUIRE_EQ(mtl::is_uint<std::vector<unsigned int>>::value, false);
 
@@ -496,10 +563,22 @@ TEST_CASE("mtl::is_uint")
     REQUIRE_EQ(mtl::is_uint<unsigned long long int>::value, true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_uint_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_uint_v")
 {
     REQUIRE_EQ(mtl::is_uint_v<int>, false);
     REQUIRE_EQ(mtl::is_uint_v<unsigned int>, true);
+    REQUIRE_EQ(mtl::is_uint_v<unsigned int&>, true);
+    REQUIRE_EQ(mtl::is_uint_v<unsigned int&&>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const unsigned int>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const volatile unsigned int>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const unsigned int&>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const volatile unsigned int&>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const unsigned int&&>, true);
+    REQUIRE_EQ(mtl::is_uint_v<const volatile unsigned int&&>, true);
     REQUIRE_EQ(mtl::is_uint_v<char>, false);
     REQUIRE_EQ(mtl::is_uint_v<std::vector<unsigned int>>, false);
 
@@ -623,6 +702,16 @@ TEST_CASE("mtl::is_uint_v, rvalue references")
 TEST_CASE("mtl::is_int")
 {
     REQUIRE_EQ(mtl::is_int<int>::value, true);
+    REQUIRE_EQ(mtl::is_int<int&>::value, true);
+    REQUIRE_EQ(mtl::is_int<int&&>::value, true);
+    REQUIRE_EQ(mtl::is_int<const int>::value, true);
+    REQUIRE_EQ(mtl::is_int<const volatile int>::value, true);
+    REQUIRE_EQ(mtl::is_int<const int&>::value, true);
+    REQUIRE_EQ(mtl::is_int<const volatile int&>::value, true);
+    REQUIRE_EQ(mtl::is_int<const int&&>::value, true);
+    REQUIRE_EQ(mtl::is_int<const volatile int&&>::value, true);
+
+
     REQUIRE_EQ(mtl::is_int<unsigned int>::value, true);
     REQUIRE_EQ(mtl::is_int<char>::value, false);
     REQUIRE_EQ(mtl::is_int<std::vector<int>>::value, false);
@@ -644,9 +733,22 @@ TEST_CASE("mtl::is_int")
     REQUIRE_EQ(mtl::is_int<unsigned long long int>::value, true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_int_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_int_v")
 {
     REQUIRE_EQ(mtl::is_int_v<int>, true);
+    REQUIRE_EQ(mtl::is_int_v<int&>, true);
+    REQUIRE_EQ(mtl::is_int_v<int&&>, true);
+    REQUIRE_EQ(mtl::is_int_v<const int>, true);
+    REQUIRE_EQ(mtl::is_int_v<const volatile int>, true);
+    REQUIRE_EQ(mtl::is_int_v<const int&>, true);
+    REQUIRE_EQ(mtl::is_int_v<const volatile int&>, true);
+    REQUIRE_EQ(mtl::is_int_v<const int&&>, true);
+    REQUIRE_EQ(mtl::is_int_v<const volatile int&&>, true);
+
     REQUIRE_EQ(mtl::is_int_v<unsigned int>, true);
     REQUIRE_EQ(mtl::is_int_v<char>, false);
     REQUIRE_EQ(mtl::is_int_v<std::vector<int>>, false);
@@ -773,17 +875,41 @@ TEST_CASE("mtl::is_float")
     REQUIRE_EQ(mtl::is_float<int>::value, false);
     REQUIRE_EQ(mtl::is_float<unsigned int>::value, false);
     REQUIRE_EQ(mtl::is_float<char>::value, false);
+    
     REQUIRE_EQ(mtl::is_float<float>::value, true);
+    REQUIRE_EQ(mtl::is_float<float&>::value, true);
+    REQUIRE_EQ(mtl::is_float<float&&>::value, true);
+    REQUIRE_EQ(mtl::is_float<const float>::value, true);
+    REQUIRE_EQ(mtl::is_float<const volatile float>::value, true);
+    REQUIRE_EQ(mtl::is_float<const float&>::value, true);
+    REQUIRE_EQ(mtl::is_float<const volatile float&>::value, true);
+    REQUIRE_EQ(mtl::is_float<const float&&>::value, true);
+    REQUIRE_EQ(mtl::is_float<const volatile float&&>::value, true);
+
     REQUIRE_EQ(mtl::is_float<double>::value, true);
     REQUIRE_EQ(mtl::is_float<std::vector<float>>::value, false);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_float_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_float_v")
 {
     REQUIRE_EQ(mtl::is_float_v<int>, false);
     REQUIRE_EQ(mtl::is_float_v<unsigned int>, false);
     REQUIRE_EQ(mtl::is_float_v<char>, false);
+    
     REQUIRE_EQ(mtl::is_float_v<float>, true);
+    REQUIRE_EQ(mtl::is_float_v<float&>, true);
+    REQUIRE_EQ(mtl::is_float_v<float&&>, true);
+    REQUIRE_EQ(mtl::is_float_v<const float>, true);
+    REQUIRE_EQ(mtl::is_float_v<const volatile float>, true);
+    REQUIRE_EQ(mtl::is_float_v<const float&>, true);
+    REQUIRE_EQ(mtl::is_float_v<const volatile float&>, true);
+    REQUIRE_EQ(mtl::is_float_v<const float&&>, true);
+    REQUIRE_EQ(mtl::is_float_v<const volatile float&&>, true);
+
     REQUIRE_EQ(mtl::is_float_v<double>, true);
     REQUIRE_EQ(mtl::is_float_v<std::vector<float>>, false);
 }
@@ -828,12 +954,22 @@ TEST_CASE("mtl::is_float_v, rvalue references")
     REQUIRE_EQ(mtl::is_float_v<std::add_rvalue_reference_t<std::vector<float>>>, false);
 }
 
+
 // ------------------------------------------------------------------------------------------------
 // mtl::is_number
 // ------------------------------------------------------------------------------------------------
 TEST_CASE("mtl::is_number")
 {
     REQUIRE_EQ(mtl::is_number<int>::value, true);
+    REQUIRE_EQ(mtl::is_number<int&>::value, true);
+    REQUIRE_EQ(mtl::is_number<int&&>::value, true);
+    REQUIRE_EQ(mtl::is_number<const int>::value, true);
+    REQUIRE_EQ(mtl::is_number<const volatile int>::value, true);
+    REQUIRE_EQ(mtl::is_number<const int&>::value, true);
+    REQUIRE_EQ(mtl::is_number<const volatile int&>::value, true);
+    REQUIRE_EQ(mtl::is_number<const int&&>::value, true);
+    REQUIRE_EQ(mtl::is_number<const volatile int&&>::value, true);
+
     REQUIRE_EQ(mtl::is_number<unsigned int>::value, true);
     REQUIRE_EQ(mtl::is_number<char>::value, false);
     REQUIRE_EQ(mtl::is_number<float>::value, true);
@@ -857,9 +993,22 @@ TEST_CASE("mtl::is_number")
     REQUIRE_EQ(mtl::is_number<unsigned long long int>::value, true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_number_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_number_v")
 {
     REQUIRE_EQ(mtl::is_number_v<int>, true);
+    REQUIRE_EQ(mtl::is_number_v<int&>, true);
+    REQUIRE_EQ(mtl::is_number_v<int&&>, true);
+    REQUIRE_EQ(mtl::is_number_v<const int>, true);
+    REQUIRE_EQ(mtl::is_number_v<const volatile int>, true);
+    REQUIRE_EQ(mtl::is_number_v<const int&>, true);
+    REQUIRE_EQ(mtl::is_number_v<const volatile int&>, true);
+    REQUIRE_EQ(mtl::is_number_v<const int&&>, true);
+    REQUIRE_EQ(mtl::is_number_v<const volatile int&&>, true);
+
     REQUIRE_EQ(mtl::is_number_v<unsigned int>, true);
     REQUIRE_EQ(mtl::is_number_v<char>, false);
     REQUIRE_EQ(mtl::is_number_v<float>, true);
@@ -989,6 +1138,7 @@ TEST_CASE("mtl::is_number_v, rvalue references")
     REQUIRE_EQ(mtl::is_number_v<std::add_rvalue_reference_t<unsigned long long int>>, true);
 }
 
+
 // ------------------------------------------------------------------------------------------------
 // mtl::is_char
 // ------------------------------------------------------------------------------------------------
@@ -997,17 +1147,39 @@ TEST_CASE("mtl::is_char")
     REQUIRE_EQ(mtl::is_char<int>::value, false);
     REQUIRE_EQ(mtl::is_char<unsigned int>::value, false);
     REQUIRE_EQ(mtl::is_char<char>::value, true);
+    REQUIRE_EQ(mtl::is_char<char&>::value, true);
+    REQUIRE_EQ(mtl::is_char<char&&>::value, true);
+    REQUIRE_EQ(mtl::is_char<const char>::value, true);
+    REQUIRE_EQ(mtl::is_char<const volatile char>::value, true);
+    REQUIRE_EQ(mtl::is_char<const char&>::value, true);
+    REQUIRE_EQ(mtl::is_char<const volatile char&>::value, true);
+    REQUIRE_EQ(mtl::is_char<const char&&>::value, true);
+    REQUIRE_EQ(mtl::is_char<const volatile char&&>::value, true);
+    REQUIRE_EQ(mtl::is_char<signed char>::value, true);
     REQUIRE_EQ(mtl::is_char<unsigned char>::value, true);
     REQUIRE_EQ(mtl::is_char<float>::value, false);
     REQUIRE_EQ(mtl::is_char<double>::value, false);
     REQUIRE_EQ(mtl::is_char<std::vector<float>>::value, false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_char_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_char_v")
 {
     REQUIRE_EQ(mtl::is_char_v<int>, false);
     REQUIRE_EQ(mtl::is_char_v<unsigned int>, false);
     REQUIRE_EQ(mtl::is_char_v<char>, true);
+    REQUIRE_EQ(mtl::is_char_v<char&>, true);
+    REQUIRE_EQ(mtl::is_char_v<char&&>, true);
+    REQUIRE_EQ(mtl::is_char_v<const char>, true);
+    REQUIRE_EQ(mtl::is_char_v<const volatile char>, true);
+    REQUIRE_EQ(mtl::is_char_v<const char&>, true);
+    REQUIRE_EQ(mtl::is_char_v<const volatile char&>, true);
+    REQUIRE_EQ(mtl::is_char_v<const char&&>, true);
+    REQUIRE_EQ(mtl::is_char_v<const volatile char&&>, true);
+    REQUIRE_EQ(mtl::is_char_v<signed char>, true);
     REQUIRE_EQ(mtl::is_char_v<unsigned char>, true);
     REQUIRE_EQ(mtl::is_char_v<float>, false);
     REQUIRE_EQ(mtl::is_char_v<double>, false);
@@ -1058,6 +1230,7 @@ TEST_CASE("mtl::is_char_v, rvalue references")
     REQUIRE_EQ(mtl::is_char_v<std::add_rvalue_reference_t<std::vector<float>>>, false);
 }
 
+
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_array
 // ------------------------------------------------------------------------------------------------
@@ -1066,19 +1239,40 @@ TEST_CASE("mtl::is_std_array")
 {
     REQUIRE_EQ((mtl::is_std_array<int>::value), false);
     REQUIRE_EQ((mtl::is_std_array<std::array<int, 4>>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<std::array<int, 4>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<std::array<int, 4>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const std::array<int, 4>>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const volatile std::array<int, 4>>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const std::array<int, 4>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const volatile std::array<int, 4>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const std::array<int, 4>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_array<const volatile std::array<int, 4>&&>::value), true);
     REQUIRE_EQ((mtl::is_std_array<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_array<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_array<std::list<int>>::value), false);    
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_array_v
+// ------------------------------------------------------------------------------------------------
+
 TEST_CASE("mtl::is_std_array_v")
 {
     REQUIRE_EQ((mtl::is_std_array_v<int>), false);
     REQUIRE_EQ((mtl::is_std_array_v<std::array<int, 4>>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<std::array<int, 4>&>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<std::array<int, 4>&&>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const std::array<int, 4>>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const volatile std::array<int, 4>>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const std::array<int, 4>&>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const volatile std::array<int, 4>&>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const std::array<int, 4>&&>), true);
+    REQUIRE_EQ((mtl::is_std_array_v<const volatile std::array<int, 4>&&>), true);
     REQUIRE_EQ((mtl::is_std_array_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_array_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_array_v<std::list<int>>), false);    
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_vector
@@ -1089,18 +1283,39 @@ TEST_CASE("mtl::is_std_vector")
     REQUIRE_EQ((mtl::is_std_vector<int>::value), false);
     REQUIRE_EQ((mtl::is_std_vector<std::array<int, 4>>::value), false);
     REQUIRE_EQ((mtl::is_std_vector<std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<std::vector<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const volatile std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const volatile std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const std::vector<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_vector<const volatile std::vector<int>&&>::value), true);
     REQUIRE_EQ((mtl::is_std_vector<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_vector<std::list<int>>::value), false);    
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_vector_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_vector_v")
 {
     REQUIRE_EQ((mtl::is_std_vector_v<int>), false);
     REQUIRE_EQ((mtl::is_std_vector_v<std::array<int, 4>>), false);
     REQUIRE_EQ((mtl::is_std_vector_v<std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<std::vector<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const volatile std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const volatile std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const std::vector<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_vector_v<const volatile std::vector<int>&&>), true);
     REQUIRE_EQ((mtl::is_std_vector_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_vector_v<std::list<int>>), false);    
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_deque
@@ -1112,8 +1327,20 @@ TEST_CASE("mtl::is_std_deque")
     REQUIRE_EQ((mtl::is_std_deque<std::array<int, 4>>::value), false);
     REQUIRE_EQ((mtl::is_std_deque<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_deque<std::deque<int>>::value), true);
-    REQUIRE_EQ((mtl::is_std_deque<std::list<int>>::value), false);    
+    REQUIRE_EQ((mtl::is_std_deque<std::deque<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<std::deque<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const std::deque<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const volatile std::deque<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const std::deque<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const volatile std::deque<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const std::deque<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<const volatile std::deque<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_deque<std::list<int>>::value), false);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_deque_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_deque_v")
 {
@@ -1121,8 +1348,17 @@ TEST_CASE("mtl::is_std_deque_v")
     REQUIRE_EQ((mtl::is_std_deque_v<std::array<int, 4>>), false);
     REQUIRE_EQ((mtl::is_std_deque_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_deque_v<std::deque<int>>), true);
-    REQUIRE_EQ((mtl::is_std_deque_v<std::list<int>>), false);    
+    REQUIRE_EQ((mtl::is_std_deque_v<std::deque<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<std::deque<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const std::deque<int>>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const volatile std::deque<int>>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const std::deque<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const volatile std::deque<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const std::deque<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<const volatile std::deque<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_deque_v<std::list<int>>), false);   
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_forward_list
@@ -1135,8 +1371,20 @@ TEST_CASE("mtl::is_std_forward_list")
     REQUIRE_EQ((mtl::is_std_forward_list<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_forward_list<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_forward_list<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_forward_list<std::forward_list<int>>::value), true);   
+    REQUIRE_EQ((mtl::is_std_forward_list<std::forward_list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<std::forward_list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<std::forward_list<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const std::forward_list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const volatile std::forward_list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const std::forward_list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const volatile std::forward_list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const std::forward_list<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_forward_list<const volatile std::forward_list<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_forward_list_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_forward_list_v")
 {
@@ -1145,7 +1393,15 @@ TEST_CASE("mtl::is_std_forward_list_v")
     REQUIRE_EQ((mtl::is_std_forward_list_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_forward_list_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_forward_list_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_forward_list_v<std::forward_list<int>>), true);   
+    REQUIRE_EQ((mtl::is_std_forward_list_v<std::forward_list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<std::forward_list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<std::forward_list<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const std::forward_list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const volatile std::forward_list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const std::forward_list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const volatile std::forward_list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const std::forward_list<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_forward_list_v<const volatile std::forward_list<int>&&>), true);   
 }
 
 
@@ -1159,8 +1415,20 @@ TEST_CASE("mtl::is_std_list")
     REQUIRE_EQ((mtl::is_std_list<std::array<int, 4>>::value), false);
     REQUIRE_EQ((mtl::is_std_list<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_list<std::deque<int>>::value), false);
-    REQUIRE_EQ((mtl::is_std_list<std::list<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_list<std::list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<std::list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<std::list<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const std::list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const volatile std::list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const std::list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const volatile std::list<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const std::list<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_list<const volatile std::list<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_list_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_list_v")
 {
@@ -1168,8 +1436,17 @@ TEST_CASE("mtl::is_std_list_v")
     REQUIRE_EQ((mtl::is_std_list_v<std::array<int, 4>>), false);
     REQUIRE_EQ((mtl::is_std_list_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_list_v<std::deque<int>>), false);
-    REQUIRE_EQ((mtl::is_std_list_v<std::list<int>>), true);    
+    REQUIRE_EQ((mtl::is_std_list_v<std::list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<std::list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<std::list<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const std::list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const volatile std::list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const std::list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const volatile std::list<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const std::list<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_list_v<const volatile std::list<int>&&>), true);   
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_set
@@ -1182,8 +1459,20 @@ TEST_CASE("mtl::is_std_set")
     REQUIRE_EQ((mtl::is_std_set<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_set<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_set<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_set<std::set<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_set<std::set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<std::set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<std::set<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const std::set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const volatile std::set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const std::set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const volatile std::set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const std::set<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_set<const volatile std::set<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_set_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_set_v")
 {
@@ -1192,8 +1481,17 @@ TEST_CASE("mtl::is_std_set_v")
     REQUIRE_EQ((mtl::is_std_set_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_set_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_set_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_set_v<std::set<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_set_v<std::set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<std::set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<std::set<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const std::set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const volatile std::set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const std::set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const volatile std::set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const std::set<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_set_v<const volatile std::set<int>&&>), true);  
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_multiset
@@ -1206,8 +1504,20 @@ TEST_CASE("mtl::is_std_multiset")
     REQUIRE_EQ((mtl::is_std_multiset<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_multiset<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_multiset<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_multiset<std::multiset<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_multiset<std::multiset<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<std::multiset<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<std::multiset<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const std::multiset<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const volatile std::multiset<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const std::multiset<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const volatile std::multiset<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const std::multiset<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multiset<const volatile std::multiset<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_multiset_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_multiset_v")
 {
@@ -1216,7 +1526,15 @@ TEST_CASE("mtl::is_std_multiset_v")
     REQUIRE_EQ((mtl::is_std_multiset_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_multiset_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_multiset_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_multiset_v<std::multiset<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_multiset_v<std::multiset<int>>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<std::multiset<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<std::multiset<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<const std::multiset<int>>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<std::multiset<int>>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<const std::multiset<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<const volatile std::multiset<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<const std::multiset<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_multiset_v<const volatile std::multiset<int>&&>), true); 
 }
 
 
@@ -1231,9 +1549,21 @@ TEST_CASE("mtl::is_std_map")
     REQUIRE_EQ((mtl::is_std_map<std::array<int, 4>>::value), false);
     REQUIRE_EQ((mtl::is_std_map<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_map<std::deque<int>>::value), false);
-    REQUIRE_EQ((mtl::is_std_map<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_map<std::map<int, int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_map<std::list<int>>::value), false); 
+    REQUIRE_EQ((mtl::is_std_map<std::map<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<std::map<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<std::map<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const std::map<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const volatile std::map<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const std::map<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const volatile std::map<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const std::map<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_map<const volatile std::map<int, int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_map_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_map_v")
 {
@@ -1241,9 +1571,18 @@ TEST_CASE("mtl::is_std_map_v")
     REQUIRE_EQ((mtl::is_std_map_v<std::array<int, 4>>), false);
     REQUIRE_EQ((mtl::is_std_map_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_map_v<std::deque<int>>), false);
-    REQUIRE_EQ((mtl::is_std_map_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_map_v<std::map<int, int>>), true);  
+    REQUIRE_EQ((mtl::is_std_map_v<std::list<int>>), false); 
+    REQUIRE_EQ((mtl::is_std_map_v<std::map<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<std::map<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<std::map<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const std::map<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const volatile std::map<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const std::map<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const volatile std::map<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const std::map<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_map_v<const volatile std::map<int, int>&&>), true); 
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_multimap
@@ -1256,8 +1595,20 @@ TEST_CASE("mtl::is_std_multimap")
     REQUIRE_EQ((mtl::is_std_multimap<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_multimap<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_multimap<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_multimap<std::multimap<int, int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_multimap<std::multimap<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<std::multimap<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<std::multimap<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const std::multimap<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const volatile std::multimap<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const std::multimap<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const volatile std::multimap<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const std::multimap<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_multimap<const volatile std::multimap<int, int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_multimap_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_multimap_v")
 {
@@ -1266,7 +1617,15 @@ TEST_CASE("mtl::is_std_multimap_v")
     REQUIRE_EQ((mtl::is_std_multimap_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_multimap_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_multimap_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_multimap_v<std::multimap<int, int>>), true);  
+    REQUIRE_EQ((mtl::is_std_multimap_v<std::multimap<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<std::multimap<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<std::multimap<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const std::multimap<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const volatile std::multimap<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const std::multimap<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const volatile std::multimap<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const std::multimap<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_multimap_v<const volatile std::multimap<int, int>&&>), true);  
 }
 
 
@@ -1281,8 +1640,20 @@ TEST_CASE("mtl::is_std_unordered_set")
     REQUIRE_EQ((mtl::is_std_unordered_set<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_set<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_set<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_set<std::unordered_set<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_unordered_set<std::unordered_set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<std::unordered_set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<std::unordered_set<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const std::unordered_set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const volatile std::unordered_set<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const std::unordered_set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const volatile std::unordered_set<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const std::unordered_set<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set<const volatile std::unordered_set<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_unordered_set_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_unordered_set_v")
 {
@@ -1291,7 +1662,15 @@ TEST_CASE("mtl::is_std_unordered_set_v")
     REQUIRE_EQ((mtl::is_std_unordered_set_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_set_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_set_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_set_v<std::unordered_set<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<std::unordered_set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<std::unordered_set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<std::unordered_set<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const std::unordered_set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const volatile std::unordered_set<int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const std::unordered_set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const volatile std::unordered_set<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const std::unordered_set<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_set_v<const volatile std::unordered_set<int>&&>), true); 
 }
 
 
@@ -1306,8 +1685,29 @@ TEST_CASE("mtl::is_std_unordered_multiset")
     REQUIRE_EQ((mtl::is_std_unordered_multiset<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_multiset<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_multiset<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_multiset<std::unordered_multiset<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_unordered_multiset<std::unordered_multiset<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multiset<std::unordered_multiset<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multiset<std::unordered_multiset<int>&&>::value), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const std::unordered_multiset<int>>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const volatile std::unordered_multiset<int>>::value), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const std::unordered_multiset<int>&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const volatile std::unordered_multiset<int>&>::value), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const std::unordered_multiset<int>&&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset<const volatile std::unordered_multiset<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_unordered_multiset_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_unordered_multiset_v")
 {
@@ -1316,7 +1716,24 @@ TEST_CASE("mtl::is_std_unordered_multiset_v")
     REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::unordered_multiset<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::unordered_multiset<int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::unordered_multiset<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multiset_v<std::unordered_multiset<int>&&>), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const std::unordered_multiset<int>>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const volatile std::unordered_multiset<int>>), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const std::unordered_multiset<int>&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const volatile std::unordered_multiset<int>&>), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const std::unordered_multiset<int>&&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multiset_v<const volatile std::unordered_multiset<int>&&>), true);  
 }
 
 
@@ -1331,8 +1748,26 @@ TEST_CASE("mtl::is_std_unordered_map")
     REQUIRE_EQ((mtl::is_std_unordered_map<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_map<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_map<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_map<std::unordered_map<int, int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_unordered_map<std::unordered_map<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_map<std::unordered_map<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_map<std::unordered_map<int, int>&&>::value), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map<const std::unordered_map<int, int>>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map<const volatile std::unordered_map<int, int>>::value), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map<const std::unordered_map<int, int>&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map<const volatile std::unordered_map<int, int>&>::value), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map<const std::unordered_map<int, int>&&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map<const volatile std::unordered_map<int, int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_unordered_map_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_unordered_map_v")
 {
@@ -1341,7 +1776,21 @@ TEST_CASE("mtl::is_std_unordered_map_v")
     REQUIRE_EQ((mtl::is_std_unordered_map_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_map_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_map_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_map_v<std::unordered_map<int, int>>), true);  
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<std::unordered_map<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<std::unordered_map<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<std::unordered_map<int, int>&&>), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<const std::unordered_map<int, int>>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map_v<const volatile std::unordered_map<int, int>>), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<const std::unordered_map<int, int>&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map_v<const volatile std::unordered_map<int, int>&>), true);
+
+    REQUIRE_EQ((mtl::is_std_unordered_map_v<const std::unordered_map<int, int>&&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_map_v<const volatile std::unordered_map<int, int>&&>), true);  
 }
 
 
@@ -1356,9 +1805,32 @@ TEST_CASE("mtl::is_std_unordered_multimap")
     REQUIRE_EQ((mtl::is_std_unordered_multimap<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_multimap<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_unordered_multimap<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_multimap<std::unordered_multimap<int, int>>::value),
-                true);    
+    REQUIRE_EQ((mtl::is_std_unordered_multimap<std::unordered_multimap<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multimap<std::unordered_multimap<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multimap<std::unordered_multimap<int, int>&&>::value), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const std::unordered_multimap<int, int>>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const volatile std::unordered_multimap<int, int>>::value),
+     true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const std::unordered_multimap<int, int>&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const volatile std::unordered_multimap<int, int>&>::value),
+     true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const std::unordered_multimap<int, int>&&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap<const volatile std::unordered_multimap<int, int>&&>::value),
+     true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_unordered_multimap_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_unordered_multimap_v")
 {
@@ -1367,7 +1839,27 @@ TEST_CASE("mtl::is_std_unordered_multimap_v")
     REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::unordered_multimap<int, int>>), true);  
+    REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::unordered_multimap<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::unordered_multimap<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_unordered_multimap_v<std::unordered_multimap<int, int>&&>), true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const std::unordered_multimap<int, int>>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const volatile std::unordered_multimap<int, int>>),
+     true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const std::unordered_multimap<int, int>&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const volatile std::unordered_multimap<int, int>&>),
+     true);
+
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const std::unordered_multimap<int, int>&&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_unordered_multimap_v<const volatile std::unordered_multimap<int, int>&&>),
+     true); 
 }
 
 
@@ -1382,8 +1874,20 @@ TEST_CASE("mtl::is_std_stack")
     REQUIRE_EQ((mtl::is_std_stack<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_stack<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_stack<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_stack<std::stack<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_stack<std::stack<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<std::stack<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<std::stack<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const std::stack<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const volatile std::stack<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const std::stack<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const volatile std::stack<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const std::stack<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_stack<const volatile std::stack<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_stack_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_stack_v")
 {
@@ -1392,8 +1896,17 @@ TEST_CASE("mtl::is_std_stack_v")
     REQUIRE_EQ((mtl::is_std_stack_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_stack_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_stack_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_stack_v<std::stack<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_stack_v<std::stack<int>>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<std::stack<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<std::stack<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const std::stack<int>>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const volatile std::stack<int>>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const std::stack<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const volatile std::stack<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const std::stack<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_stack_v<const volatile std::stack<int>&&>), true); 
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_queue
@@ -1406,8 +1919,20 @@ TEST_CASE("mtl::is_std_queue")
     REQUIRE_EQ((mtl::is_std_queue<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_queue<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_queue<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_queue<std::queue<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_queue<std::queue<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<std::queue<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<std::queue<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const std::queue<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const volatile std::queue<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const std::queue<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const volatile std::queue<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const std::queue<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_queue<const volatile std::queue<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_queue_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_queue_v")
 {
@@ -1416,8 +1941,17 @@ TEST_CASE("mtl::is_std_queue_v")
     REQUIRE_EQ((mtl::is_std_queue_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_queue_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_queue_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_queue_v<std::queue<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_queue_v<std::queue<int>>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<std::queue<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<std::queue<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const std::queue<int>>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const volatile std::queue<int>>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const std::queue<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const volatile std::queue<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const std::queue<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_queue_v<const volatile std::queue<int>&&>), true);  
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::is_std_priority_queue
@@ -1430,8 +1964,24 @@ TEST_CASE("mtl::is_std_priority_queue")
     REQUIRE_EQ((mtl::is_std_priority_queue<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_priority_queue<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_priority_queue<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_priority_queue<std::priority_queue<int>>::value), true);    
+    REQUIRE_EQ((mtl::is_std_priority_queue<std::priority_queue<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue<std::priority_queue<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue<std::priority_queue<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue<const std::priority_queue<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue<const volatile std::priority_queue<int>>::value), true);
+
+    REQUIRE_EQ((mtl::is_std_priority_queue<const std::priority_queue<int>&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_priority_queue<const volatile std::priority_queue<int>&>::value), true);
+
+    REQUIRE_EQ((mtl::is_std_priority_queue<const std::priority_queue<int>&&>::value), true);
+    REQUIRE_EQ(
+    (mtl::is_std_priority_queue<const volatile std::priority_queue<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_priority_queue_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_priority_queue_v")
 {
@@ -1440,7 +1990,19 @@ TEST_CASE("mtl::is_std_priority_queue_v")
     REQUIRE_EQ((mtl::is_std_priority_queue_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_priority_queue_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_priority_queue_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_priority_queue_v<std::priority_queue<int>>), true);  
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<std::priority_queue<int>>), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<std::priority_queue<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<std::priority_queue<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<const std::priority_queue<int>>), true);
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<const volatile std::priority_queue<int>>), true);
+
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<const std::priority_queue<int>&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_priority_queue_v<const volatile std::priority_queue<int>&>), true);
+
+    REQUIRE_EQ((mtl::is_std_priority_queue_v<const std::priority_queue<int>&&>), true);
+    REQUIRE_EQ(
+    (mtl::is_std_priority_queue_v<const volatile std::priority_queue<int>&&>), true); 
 }
 
 
@@ -1452,19 +2014,38 @@ TEST_CASE("mtl::is_std_container")
 {
     REQUIRE_EQ((mtl::is_std_container<int>::value), false);
     REQUIRE_EQ((mtl::is_std_container<std::array<int, 4>>::value), true);
-    REQUIRE_EQ((mtl::is_std_container<std::vector<int>>::value), true);
     REQUIRE_EQ((mtl::is_std_container<std::deque<int>>::value), true);
-    REQUIRE_EQ((mtl::is_std_container<std::list<int>>::value), true);    
- 
+    REQUIRE_EQ((mtl::is_std_container<std::list<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<std::vector<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const volatile std::vector<int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const volatile std::vector<int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const std::vector<int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_container<const volatile std::vector<int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_container_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_container_v")
 {
     REQUIRE_EQ((mtl::is_std_container_v<int>), false);
     REQUIRE_EQ((mtl::is_std_container_v<std::array<int, 4>>), true);
-    REQUIRE_EQ((mtl::is_std_container_v<std::vector<int>>), true);
     REQUIRE_EQ((mtl::is_std_container_v<std::deque<int>>), true);
-    REQUIRE_EQ((mtl::is_std_container_v<std::list<int>>), true);    
+    REQUIRE_EQ((mtl::is_std_container_v<std::list<int>>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<std::vector<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const volatile std::vector<int>>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const volatile std::vector<int>&>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const std::vector<int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_container_v<const volatile std::vector<int>&&>), true);    
 }
 
 
@@ -1488,7 +2069,6 @@ TEST_CASE("mtl::is_std_pair")
     REQUIRE_EQ((mtl::is_std_pair<char*>::value), false);    
     REQUIRE_EQ((mtl::is_std_pair<const char*>::value), false);    
     REQUIRE_EQ((mtl::is_std_pair<std::vector<char>>::value), false);
-    REQUIRE_EQ((mtl::is_std_pair<std::pair<int, int>>::value), true);
     REQUIRE_EQ((mtl::is_std_pair<std::pair<float, int>>::value), true);
     REQUIRE_EQ((mtl::is_std_pair<std::pair<float, float>>::value), true);
     REQUIRE_EQ((mtl::is_std_pair<std::pair<std::string, int>>::value), true);
@@ -1498,7 +2078,20 @@ TEST_CASE("mtl::is_std_pair")
     REQUIRE_EQ((mtl::is_std_pair<std::pair<int, std::pair<char, bool>>>::value), true);
     REQUIRE_EQ((mtl::is_std_pair<std::pair<std::vector<float>, char>>::value), true);
     REQUIRE_EQ((mtl::is_std_pair<std::pair<bool, std::list<float>>>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<std::pair<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<std::pair<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<std::pair<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const std::pair<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const volatile std::pair<int, int>>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const std::pair<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const volatile std::pair<int, int>&>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const std::pair<int, int>&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_pair<const volatile std::pair<int, int>&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_pair_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_pair_v")
 {
@@ -1511,7 +2104,6 @@ TEST_CASE("mtl::is_std_pair_v")
     REQUIRE_EQ((mtl::is_std_pair_v<char*>), false);    
     REQUIRE_EQ((mtl::is_std_pair_v<const char*>), false);    
     REQUIRE_EQ((mtl::is_std_pair_v<std::vector<char>>), false);
-    REQUIRE_EQ((mtl::is_std_pair_v<std::pair<int, int>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<float, int>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<float, float>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<std::string, int>>), true);
@@ -1521,7 +2113,117 @@ TEST_CASE("mtl::is_std_pair_v")
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<int, std::pair<char, bool>>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<std::vector<float>, char>>), true);
     REQUIRE_EQ((mtl::is_std_pair_v<std::pair<bool, std::list<float>>>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<std::pair<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<std::pair<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<std::pair<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const std::pair<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const volatile std::pair<int, int>>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const std::pair<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const volatile std::pair<int, int>&>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const std::pair<int, int>&&>), true);
+    REQUIRE_EQ((mtl::is_std_pair_v<const volatile std::pair<int, int>&&>), true);
 }
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_tuple
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_std_tuple")
+{
+    REQUIRE_EQ((mtl::is_std_tuple<int>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::array<int, 4>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::vector<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::deque<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::list<int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::string>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<char*>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<const char*>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::vector<char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<int, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<float, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<float, float>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::string, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::string, std::string>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<bool, char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::pair<int, char>, int>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<int, std::pair<char, bool>>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<std::vector<float>, char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_tuple<std::pair<bool, std::list<float>>>::value), false);
+
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, int, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::string>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, std::string>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<char, std::string, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::vector<std::string>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int, std::vector<std::string>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<char, std::vector<std::string>, int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<float, std::array<int,3>>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<std::array<int,3>, float>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>&>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<std::tuple<int>&&>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const volatile std::tuple<int>>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const std::tuple<int>&>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const volatile std::tuple<int>&&>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const std::tuple<int>&&>::value), true);
+    CHECK_EQ((mtl::is_std_tuple<const volatile std::tuple<int>&&>::value), true);
+}
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_tuple_v
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_std_tuple_v")
+{
+    REQUIRE_EQ((mtl::is_std_tuple_v<int>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::array<int, 4>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::vector<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::deque<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::list<int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::string>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<char*>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<const char*>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::vector<char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<int, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<float, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<float, float>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::string, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::string, std::string>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<bool, char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::pair<int, char>, int>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<int, std::pair<char, bool>>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<std::vector<float>, char>>), false);
+    REQUIRE_EQ((mtl::is_std_tuple_v<std::pair<bool, std::list<float>>>), false);
+
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, int, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::string>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, std::string>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<char, std::string, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::vector<std::string>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int, std::vector<std::string>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<char, std::vector<std::string>, int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<float, std::array<int,3>>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<std::array<int,3>, float>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>&>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<std::tuple<int>&&>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const volatile std::tuple<int>>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const std::tuple<int>&>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const volatile std::tuple<int>&&>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const std::tuple<int>&&>), true);
+    CHECK_EQ((mtl::is_std_tuple_v<const volatile std::tuple<int>&&>), true);
+}
+
 
 
 
@@ -1536,11 +2238,23 @@ TEST_CASE("mtl::is_std_string")
     REQUIRE_EQ((mtl::is_std_string<std::vector<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_string<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_std_string<std::list<int>>::value), false);    
-    REQUIRE_EQ((mtl::is_std_string<std::string>::value), true);    
     REQUIRE_EQ((mtl::is_std_string<char*>::value), false);    
     REQUIRE_EQ((mtl::is_std_string<const char*>::value), false);    
     REQUIRE_EQ((mtl::is_std_string<std::vector<char>>::value), false);
+    REQUIRE_EQ((mtl::is_std_string<std::string>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<std::string&>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<std::string&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const std::string>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const volatile std::string>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const std::string&>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const volatile std::string&>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const std::string&&>::value), true);
+    REQUIRE_EQ((mtl::is_std_string<const volatile std::string&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_std_string_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_std_string_v")
 {
@@ -1549,10 +2263,18 @@ TEST_CASE("mtl::is_std_string_v")
     REQUIRE_EQ((mtl::is_std_string_v<std::vector<int>>), false);
     REQUIRE_EQ((mtl::is_std_string_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_std_string_v<std::list<int>>), false);    
-    REQUIRE_EQ((mtl::is_std_string_v<std::string>), true);    
     REQUIRE_EQ((mtl::is_std_string_v<char*>), false);    
     REQUIRE_EQ((mtl::is_std_string_v<const char*>), false);    
     REQUIRE_EQ((mtl::is_std_string_v<std::vector<char>>), false);
+    REQUIRE_EQ((mtl::is_std_string_v<std::string>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<std::string&>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<std::string&&>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const std::string>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const volatile std::string>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const std::string&>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const volatile std::string&>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const std::string&&>), true);
+    REQUIRE_EQ((mtl::is_std_string_v<const volatile std::string&&>), true);
 }
 
 TEST_CASE("mtl::is_std_string, lvalue references")
@@ -1621,10 +2343,24 @@ TEST_CASE("mtl::is_c_string")
     REQUIRE_EQ((mtl::is_c_string<std::deque<int>>::value), false);
     REQUIRE_EQ((mtl::is_c_string<std::list<int>>::value), false);    
     REQUIRE_EQ((mtl::is_c_string<std::string>::value), false);    
-    REQUIRE_EQ((mtl::is_c_string<char*>::value), true);    
-    REQUIRE_EQ((mtl::is_c_string<const char*>::value), true);    
     REQUIRE_EQ((mtl::is_c_string<std::vector<char>>::value), false);
+    REQUIRE_EQ((mtl::is_c_string<char>::value), false);
+    REQUIRE_EQ((mtl::is_c_string<const char>::value), false);
+    REQUIRE_EQ((mtl::is_c_string<const char*>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<char*>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<char*&>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<char*&&>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const char*>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const volatile char*>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const char*&>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const volatile char*&>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const char*&&>::value), true);
+    REQUIRE_EQ((mtl::is_c_string<const volatile char*&&>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_c_string_v
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_c_string_v")
 {
@@ -1634,16 +2370,27 @@ TEST_CASE("mtl::is_c_string_v")
     REQUIRE_EQ((mtl::is_c_string_v<std::deque<int>>), false);
     REQUIRE_EQ((mtl::is_c_string_v<std::list<int>>), false);    
     REQUIRE_EQ((mtl::is_c_string_v<std::string>), false);    
-    REQUIRE_EQ((mtl::is_c_string_v<char*>), true);    
-    REQUIRE_EQ((mtl::is_c_string_v<const char*>), true);    
     REQUIRE_EQ((mtl::is_c_string_v<std::vector<char>>), false);
+    REQUIRE_EQ((mtl::is_c_string_v<char>), false);
+    REQUIRE_EQ((mtl::is_c_string_v<const char>), false);
+    REQUIRE_EQ((mtl::is_c_string_v<const char*>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<char*>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<char*&>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<char*&&>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const char*>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const volatile char*>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const char*&>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const volatile char*&>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const char*&&>), true);
+    REQUIRE_EQ((mtl::is_c_string_v<const volatile char*&&>), true);
 }
 
+
+
 // ------------------------------------------------------------------------------------------------
-// mtl::is_input_iterator, mtl::is_output_iterator, mtl::is_iterator
+// Structs used to help with testing.
 // ------------------------------------------------------------------------------------------------
 
-// Input iterator in a way that C++ 17 prefers it now that std::iterator is deprecated.
 struct my_input_iterator
 {
     using value_type = int ;
@@ -1653,7 +2400,6 @@ struct my_input_iterator
     using iterator_category = std::input_iterator_tag ;
 };
 
-// Output iterator in a way that C++ 17 prefers it now that std::iterator is deprecated.
 struct my_output_iterator
 {
     using value_type = int;
@@ -1663,7 +2409,6 @@ struct my_output_iterator
     using iterator_category = std::output_iterator_tag;
 };
 
-// Bidirectional iterator in a way that C++ 17 prefers it now that std::iterator is deprecated.
 struct my_bidir_terator
 {
     using value_type = int;
@@ -1673,7 +2418,6 @@ struct my_bidir_terator
     using iterator_category = std::bidirectional_iterator_tag;
 };
 
-// Forward iterator in a way that C++ 17 prefers it now that std::iterator is deprecated.
 struct my_forward_terator
 {
     using value_type = int;
@@ -1683,7 +2427,6 @@ struct my_forward_terator
     using iterator_category = std::forward_iterator_tag;
 };
 
-// Random access iterator in a way that C++ 17 prefers it now that std::iterator is deprecated.
 struct my_random_access_iterator
 {
     using value_type = int;
@@ -1693,6 +2436,10 @@ struct my_random_access_iterator
     using iterator_category = std::random_access_iterator_tag;
 };
 
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_input_iterator
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_input_iterator")
 {
@@ -1716,6 +2463,37 @@ TEST_CASE("mtl::is_input_iterator")
     REQUIRE_EQ((mtl::is_input_iterator<my_random_access_iterator>::value), true);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_input_iterator_v
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_input_iterator_v")
+{
+    std::vector<int> vi;
+    auto vi_it = vi.begin();
+    REQUIRE_EQ((vi_it == vi.begin()), true);
+    REQUIRE_EQ((mtl::is_input_iterator_v<decltype(vi_it)>), true);
+    std::vector<std::string> vs;
+    auto vs_it = vs.begin();
+    REQUIRE_EQ((vs_it == vs.begin()), true);
+    REQUIRE_EQ((mtl::is_input_iterator_v<decltype(vs_it)>), true);
+
+    REQUIRE_EQ((mtl::is_input_iterator_v<int>),false);
+    REQUIRE_EQ((mtl::is_input_iterator_v<std::vector<int>>), false);
+    
+    
+    REQUIRE_EQ((mtl::is_input_iterator_v<my_input_iterator>), true);
+    REQUIRE_EQ((mtl::is_input_iterator_v<my_output_iterator>), false);
+    REQUIRE_EQ((mtl::is_input_iterator_v<my_bidir_terator>), true); 
+    REQUIRE_EQ((mtl::is_input_iterator_v<my_forward_terator>), true);
+    REQUIRE_EQ((mtl::is_input_iterator_v<my_random_access_iterator>), true);
+}
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_output_iterator
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_output_iterator")
 {
@@ -1739,6 +2517,37 @@ TEST_CASE("mtl::is_output_iterator")
     REQUIRE_EQ((mtl::is_output_iterator<my_random_access_iterator>::value), false);
 }
 
+// ------------------------------------------------------------------------------------------------
+// mtl::is_output_iterator_v
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_output_iterator_v")
+{
+    std::vector<int> vi;
+    auto vi_it = vi.begin();
+    REQUIRE_EQ((vi_it == vi.begin()), true);
+    REQUIRE_EQ((mtl::is_output_iterator_v<decltype(vi_it)>), false);
+    std::vector<std::string> vs;
+    auto vs_it = vs.begin();
+    REQUIRE_EQ((vs_it == vs.begin()), true);
+    REQUIRE_EQ((mtl::is_output_iterator_v<decltype(vs_it)>), false);
+
+    REQUIRE_EQ((mtl::is_output_iterator_v<int>),false);
+    REQUIRE_EQ((mtl::is_output_iterator_v<std::vector<int>>), false);
+
+
+    REQUIRE_EQ((mtl::is_output_iterator_v<my_input_iterator>), false);
+    REQUIRE_EQ((mtl::is_output_iterator_v<my_output_iterator>), true);
+    REQUIRE_EQ((mtl::is_output_iterator_v<my_bidir_terator>), false);
+    REQUIRE_EQ((mtl::is_output_iterator_v<my_forward_terator>), false);
+    REQUIRE_EQ((mtl::is_output_iterator_v<my_random_access_iterator>), false);
+}
+
+
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_iterator
+// ------------------------------------------------------------------------------------------------
 
 TEST_CASE("mtl::is_iterator")
 {
@@ -1761,3 +2570,30 @@ TEST_CASE("mtl::is_iterator")
     REQUIRE_EQ((mtl::is_iterator<my_forward_terator>::value), true);
     REQUIRE_EQ((mtl::is_iterator<my_random_access_iterator>::value), true);
 }
+
+// ------------------------------------------------------------------------------------------------
+// mtl::is_iterator_v
+// ------------------------------------------------------------------------------------------------
+
+TEST_CASE("mtl::is_iterator_v")
+{
+    std::vector<int> vi;
+    auto vi_it = vi.begin();
+    REQUIRE_EQ((vi_it == vi.begin()), true);
+    REQUIRE_EQ((mtl::is_iterator_v<decltype(vi_it)>), true);
+    std::vector<std::string> vs;
+    auto vs_it = vs.begin();
+    REQUIRE_EQ((vs_it == vs.begin()), true);
+    REQUIRE_EQ((mtl::is_iterator_v<decltype(vs_it)>), true);
+
+    REQUIRE_EQ((mtl::is_iterator_v<int>),false);
+    REQUIRE_EQ((mtl::is_iterator_v<std::vector<int>>), false);
+
+
+    REQUIRE_EQ((mtl::is_iterator_v<my_input_iterator>), true);
+    REQUIRE_EQ((mtl::is_iterator_v<my_output_iterator>), true);
+    REQUIRE_EQ((mtl::is_iterator_v<my_bidir_terator>), true);
+    REQUIRE_EQ((mtl::is_iterator_v<my_forward_terator>), true);
+    REQUIRE_EQ((mtl::is_iterator_v<my_random_access_iterator>), true);
+}
+

@@ -4,11 +4,36 @@
 
 ### Functions with the same name as the C++ standard library
 
-Functions that have the same name as the C++ standard library are usually functions that act almost the same way but have some added functionality. For example ```mtl::for_each``` performs like ```std::for_each``` but can also be used on ```std::pair``` or ```std::tuple```. Another example of that is ```mtl::iota``` is a better version of ```std::iota```. It accepts all numeric types and you can set an optional starting value as well as an optional step value. With ```mtl::iota``` for example you could easily fill a ```std::vector<float>``` with the following values ```[5.0, 0.5, -4.0, -8.5, -13.0]``` using a starting value of ```5.0f``` and a step value of ```-4.5f```.
+Functions that have the same name as their C++ standard library counterparts are usually functions that act almost the same way but have some added functionality. For example ```mtl::for_each``` has the same functionality as ```std::for_each``` with the added benefit that it can also be used on ```std::pair``` and ```std::tuple```.
+
+```c++
+#include <tuple>
+#include "mtl/console.hpp"
+#include "mtl/algorithm.hpp"
+
+int main()
+{
+    std::tuple<int, char, const char*> tp = std::make_tuple(111, 'a', "Hello");
+    mtl::for_each(tp, [](auto& v){ mtl::console::println(v); });
+}
+```
+
+Another example is ```mtl::iota``` which is a better version of ```std::iota```. It accepts all numeric types and you can set an optional starting value as well as an optional step value. With ```mtl::iota``` for example you could easily fill a ```std::vector<float>``` with the following values ```[5.0, 0.5, -4.0, -8.5, -13.0]``` using a starting value of ```5.0f``` and a step value of ```-4.5f```.
+
+```c++
+#include <vector>
+#include "mtl/numeric.hpp"
+
+int main()
+{
+    std::vector<float> numbers(5);
+    mtl::iota(numbers.begin(), numbers.end(), 5.0f, -4.5f);
+}
+```
 
 ### Namespaces with the same name as the C++ standard library
 
-Namespaces that share the same name as C++ standard library have the same functionality. Two examples of this are the ```std::chrono``` and ```std::filesystem``` namespaces that are used for functionality that has to do with time and the filesystem respectively. The **mtl** has ```mtl::chrono``` and ```mtl::filesystem``` for the exact same reason. We try to keep the naming of namespaces as familiar as possible to ease the learning curve.
+Namespaces that share the same name as C++ standard library have the same functionality. Two examples of this are the ```std::chrono``` and ```std::filesystem``` namespaces that are used for functionality that has to do with time and the filesystem respectively. The **mtl** has ```mtl::chrono``` and ```mtl::filesystem``` for the exact same reason. We try to keep the names of namespaces as familiar as possible to ease the learning curve for new users.
 
 ### Functions ending with ```_n```
 

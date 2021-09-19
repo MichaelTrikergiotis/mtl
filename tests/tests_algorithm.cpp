@@ -59,6 +59,111 @@ TEST_CASE("mtl::not_unique_inclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 1 element")
+{
+    std::vector<int> numbers{ 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 2 elements")
+{
+    std::vector<int> numbers{ 3, 4 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Maria" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 3 elements")
+{
+    std::vector<int> numbers{ 3, 4, 5 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Maria", "John" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 4 elements")
+{
+    std::vector<int> numbers{ 3, 4, 5, 1 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Maria", "John", "Bill" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 2 duplicate elements")
+{
+    std::vector<int> numbers{ 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Peter" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Peter", "Peter" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 3 duplicate elements")
+{
+    std::vector<int> numbers{ 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Peter", "Peter" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Peter", "Peter", "Peter" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_inclusive for std::vector, 4 duplicate elements")
+{
+    std::vector<int> numbers{ 3, 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_inclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3, 3, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Peter", "Peter", "Peter", "Peter" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_inclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Peter", "Peter", "Peter", "Peter" };
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::not_unique_inclusive for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -245,6 +350,111 @@ TEST_CASE("mtl::not_unique_exclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 1 element")
+{
+    std::vector<int> numbers { 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 2 elements")
+{
+    std::vector<int> numbers { 3, 4 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 3 elements")
+{
+    std::vector<int> numbers { 3, 4, 5 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria", "Nick" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 4 elements")
+{
+    std::vector<int> numbers { 3, 4, 5, 1 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria", "John", "Bill" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 2 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 3 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob", "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique_exclusive for std::vector, 4 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique_exclusive(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3, 3, 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob", "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique_exclusive(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob", "Bob", "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::not_unique_exclusive for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -419,6 +629,111 @@ TEST_CASE("mtl::not_unique for empty std::vector")
 	std::sort(names.begin(), names.end());
     names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 1 element")
+{
+    std::vector<int> numbers { 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 2 elements")
+{
+    std::vector<int> numbers { 3, 4 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 3 elements")
+{
+    std::vector<int> numbers { 3, 4, 5 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria", "John" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 4 elements")
+{
+    std::vector<int> numbers { 3, 4, 5, 1 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results;
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Maria", "John", "Bill" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 2 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 3 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::not_unique for std::vector, 4 duplicate elements")
+{
+    std::vector<int> numbers { 3, 3, 3, 3 };
+    std::sort(numbers.begin(), numbers.end());
+    numbers.erase(mtl::not_unique(numbers.begin(), numbers.end()), numbers.end());
+    std::vector<int> results { 3 };
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob", "Bob", "Bob", "Bob" };
+    std::sort(names.begin(), names.end());
+    names.erase(mtl::not_unique(names.begin(), names.end()), names.end());
+    std::vector<std::string> results_names { "Bob" };
     CHECK_EQ((names == results_names), true);
 }
 
@@ -601,6 +916,21 @@ TEST_CASE("mtl::keep_duplicates_inclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_inclusive(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_inclusive(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_inclusive for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -764,6 +1094,21 @@ TEST_CASE("mtl::keep_duplicates_exclusive for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_exclusive for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_exclusive(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_exclusive(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_exclusive for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -920,6 +1265,21 @@ TEST_CASE("mtl::keep_duplicates for empty std::vector")
     std::vector<std::string> names;
 	mtl::keep_duplicates(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1080,7 +1440,7 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::vector")
     // algorithms ending with _sorted require the container to be sorted
     std::sort(numbers.begin(), numbers.end());
     mtl::keep_duplicates_inclusive_sorted(numbers);
-    std::vector<int> results ;
+    std::vector<int> results;
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names;
@@ -1088,6 +1448,25 @@ TEST_CASE("mtl::keep_duplicates_inclusive_sorted for empty std::vector")
     std::sort(names.begin(), names.end());
 	mtl::keep_duplicates_inclusive_sorted(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_inclusive_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_inclusive_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names;
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_inclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1281,6 +1660,25 @@ TEST_CASE("mtl::keep_duplicates_exclusive_sorted for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_exclusive_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_exclusive_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_exclusive_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_exclusive_sorted for std::vector")
 {
     std::vector<int> numbers { 3, 1, 2, 2, 1, 3, 3 };
@@ -1463,6 +1861,25 @@ TEST_CASE("mtl::keep_duplicates_sorted for empty std::vector")
     std::sort(names.begin(), names.end());
 	mtl::keep_duplicates_sorted(names);
     std::vector<std::string> results_names;
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_sorted for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(numbers.begin(), numbers.end());
+    mtl::keep_duplicates_sorted(numbers);
+    std::vector<int> results;
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+    // algorithms ending with _sorted require the container to be sorted
+    std::sort(names.begin(), names.end());
+	mtl::keep_duplicates_sorted(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -1659,6 +2076,24 @@ TEST_CASE("mtl::keep_duplicates_inclusive_preserve for empty std::vector")
     CHECK_EQ((names == results_names), true);
 }
 
+TEST_CASE("mtl::keep_duplicates_inclusive_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_inclusive_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_inclusive_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
 TEST_CASE("mtl::keep_duplicates_inclusive_preserve for std::vector")
 {
     std::vector<int> numbers{ 5, 4, 3, 1, 2, 2, 1, 3, 3 };
@@ -1811,13 +2246,38 @@ TEST_CASE("mtl::keep_duplicates_exclusive_preserve for empty std::vector")
     std::vector<int> numbers;
     mtl::keep_duplicates_exclusive_preserve(numbers);
     std::vector<int> results;
+
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
-    std::vector<std::string> names { "Bob", "Mac", "Joe", "Joe", "Mac", "Bob", "Bob" };
+    std::vector<std::string> names;
 	mtl::keep_duplicates_exclusive_preserve(names);
-    std::vector<std::string> results_names {"Joe", "Mac", "Bob", "Bob"};
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
+
+TEST_CASE("mtl::keep_duplicates_exclusive_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_exclusive_preserve(numbers);
+    std::vector<int> results;
+
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_exclusive_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
+
 
 TEST_CASE("mtl::keep_duplicates_exclusive_preserve for std::vector")
 {
@@ -1978,11 +2438,32 @@ TEST_CASE("mtl::keep_duplicates_preserve for empty std::vector")
     std::vector<int> numbers;
     mtl::keep_duplicates_preserve(numbers);
     std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
     CHECK_EQ((numbers == results), true);
 
     std::vector<std::string> names;
 	mtl::keep_duplicates_preserve(names);
     std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
+    CHECK_EQ((names == results_names), true);
+}
+
+TEST_CASE("mtl::keep_duplicates_preserve for 1 element std::vector")
+{
+    std::vector<int> numbers { 99 };
+    mtl::keep_duplicates_preserve(numbers);
+    std::vector<int> results;
+    CHECK_EQ(numbers.empty(), true);
+    CHECK_EQ(results.empty(), true);
+    CHECK_EQ((numbers == results), true);
+
+    std::vector<std::string> names { "Bob" };
+	mtl::keep_duplicates_preserve(names);
+    std::vector<std::string> results_names;
+    CHECK_EQ(names.empty(), true);
+    CHECK_EQ(results_names.empty(), true);
     CHECK_EQ((names == results_names), true);
 }
 
@@ -3193,7 +3674,15 @@ TEST_CASE("mtl::for_each with const std::tuple of integers")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of integers, ref")
+TEST_CASE("mtl::for_each with std::tuple of integers, temp")
+{
+    int total = 0;
+    mtl::for_each(std::make_tuple(10, 20, 30, 40), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+
+TEST_CASE("mtl::for_each with std::tuple of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3215,7 +3704,7 @@ TEST_CASE("mtl::for_each with std::tuple of integers, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of integers, const ref")
+TEST_CASE("mtl::for_each with std::tuple of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3286,7 +3775,7 @@ TEST_CASE("mtl::for_each with const std::tuple of different types")
 }
 
 
-TEST_CASE("mtl::for_each with std::tuple of different types, ref")
+TEST_CASE("mtl::for_each with std::tuple of different types")
 {
     const int items = 10;
     
@@ -3318,7 +3807,7 @@ TEST_CASE("mtl::for_each with std::tuple of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::tuple of different types, const ref")
+TEST_CASE("mtl::for_each with std::tuple of different types")
 {
     const int items = 10;
     
@@ -3391,6 +3880,8 @@ TEST_CASE("mtl::for_each with std::tuple of different types, modify")
 
 
 
+
+
 TEST_CASE("mtl::for_each with std::pair of integers")
 {
     auto p = std::pair<int, int>(70 , 30);
@@ -3407,7 +3898,41 @@ TEST_CASE("mtl::for_each with const std::pair of integers")
     REQUIRE_EQ(total, 100);
 }
 
-TEST_CASE("mtl::for_each with std::pair of integers, ref")
+TEST_CASE("mtl::for_each with volatile std::pair of integers")
+{
+    volatile std::pair<int, int> p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with const volatile std::pair of integers")
+{
+    const volatile std::pair<int, int> p = std::pair<int, int>(70 , 30);
+    int total = 0;
+    mtl::for_each(p, [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with std::pair of integers, temp")
+{  
+    int total = 0;
+    mtl::for_each(std::pair<int, int>(70 , 30), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+TEST_CASE("mtl::for_each with std::pair of integers, temp")
+{   
+    int total = 0;
+    mtl::for_each(std::make_pair(70 , 30), [&total](auto num) { total += num;});
+    REQUIRE_EQ(total, 100);
+}
+
+
+
+
+
+TEST_CASE("mtl::for_each with std::pair of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3429,7 +3954,7 @@ TEST_CASE("mtl::for_each with std::pair of integers, ref")
     REQUIRE_EQ(grand_total, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::pair of integers, const ref")
+TEST_CASE("mtl::for_each with std::pair of integers")
 {
     const int items = 10;
     const int desired_result = items * 100;
@@ -3500,7 +4025,7 @@ TEST_CASE("mtl::for_each with const std::pair of different types")
 }
 
 
-TEST_CASE("mtl::for_each with std::pair of different types, ref")
+TEST_CASE("mtl::for_each with std::pair of different types")
 {
     const int items = 10;
     
@@ -3532,7 +4057,7 @@ TEST_CASE("mtl::for_each with std::pair of different types, ref")
     REQUIRE_EQ(combined_result, desired_result);
 }
 
-TEST_CASE("mtl::for_each with std::pair of different types, const ref")
+TEST_CASE("mtl::for_each with std::pair of different types")
 {
     const int items = 10;
     
@@ -3649,7 +4174,7 @@ TEST_CASE("mtl::for_adj_pairs for std::vector<std::string>")
     mtl::for_adj_pairs(vs.begin(), vs.end(), [](auto rhs, auto lhs)
                        {
                           std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
+                          REQUIRE_EQ(combined.size(), static_cast<size_t>(3));
                        });
 
 }
@@ -3684,7 +4209,7 @@ TEST_CASE("mtl::for_adj_pairs for std::list<std::string>")
     mtl::for_adj_pairs(ls.begin(), ls.end(), [](auto rhs, auto lhs)
                        {
                           std::string combined = rhs + lhs;
-                          REQUIRE_EQ(combined.size(), size_t(3));
+                          REQUIRE_EQ(combined.size(), static_cast<size_t>(3));
                        });
 
 }

@@ -1,17 +1,29 @@
 #!/usr/bin/env bash
 
-# Runs clang sanitizers for the mtl library.
+# Runs multiple clang sanitizers to check mtl for bugs.
 #
-# You must have clang and llvm installed for this script to work.
-# On Ubuntu Linux in a terminal type :
-# sudo apt install clang llvm
-#
-# You have to give the script executable permission before running it :
-# chmod +x check-clang-sanitizers.sh
-# ./check-clang-sanitizers.sh
+# You must have clang installed for this script to work.
+# On Ubuntu Linux :
+# sudo apt install clang
 
+
+
+
+
+# check that we are in the utilities folder
+if ! [[ $PWD == *"utilities" ]]; then
+    echo "Error !!! The script is not executed from the utilities folder. Exiting."
+    exit 1
+fi
+
+
+# delete the generated executable if it existed
 rm -f tests
+
 echo "Running clang sanitizers..."
+# build mtl using multiple clang sanitizers
 clang++ -std=c++17 -o tests -Wfatal-errors -Werror -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined ../tests/*.cpp
+# run the generated executable to find errors
 ./tests
-rm -rf tests
+# delete the generated executable
+rm -f tests

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 // console header by Michael Trikergiotis
 // 09/09/2018
 // 
@@ -21,9 +21,10 @@
 #include <utility>         // std::forward
 #include <cstdio>          // std::fflush, stdout
 #include "type_traits.hpp" // mtl::is_std_string_v, mtl::is_c_string_v
-#include "fmt_include.hpp" // fmt::print, fmt::memory_buffer, fmt::format_to, fmt::to_string
+#include "fmt_include.hpp" // fmt::print, fmt::runtime
 #include "string.hpp"      // mtl::string::to_string, mtl::string::pad, mtl::string::pad_front,
-						   // mtl::string::pad_back, mtl::string::join
+						   // mtl::string::pad_back, mtl::string::join, mtl::string::contains
+						   // mtl::string::replace
 
 
 // Windows only headers
@@ -72,7 +73,7 @@ namespace detail
 {
 
 // ------------------------------------------------------------------------------------------------
-// Some general functions and constants that are used throughout mtl::console.
+// Some helper functions and constants.
 // ------------------------------------------------------------------------------------------------
 
 #if defined(_WIN32)
@@ -86,9 +87,9 @@ inline bool is_terminal()
 }
 
 
-// Set the Windows console to accept ASCII escape sequences. If we succeed return true. If we can't
-// set it then it means we are in a version of Windows before Windows 10 v.1607. Retrun false
-// indicating we couldn't set Windows console to use ASCII escape sequences.
+// Set the Windows console to accept ASCII escape sequences. If we succeed, return true. If we
+// can't set it then it means we are in a version of Windows before Windows 10 v.1607. Return
+// false indicating we couldn't set Windows console to use ASCII escape sequences.
 [[nodiscard]]
 inline bool enable_win_ascii()
 {
@@ -99,7 +100,7 @@ inline bool enable_win_ascii()
 	}
 
 
-// there seems to be some Windows enviroments where ENABLE_VIRTUAL_TERMINAL_PROCESSING is not
+// there seems to be some Windows environments where ENABLE_VIRTUAL_TERMINAL_PROCESSING is not
 // defined so we have to define it
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING  0x0004
@@ -108,13 +109,13 @@ inline bool enable_win_ascii()
 	HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (console_handle == INVALID_HANDLE_VALUE)
 	{
-		throw std::runtime_error("Error. Can't get console window handle.");
+		throw std::runtime_error("Can't get the console's window handle.");
 	}
 
 	DWORD console_mode = 0;
 	if (!GetConsoleMode(console_handle, &console_mode))
 	{
-		throw std::runtime_error("Error. Can't get console mode.");
+		throw std::runtime_error("Can't get console mode.");
 	}
 
 	// add virtual terminal processing to the console mode
@@ -138,7 +139,7 @@ static const bool legacy_windows = !(enable_win_ascii());
 
 
 // Mutex used to lock legacy Windows console functions that use WIN32 API to interact with the
-// console and allows them to be thread safe.
+// console and allows them to be thread-safe.
 static std::mutex console_mutex_legacy_win;
 
 
@@ -164,14 +165,14 @@ static const bool inside_terminal = is_terminal();
 
 
 // ================================================================================================
-// PRINT - Prints all parameters to the console.
+// PRINT - Prints all arguments to the console.
 // ================================================================================================
 
 
 /// Print nothing to the console.
 inline void print() {}
 
-/// Print a single parameter the console.
+/// Print a single argument to the console.
 /// @param[in] arg An argument of any type that can be printed.
 template <typename Arg>
 inline void print(const Arg& arg)
@@ -179,7 +180,7 @@ inline void print(const Arg& arg)
 	fmt::print("{}", arg);
 }
 
-/// Print all parameters to the console.
+/// Print all arguments to the console.
 /// @param[in] arg An argument of any type that can be printed.
 /// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
@@ -204,7 +205,7 @@ inline void print(const Arg& arg, Args&&... args)
 
 
 // ================================================================================================
-// PRINTLN - Prints each parameter to the console in a new line.
+// PRINTLN - Prints each argument to the console in a new line.
 // ================================================================================================
 
 namespace detail
@@ -250,7 +251,7 @@ inline void println()
 	fmt::print("\n");
 }
 
-/// Print a parameter to the console followed by a new line.
+/// Print an argument to the console followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
 template <typename Arg>
 inline void println(const Arg& arg)
@@ -258,7 +259,7 @@ inline void println(const Arg& arg)
 	fmt::print("{}\n", arg);
 }
 
-/// Print each parameter followed by a new line.
+/// Print each argument followed by a new line.
 /// @param[in] arg An argument of any type that can be printed.
 /// @param[in] args Any number of arguments of any type that can be printed.
 template <typename Arg, typename... Args>
@@ -284,15 +285,11 @@ inline void println(const Arg& arg, Args&&... args)
 
 
 // ================================================================================================
-// PRINT_PAD  - Enumeration that allows print_all to select which side you want the printed 
-//              element to be padded to.
-// PRINT_ALL  - Print all elements in a range with multitude of fromatting options.
+// PRINT_PAD  - Enumeration that allows to select the padding side for mtl::console::print_all.
 // ================================================================================================
 
 
-
-
-/// Enumeraction that allows to set the padding for mtl::console::print_all.
+/// Enumeration that allows to select the padding side for mtl::console::print_all.
 enum class print_pad
 {
 	/// No padding.
@@ -321,35 +318,47 @@ namespace detail
 
 // Adds padding to a string to match the target length with the given padding style.
 inline void print_padding_impl(std::string& value, const size_t length, 
-							   const print_pad padding_style)
+							   const mtl::console::print_pad padding_style)
 {
+	
 	const size_t size = value.size();
 	// check if the string needs padding based on requested length
 	if (size < length)
 	{
 		// pad the given string with the selected padding style
-		if (padding_style == print_pad::front)
+
+		// when padding to the front
+		if (padding_style == mtl::console::print_pad::front)
 		{
 			mtl::string::pad_front(value, length - size, ' ');
 		}
-		else if (padding_style == print_pad::both_front)
-		{
-			mtl::string::pad(value, length - size, ' ', false);
-		}
-		else if (padding_style == print_pad::both_back)
-		{
-			mtl::string::pad(value, length - size, ' ', true);
-		}
-		else if (padding_style == print_pad::back)
+		// when padding to the back side
+		else if (padding_style == mtl::console::print_pad::back)
 		{
 			mtl::string::pad_back(value, length - size, ' ');
 		}
+		// when padding to the front and back side but mostly to the front
+		else if (padding_style == mtl::console::print_pad::both_front)
+		{
+			mtl::string::pad(value, length - size, ' ', false);
+		}
+		// when padding to the front and back side but mostly to the back
+		else
+		{
+			mtl::string::pad(value, length - size, ' ', true);
+		}
+	
 	}
+
 }
 
 } // namespace detail end
 
 
+
+// ================================================================================================
+// PRINT_ALL  - Print all elements in a range with a multitude of formatting options.
+// ================================================================================================
 
 /// Prints to console all elements in a range. The newline_threshold affects after how many
 /// elements the newline character will be used. Delimiter is a string used between all elements.
@@ -369,7 +378,12 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 					  const std::string& line_end = "",  
 					  mtl::console::print_pad padding_style = mtl::console::print_pad::none)
 {
-	if (first == last) { return; }
+	
+	
+	if (first == last) // GCOVR_EXCL_LINE
+	{ 
+		return; 
+	}
 
 	// find the number of elements
 	auto iter_distance = std::distance(first, last);
@@ -403,7 +417,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	
 
 	// create a buffer to store everything so we only have to print once
-	fmt::memory_buffer buffer;
+	std::string buffer;
 
 	// if printing a newline after a certain number of elements is requested
 	if (newline_threshold > 0)
@@ -419,14 +433,14 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			// if the counter is 0 it means a new line is just starting
 			if (newline_counter == 0)
 			{
-				fmt::format_to(buffer, "{}", line_start); 
+				buffer += line_start;
 			}
 
 			// pad the element with the given padding style
 			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 
 			// store the element in the buffer
-			fmt::format_to(buffer, "{}", element); 
+			buffer += element; 
 
 			++newline_counter;
 			++last_element_counter;
@@ -434,11 +448,11 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			// check if we should add a delimiter or if it the end of a line based on the counters
 			if ((newline_counter < newline_threshold) && (last_element_counter < num_elements)) 
 			{
-				fmt::format_to(buffer, "{}", delimiter); 
+				buffer += delimiter; 
 			}
 			else
 			{
-				fmt::format_to(buffer, "{}\n", line_end); 
+				buffer = mtl::string::join(buffer, line_end, "\n");
 				newline_counter = 0;
 			}
 		}
@@ -446,7 +460,7 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 	// if printing a newline after a certain number of elements is not requested
 	else
 	{
-		fmt::format_to(buffer, "{}", line_start); 
+		buffer += line_start; 
 		
 		// counter to keep track if it is the last element
 		size_t last_element_counter = 0;
@@ -457,22 +471,22 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 			mtl::console::detail::print_padding_impl(element, longest, padding_style); 
 			
 			// store the element in the buffer
-			fmt::format_to(buffer, "{}", element); 
+			buffer += element; 
 
 			++last_element_counter;
 			
 			// add the delimiter if it is not the last element
 			if (last_element_counter < num_elements)
 			{ 
-				fmt::format_to(buffer, "{}", delimiter); 
+				buffer += delimiter; 
 			}		
 		}
-		fmt::format_to(buffer, "{}", line_end); 
+		buffer += line_end; 
 	}
 
 	// write the entire buffer to the console, benchmarks show great performance gains 
 	// compared to printing each individual element to the console one at a time
-	fmt::print("{}", fmt::to_string(buffer));
+	fmt::print("{}", buffer);
 	
 	// GCOVR_EXCL_STOP
 }
@@ -485,16 +499,16 @@ inline void print_all(Iter first, Iter last, const std::string& delimiter = "",
 
 
 // ================================================================================================
-// COLOR - Enumeration for all the colors that can be used with console.
+// COLOR - Enumeration for all the colors that can be used with the console.
 // ================================================================================================
 
 
-/// Enumartion of the standard terminal colors that can be used to output color to the
+/// Enumeration of the standard terminal colors that can be used to output color to the
 /// console plus one extra for the default color.
 enum class color : uint8_t
 {
 	// color sort order and codes from taken from :
-	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+	// https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	/// Default Color.
 	default_color = 29,
@@ -535,8 +549,9 @@ enum class color : uint8_t
 
 
 // ================================================================================================
-// PRINT_COLOR   - Prints to console with foreground and background color.
-// PRINTLN_COLOR - Prints to console with a newline with foreground and background color.
+// PRINT_COLOR   - Prints an argument to console with optional foreground and background colors.
+// PRINTLN_COLOR - Prints an argument and a newline to console with optional foreground and
+//                 background colors.
 // ================================================================================================
 
 
@@ -544,13 +559,13 @@ namespace detail
 {
 
 #if defined(_WIN32)
-// Implementation for both print_color and println_color for using the WIN32 API to be used on 
-// Windows for the console (cmd.exe).
+// Implementation for both print_color and println_color that uses the WIN32 API needed for
+// Windows 10 v.1607 or older.
 template<typename Type>
 inline void print_color_win_legacy(const Type& arg, mtl::console::color foreground_color,
 								   mtl::console::color background_color, bool newline = false)
 {
-	// we use an std::lock_guard because we want this function to be thread safe
+	// we use an std::lock_guard because we want this function to be thread-safe
 	std::lock_guard<std::mutex> lockg(mtl::console::detail::console_mutex_legacy_win);
 
 	// handle to the current console
@@ -565,13 +580,13 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 	console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (console_handle == INVALID_HANDLE_VALUE)
 	{
-		throw std::runtime_error("Error. Can't get console window handle.");
+		throw std::runtime_error("Can't get the console's window handle.");
 	}
 
 	// get the screen buffer information for the current console
 	if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 	{
-		throw std::runtime_error("Error. Could not get console's screen buffer information.");
+		throw std::runtime_error("Can't get the console's screen buffer information.");
 	}
 
 
@@ -592,7 +607,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 
 
 	// color sort order and codes from taken from :
-	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+	// https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	// --------------------
 	// SET FOREGROUND COLOR
@@ -739,38 +754,38 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		bg_color = BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
 	}
 
+
+
+
+	// keep track if the argument contains the newline character
 	bool contains_newline = false;
 
-	// if the argument is of type string check if it contains a newline character
+	// if the argument is of type std::string check if it contains a newline character
 	if constexpr (mtl::is_std_string_v<decltype(arg)>)
 	{
-		contains_newline = (arg.find('\n') != std::string::npos);
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
 	// if the argument is of type const char* check if it contains a newline character
 	if constexpr (mtl::is_c_string_v<decltype(arg)>)
 	{
-		auto size = std::strlen(arg);
-		if (size > 0)
-		{
-			auto found = std::find(arg, arg + size, '\n');
-			if (found != (arg + size))
-			{
-				contains_newline = true;
-			}
-		}
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
-	// if the string / const char* contains a new line inside it loop over and print each part
-	// seperately and print the newline with the old color attributes to prevent color spilling
-	// to the other lines
+
+	// if the argument contains a newline character, print the argument with the color attributes
+	// but without the newline character and then print the newline character with the old color
+	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
-		// convert to a std::string from either std::string or const char* to make it easier to
-		// work with
+		// convert the argument to an std::string so we can modify it
 		std::string argument_newline = mtl::string::to_string(arg);
 
-		// remember the start position
+		// replace CRLF with LF
+		mtl::string::replace(argument_newline, "\r\n", '\n');
+
+
+		// keep the starting position
 		size_t start = 0;
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
@@ -786,8 +801,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Can't set the console's attributes.");
 			}
 
 			// get the part
@@ -799,8 +813,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Can't set the console's attributes.");
 			}
 
 			// print the newline character with the default colors
@@ -820,8 +833,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors to the selected color
 			if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Can't set the console's attributes.");
 			}
 
 			fmt::print("{}", part);
@@ -829,8 +841,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 			// set foreground and background colors back to default colors
 			if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 			{
-				throw std::runtime_error(
-					  "Error. Could not set console's attributes successfully.");
+				throw std::runtime_error("Can't set the console's attributes.");
 			}
 		}
 	}
@@ -841,7 +852,7 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// set foreground and background colors to the selected color
 		if (!SetConsoleTextAttribute(console_handle, fg_color | bg_color))
 		{
-			throw std::runtime_error("Error. Could not set console's attributes successfully.");
+			throw std::runtime_error("Can't set the console's attributes.");
 		}
 
 		// print the argument passed to the function
@@ -850,11 +861,11 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 		// set foreground and background colors back to normal
 		if (!SetConsoleTextAttribute(console_handle, original_fg | original_bg))
 		{
-			throw std::runtime_error("Error. Could not set console's attributes successfully.");
+			throw std::runtime_error("Can't set the console's attributes.");
 		}
 	}
 
-	// if newline parameter is true we have to print a newline character at the end
+	// if the newline variable is true we have to print a newline character at the end
 	if (newline)
 	{
 		fmt::print("{}", "\n");
@@ -864,13 +875,14 @@ inline void print_color_win_legacy(const Type& arg, mtl::console::color foregrou
 #endif // WIN32
 
 
+
 // Implementation for both print_color and println_color with ASCII escape sequences. 
 template<typename Type>
 inline void print_color_ascii(const Type& arg, mtl::console::color foreground_color,
 							  mtl::console::color background_color, bool newline = false)
 {
 	// color sort order and codes from taken from :
-	// en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+	// https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 
 	// set the starting ANSI escape code for foreground color
 	std::string fg_color = "\033[";
@@ -1039,38 +1051,36 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	bg_color += "22m";
 
 
-	bool contains_newline = false;
 
-	// if the argument is of type string check if it contains a newline character
+
+	// keep track if the argument contains the newline character
+	bool contains_newline = false;
+	
+	// if the argument is of type std::string check if it contains a newline character
 	if constexpr (mtl::is_std_string_v<decltype(arg)>)
 	{
-		contains_newline = (arg.find('\n') != std::string::npos);
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
 	// if the argument is of type const char* check if it contains a newline character
 	if constexpr (mtl::is_c_string_v<decltype(arg)>)
 	{
-		auto size = std::strlen(arg);
-		if (size > 0)
-		{
-			auto found = std::find(arg, arg + size, '\n'); // GCOVR_EXCL_LINE
-			if (found != (arg + size))
-			{
-				contains_newline = true;
-			}
-		}
+		contains_newline = mtl::string::contains(arg, '\n');
 	}
 
-	// if the string / const char* contains a new line inside it loop over and print each part
-	// seperately and print the newline with the old color attributes to prevent color spilling
-	// to the other lines
+
+	// if the argument contains a newline character, print the argument with the color attributes
+	// but without the newline character and then print the newline character with the old color
+	// attributes to prevent color spilling to the next line
 	if (contains_newline)
 	{
-		// convert to a std::string from either std::string or const char* to make it easier to
-		// work with
+		// convert the argument to an std::string so we can modify it
 		std::string argument_newline = mtl::string::to_string(arg); // GCOVR_EXCL_LINE
 
-		// remember the start position
+		// replace CRLF with LF
+		mtl::string::replace(argument_newline, "\r\n", '\n'); // GCOVR_EXCL_LINE
+
+		// keep the starting position
 		size_t start = 0;
 		// position of the first match
 		size_t match_pos = argument_newline.find('\n');
@@ -1114,7 +1124,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 		
 		// GCOVR_EXCL_STOP
 		
-		// if the parameter newline is true print with newline at the end, this is not the same
+		// if the variable newline is true print with newline at the end, this is not the same
 		// as the argument containing newline characters
 		if (newline)
 		{
@@ -1124,7 +1134,7 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	// if the argument doesn't contain newline characters
 	else
 	{
-		// if the parameter newline is true print with newline at the end, this is not the same
+		// if the variable newline is true print with newline at the end, this is not the same
 		// as the argument containing newline characters
 		if (newline)
 		{
@@ -1141,9 +1151,8 @@ inline void print_color_ascii(const Type& arg, mtl::console::color foreground_co
 	}
 }
 
-
-
-// The actual implementaion of print_color that select if it will print color usinng ASCII.
+// The actual implementation of print_color that selects if it will print color using ASCII or
+// the legacy method.
 template<typename Type>
 inline void 
 print_color_impl(const Type& arg,
@@ -1177,14 +1186,54 @@ print_color_impl(const Type& arg,
 	// if we are not in a terminal print without colors
 	else
 	{
-		if (newline) // GCOVR_EXCL_LINE
+		// if the call is from mtl::console::println_color
+		if (newline)
 		{
 			fmt::print("{}\n", arg); // GCOVR_EXCL_LINE
 		}
+		// else the call is from mtl::console::print_color
 		else
 		{
 			fmt::print("{}", arg); // GCOVR_EXCL_LINE
 		}
+	}
+}
+
+// Type selector for print_color. For all types except char.
+template<typename Type>
+inline void print_color_impl_type_selector(const Type& arg,
+				 mtl::console::color foreground_color = mtl::console::color::default_color,
+				 mtl::console::color background_color = mtl::console::color::default_color,
+				 bool newline = false)
+{
+	print_color_impl(arg, foreground_color, background_color, newline);
+}
+
+// Type selector for print_color. For char type.
+inline void print_color_impl_type_selector(const char arg,
+				 mtl::console::color foreground_color = mtl::console::color::default_color,
+				 mtl::console::color background_color = mtl::console::color::default_color,
+				 bool newline = false)
+{
+	// for type char check if it is a newline, if it is a newline character print it without any
+	// color to avoid color spilling to the next line
+	if (arg == '\n')
+	{
+		// if the call is from mtl::console::println_color
+		if (newline)
+		{
+			fmt::print("\n\n");
+		}
+		// else the call is from mtl::console::print_color
+		else
+		{
+			fmt::print("\n");
+		}
+	}
+	// if the char is not a newline character, print it with color
+	else
+	{
+		print_color_impl(arg, foreground_color, background_color, newline);
 	}
 }
 
@@ -1201,7 +1250,7 @@ inline void print_color(const Type& arg,
 						mtl::console::color foreground_color = mtl::console::color::default_color,
 						mtl::console::color background_color = mtl::console::color::default_color)
 {
-	mtl::console::detail::print_color_impl(arg, foreground_color, background_color, false);
+	detail::print_color_impl_type_selector(arg, foreground_color, background_color, false);
 }
 
 /// Prints an argument with a newline at the end with foreground and background colors. Colors can
@@ -1215,7 +1264,7 @@ inline void println_color(const Type& arg,
 						 mtl::console::color foreground_color = mtl::console::color::default_color,
 						 mtl::console::color background_color = mtl::console::color::default_color)
 {
-	mtl::console::detail::print_color_impl(arg, foreground_color, background_color, true);
+	detail::print_color_impl_type_selector(arg, foreground_color, background_color, true);
 }
 
 
@@ -1237,19 +1286,20 @@ inline void overtype(const std::string& argument)
 	// if we are not inside a terminal just print the characters and return
 	if (mtl::console::detail::inside_terminal == false)
 	{
-		fmt::print(argument);
+		fmt::print(fmt::runtime(argument));
 		return;
 	}
 	// GCOVR_EXCL_STOP
 
-	// create a string consisting of backspace characters that will move the cursor back, this
-	// allows us to avoid printing the backspace character multiple times and we instead need to
-	// print only one string, this is a very significant performance gain
-    std::string multiple_backspaces(argument.size(), '\b');
-    fmt::print(multiple_backspaces);
+
+	// create a string consisting of the backspace character that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times, and we instead need to
+	// print only once, this is a very significant performance gain
+	const std::string multiple_backspaces(argument.size(), '\b');
+	fmt::print(fmt::runtime(multiple_backspaces));
 	
-	fmt::print(argument);
-	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
+	fmt::print(fmt::runtime(argument));
+	// flush the buffer, so the console is updated, it is thread-safe both in Windows and Linux
 	std::fflush(stdout);
 }
 
@@ -1259,24 +1309,31 @@ inline void overtype(const std::string& argument)
 /// @param[in] argument An argument to overtype.
 inline void overtype(const char* argument)
 {
+	// if the const char* is nullptr do nothing
+	if(argument == nullptr)
+	{
+		return;
+	}
+
 	// GCOVR_EXCL_START
 	// if we are not inside a terminal just print the characters and return
 	if (mtl::console::detail::inside_terminal == false) 
 	{
-		fmt::print(argument); 
+		fmt::print(fmt::runtime(argument));
 		return;
 	}
 	// GCOVR_EXCL_STOP
+	
 
 	size_t size = std::strlen(argument);
-	// create a string consisting of \b that will move the cursor back, this allows us to avoid
-    // printing \b multiple times and we instead need to print only once, this is a significant
-    // performance gain in the range of 2x to 8x times faster
-	std::string multiple_backspaces(size, '\b');
-	fmt::print(multiple_backspaces);
+	// create a string consisting of the backspace character that will move the cursor back, this
+	// allows us to avoid printing the backspace character multiple times, and we instead need to
+	// print only once, this is a very significant performance gain
+	const std::string multiple_backspaces(size, '\b');
+	fmt::print(fmt::runtime(multiple_backspaces));
 	
-	fmt::print(argument);
-	// flush the buffer so the console is updated, it is threadsafe both in Windows and Linux
+	fmt::print(fmt::runtime(argument));
+	// flush the buffer, so the console is updated, it is thread-safe both in Windows and Linux
 	std::fflush(stdout);
 }
 
@@ -1302,16 +1359,16 @@ inline void clear()
 	if (mtl::console::detail::legacy_windows)
 	{
 
-		// we use an std::lock_guard because we want this function to be thread safe
+		// we use an std::lock_guard because we want this function to be thread-safe
 		std::lock_guard<std::mutex> lockg(mtl::console::detail::console_mutex_legacy_win);
 
 		// get the handle for the current console
 		HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		if (console_handle == INVALID_HANDLE_VALUE)
 		{
-			throw std::runtime_error("Error. Can't get console window handle.");
+			throw std::runtime_error("Can't get the console's window handle.");
 		}
-		// intiialize screen coordinates to 0, 0 for the cursor
+		// initialize screen coordinates to 0, 0 for the cursor
 		COORD screen_coordinates = { 0, 0 }; 
 		// keep track the number of characters written to the console
 		DWORD number_chars_written = 0;
@@ -1323,28 +1380,28 @@ inline void clear()
 		// get the console's screen buffer information
 		if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 		{       
-			throw std::runtime_error("Error. Can't get console screen buffer information.");
+			throw std::runtime_error("Can't get the console's screen buffer information.");
 		}
 
 		// after getting console screen buffer information we can find the console size
 		console_size = static_cast<DWORD>(console_screen_buff_info.dwSize.X *
 										  console_screen_buff_info.dwSize.Y);
 
-		// fill the screen with blank characters
+		// fill the screen with the space character
 		if (!FillConsoleOutputCharacter(console_handle,          // handle for which console to use
-										static_cast<TCHAR>(' '), // use the blank character
+										static_cast<TCHAR>(' '), // use the space character
 										console_size,            // number of times to write 
 										screen_coordinates,      // the starting coordinates
 										&number_chars_written))  // number of characters written
 		{
-			throw std::runtime_error("Error. Can't fill console with given character.");
+			throw std::runtime_error("Can't fill the console with the space character.");
 		}
 
 		// retrieve the screen attributes for the console and store them to the
 		// console screen buffer info
 		if (!GetConsoleScreenBufferInfo(console_handle, &console_screen_buff_info))
 		{
-			throw std::runtime_error("Error. Can't get console screen buffer information.");
+			throw std::runtime_error("Can't get the console's screen buffer information.");
 		}
 
 		// set console attributes appropriately
@@ -1354,13 +1411,13 @@ inline void clear()
 										screen_coordinates,      // the starting coordinates
 										&number_chars_written))  // number of characters written
 		{
-			throw std::runtime_error("Error. Can't set console attributes.");
+			throw std::runtime_error("Can't set the console's attributes.");
 		}
 
 		// set the cursor at the starting position
 		if (!SetConsoleCursorPosition(console_handle, screen_coordinates))
 		{
-			throw std::runtime_error("Error. Can't the cursor position.");
+			throw std::runtime_error("Can't set the cursor position.");
 		}
 
 	}

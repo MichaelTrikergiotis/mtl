@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-# fmt-tidy by Michael Trikergiotis
+# mtl-format by Michael Trikergiotis
 # 24/09/2020
 #
 # The script's current capabilities :
 # 1.) Report lines beyond a certain length.
 # 2.) Report lines with comments that are not formatted properly.
+# 3.) Report header and source files that their last line is not a newline.
 #
 # Copyright (c) Michael Trikergiotis. All Rights Reserved.
 # Licensed under the MIT license. See LICENSE in the project root for
@@ -24,10 +25,10 @@ def check_line_length(file_list, length):
     have lines beyond the desired length it will not be included in the list.
     '''
     longer_files = []
-    for file in file_list:
+    for filename in file_list:
         lines = []
-        with open(file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            lines = input_file.readlines()
 
         longer_lines = []
         for idx in range(0, len(lines)):
@@ -39,7 +40,7 @@ def check_line_length(file_list, length):
                 longer_lines.append(idx + 1)
 
         if len(longer_lines) > 0:
-            longer_files.append((str(file), longer_lines))
+            longer_files.append((str(filename), longer_lines))
 
     return longer_files
 
@@ -63,15 +64,15 @@ def bad_comment(comment):
 def check_comments_space(file_list):
     '''
     Given a list of files returns a list of tuples. Each tuple contains the
-    filename and the lines that contain comments that don't start with a 
-    space character. If a file contains only comments that start with a space
+    filename and the lines that contain comments that don't start with a
+    space character. If a file only contains comments that start with a space
     character it will not be included in the list.
     '''
     bad_comments_filelist = []
-    for file in file_list:
+    for filename in file_list:
         lines = []
-        with open(file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            lines = input_file.readlines()
 
         bad_comments_file = []
         for idx in range(0, len(lines)):
@@ -79,9 +80,32 @@ def check_comments_space(file_list):
                 bad_comments_file.append(idx + 1)
 
         if len(bad_comments_file) > 0:
-            bad_comments_filelist.append((str(file), bad_comments_file))
+            bad_comments_filelist.append((str(filename), bad_comments_file))
 
     return bad_comments_filelist
+
+
+def check_newline_end(file_list):
+    '''
+    Given a list of files returns a list of strings. Each string represents a
+    filename for a file that doesn't contain a newline as the last line. If a
+    file contains a newline as the last line, it will not be included in the
+    list. Supports both LF and CRLF.
+    '''
+    no_newline_files = []
+    for filename in file_list:
+        file_data = None
+        with open(filename, 'r', encoding='utf-8') as input_file:
+            file_data = input_file.read()
+        # Python's file read function discards the last newline character it
+        # reads, so we are checking the first character after the last
+        # discarded newline
+        if len(file_data) > 0:
+            # check the first non-discarded character to be a newline, so it
+            # means the discarded newline character was in its own line
+            if file_data[-1] != '\n':
+                no_newline_files.append(filename)
+    return no_newline_files
 
 
 # =============================================================================
@@ -111,6 +135,11 @@ def main_function():
     bad_comment_headers = check_comments_space(headers)
     # get all source files that have improperly formatted comments
     bad_comment_sources = check_comments_space(sources)
+
+    # get all header files that don't have a newline as their last line
+    no_newline_headers = check_newline_end(headers)
+    # get all source files that don't have a newline as their last line
+    no_newline_sources = check_newline_end(sources)
 
     if len(longer_headers) > 0 or len(longer_sources) > 0:
         if len(longer_headers) > 0:
@@ -164,9 +193,8 @@ def main_function():
             print('\n-----------------------------------------------', end='')
             print('---------------------')
             print('There are ', end='')
-            print('{} header files (.hpp) '.format(
-                len(bad_comment_headers)), end='')
-            print('with improperly formatted comments :')
+            print(len(bad_comment_headers), end='')
+            print(' header files (.hpp) with improperly formatted comments :')
             print('--------------------------------------------', end='')
             print('------------------------')
 
@@ -182,9 +210,8 @@ def main_function():
             print('\n----------------------------------------------', end='')
             print('----------------------')
             print('There are ', end='')
-            print('{} source files (.cpp) '.format(
-                len(bad_comment_sources)), end='')
-            print('with improperly formatted comments :')
+            print(len(bad_comment_sources), end='')
+            print(' source files (.cpp) with improperly formatted comments :')
             print('--------------------------------------------', end='')
             print('------------------------')
 
@@ -194,14 +221,51 @@ def main_function():
                     print('{}, '.format(line), end='')
                 print('\b\b. ')
 
-    # if there is nothing to report then print a message that everything
-    # is fine
-    if len(longer_headers) == 0 and len(longer_sources) == 0:
-        if len(bad_comment_headers) == 0 and len(bad_comment_sources) == 0:
-            print('No files contain lines ', end='')
-            print('with length beyond {}.'.format(line_length))
-            print('No files contain lines with ', end='')
-            print('improperly formatted comments.')
+        if len(bad_comment_headers) > 0 or len(bad_comment_sources) > 0:
+            # divider
+            print('\n\n')
+            print('=================================================', end='')
+            print('======================\n\n')
+
+    # --------
+    if len(no_newline_headers) > 0 or len(no_newline_sources) > 0:
+        if len(no_newline_headers) > 0:
+            # print the number of header files that are missing a newline
+            # as their last line
+            print('--------------------------------------------', end='')
+            print('-----------------------------------')
+            print('There are {} '.format(len(no_newline_headers)), end='')
+            print('header files (.hpp) missing a newline', end='')
+            print(' as their last line.')
+            print('--------------------------------------------', end='')
+            print('-----------------------------------')
+            for no_nl_header in no_newline_headers:
+                print('The header file {} '.format(no_nl_header), end='')
+                print('is missing a newline as its last line.')
+            print()
+
+        if len(no_newline_sources) > 0:
+            # print the number of source files that are missing a newline
+            # as their last line
+            print('--------------------------------------------', end='')
+            print('-----------------------------------')
+            print('There are {} '.format(len(no_newline_sources)), end='')
+            print('source files (.cpp) missing a newline', end='')
+            print(' as their last line.')
+            print('--------------------------------------------', end='')
+            print('-----------------------------------')
+            for no_nl_source in no_newline_sources:
+                print('The source file {} '.format(no_nl_source), end='')
+                print('is missing a newline as its last line.')
+
+    # if everything is fine, print a message to inform the user
+    longer_files = len(longer_headers) == 0 and len(longer_sources) == 0
+    bad_comments = len(bad_comment_headers) == 0
+    bad_comments = bad_comments and len(bad_comment_sources) == 0
+    no_newlines = len(no_newline_headers) == 0
+    no_newlines = no_newlines and len(no_newline_sources) == 0
+    if longer_files and bad_comments and no_newlines:
+        print('All files checked. No errors detected.')
 
 
 if __name__ == "__main__":

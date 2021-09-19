@@ -1,6 +1,6 @@
 name: CI
 
-on: 
+on:
   push:
     paths-ignore:
       - '**.md'
@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
 
-        name: [ 
+        name: [
           windows-2019-cl,
           windows-2019-clang-cl,
           windows-2019-clang,
@@ -84,7 +84,7 @@ jobs:
 
       - name: Install and setup MSYS2 mingw
         if: runner.os == 'Windows' && matrix.compiler == 'mingw-w64'
-        uses: msys2/setup-msys2@v2     
+        uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
           install: mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake make gcc
@@ -108,8 +108,8 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_BUILD_TYPE=Debug
-          cmake --build . 
-          .\tests.exe    
+          cmake --build .
+          .\tests.exe
       
       - name: Build Debug Windows clang
         if: runner.os == 'Windows' &&  matrix.compiler == 'clang'
@@ -119,8 +119,8 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug
-          cmake --build . 
-          .\tests.exe  
+          cmake --build .
+          .\tests.exe
 
       - name: Build Debug Windows mingw
         if: runner.os == 'Windows' &&  matrix.compiler == 'mingw-w64'
@@ -153,8 +153,8 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_BUILD_TYPE=Release
-          cmake --build . 
-          .\tests.exe    
+          cmake --build .
+          .\tests.exe
       
       - name: Build Release Windows clang
         if: runner.os == 'Windows' &&  matrix.compiler == 'clang'
@@ -164,7 +164,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
-          cmake --build . 
+          cmake --build .
           .\tests.exe
 
       - name: Build Release Windows mingw
@@ -187,14 +187,14 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ninja-build 
+          sudo apt-get install -y ninja-build
 
           if [ "${{ matrix.compiler }}" = "gcc" ]; then
-            sudo apt-get install -y g++-${{ matrix.version }} g++-${{ matrix.version }}-multilib
+            sudo apt-get install -y g++-${{ matrix.version }}
             echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
             echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
           else
-            sudo apt-get install -y clang-${{ matrix.version }} g++-multilib
+            sudo apt-get install -y clang-${{ matrix.version }}
             echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
             echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
           fi
@@ -211,15 +211,13 @@ jobs:
           ./tests
       
       - name: Build Debug Linux clang and libcxx
-        # disabled for the time being
-        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
-        if: ${{ false }}
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
         run: |
           cd tests
           rm -rf build
           mkdir build
           cd build
-          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Debug
           cmake --build .
           ./tests
 
@@ -235,15 +233,13 @@ jobs:
           ./tests
       
       - name: Build Release Linux clang and libcxx
-        # disabled for the time being
-        # if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
-        if: ${{ false }}
+        if: runner.os == 'Linux' &&  matrix.compiler == 'clang'
         run: |
           cd tests
           rm -rf build
           mkdir build
           cd build
-          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 -DENABLE_LIBCXX=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build .
           ./tests
      
@@ -288,7 +284,7 @@ jobs:
           ./tests
 
       - name: Build Release MacOS clang
-        if: runner.os == 'MacOS' &&  matrix.compiler == 'xcode' 
+        if: runner.os == 'MacOS' &&  matrix.compiler == 'xcode'
         run: |
           cd tests
           rm -rf build

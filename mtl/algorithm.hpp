@@ -3,7 +3,7 @@
 // 09/09/2018
 // 
 // 
-// This header contains generic algorithms for various purposes.
+// This header contains general purpose algorithms.
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -42,6 +42,7 @@ namespace mtl
 // NOT_UNIQUE           - Keeps only a single copy of each duplicate item.
 // ================================================================================================
 
+
 namespace detail
 {
 
@@ -50,13 +51,17 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_inclusive_impl(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	// if there are no elements return an iterator at the starting position
-	if (first == last) { return first; }
+	// if there are no elements
+	if (first == last)
+	{
+		return last;
+	}
 
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
 	auto new_end = first;
+
 	for (;;)
 	{
 		// find the position of the first element we want to move from
@@ -91,8 +96,8 @@ inline Iter not_unique_inclusive_impl(Iter first, Iter last, BinaryPredicate bin
 } // namespace detail end
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items including the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items including the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. 
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
@@ -105,8 +110,8 @@ inline Iter not_unique_inclusive(Iter first, Iter last)
 											      std::equal_to<typename Iter::value_type>{});
 }
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items including the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items including the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. This specialization allows you to pass a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in] first The iterator to the beginning of the range.
@@ -133,13 +138,18 @@ template<typename Iter, typename BinaryPredicate>
 [[nodiscard]]
 inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate binary_pred)
 {
-	// if there are no elements return an iterator at the starting position
-	if (first == last) { return first; }
+	// if there are no elements
+	if (first == last)
+	{
+		return last;
+	}
 
+	
 	// iterator to the first element matched
 	auto start_match = first;
 	// iterator pointing to where the new end should be
 	auto new_end = first;
+
 	for (;;)
 	{
 		// find the position of the first element we want to move from
@@ -177,8 +187,8 @@ inline Iter not_unique_exclusive_impl(Iter first, Iter last, BinaryPredicate bin
 } // namespace detail end
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items excluding the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items excluding the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted.
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
@@ -194,8 +204,8 @@ inline Iter not_unique_exclusive(Iter first, Iter last)
 }
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps all the
-/// duplicate items excluding the original item that is used to identify the duplicates. Requires
+/// Keeps all the duplicate items excluding the original item that is used to identify the
+/// duplicates. Moves all duplicates to the front and returns an iterator to the new end. Requires
 /// that the items in the range are sorted. This specialization allows you to pass a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in] first The iterator to the beginning of the range.
@@ -213,8 +223,8 @@ inline Iter not_unique_exclusive(Iter first, Iter last, BinaryPredicate binary_p
 
 // --
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps only a single
-/// copy of each duplicate item. Requires that the items in the range are sorted. 
+/// Keeps only a single copy of each duplicate item. Moves all duplicates to the front and returns
+/// an iterator to the new end. Requires that the items in the range are sorted. 
 /// @param[in] first The iterator to the beginning of the range.
 /// @param[in] last The iterator to the end of the range.
 /// @return Iterator to the new end where all the non unique items are moved.
@@ -232,8 +242,8 @@ inline Iter not_unique(Iter first, Iter last)
 }
 
 
-/// Moves all duplicates to the front and returns an iterator to the new end. Keeps only a single
-/// copy of each duplicate item. Requires that the items in the range are sorted. This 
+/// Keeps only a single copy of each duplicate item. Moves all duplicates to the front and returns
+/// an iterator to the new end. Requires that the items in the range are sorted. This 
 /// specialization allows you to pass A binary predicate used for equality comparison of duplicate
 /// items.
 /// @param[in] first The iterator to the beginning of the range.
@@ -266,8 +276,11 @@ namespace detail
 template<typename Container, typename BinaryPredicate>
 inline void rem_duplicates_sorted_impl(Container& container, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// erase elements that match a specific value that is passed by std::unique
 	container.erase(std::unique(container.begin(), container.end(), bp), container.end());
@@ -280,7 +293,7 @@ inline void rem_duplicates_sorted_impl(Container& container, BinaryPredicate bp)
 template<typename Container>
 inline void rem_duplicates_sorted(Container& container)
 {
-	// use a shortened name for the item type that is containted in the container
+	// use a shortened name for the item type of the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function, default binary predicate
 	mtl::detail::rem_duplicates_sorted_impl(container, std::equal_to<ItemType>{});
@@ -308,8 +321,11 @@ namespace detail
 template<typename Container, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates_impl(Container& container, Compare comp, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// sort the container with the given comparator
 	std::sort(container.begin(), container.end(), comp);
@@ -324,14 +340,14 @@ inline void rem_duplicates_impl(Container& container, Compare comp, BinaryPredic
 template<typename Container>
 inline void rem_duplicates(Container& container)
 {
-	// use a shortened name for the item type that is containted in the container
+	// use a shortened name for the item type of the container
 	using ItemType = typename Container::value_type;
 	// actual implementation of the duplicate removal function
 	mtl::detail::rem_duplicates_impl(container, std::less<ItemType>{}, std::equal_to<ItemType>{});
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
-/// that will be used to sort the containter and also A binary predicate used for equality
+/// that will be used to sort the container and also A binary predicate used for equality
 /// comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -353,8 +369,11 @@ namespace detail
 template<typename Type, typename Compare, typename BinaryPredicate>
 inline void rem_duplicates_impl(std::list<Type>& container, Compare comp, BinaryPredicate bp)
 {
-	// if the container is empty exit the function
-	if (container.empty()) { return; }
+	// if the container is empty
+	if (container.empty()) 
+	{ 
+		return; 
+	}
 
 	// sort the std::list
 	container.sort(comp);
@@ -375,7 +394,7 @@ inline void rem_duplicates(std::list<Type>& container)
 }
 
 /// Sorts the container and removes duplicates. This specialization allows you to pass a comparator
-/// that will be used to sort the containter and also A binary predicate used for equality
+/// that will be used to sort the container and also A binary predicate used for equality
 /// comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -394,7 +413,7 @@ inline void rem_duplicates(std::list<Type>& container, Compare comp, BinaryPredi
 namespace detail
 {
 
-// The actual implmentation of rem_duplicates_preserve function to avoid code duplication.
+// The actual implementation of rem_duplicates_preserve function to avoid code duplication.
 template<typename Container, typename Hash, typename BinaryPredicate>
 inline void rem_duplicates_preserve_impl(Container& container, Hash hash, BinaryPredicate bp)
 {
@@ -439,7 +458,7 @@ inline void rem_duplicates_preserve(Container& container)
 
 /// Removes duplicates while preserving order. Slower and uses more memory compared to the 
 /// rem_duplicates function because it needs to preserve order. This specialization allows you to 
-/// pass custom hashing function and a binary predicate used for equality comparison.
+/// pass a custom hashing function and a binary predicate used for equality comparison.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -497,7 +516,7 @@ inline void keep_duplicates_inclusive(std::list<Type>& container)
 
 
 /// Keeps duplicates including the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items.
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -521,7 +540,7 @@ inline void keep_duplicates_inclusive(Container& container)
 
 
 /// Keeps duplicates including the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -544,8 +563,12 @@ inline void keep_duplicates_inclusive(Container& container, Compare comp, Binary
 template<typename Container, typename BinaryPredicate>
 inline void keep_duplicates_inclusive_preserve(Container& container, BinaryPredicate bp)
 {
-	// if the container is less than 2 leave without doing anything
-	if (container.size() < 2) { return; }
+	// if the container is empty
+	if (container.empty())
+	{
+		return;
+	}
+
 	// keep all inclusive duplicate here
 	Container duplicates;
 	// counter where the next loop will start looking from
@@ -586,7 +609,7 @@ inline void keep_duplicates_inclusive_preserve(Container& container, BinaryPredi
 		}
 		// mark that the was no duplicate found this round
 		found = false;
-		// increase coutner so the next loop will from the next item
+		// increase counter so the next loop will from the next item
 		++counter;
 	}
 	container = duplicates;
@@ -647,7 +670,7 @@ inline void keep_duplicates_exclusive(std::list<Type>& container)
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -672,7 +695,7 @@ inline void keep_duplicates_exclusive(Container& container)
 }
 
 /// Keeps duplicates excluding the original duplicate without preserving ordering. Allows you to
-/// pass a comparator that will be used to sort the containter and also a
+/// pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -689,8 +712,8 @@ inline void keep_duplicates_exclusive(Container& container, Compare comp, Binary
 
 
 /// Keeps duplicates including the original duplicate while preserving ordering. Slower and uses
-/// more memory than the non-preserving functions. Allows you to pass custom hashing function and
-/// and binary predicate.
+/// more memory than the non-preserving functions. Allows you to pass a custom hashing function
+/// and a binary predicate.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
 /// @param[in] bp A binary predicate used for equality comparison, like std::equal_to<T>.
@@ -709,7 +732,7 @@ inline void keep_duplicates_exclusive_preserve(Container& container, Hash hash, 
 		size_t prev_size = database.size();
 
 		database.insert(item);
-		// if after adding the item to the std::unordered_set<T> the size doesn't chance then it
+		// if after adding the item to the std::unordered_set<T> the size doesn't change then it
 		// means that the item is a duplicate
 		if (prev_size == database.size())
 		{
@@ -753,7 +776,7 @@ inline void keep_duplicates_sorted(Container& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving order. Requires the container to be
-/// sorted. Allows you to pass a comparator that will be used to sort the containter and also a
+/// sorted. Allows you to pass a comparator that will be used to sort the container and also a
 /// binary predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -779,7 +802,7 @@ inline void keep_duplicates(std::list<Type>& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a 
-/// comparison function object, that will be used to sort the containter and also a binary
+/// comparison function object, that will be used to sort the container and also a binary
 /// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container An std::list.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -802,7 +825,7 @@ inline void keep_duplicates(Container& container)
 }
 
 /// Keeps a single copy of each duplicate without preserving ordering. Allows you to pass a
-/// comparison function object, that will be used to sort the containter and also a binary
+/// comparison function object, that will be used to sort the container and also a binary
 /// predicate for equality comparison of duplicate items. 
 /// @param[in, out] container A container.
 /// @param[in] comp A comparator used for sorting, like std::less<T>.
@@ -830,7 +853,7 @@ inline void keep_duplicates_preserve(Container& container)
 }
 
 /// Keeps a single copy of each duplicate while preserving ordering. Slower and uses more memory
-/// compared to the non-preserving functions. Allows you to pass custom hashing function and
+/// compared to the non-preserving functions. Allows you to pass a custom hashing function and
 /// binary predicate.
 /// @param[in, out] container A container.
 /// @param[in] hash A hashing function, like std::hash<T>.
@@ -902,8 +925,8 @@ inline bool contains(const Container& container, const Type& match)
 }
 
 // ================================================================================================
-// CONTAINS_ALL        - Returns if all items of container exists within another container. 
-// CONTAINS_ALL_SORTED - Returns if all items of container exists within another container. 
+// CONTAINS_ALL        - Returns if all items of the container exist within another container. 
+// CONTAINS_ALL_SORTED - Returns if all items of the container exist within another container. 
 //                       Both containers are required to be sorted.
 // ================================================================================================
 
@@ -911,7 +934,7 @@ inline bool contains(const Container& container, const Type& match)
 /// don't have to be in a certain order to match. Neither container has to be sorted. 
 /// @param[in] container_contains A container.
 /// @param[in] elements_to_find A container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<mtl::has_find_v<ContainerContains>, bool>
@@ -931,7 +954,7 @@ contains_all(const ContainerContains& container_contains, const ContainerToFind&
 /// don't have to be in a certain order to match. Neither container has to be sorted. 
 /// @param[in] container_contains A container.
 /// @param[in] elements_to_find A container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<!mtl::has_find_v<ContainerContains>, bool>
@@ -954,7 +977,7 @@ contains_all(const ContainerContains& container_contains, const ContainerToFind&
 /// both containers are sorted.
 /// @param[in] container_contains A sorted container.
 /// @param[in] elements_to_find A sorted container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<mtl::has_find_v<ContainerContains>, bool>
@@ -970,7 +993,7 @@ contains_all_sorted(const ContainerContains& container_contains,
 /// both containers are sorted.
 /// @param[in] container_contains A sorted container.
 /// @param[in] elements_to_find A sorted container of matches.
-/// @return If the all the matches exists in the container.
+/// @return If all the matches exist in the container.
 template<typename ContainerContains, typename ContainerToFind>
 [[nodiscard]]
 inline std::enable_if_t<!mtl::has_find_v<ContainerContains>, bool>
@@ -988,6 +1011,54 @@ contains_all_sorted(const ContainerContains& container_contains,
 // FOR_EACH - Applies a function to all elements. A drop in replacement for std::for_each that 
 //            works on everything std::for_each works and also works on std::tuple and std::pair.
 // ================================================================================================
+
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] std_pair An std::pair.
+/// @param[in] func A function to apply.
+template<typename Function, typename Type1, typename Type2>
+inline void for_each(std::pair<Type1, Type2>& std_pair, Function&& func)
+{
+	func(std_pair.first);
+	func(std_pair.second);
+}
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] std_pair An std::pair.
+/// @param[in] func A function to apply.
+template<typename Function, typename Type1, typename Type2>
+inline void for_each(const std::pair<Type1, Type2>& std_pair, Function&& func)
+{
+	func(std_pair.first);
+	func(std_pair.second);
+}
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] std_pair An std::pair.
+/// @param[in] func A function to apply.
+template<typename Function, typename Type1, typename Type2>
+inline void for_each(volatile std::pair<Type1, Type2>& std_pair, Function&& func)
+{
+	func(std_pair.first);
+	func(std_pair.second);
+}
+
+/// Applies a function to all elements. A drop in replacement for std::for_each that works on
+/// everything std::for_each works and also works on std::tuple and std::pair.
+/// @param[in] std_pair An std::pair.
+/// @param[in] func A function to apply.
+template<typename Function, typename Type1, typename Type2>
+inline void for_each(const volatile std::pair<Type1, Type2>& std_pair, Function&& func)
+{
+	func(std_pair.first);
+	func(std_pair.second);
+}
+
+
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::for_each for std::tuple 
@@ -1029,10 +1100,11 @@ struct for_each_tuple<0, Function, Types...>
 template<typename Function, typename... Types>
 inline void for_each(std::tuple<Types...>& value, Function&& func)
 {
-	const auto size = std::tuple_size_v<std::tuple<Types...>>;
+	constexpr auto size = std::tuple_size_v<std::tuple<Types...>>;
 	mtl::detail::for_each_tuple<size - 1, Function, Types...>{}
 	(value, std::forward<Function>(func));
 }
+
 
 // ------------------------------------------------------------------------------------------------
 // mtl::for_each for const std::tuple 
@@ -1074,41 +1146,11 @@ struct for_each_const_tuple<0, Function, Types...>
 template<typename Function, typename... Types>
 inline void for_each(const std::tuple<Types...>& value, Function&& func)
 {
-	const auto size = std::tuple_size_v<std::tuple<Types...>>;
+	constexpr auto size = std::tuple_size_v<std::tuple<Types...>>;
 	mtl::detail::for_each_const_tuple<size - 1, Function, Types...>{}
 	(value, std::forward<Function>(func));
 }
 
-
-// ------------------------------------------------------------------------------------------------
-// mtl::for_each for std::pair
-// ------------------------------------------------------------------------------------------------
-
-/// Applies a function to all elements. A drop in replacement for std::for_each that works on
-/// everything std::for_each works and also works on std::tuple and std::pair.
-/// @param[in] std_pair An std::pair.
-/// @param[in] func A function to apply.
-template<typename Function, typename Type1, typename Type2>
-inline void for_each(std::pair<Type1, Type2>& std_pair, Function&& func)
-{
-	func(std_pair.first);
-	func(std_pair.second);
-}
-
-// ------------------------------------------------------------------------------------------------
-// mtl::for_each for const std::pair
-// ------------------------------------------------------------------------------------------------
-
-/// Applies a function to all elements. A drop in replacement for std::for_each that works on
-/// everything std::for_each works and also works on std::tuple and std::pair.
-/// @param[in] std_pair An std::pair.
-/// @param[in] func A function to apply.
-template<typename Function, typename Type1, typename Type2>
-inline void for_each(const std::pair<Type1, Type2>& std_pair, Function&& func)
-{
-	func(std_pair.first);
-	func(std_pair.second);
-}
 
 
 
@@ -1163,7 +1205,7 @@ inline void for_adj_pairs(FwdIter first, FwdIter last, Func&& func)
 // ================================================================================================
 
 
-/// Applies a function to a each pair of elements in a range first to last. Every element is paired
+/// Applies a function to each pair of elements in a range first to last. Every element is paired
 /// with all other elements of the range. The algorithm has quadratic time complexity.
 /// @param[in] first Iterator to the beginning of a range.
 /// @param[in] last Iterator to the end of a range.
@@ -1204,10 +1246,10 @@ inline void for_all_pairs(FwdIter first, FwdIter last, Func&& func)
 /// (ex. std::vector to std::list) as long as the element type is exactly the same. It has the same
 /// functionality as std::fill but instead of accepting a single value it works with a range of 
 /// values.
-/// @param[in] in_first Iterator to the the start of the input range.
-/// @param[in] in_last Iterator to the the end of the input range.
-/// @param[out] out_first Iterator to the the start of the output range.
-/// @param[out] out_last Iterator to the the end of the output range.
+/// @param[in] in_first Iterator to the start of the input range.
+/// @param[in] in_last Iterator to the end of the input range.
+/// @param[out] out_first Iterator to the start of the output range.
+/// @param[out] out_last Iterator to the end of the output range.
 template<typename FwdIterIn, typename FwdIterOut>
 inline void fill_range(FwdIterIn in_first, FwdIterIn in_last, FwdIterOut out_first, 
 					   FwdIterOut out_last)
@@ -1247,7 +1289,7 @@ namespace detail
 // Range generator that generates an object with begin and end iterators for a range of values 
 // without actually holding all the values in memory at once. Supports both incrementing and 
 // decrementing ranges. Throws std::invalid_argument if incorrect values are passed for any
-// of the parameters.
+// of the arguments.
 template<typename Type, typename Enable = void>
 class _range_generator 
 {
@@ -1259,11 +1301,11 @@ public:
 // Range generator that generates an object with begin and end iterators for a range of values 
 // without actually holding all the values in memory at once. Supports both incrementing and 
 // decrementing ranges. Throws std::invalid_argument if incorrect values are passed for any
-// of the parameters.
+// of the arguments.
 template<typename Type>
 class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 {
-	// Iterator for _range_generator.
+	// Iterator for mtl::detail::_range_generator.
 	template<typename ValueType = Type>
 	class range_iterator
 	{
@@ -1276,17 +1318,17 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 
 	public:
 
-		// typedefs needed for proper iterator declaration
+		// some typedefs needed for proper iterator declaration
 
-		// typedef for iterator type.
+		// The typedef for iterator type.
 		using value_type = std::remove_cv_t<ValueType>;
-		// typedef for iterator difference.
+		// The typedef for iterator difference.
 		using difference_type = std::ptrdiff_t;
-		// typedef for iterator catecory.
+		// The typedef for iterator category.
 		using iterator_category = std::forward_iterator_tag;
-		// typedef for iterator pointer type.
+		// The typedef for iterator pointer type.
 		using pointer = std::add_pointer_t<value_type>;
-		// typedef for iterator reference type.
+		// The typedef for iterator reference type.
 		using reference = std::add_lvalue_reference_t<value_type>;
 
 		// Iterator constructor.
@@ -1294,7 +1336,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		: _value(value), _step(step), incremental(increment) {}
 
 		// Equality operator for the iterator that actually changes the comparison operation based
-		// if it is an incremental or decremental range.
+		// on if it is an incremental or a decremental range.
 		[[nodiscard]]
 		bool operator==(const range_iterator& other) const
 		{
@@ -1309,7 +1351,7 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 				return _value < other._value;
 			}
 		}
-		// Difference operator for iterator.
+		// Difference operator for the iterator.
 		[[nodiscard]]
 		bool operator!=(const range_iterator& other) const
 		{
@@ -1317,12 +1359,12 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 		}
 
 		// Pre increment operator.
-		ValueType operator++() { return _value += _step; }
+		const ValueType operator++() { return _value += _step; }
 
 		// Post increment operator.
-		ValueType operator++(int) { return _value += _step; }
+		const ValueType operator++(int) { return _value += _step; }
 
-		// Return pointer to the value.
+		// Returns a pointer to the value.
 		operator ValueType*()  { return &_value; }
 	};
 
@@ -1338,7 +1380,9 @@ class _range_generator<Type, std::enable_if_t<mtl::is_number_v<Type>>>
 	// Value that says if a range is incremental or decremental.
 	bool incremental;
 
+
 public:
+
 	// Constructor for _range_generator with proper initializations.
 	_range_generator(Type start, Type end, Type step) : _start(start), _end(end), _step(step)	
 	{
@@ -1358,12 +1402,13 @@ public:
 		// else throw an error because values given make no sense
 		else
 		{
-			throw std::invalid_argument(
-			"Error. One or more parameters for mtl::range are incorrect."); // GCOVR_EXCL_LINE
+			// GCOVR_EXCL_START
+			throw std::invalid_argument("One or more arguments for mtl::range are incorrect.");
+			// GCOVR_EXCL_STOP
 		}
 	}
 
-	// Equality operator for _range_generator<Type>.
+	// Equality operator.
 	[[nodiscard]]
 	bool operator==(const _range_generator<Type>& other) const
 	{
@@ -1371,7 +1416,7 @@ public:
 				(_step == other._step));
 	}
 	
-	// Difference operator for _range_generator<Type>.
+	// Difference operator.
 	[[nodiscard]]
 	bool operator!=(const _range_generator<Type>& other) const
 	{
@@ -1400,7 +1445,7 @@ public:
 /// Generates a range of numbers from start to end with a given step. Support both incrementing 
 /// and decrementing ranges of numbers. The values for the range are generated on the fly and they 
 /// are not kept in memory. Throws std::invalid_argument if incorrect values are passed for any
-/// of the parameters.
+/// of the arguments.
 /// @param[in] start The starting number of the range.
 /// @param[in] end The ending number of the range.
 /// @param[in] step A number to use as a step between each number.

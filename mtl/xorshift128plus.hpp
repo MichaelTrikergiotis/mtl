@@ -4,11 +4,10 @@
 //  
 // 
 // This header contains the implementation of the xorshift128plus random number generator in the
-// way that the C++ standard library requires for random number generation engines. No inheritance
-// is used because vptrs destroy performance.
+// way that the C++ standard library requires for random number generation engines.
 // 
 // Satisfies the requirements for RandomNumberEngine :
-// en.cppreference.com/w/cpp/named_req/RandomNumberEngine
+// https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine
 // 
 // 
 // Copyright (c) Michael Trikergiotis. All Rights Reserved.
@@ -31,13 +30,13 @@ namespace mtl
 // XORSHIFT128PLUS_ENGINE - The xorshift128plus_engine random number generator engine.
 // ================================================================================================
 
-/// This is the engine for the xorshift128plus random number generator. For general purpose 
-/// everyday use you should use the xorshift128plus typedef instead of this. This template allows
-/// to define the result type and pass the default seed values.
+/// This is the engine for the xorshift128plus random number generator. For most cases, prefer to
+/// use the xorshift128plus typedef instead of this. This template allows you to define the
+/// resulting type and pass the default seed values.
 template<typename ResultType, uint64_t DefaultSeed1, uint64_t DefaultSeed2>
 class xorshift128plus_engine
 {
-	// check some very fundumental thing for the engine to work
+	// check some very fundamental things for the engine to work
 	static_assert(std::is_unsigned_v<ResultType>,
 				  "The type for the result of xorshift128plus_engine has to be unsigned.");
 
@@ -92,7 +91,7 @@ private:
 		/// @param[in] other Another state_struct to compare.
 		/// @return If the two states are equal or not.
 		[[nodiscard]]
-		bool operator==(const state_struct& other) const
+		bool operator== (const state_struct& other) const
 		{
 			return seed_1 == other.seed_1 && seed_2 == other.seed_2;
 		}
@@ -101,7 +100,7 @@ private:
 		/// @param[in] other Another state_struct to compare.
 		/// @return If the two states are inequal or not.
 		[[nodiscard]]
-		bool operator!=(const state_struct& other) const
+		bool operator!= (const state_struct& other) const
 		{
 			return seed_1 != other.seed_1 || seed_2 != other.seed_2;
 		}
@@ -113,10 +112,10 @@ private:
 public:
 
 	// ============================================================================================
-	// XORSHIFT128PLUS_ENGINE - Constructor with no parameters. It will use default seed values.
+	// XORSHIFT128PLUS_ENGINE - Constructor with no arguments. It will use default seed values.
 	// ============================================================================================
 
-	/// Constructor with no parameters. It will use default seed values.
+	/// Constructor with no arguments. It will use default seed values.
 	xorshift128plus_engine()
 	{
 		_state = state_struct();
@@ -153,7 +152,7 @@ public:
 
 private:
 
-	/// Get engine internal state.
+	/// Get the engine's internal state.
 	/// @return The engine internal state.
 	[[nodiscard]]
 	state_struct state() const { return _state; }
@@ -198,6 +197,11 @@ public:
 	[[nodiscard]]
 	xorshift128plus_engine& operator= (const xorshift128plus_engine& other)
 	{
+		// handle self-copy assignment
+		if(this == &other)
+		{
+			return *this;
+		}
 		seed(other.state());
 		return *this;
 	}
@@ -209,8 +213,13 @@ public:
 
 	/// Move assignment operator that moves the state of another random engine of the same type.
 	/// @param[in] other Another random generation engine of the same type.
-	xorshift128plus_engine& operator=(xorshift128plus_engine&& other) noexcept
+	xorshift128plus_engine& operator= (xorshift128plus_engine&& other) noexcept
 	{
+		// handle self-copy assignment
+		if(this == &other)
+		{
+			return *this;
+		}
 		seed(other.state());
 		return *this;
 	}
@@ -323,7 +332,7 @@ public:
 	// ============================================================================================
 
 	/// Advances the state of the random number generator by a number of times.
-	/// @param[in] count Number of time to advance the random number generator.
+	/// @param[in] count Number of times to advance the random number generator.
 	void discard(size_t count)
 	{
 		for (size_t i = count; i > 0; i--)
@@ -337,7 +346,7 @@ public:
 	// ============================================================================================
 
 	/// Writes the textual representation of the seed values to an std::ostream.
-	/// @param[out] os An std::basic_ostream to use as ouput.
+	/// @param[out] os An std::basic_ostream to use as output.
 	/// @param[in] rngen The random number generator engine to get the state.
 	/// @return An std::basic_ostream.
 	template<typename CharType, typename Traits>
@@ -376,7 +385,7 @@ public:
 	/// @param[in] rhs A random number generation engine to compare for equality.
 	/// @param[in] lhs A random number generation engine to compare for equality.
 	[[nodiscard]]
-	friend bool operator==(const xorshift128plus_engine& rhs, const xorshift128plus_engine& lhs)
+	friend bool operator== (const xorshift128plus_engine& rhs, const xorshift128plus_engine& lhs)
 	{
 		return (rhs.state() == lhs.state());
 	}
@@ -389,7 +398,7 @@ public:
 	/// @param[in] rhs A random number generation engine to compare for inequality.
 	/// @param[in] lhs A random number generation engine to compare for inequality.
 	[[nodiscard]]
-	friend bool operator!=(const xorshift128plus_engine& rhs, const xorshift128plus_engine& lhs)
+	friend bool operator!= (const xorshift128plus_engine& rhs, const xorshift128plus_engine& lhs)
 	{
 		return !(rhs == lhs);
 	}

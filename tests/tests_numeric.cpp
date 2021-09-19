@@ -25,45 +25,45 @@
 
 TEST_CASE("mtl::iota with std::vector<int>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::vector<int> zero_four{ 0, 1, 2, 3, 4 };
     std::vector<int> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::vector<int> five_nine {5, 6, 7, 8, 9};
     std::vector<int> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::vector<int> nfive_nnine{ -5, -4, -3, -2, -1 };
     std::vector<int> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::vector<int> five_fortyfive{ 5, 15, 25, 35, 45 };
     std::vector<int> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5, 10);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::vector<int> five_nthirtyfive{ 5, -5, -15, -25, -35 };
     std::vector<int> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5, -10);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::vector<int> n_one_fortythree{ -1, 10, 21, 32, 43 };
     std::vector<int> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1, 11);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::vector<int> ntwo_nfortytwo{ -2, -12, -22, -32, -42 };
     std::vector<int> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2, -10);
@@ -81,22 +81,22 @@ TEST_CASE("mtl::iota with std::vector<int>")
 TEST_CASE("mtl::iota with std::vector<unsigned int>")
 {
     // no tests for negative values for unsigned int because it unsigned integers do not support
-    // negatie values
+    // negative values
 
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::vector<unsigned int> zero_four{ 0, 1, 2, 3, 4 };
     std::vector<unsigned int> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::vector<unsigned int> five_nine{ 5, 6, 7, 8, 9 };
     std::vector<unsigned int> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::vector<unsigned int> five_fortyfive{ 5, 15, 25, 35, 45 };
     std::vector<unsigned int> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5, 10);
@@ -113,45 +113,45 @@ TEST_CASE("mtl::iota with std::vector<unsigned int>")
 
 TEST_CASE("mtl::iota with std::vector<float>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::vector<float> zero_four{ 0.0f, 1.0f, 2.0f, 3.0f, 4.0f };
     std::vector<float> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::vector<float> five_nine{ 5.0f, 6.0f, 7.0f, 8.0f, 9.0f };
     std::vector<float> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0f);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::vector<float> nfive_nnine{ -5.0f, -4.0f, -3.0f, -2.0f, -1.0f };
     std::vector<float> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0f);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::vector<float> five_fortyfive{ 5.0f, 15.0f, 25.0f, 35.0f, 45.0f };
     std::vector<float> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0f, 10.0f);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::vector<float> five_nthirtyfive{ 5.0f, -5.0f, -15.0f, -25.0f, -35.0f };
     std::vector<float> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0f, -10.0f);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::vector<float> n_one_fortythree{ -1.0f, 10.0f, 21.0f, 32.0f, 43.0f };
     std::vector<float> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0f, 11.0f);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::vector<float> ntwo_nfortytwo{ -2.0f, -12.0f, -22.0f, -32.0f, -42.0f };
     std::vector<float> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0f, -10.0f);
@@ -168,45 +168,45 @@ TEST_CASE("mtl::iota with std::vector<float>")
 
 TEST_CASE("mtl::iota with std::vector<double>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::vector<double> zero_four{ 0.0, 1.0, 2.0, 3.0, 4.0 };
     std::vector<double> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::vector<double> five_nine{ 5.0, 6.0, 7.0, 8.0, 9.0 };
     std::vector<double> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::vector<double> nfive_nnine{ -5.0, -4.0, -3.0, -2.0, -1.0 };
     std::vector<double> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::vector<double> five_fortyfive{ 5.0, 15.0, 25.0, 35.0, 45.0 };
     std::vector<double> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0, 10.0);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::vector<double> five_nthirtyfive{ 5.0, -5.0, -15.0, -25.0, -35.0 };
     std::vector<double> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0, -10.0);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::vector<double> n_one_fortythree{ -1.0, 10.0, 21.0, 32.0, 43.0 };
     std::vector<double> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0, 11.0);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::vector<double> ntwo_nfortytwo{ -2.0, -12.0, -22.0, -32.0, -42.0 };
     std::vector<double> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0, -10.0);
@@ -223,45 +223,45 @@ TEST_CASE("mtl::iota with std::vector<double>")
 
 TEST_CASE("mtl::iota with std::vector<long double>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::vector<long double> zero_four{ 0.0l, 1.0l, 2.0l, 3.0l, 4.0l };
     std::vector<long double> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::vector<long double> five_nine{ 5.0l, 6.0l, 7.0l, 8.0l, 9.0l };
     std::vector<long double> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0l);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::vector<long double> nfive_nnine{ -5.0l, -4.0l, -3.0l, -2.0l, -1.0l };
     std::vector<long double> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0l);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::vector<long double> five_fortyfive{ 5.0l, 15.0l, 25.0l, 35.0l, 45.0l };
     std::vector<long double> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0l, 10.0l);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::vector<long double> five_nthirtyfive{ 5.0l, -5.0l, -15.0l, -25.0l, -35.0l };
     std::vector<long double> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0l, -10.0l);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::vector<long double> n_one_fortythree{ -1.0l, 10.0l, 21.0l, 32.0l, 43.0l };
     std::vector<long double> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0l, 11.0l);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::vector<long double> ntwo_nfortytwo{ -2.0l, -12.0l, -22.0l, -32.0l, -42.0l };
     std::vector<long double> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0l, -10.0l);
@@ -278,45 +278,45 @@ TEST_CASE("mtl::iota with std::vector<long double>")
 
 TEST_CASE("mtl::iota with std::list<int>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::list<int> zero_four{ 0, 1, 2, 3, 4 };
     std::list<int> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::list<int> five_nine{ 5, 6, 7, 8, 9 };
     std::list<int> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::list<int> nfive_nnine{ -5, -4, -3, -2, -1 };
     std::list<int> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::list<int> five_fortyfive{ 5, 15, 25, 35, 45 };
     std::list<int> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5, 10);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::list<int> five_nthirtyfive{ 5, -5, -15, -25, -35 };
     std::list<int> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5, -10);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::list<int> n_one_fortythree{ -1, 10, 21, 32, 43 };
     std::list<int> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1, 11);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::list<int> ntwo_nfortytwo{ -2, -12, -22, -32, -42 };
     std::list<int> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2, -10);
@@ -334,22 +334,22 @@ TEST_CASE("mtl::iota with std::list<int>")
 TEST_CASE("mtl::iota with std::list<unsigned int>")
 {
     // no tests for negative values for unsigned int because it unsigned integers do not support
-    // negatie values
+    // negative values
 
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::list<unsigned int> zero_four{ 0, 1, 2, 3, 4 };
     std::list<unsigned int> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::list<unsigned int> five_nine{ 5, 6, 7, 8, 9 };
     std::list<unsigned int> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::list<unsigned int> five_fortyfive{ 5, 15, 25, 35, 45 };
     std::list<unsigned int> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5, 10);
@@ -366,45 +366,45 @@ TEST_CASE("mtl::iota with std::list<unsigned int>")
 
 TEST_CASE("mtl::iota with std::list<float>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::list<float> zero_four{ 0.0f, 1.0f, 2.0f, 3.0f, 4.0f };
     std::list<float> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::list<float> five_nine{ 5.0f, 6.0f, 7.0f, 8.0f, 9.0f };
     std::list<float> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0f);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::list<float> nfive_nnine{ -5.0f, -4.0f, -3.0f, -2.0f, -1.0f };
     std::list<float> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0f);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::list<float> five_fortyfive{ 5.0f, 15.0f, 25.0f, 35.0f, 45.0f };
     std::list<float> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0f, 10.0f);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::list<float> five_nthirtyfive{ 5.0f, -5.0f, -15.0f, -25.0f, -35.0f };
     std::list<float> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0f, -10.0f);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::list<float> n_one_fortythree{ -1.0f, 10.0f, 21.0f, 32.0f, 43.0f };
     std::list<float> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0f, 11.0f);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::list<float> ntwo_nfortytwo{ -2.0f, -12.0f, -22.0f, -32.0f, -42.0f };
     std::list<float> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0f, -10.0f);
@@ -421,45 +421,45 @@ TEST_CASE("mtl::iota with std::list<float>")
 
 TEST_CASE("mtl::iota with std::list<double>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::list<double> zero_four{ 0.0, 1.0, 2.0, 3.0, 4.0 };
     std::list<double> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::list<double> five_nine{ 5.0, 6.0, 7.0, 8.0, 9.0 };
     std::list<double> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::list<double> nfive_nnine{ -5.0, -4.0, -3.0, -2.0, -1.0 };
     std::list<double> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::list<double> five_fortyfive{ 5.0, 15.0, 25.0, 35.0, 45.0 };
     std::list<double> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0, 10.0);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::list<double> five_nthirtyfive{ 5.0, -5.0, -15.0, -25.0, -35.0 };
     std::list<double> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0, -10.0);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::list<double> n_one_fortythree{ -1.0, 10.0, 21.0, 32.0, 43.0 };
     std::list<double> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0, 11.0);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::list<double> ntwo_nfortytwo{ -2.0, -12.0, -22.0, -32.0, -42.0 };
     std::list<double> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0, -10.0);
@@ -476,45 +476,45 @@ TEST_CASE("mtl::iota with std::list<double>")
 
 TEST_CASE("mtl::iota with std::list<long double>")
 {
-    // mtl::iota with no parameters
+    // mtl::iota with no arguments
     std::list<long double> zero_four{ 0.0l, 1.0l, 2.0l, 3.0l, 4.0l };
     std::list<long double> no_param(5);
     mtl::iota(no_param.begin(), no_param.end());
     REQUIRE_EQ((zero_four == no_param), true);
 
 
-    // mtl::iota with one parameter, positive start
+    // mtl::iota with one argument, positive start
     std::list<long double> five_nine{ 5.0l, 6.0l, 7.0l, 8.0l, 9.0l };
     std::list<long double> iota_nums(5);
     mtl::iota(iota_nums.begin(), iota_nums.end(), 5.0l);
     REQUIRE_EQ((five_nine == iota_nums), true);
 
-    // mtl::iota with one parameter, negative start
+    // mtl::iota with one argument, negative start
     std::list<long double> nfive_nnine{ -5.0l, -4.0l, -3.0l, -2.0l, -1.0l };
     std::list<long double> iota_neg_nums(5);
     mtl::iota(iota_neg_nums.begin(), iota_neg_nums.end(), -5.0l);
     REQUIRE_EQ((nfive_nnine == iota_neg_nums), true);
 
 
-    // mtl::iota with two parameters, positive start and positive step value
+    // mtl::iota with two arguments, positive start and positive step value
     std::list<long double> five_fortyfive{ 5.0l, 15.0l, 25.0l, 35.0l, 45.0l };
     std::list<long double> iota_positive_nums(5);
     mtl::iota(iota_positive_nums.begin(), iota_positive_nums.end(), 5.0l, 10.0l);
     REQUIRE_EQ((five_fortyfive == iota_positive_nums), true);
 
-    // mtl::iota with two parameters, positive start and negative step value
+    // mtl::iota with two arguments, positive start and negative step value
     std::list<long double> five_nthirtyfive{ 5.0l, -5.0l, -15.0l, -25.0l, -35.0l };
     std::list<long double> iota_posneg_nums(5);
     mtl::iota(iota_posneg_nums.begin(), iota_posneg_nums.end(), 5.0l, -10.0l);
     REQUIRE_EQ((five_nthirtyfive == iota_posneg_nums), true);
 
-    // mtl::iota with two parameters, negative start and positive step value
+    // mtl::iota with two arguments, negative start and positive step value
     std::list<long double> n_one_fortythree{ -1.0l, 10.0l, 21.0l, 32.0l, 43.0l };
     std::list<long double> iota_negpos_nums(5);
     mtl::iota(iota_negpos_nums.begin(), iota_negpos_nums.end(), -1.0l, 11.0l);
     REQUIRE_EQ((n_one_fortythree == iota_negpos_nums), true);
 
-    // mtl::iota with two parameters, negative start and negative step value
+    // mtl::iota with two arguments, negative start and negative step value
     std::list<long double> ntwo_nfortytwo{ -2.0l, -12.0l, -22.0l, -32.0l, -42.0l };
     std::list<long double> iota_negneg_nums(5);
     mtl::iota(iota_negneg_nums.begin(), iota_negneg_nums.end(), -2.0l, -10.0l);
@@ -553,7 +553,7 @@ TEST_CASE("mtl::frequency with std::vector<int>")
     REQUIRE_EQ((freq[5] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::vector<int> with parameters")
+TEST_CASE("mtl::frequency with std::vector<int> with arguments")
 {
     std::vector<int> n{ 1, 3, 3, 3, 5, 5, 5, 5, 5, 4, 4, 4, 4, 2, 2 };
     auto freq = mtl::frequency(n.begin(), n.end(), std::hash<int>{}, std::equal_to<int>{});
@@ -584,7 +584,7 @@ TEST_CASE("mtl::frequency with std::vector<double>")
     REQUIRE_EQ((freq[5.0] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::vector<double> with parameters")
+TEST_CASE("mtl::frequency with std::vector<double> with arguments")
 {
     std::vector<double> n{ 1.0, 3.0, 3.0, 3.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 4.0, 4.0, 2.0,
                            2.0 };
@@ -616,7 +616,7 @@ TEST_CASE("mtl::frequency with std::vector<std::string>")
     REQUIRE_EQ((freq["5"] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::vector<std::string> with parameters")
+TEST_CASE("mtl::frequency with std::vector<std::string> with arguments")
 {
     std::vector<std::string> n{ "1", "3", "3", "3", "5", "5", "5", "5", "5", "4", "4", "4", "4",
                                 "2", "2" };
@@ -661,7 +661,7 @@ TEST_CASE("mtl::frequency with std::list<int>")
     REQUIRE_EQ((freq[5] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::list<int> with parameters")
+TEST_CASE("mtl::frequency with std::list<int> with arguments")
 {
     std::list<int> n{ 1, 3, 3, 3, 5, 5, 5, 5, 5, 4, 4, 4, 4, 2, 2 };
     auto freq = mtl::frequency(n.begin(), n.end(), std::hash<int>{}, std::equal_to<int>{});
@@ -692,7 +692,7 @@ TEST_CASE("mtl::frequency with std::list<double>")
     REQUIRE_EQ((freq[5.0] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::list<double> with parameters")
+TEST_CASE("mtl::frequency with std::list<double> with arguments")
 {
     std::list<double> n{ 1.0, 3.0, 3.0, 3.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 4.0, 4.0, 2.0,
                            2.0 };
@@ -724,7 +724,7 @@ TEST_CASE("mtl::frequency with std::list<std::string>")
     REQUIRE_EQ((freq["5"] == 5), true);
 }
 
-TEST_CASE("mtl::frequency with std::list<std::string> with parameters")
+TEST_CASE("mtl::frequency with std::list<std::string> with arguments")
 {
     std::list<std::string> n{ "1", "3", "3", "3", "5", "5", "5", "5", "5", "4", "4", "4", "4",
                                 "2", "2" };
